@@ -23,3 +23,5 @@
     def delete_messaggi(self):
         self.messaggi=""
 ```
+
+- vanno anche concatenati a messaggi tutti i messaggi che vengono sollevati dalle eccezioni e che siano pertinenti al giocatore
