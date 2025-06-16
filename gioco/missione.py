@@ -20,6 +20,27 @@ class Missione(SerializableMixin):
         self.premi = premi  # supporta premio singolo o multiplo
         self.completata = False  # flag per premio in inventario
         self.attiva = False
+        self.messaggi=""
+
+
+    def add_to_messaggi(self, msg:str):
+        """
+        Aggiunge un nuovo msg a messaggi, mandando a capo ad ogni nuovo msg
+
+        Args:
+            msg (str): nuovo msg da concatenare
+        """
+        if self.messaggi=="" :
+            self.messaggi=msg
+        else:
+            self.messaggi = f"{self.messaggi}\n{msg}"
+
+    def get_messaggi(self):
+        return self.messaggi
+
+    def delete_messaggi(self):
+        self.messaggi=""
+        
     def get_nemici(self)->list[Personaggio]:
         return self.nemici
 
