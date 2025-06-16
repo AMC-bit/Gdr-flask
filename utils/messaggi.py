@@ -22,3 +22,29 @@ class Messaggi:
 
     def delete_messaggi(self):
         self.messaggi_str=""
+
+#Altra versione questa volta è tutto static , quindi non importa quale classe manda i messaggi vengono tutti raggruppati
+class MessaggiStatic:
+    messaggi=""
+
+    @staticmethod
+    def add_to_messaggi(msg:str):
+            """
+            Aggiunge un nuovo msg a messaggi, mandando a capo ad ogni nuovo msg
+
+            Args:
+                msg (str): nuovo msg da concatenare
+            """
+            if MessaggiStatic.messaggi == "" :
+                MessaggiStatic.messaggi = msg
+            else:
+                MessaggiStatic.messaggi = f"{MessaggiStatic.messaggi}\n{msg}"
+    
+    @staticmethod
+    def get_messaggi():
+        return MessaggiStatic.messaggi
+    
+    @staticmethod
+    def delete_messaggi():
+        MessaggiStatic.messaggi=""
+
