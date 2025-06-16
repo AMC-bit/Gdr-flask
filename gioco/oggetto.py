@@ -24,7 +24,7 @@ class Oggetto(SerializableMixin):
         self.nome = nome
         self.usato = False
         self.offensivo = offensivo
-        self.lista_msg = []
+        self.messaggi = ""
     
 
     def usa(
@@ -46,30 +46,33 @@ class Oggetto(SerializableMixin):
         """
         raise NotImplementedError("Questo oggetto non ha effetto definito.")
     
-    def add_msg(self, msg: str) -> None:
+    def add_to_messaggi(self, msg: str) -> None:
         """
-        Aggiunge un messaggio alla lista dei messaggi dell'oggetto
+        Aggiunge un messaggio alla stringa dei messaggi dell'oggetto
         e lo scrive nel log.
 
         Args:
             msg (str): Messaggio da aggiungere
         """
-        self.lista_msg.append(msg)
+        if self.messaggi=="" :
+            self.messaggi=msg
+        else:
+            self.messaggi = f"{self.messaggi}\n{msg}"
         
-    def get_msg_list(self) -> list[str]:
+    def get_messaggi(self) -> str:
         """
-        Restituisce la lista dei messaggi associati all'oggetto.
+        Restituisce i messaggi concatenati.
 
         Returns:
-            list[str]: Lista dei messaggi
+            str: stringa dei messaggi
         """
-        return self.lista_msg
+        return self.messaggi
 
-    def delete_msg_list(self) -> None:
+    def delete_messaggi(self) -> None:
         """
         Elimina tutti i messaggi associati all'oggetto.
         """
-        self.lista_msg.clear()
+        self.messaggi = ""
 
     
     def to_dict(self) -> dict:
@@ -77,12 +80,16 @@ class Oggetto(SerializableMixin):
             "classe": self.__class__.__name__,
             "nome": self.nome,
             "usato": self.usato,
-            "offensivo": self.offensivo
+            "offensivo": self.offensivo,
+            "messaggi": self.messaggi
         }
 
     @classmethod
     def from_dict(cls, data: dict) -> "Oggetto":
-        return cls(nome=data["nome"])
+        oggetto = cls(nome=data["nome"])
+        oggetto.usato = data.get("usato", False)
+        oggetto.messaggi = data.get("messaggi", "")
+        return oggetto
 
 @SerializableMixin.register_class
 class PozioneCura(Oggetto):
@@ -127,22 +134,25 @@ class PozioneCura(Oggetto):
         if bersaglio is None:
             target = utilizzatore
             msg = "su se stesso"
-            self.add_msg(msg)
+            self.add_to_messaggi(msg)
         else:
             target = bersaglio
             msg = f"su {bersaglio.nome}"
-            self.add_msg(msg)
+            self.add_to_messaggi(msg)
         target.salute = min(target.salute + self.valore + mod_ambiente, target.salute_max)
         msg = f"{utilizzatore.nome} usa {self.nome} {msg} e ripristinando {self.valore + mod_ambiente} salute!"        
         Log.scrivi_log(msg)
-        self.add_msg(msg)
+        self.add_to_messaggi(msg)
         self.usato = True
+        
     def to_dict(self) -> dict:
-        data = super().to_dict()
-        data.update({
-            "valore": self.valore
-        })
-        return data
+        return {
+            "classe": self.__class__.__name__,
+            "nome": self.nome,
+            "usato": self.usato,
+            "offensivo": self.offensivo,
+            "messaggi": self.messaggi
+        }
 
     @classmethod
     def from_dict(cls, data: dict) -> "PozioneCura":
@@ -184,16 +194,16 @@ class BombaAcida(Oggetto):
         if bersaglio is None:
             msg = f"{utilizzatore.nome} lancia {self.nome} su {bersaglio.nome}, infliggendo {self.danno + mod_ambiente} danni!"
             Log.scrivi_log(msg)
-            self.add_msg(msg)
+            self.add_to_messaggi(msg)
             msg = f"A {bersaglio.nome} resta {bersaglio.salute} salute"
-            self.add_msg(msg)
+            self.add_to_messaggi(msg)
             return
         bersaglio.subisci_danno(self.danno + mod_ambiente)
         msg = f"{utilizzatore.nome} lancia {self.nome} su {bersaglio.nome}, infliggendo {self.danno + mod_ambiente} danni!"
         Log.scrivi_log(msg)
-        self.add_msg(msg)
+        self.add_to_messaggi(msg)
         msg = f"A {bersaglio.nome} resta {bersaglio.salute} salute"
-        self.add_msg(msg)
+        self.add_to_messaggi(msg)
         self.usato = True
     def to_dict(self) -> dict:
         data = super().to_dict()
@@ -241,7 +251,7 @@ class Medaglione(Oggetto):
         target.attacco_max += 10 + mod_ambiente
         msg = f"{target.nome} indossa {self.nome}, aumentando il suo attacco massimo!"
         Log.scrivi_log(msg)
-        self.add_msg(msg)
+        self.add_to_messaggi(msg)
         self.usato = True
     def to_dict(self) -> dict:
         return super().to_dict()
