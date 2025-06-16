@@ -10,10 +10,11 @@ class Ambiente(SerializableMixin):
     """
     Classe base per gli ambienti, con serializzazione e metodi stub.
     """
-    def __init__(self, nome: str, modifica_attacco: int = 0, modifica_cura: float = 0):
+    def __init__(self, nome: str, modifica_attacco: int = 0, modifica_cura: float = 0, messaggi: str = ""):
         self.nome = nome
         self.modifica_attacco = modifica_attacco
         self.modifica_cura = modifica_cura
+        self.messaggi = messaggi
 
     def modifica_attacco_max(self, attaccante: Personaggio) -> int:
         raise NotImplementedError
