@@ -66,12 +66,12 @@
 
 <script>
 // Abilita il pulsante "Usa Oggetto" solo quando entrambe le select hanno un valore
-{% if oggetto_selezionato and bersagli %}
-document.getElementById('bersaglio').addEventListener('change', function() {
-    const useButton = document.getElementById('use-button');
-    useButton.disabled = this.value === '';
-});
-{% endif %}
+    {% if oggetto_selezionato and bersagli %}
+    document.getElementById('bersaglio').addEventListener('change', function() {
+        const useButton = document.getElementById('use-button');
+        useButton.disabled = this.value === '';
+    });
+    {% endif %}
 </script>
 {% endblock %}
 
