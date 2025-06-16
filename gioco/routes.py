@@ -1,16 +1,9 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for, flash
-<<<<<<< HEAD
+
 #from gioco.menu_principale import MenuPrincipale
 #from gioco.missione import MissioneFactory
 #from gioco.ambiente import AmbienteFactory
 #from gioco.scontro import Scontro
-=======
-
-# from gioco.missione import MissioneFactory
-# from gioco.ambiente import AmbienteFactory
-# from gioco.scontro import Scontro
-# from gioco.menu_principale import MenuPrincipale
->>>>>>> 3c23bbd93f6552aa353f650e41ddc35840b04d4c
 
 gioco = Blueprint('gioco', __name__, template_folder='../templates')
 
@@ -64,7 +57,7 @@ def select_mission():
 
     missioni = MissioneFactory.get_opzioni()
     return render_template('select_mission.html', missioni=missioni)
-<<<<<<< HEAD
+
 """
 
 # Mostra i log dello scontro, permette di attaccare e usare l'inventario
@@ -81,16 +74,16 @@ def battle():
     buttons_diasable = True
 
     return render_template('battle.html', nome_personaggio_attivo = nome_personaggio_attivo)
-=======
 
-
+"""
 # Carica gioco: form per caricare la compagnia e lo scontro precedente
 @gioco.route('/load-game', methods=['GET', 'POST'])
 def load_game():
     if request.method == 'POST':
         # carica i dati dal file salvato
         mp = MenuPrincipale.carica_salvataggio()
- """
+"""
+
 @gioco.route('/test-inventory', methods=['GET', 'POST'])
 def test_inventory():
     # Dati di esempio per testare la pagina
@@ -127,4 +120,3 @@ def test_inventory():
                          oggetto_selezionato=oggetto_selezionato,
                          bersagli=bersagli,
                          messaggio=messaggio)
->>>>>>> 3c23bbd93f6552aa353f650e41ddc35840b04d4c
