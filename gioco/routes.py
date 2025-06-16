@@ -57,7 +57,6 @@ def select_mission():
 
     missioni = MissioneFactory.get_opzioni()
     return render_template('select_mission.html', missioni=missioni)
-
 """
 
 # Mostra i log dello scontro, permette di attaccare e usare l'inventario
@@ -72,6 +71,7 @@ def battle():
     # è da switchare quando è il turno del personaggio
     #DA RECUPERARE
     buttons_diasable = True
+
 
     return render_template('battle.html', nome_personaggio_attivo = nome_personaggio_attivo)
 
