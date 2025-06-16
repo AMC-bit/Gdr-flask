@@ -16,6 +16,35 @@ class Personaggio(SerializableMixin):
         self.attacco_max = 80
         self.storico_danni_subiti = []
         self.livello = 1
+        self.messaggi = ""
+        
+    def add_to_messaggi(self, msg: str) -> None:
+        """
+        Aggiunge un messaggio alla stringa dei messaggi del personaggio
+        e lo scrive nel log.
+
+        Args:
+            msg (str): Messaggio da aggiungere
+        """
+        if self.messaggi=="" :
+            self.messaggi=msg
+        else:
+            self.messaggi = f"{self.messaggi}\n{msg}"
+        
+    def get_messaggi(self) -> str:
+        """
+        Restituisce i messaggi concatenati.
+
+        Returns:
+            str: stringa dei messaggi
+        """
+        return self.messaggi
+
+    def delete_messaggi(self) -> None:
+        """
+        Elimina tutti i messaggi associati al personaggio.
+        """
+        self.messaggi = ""
 
     def attacca(self, bersaglio: 'Personaggio', mod_ambiente: int = 0) -> None:
         """
@@ -30,8 +59,9 @@ class Personaggio(SerializableMixin):
             None
         """
         danno = random.randint(self.attacco_min, (self.attacco_max + mod_ambiente)) 
-        testo = f"{self.nome} attacca {bersaglio.nome} per {danno} punti!"
-        Log.scrivi_log(testo)
+        msg = f"{self.nome} attacca {bersaglio.nome} per {danno} punti!"
+        self.add_to_messaggi(msg)
+        Log.scrivi_log(msg)
         bersaglio.subisci_danno(danno)
 
     def subisci_danno(self, danno: int) -> None:
@@ -46,8 +76,9 @@ class Personaggio(SerializableMixin):
         """
         self.salute = max(0, self.salute - danno)
         self.storico_danni_subiti.append(danno)
-        testo = f"Salute di {self.nome}: {self.salute}\n"
-        Log.scrivi_log(testo)
+        msg = f"Salute di {self.nome}: {self.salute}"
+        self.add_to_messaggi(msg)
+        Log.scrivi_log(msg)
 
     def sconfitto(self) -> bool:
         """
@@ -73,15 +104,17 @@ class Personaggio(SerializableMixin):
             None
         """
         if self.salute == 100:
-            testo = f"{self.nome} ha già la salute piena."
-            Log.scrivi_log(testo)
+            msg = f"{self.nome} ha già la salute piena."
+            self.add_to_messaggi(msg)
+            Log.scrivi_log(msg)
             return
         recupero = int(self.salute * 0.3) + mod_ambiente
         nuova_salute = min(self.salute + recupero, 100)
         effettivo = nuova_salute - self.salute
         self.salute = nuova_salute
-        testo = f"\n{self.nome} recupera {effettivo} HP. Salute attuale: {self.salute}"
-        Log.scrivi_log(testo)
+        msg = f"\n{self.nome} recupera {effettivo} HP. Salute attuale: {self.salute}"
+        self.add_to_messaggi(msg)
+        Log.scrivi_log(msg)
 
     def migliora_statistiche(self) -> None:
         """
@@ -98,8 +131,9 @@ class Personaggio(SerializableMixin):
         self.livello += 1
         self.attacco_max += 0.02 * self.attacco_max
         self.salute_max += 0.01 * self.salute_max
-        testo = f"{self.nome} è salito al livello {self.livello}!"
-        Log.scrivi_log(testo)
+        msg = f"{self.nome} è salito al livello {self.livello}!"
+        self.add_to_messaggi(msg)
+        Log.scrivi_log(msg)
         
     def to_dict(self) -> dict:
         """Restituisce uno stato serializzabile per session o JSON."""
@@ -111,17 +145,19 @@ class Personaggio(SerializableMixin):
             "attacco_min": self.attacco_min,
             "attacco_max": self.attacco_max,
             "storico_danni_subiti": self.storico_danni_subiti,
-            "livello": self.livello
+            "livello": self.livello,
+            "messaggi": self.messaggi
         }
 
     @classmethod
     def from_dict(cls, data: dict) -> "Personaggio":
         """Ricostruisce l’istanza a partire da un dict serializzato."""
-        obj = cls(data["nome"])
-        obj.salute = data.get("salute", 100)
-        obj.salute_max = data.get("salute_max", 200)
-        obj.attacco_min = data.get("attacco_min", 5)
-        obj.attacco_max = data.get("attacco_max", 80)
-        obj.storico_danni_subiti = data.get("storico_danni_subiti", [])
-        obj.livello = data.get("livello", 1)
-        return obj
+        oggetto = cls(data["nome"])
+        oggetto.salute = data.get("salute", 100)
+        oggetto.salute_max = data.get("salute_max", 200)
+        oggetto.attacco_min = data.get("attacco_min", 5)
+        oggetto.attacco_max = data.get("attacco_max", 80)
+        oggetto.storico_danni_subiti = data.get("storico_danni_subiti", [])
+        oggetto.livello = data.get("livello", 1)
+        oggetto.messaggi = data.get("messaggi", "")
+        return oggetto
