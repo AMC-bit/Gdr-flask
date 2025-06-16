@@ -3,6 +3,7 @@
 - Scegli una classe, comunicalo agli altri
 - Aggiungi alla classe una proprietà str che chiameremo messaggi
 - dentro ogni metodo della classe concatenare a messaggi tutti i msg andando a capo a ogni nuovo msg usando \n
+- vanno anche concatenati a messaggi tutti i messaggi che vengono sollevati dalle eccezioni e che siano pertinenti al giocatore
 
 ```python
     def add_to_messaggi(self, msg:str):

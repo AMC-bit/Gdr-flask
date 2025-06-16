@@ -40,13 +40,14 @@ class Missione(SerializableMixin):
 
     def delete_messaggi(self):
         self.messaggi=""
-        
+
     def get_nemici(self)->list[Personaggio]:
         return self.nemici
 
     def rimuovi_nemico(self, nemico : Personaggio)->None:
         self.nemici.remove(nemico)
         msg = f"{nemico} rimosso dalla lista nemici della missione"
+        self.add_to_messaggi(msg)
         Log.scrivi_log(msg)
         Json.scrivi_dati("data/salvataggio.json",Json.applica_patch(self.to_dict()))
 
@@ -65,6 +66,7 @@ class Missione(SerializableMixin):
         if len(self.nemici) == 0:
             self.completata = True
             msg = f"Missione '{self.nome}' completata"
+            self.add_to_messaggi(msg)
             Log.scrivi_log(msg)
             return True
         return False
