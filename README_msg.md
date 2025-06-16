@@ -1,28 +1,27 @@
 # Task per i msg e il passaggio ai template
 
 - Scegli una classe, comunicalo agli altri
-- Aggiungi alla classe una proprietà str che chiameremo messaggi
-- dentro ogni metodo della classe concatenare a messaggi tutti i msg andando a capo a ogni nuovo msg usando \n
-- vanno anche concatenati a messaggi tutti i messaggi che vengono sollevati dalle eccezioni e che siano pertinenti al giocatore
+- importa :
 
 ```python
-    def add_to_messaggi(self, msg:str):
-        """
-        Aggiunge un nuovo msg a messaggi, mandando a capo ad ogni nuovo msg
-
-        Args:
-            msg (str): nuovo msg da concatenare
-        """
-        if self.messaggi=="" :
-            self.messaggi=msg
-        else:
-            self.messaggi = f"{self.messaggi}\n{msg}"
-
-    def get_messaggi(self):
-        return self.messaggi
-
-    def delete_messaggi(self):
-        self.messaggi=""
+    from utils.messaggi import Messaggi
 ```
-
+- istanzia la classe Messaggio come proprietà static della calsse in modo che sia comune a tutte le istanze della classe
+```python
+    @SerializableMixin.register_class
+class Missione(SerializableMixin):
+    messaggi = Messaggi()   #Istanzio Messaggi come proprietà static
+    def __init__(self, nome:str, ambiente : Ambiente, nemici : list[Personaggio], premi: list[Oggetto])->None :
+        # inizializzazione attributi
+        self.nome = nome
+        self.ambiente = ambiente  # ereditato dal torneo corrente
+        self.nemici = nemici  # lista dei nemici di tutti i tornei
+        self.premi = premi  # supporta premio singolo o multiplo
+        self.completata = False  # flag per premio in inventario
+        self.attiva = False
+```
+- dentro ogni metodo della classe per concatenare i msg dentro all'oggetto Messaggi usa il metodo add_to_messaggi
+```python
+    self.messaggi.add_to_messaggi(msg)
+```
 - vanno anche concatenati a messaggi tutti i messaggi che vengono sollevati dalle eccezioni e che siano pertinenti al giocatore
