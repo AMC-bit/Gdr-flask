@@ -45,6 +45,24 @@ class Ambiente(SerializableMixin):
         ambiente_cls = mapping.get(data.get("classe"), Foresta)
         return ambiente_cls()
 
+    def add_to_messaggi(self, msg: str):
+        """
+        Aggiunge un nuovo msg a messaggi, mandando a capo ad ogni nuovo msg
+
+        Args:
+            msg (str): nuovo msg da concatenare
+        """
+        if self.messaggi == "":
+            self.messaggi = msg
+        else:
+            self.messaggi = f"{self.messaggi}\n{msg}"
+
+    def get_messaggi(self):
+        return self.messaggi
+
+    def delete_messaggi(self):
+        self.messaggi = ""
+
 @SerializableMixin.register_class
 class Foresta(Ambiente):
     def __init__(self):
@@ -53,6 +71,7 @@ class Foresta(Ambiente):
     def modifica_attacco_max(self, attaccante: Personaggio) -> int:
         if isinstance(attaccante, Guerriero):
             msg = f"{attaccante.nome} guadagna {self.modifica_attacco} attacco nella Foresta!"
+            self.add_to_messaggi(msg)
             Log.scrivi_log(msg)
             return self.modifica_attacco
         return 0
@@ -73,10 +92,12 @@ class Vulcano(Ambiente):
     def modifica_attacco_max(self, attaccante: Personaggio) -> int:
         if isinstance(attaccante, Mago):
             msg = f"{attaccante.nome} guadagna {self.modifica_attacco} attacco nel Vulcano!"
+            self.add_to_messaggi(msg)
             Log.scrivi_log(msg)
             return self.modifica_attacco
         elif isinstance(attaccante, Ladro):
             msg = f"{attaccante.nome} perde {self.modifica_attacco} attacco nel Vulcano!"
+            self.add_to_messaggi(msg)
             Log.scrivi_log(msg)
             return -self.modifica_attacco
         return 0
@@ -85,6 +106,7 @@ class Vulcano(Ambiente):
         if isinstance(oggetto, BombaAcida):
             variazione = random.randint(0, 15)
             msg = f"Nella {self.nome}, la Bomba Acida guadagna {variazione} danni!"
+            self.add_to_messaggi(msg)
             Log.scrivi_log(msg)
             return variazione
         return 0
@@ -100,6 +122,7 @@ class Palude(Ambiente):
     def modifica_attacco_max(self, attaccante: Personaggio) -> int:
         if isinstance(attaccante, (Guerriero, Ladro)):
             msg = f"{attaccante.nome} perde {-self.modifica_attacco} attacco nella Palude!"
+            self.add_to_messaggi(msg)
             Log.scrivi_log(msg)
             return self.modifica_attacco
         return 0
@@ -108,6 +131,7 @@ class Palude(Ambiente):
         if isinstance(oggetto, PozioneCura):
             riduzione = int(oggetto.valore * self.modifica_cura)
             msg = f"Nella {self.nome}, la Pozione Cura ha effetto ridotto di {riduzione} punti!"
+            self.add_to_messaggi(msg)
             Log.scrivi_log(msg)
             return -riduzione
         return 0
@@ -137,5 +161,6 @@ class AmbienteFactory:
         ambienti = list(AmbienteFactory.get_opzioni().values())
         ambiente = random.choice(ambienti)
         msg = f"Ambiente Casuale Selezionato: {ambiente.nome}"
+        self.add_to_messaggi(msg)
         Log.scrivi_log(msg)
         return ambiente
