@@ -24,6 +24,7 @@ class Oggetto(SerializableMixin):
         self.nome = nome
         self.usato = False
         self.offensivo = offensivo
+        self._msg = ""
 
     def usa(
             self,
@@ -43,6 +44,14 @@ class Oggetto(SerializableMixin):
             None
         """
         raise NotImplementedError("Questo oggetto non ha effetto definito.")
+    def messaggio(self) -> str:
+        """
+        Restituisce l'ultimo messaggio generato dall'oggetto.
+
+        Returns:
+            str: messaggio per il frontend
+        """
+        return self._msg
     
     def to_dict(self) -> dict:
         return {
@@ -98,13 +107,13 @@ class PozioneCura(Oggetto):
         """
         if bersaglio is None:
             target = utilizzatore
-            testo = "su se stesso"
+            msg = "su se stesso"
         else:
             target = bersaglio
-            testo = f"su {bersaglio.nome}"
+            msg = f"su {bersaglio.nome}"
         target.salute = min(target.salute + self.valore + mod_ambiente, target.salute_max)
-        text = f"{utilizzatore.nome} usa {self.nome} {testo} e ripristinando {self.valore + mod_ambiente} salute!"        
-        Log.scrivi_log(text)
+        msg = f"{utilizzatore.nome} usa {self.nome} {msg} e ripristinando {self.valore + mod_ambiente} salute!"        
+        Log.scrivi_log(msg)
         self.usato = True
     def to_dict(self) -> dict:
         data = super().to_dict()
@@ -151,13 +160,14 @@ class BombaAcida(Oggetto):
             None
         """
         if bersaglio is None:
-            print(f"{utilizzatore.nome} cerca di usare {self.nome}, ma non ha un bersaglio!")
+            msg = f"{utilizzatore.nome} lancia {self.nome} su {bersaglio.nome}, infliggendo {self.danno + mod_ambiente} danni!"
+            Log.scrivi_log(msg)
+            msg = f"A {bersaglio.nome} resta {bersaglio.salute} salute"
             return
         bersaglio.subisci_danno(self.danno + mod_ambiente)
-        testo = f"{utilizzatore.nome} lancia {self.nome} su {bersaglio.nome}, infliggendo {self.danno + mod_ambiente} danni!"
-        Log.scrivi_log(testo)
-        testo = f"A {bersaglio.nome} resta {bersaglio.salute} salute"
-        print(testo)
+        msg = f"{utilizzatore.nome} lancia {self.nome} su {bersaglio.nome}, infliggendo {self.danno + mod_ambiente} danni!"
+        Log.scrivi_log(msg)
+        msg = f"A {bersaglio.nome} resta {bersaglio.salute} salute"
         self.usato = True
     def to_dict(self) -> dict:
         data = super().to_dict()
@@ -203,8 +213,8 @@ class Medaglione(Oggetto):
         """
         target = bersaglio if bersaglio else utilizzatore
         target.attacco_max += 10 + mod_ambiente
-        testo = f"{target.nome} indossa {self.nome}, aumentando il suo attacco massimo!"
-        Log.scrivi_log(testo)
+        msg = f"{target.nome} indossa {self.nome}, aumentando il suo attacco massimo!"
+        Log.scrivi_log(msg)
         self.usato = True
     def to_dict(self) -> dict:
         return super().to_dict()
