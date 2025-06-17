@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for, flash
+
 #from gioco.menu_principale import MenuPrincipale
 #from gioco.missione import MissioneFactory
 #from gioco.ambiente import AmbienteFactory
@@ -71,4 +72,51 @@ def battle():
     #DA RECUPERARE
     buttons_diasable = True
 
+
     return render_template('battle.html', nome_personaggio_attivo = nome_personaggio_attivo)
+
+"""
+# Carica gioco: form per caricare la compagnia e lo scontro precedente
+@gioco.route('/load-game', methods=['GET', 'POST'])
+def load_game():
+    if request.method == 'POST':
+        # carica i dati dal file salvato
+        mp = MenuPrincipale.carica_salvataggio()
+"""
+
+@gioco.route('/test-inventory', methods=['GET', 'POST'])
+def test_inventory():
+    # Dati di esempio per testare la pagina
+    pg_nome = "Gandalf"
+    oggetti = [
+        {"nome": "Pozione di Guarigione"},
+        {"nome": "Pergamena Magica"},
+        {"nome": "Antidoto"}
+    ]
+    oggetto_selezionato = None
+    bersagli = []
+    messaggio = None
+
+    if request.method == 'POST':
+        if 'action' in request.form and request.form['action'] == 'close':
+            return redirect(url_for('gioco.index'))
+
+    oggetto = request.form.get('oggetto')
+    if oggetto:
+        oggetto_selezionato = oggetto
+        # Simula bersagli per test
+        bersagli = [
+            {"nome": "Frodo", "salute": 50, "salute_max": 80, "classe": "Hobbit", "tipologia": "Alleato"},
+            {"nome": "Orco", "salute": 30, "salute_max": 60, "classe": "Guerriero", "tipologia": "Nemico"}
+        ]
+
+    bersaglio = request.form.get('bersaglio')
+    if oggetto and bersaglio:
+        messaggio = f"{pg_nome} usa {oggetto} su {bersaglio}! Successo!"
+
+    return render_template('inventory.html',
+                         pg_nome=pg_nome,
+                         oggetti=oggetti,
+                         oggetto_selezionato=oggetto_selezionato,
+                         bersagli=bersagli,
+                         messaggio=messaggio)
