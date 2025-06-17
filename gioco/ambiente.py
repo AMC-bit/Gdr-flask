@@ -4,10 +4,12 @@ from gioco.classi import Guerriero, Ladro, Mago
 from gioco.personaggio import Personaggio
 from utils.log import Log
 from utils.salvataggio import SerializableMixin
+from utils.messaggi import Messaggi
+
 
 @SerializableMixin.register_class
 class Ambiente(SerializableMixin):
-    def __init__(self, nome: str, modifica_attacco: int = 0, modifica_cura: float = 0, messaggi: str = ""):
+    def __init__(self, nome: str, modifica_attacco: int = 0, modifica_cura: float = 0):
         self.nome = nome
         self.modifica_attacco = modifica_attacco
         self.modifica_cura = modifica_cura
@@ -50,6 +52,7 @@ class Foresta(Ambiente):
     def modifica_attacco_max(self, attaccante: Personaggio) -> int:
         if isinstance(attaccante, Guerriero):
             msg = f"{attaccante.nome} guadagna {self.modifica_attacco} attacco nella Foresta!"
+            Messaggi.add_to_messaggi(msg)
             Log.scrivi_log(msg)
             return self.modifica_attacco
         return 0
@@ -62,6 +65,7 @@ class Foresta(Ambiente):
             return self.modifica_cura
         return 0
 
+
 @SerializableMixin.register_class
 class Vulcano(Ambiente):
     def __init__(self):
@@ -70,10 +74,12 @@ class Vulcano(Ambiente):
     def modifica_attacco_max(self, attaccante: Personaggio) -> int:
         if isinstance(attaccante, Mago):
             msg = f"{attaccante.nome} guadagna {self.modifica_attacco} attacco nel Vulcano!"
+            Messaggi.add_to_messaggi(msg)
             Log.scrivi_log(msg)
             return self.modifica_attacco
         elif isinstance(attaccante, Ladro):
             msg = f"{attaccante.nome} perde {self.modifica_attacco} attacco nel Vulcano!"
+            Messaggi.add_to_messaggi(msg)
             Log.scrivi_log(msg)
             return -self.modifica_attacco
         return 0
@@ -82,12 +88,14 @@ class Vulcano(Ambiente):
         if isinstance(oggetto, BombaAcida):
             variazione = random.randint(0, 15)
             msg = f"Nella {self.nome}, la Bomba Acida guadagna {variazione} danni!"
+            Messaggi.add_to_messaggi(msg)
             Log.scrivi_log(msg)
             return variazione
         return 0
 
     def mod_cura(self, soggetto: Personaggio) -> int:
         return self.modifica_cura
+
 
 @SerializableMixin.register_class
 class Palude(Ambiente):
@@ -97,6 +105,7 @@ class Palude(Ambiente):
     def modifica_attacco_max(self, attaccante: Personaggio) -> int:
         if isinstance(attaccante, (Guerriero, Ladro)):
             msg = f"{attaccante.nome} perde {-self.modifica_attacco} attacco nella Palude!"
+            Messaggi.add_to_messaggi(msg)
             Log.scrivi_log(msg)
             return self.modifica_attacco
         return 0
@@ -105,6 +114,7 @@ class Palude(Ambiente):
         if isinstance(oggetto, PozioneCura):
             riduzione = int(oggetto.valore * self.modifica_cura)
             msg = f"Nella {self.nome}, la Pozione Cura ha effetto ridotto di {riduzione} punti!"
+            Messaggi.add_to_messaggi(msg)
             Log.scrivi_log(msg)
             return -riduzione
         return 0
@@ -112,11 +122,8 @@ class Palude(Ambiente):
     def mod_cura(self, soggetto: Personaggio) -> int:
         return 0
 
+
 class AmbienteFactory:
-    """
-    Factory per ottenere ambienti via form (get_opzioni, seleziona_da_id)
-    o in modo casuale (sorteggia_ambiente).
-    """
     @staticmethod
     def get_opzioni() -> dict[str, Ambiente]:
         return {
@@ -134,5 +141,6 @@ class AmbienteFactory:
         ambienti = list(AmbienteFactory.get_opzioni().values())
         ambiente = random.choice(ambienti)
         msg = f"Ambiente Casuale Selezionato: {ambiente.nome}"
+        Messaggi.add_to_messaggi(msg)
         Log.scrivi_log(msg)
         return ambiente
