@@ -25,13 +25,17 @@ class Inventario():
             str: risultato dell'aggiunta dell'oggetto all'inventario
 
         """
-        self.oggetti.append(oggetto)
+        self._aggiungi(oggetto)
         msg = f"Aggiunto l'oggetto '{oggetto.nome}' all inventario. "
         return msg
 
     def _aggiungi(self, oggetto: Oggetto)-> None:
         """
-        Aggiunge un oggetto all'inventario.
+        Aggiunge un oggetto all'inventario il metodo al momento è previsto come
+        interno alla classe, ma può essere usato anche fuori.
+        Serve sia allo scopo di  aggiungere un oggetto all'inventario senza
+        un messaggio di ritorno (opzionale) sia per non mostrare direttamente
+        con un append la lista oggetti qualora servisse anche esternamente.
 
         Args:
             oggetto (Oggetto): L'oggetto da aggiungere all'inventario.
@@ -186,3 +190,37 @@ class Inventario():
             # Log.scrivi_log(msg)
         return msg
 
+    def to_dict(self) -> dict:
+        """
+        Serializza l'inventario in un dizionario.
+
+        Returns:
+            dict: Rappresentazione dell'inventario come dizionario.
+        """
+        return {
+            'classe': self.__class__.__name__,
+            'oggetti': [oggetto.to_dict() for oggetto in self.oggetti],
+            'proprietario': self.proprietario.nome if self.proprietario else None
+        }
+
+    @classmethod
+    def from_dict(cls, data: dict) -> 'Inventario':
+        """
+        Deserializza un dizionario in un oggetto Inventario.
+
+        Args:
+            data (dict): Il dizionario da deserializzare.
+
+        Returns:
+            Inventario: L'oggetto Inventario deserializzato.
+        """
+        inventario = cls()
+        inventario.oggetti = [
+            Oggetto.from_dict(oggetto) for oggetto in data.get('oggetti', [])
+        ]
+
+        inventario.proprietario = Personaggio.from_dict(
+            data['proprietario']
+        ) if data.get('proprietario') else None
+
+        return inventario
