@@ -136,3 +136,4 @@ class Compagnia:
             inventario = Inventario.from_dict(inventario_data)
             personaggi_inventari.append((personaggio, inventario))
         return cls(personaggi_inventari)
+    
