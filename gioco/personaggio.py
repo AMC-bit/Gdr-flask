@@ -2,6 +2,8 @@ from utils.log import Log
 # serve per random.randint nei metodi attacca
 import random
 from utils.salvataggio import SerializableMixin
+from utils.messaggi import Messaggi
+
 @SerializableMixin.register_class
 class Personaggio(SerializableMixin):
     """
@@ -16,96 +18,28 @@ class Personaggio(SerializableMixin):
         self.attacco_max = 80
         self.storico_danni_subiti = []
         self.livello = 1
-        self.messaggi = ""
-        
-    def add_to_messaggi(self, msg: str) -> None:
-        """
-        Aggiunge un messaggio alla stringa dei messaggi del personaggio
-        e lo scrive nel log.
-
-        Args:
-            msg (str): Messaggio da aggiungere
-        """
-        if self.messaggi=="" :
-            self.messaggi=msg
-        else:
-            self.messaggi = f"{self.messaggi}\n{msg}"
-        
-    def get_messaggi(self) -> str:
-        """
-        Restituisce i messaggi concatenati.
-
-        Returns:
-            str: stringa dei messaggi
-        """
-        return self.messaggi
-
-    def delete_messaggi(self) -> None:
-        """
-        Elimina tutti i messaggi associati al personaggio.
-        """
-        self.messaggi = ""
 
     def attacca(self, bersaglio: 'Personaggio', mod_ambiente: int = 0) -> None:
-        """
-        Metodo di attacco di cui viene fatto l'override in ogni
-        classe derivata da personaggio.
-
-        Args:
-            bersaglio (Personaggio): bersaglio dell'attacco
-            mod_ambiente (int): modificatore di attacco in base all'ambiente
-
-        Returns:
-            None
-        """
         danno = random.randint(self.attacco_min, (self.attacco_max + mod_ambiente)) 
         msg = f"{self.nome} attacca {bersaglio.nome} per {danno} punti!"
-        self.add_to_messaggi(msg)
+        Messaggi.add_to_messaggi(msg)
         Log.scrivi_log(msg)
         bersaglio.subisci_danno(danno)
 
     def subisci_danno(self, danno: int) -> None:
-        """
-        Sottrae il danno (Input) alla salute del personaggio.
-
-        Args:
-            danno (int): danno subito dal personaggio
-
-        Returns:
-            None
-        """
         self.salute = max(0, self.salute - danno)
         self.storico_danni_subiti.append(danno)
-        msg = f"Salute di {self.nome}: {self.salute}"
-        self.add_to_messaggi(msg)
+        msg = f"Salute di {self.nome}: {self.salute}\n"
+        Messaggi.add_to_messaggi(msg)
         Log.scrivi_log(msg)
 
     def sconfitto(self) -> bool:
-        """
-        Verifica se il personaggio è sceso a zero di salute.
-
-        Args:
-            None
-
-        Returns:
-            bool: True se il personaggio è sconfitto, in caso contrario False
-        """
         return self.salute <= 0
 
     def recupera_salute(self, mod_ambiente: int = 0) -> None:
-        """
-        Recupera la salute del personaggio del 30% della salute corrente.
-        Viene usato da pozioni e dal recupero salute post duello.
-
-        Args:
-            mod_ambiente (int): modificatore di recupero in base all'ambiente
-
-        Returns:
-            None
-        """
         if self.salute == 100:
             msg = f"{self.nome} ha già la salute piena."
-            self.add_to_messaggi(msg)
+            Messaggi.add_to_messaggi(msg)
             Log.scrivi_log(msg)
             return
         recupero = int(self.salute * 0.3) + mod_ambiente
@@ -113,28 +47,17 @@ class Personaggio(SerializableMixin):
         effettivo = nuova_salute - self.salute
         self.salute = nuova_salute
         msg = f"\n{self.nome} recupera {effettivo} HP. Salute attuale: {self.salute}"
-        self.add_to_messaggi(msg)
+        Messaggi.add_to_messaggi(msg)
         Log.scrivi_log(msg)
 
     def migliora_statistiche(self) -> None:
-        """
-        Metodo per aumentare il livello del personaggio e quindi
-        migliorarne le statistiche.
-        Aumenta del 2% l'attacco massimo e dell'1% la salute massima.
-
-        Args:
-            None
-
-        Returns:
-            None
-        """
         self.livello += 1
         self.attacco_max += 0.02 * self.attacco_max
         self.salute_max += 0.01 * self.salute_max
         msg = f"{self.nome} è salito al livello {self.livello}!"
-        self.add_to_messaggi(msg)
+        Messaggi.add_to_messaggi(msg)
         Log.scrivi_log(msg)
-        
+
     def to_dict(self) -> dict:
         """Restituisce uno stato serializzabile per session o JSON."""
         return {
