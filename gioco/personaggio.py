@@ -69,7 +69,6 @@ class Personaggio(SerializableMixin):
             "attacco_max": self.attacco_max,
             "storico_danni_subiti": self.storico_danni_subiti,
             "livello": self.livello,
-            "messaggi": self.messaggi
         }
 
     @classmethod
@@ -82,5 +81,4 @@ class Personaggio(SerializableMixin):
         oggetto.attacco_max = data.get("attacco_max", 80)
         oggetto.storico_danni_subiti = data.get("storico_danni_subiti", [])
         oggetto.livello = data.get("livello", 1)
-        oggetto.messaggi = data.get("messaggi", "")
         return oggetto
