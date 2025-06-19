@@ -1,16 +1,17 @@
 import random
-from utils.log import Log
-from utils.salvataggio import SerializableMixin
+#from utils.log import Log
+#from utils.salvataggio import SerializableMixin
 from gioco.personaggio import Personaggio
 from gioco.classi import Mago, Guerriero, Ladro
 from gioco.ambiente import Ambiente, Vulcano, Foresta, Palude
 from gioco.oggetto import Oggetto, PozioneCura, BombaAcida, Medaglione
 from gioco.inventario import Inventario
-from utils.salvataggio import SerializableMixin, Json
+#from utils.salvataggio import SerializableMixin, Json
 from utils.messaggi import Messaggi
 
-@SerializableMixin.register_class
-class Missione(SerializableMixin):
+#@SerializableMixin.register_class
+#class Missione(SerializableMixin):
+class Missione():
 
     def __init__(self, nome:str, ambiente : Ambiente, nemici : list[Personaggio], premi: list[Oggetto])->None :
         # inizializzazione attributi
@@ -102,8 +103,9 @@ class Missione(SerializableMixin):
 
 
 #Lista delle missioni
-@SerializableMixin.register_class
-class GestoreMissioni(SerializableMixin):
+#@SerializableMixin.register_class
+class GestoreMissioni():
+#class GestoreMissioni(SerializableMixin):
     """
     È un gestore di istanze della classe Missione, e le gestisce con diversi metodi
     """
@@ -116,17 +118,17 @@ class GestoreMissioni(SerializableMixin):
          #Istanzio le missioni
         imboscata = Missione("Imboscata", Foresta(), [Guerriero("Robin Hood"), Guerriero("Little Jhon")], [PozioneCura(),PozioneCura(),BombaAcida()])
         salva_principessa = Missione("Salva la principessa", Palude(),[Ladro("Megera furfante")],[Medaglione()])
-        culto = Missione("Sgomina il culto di Graz'zt sul vulcano Gheemir", Vulcano(),[Mago("Cultista1"), Mago("Cultista2"), Mago("Cultista3")],[PozioneCura(),Medaglione()])
+        culto = Missione("Sgomina il culto di Graz'zt sul vulcano Gheemir", Vulcano(),[Mago("Cubista1"), Mago("Cultista2"), Mago("Cultista3")],[PozioneCura(),Medaglione()])
         return [imboscata, salva_principessa, culto]
 
     def mostra(self)->None:
         msg = ("Missioni disponibili:")
         Messaggi.add_to_messaggi(msg)
-        Log.scrivi_log(msg)
+        #Log.scrivi_log(msg)
         for missione in self.lista_missioni:
             msg = f"-{missione.nome}"
             self.messaggi.add_to_messaggi(msg)
-            Log.scrivi_log(msg)
+            #Log.scrivi_log(msg)
 
     def finita(self)->bool:
         esito = True
@@ -137,8 +139,8 @@ class GestoreMissioni(SerializableMixin):
                 missione.attiva = False
                 msg = f"Missione : {missione.nome} completata"
                 Messaggi.add_to_messaggi(msg)
-                Log.scrivi_log(msg)
-        Json.scrivi_dati("data/salvataggio.json",Json.applica_patch(self.to_dict()))
+                #Log.scrivi_log(msg)
+        #Json.scrivi_dati("data/salvataggio.json",Json.applica_patch(self.to_dict()))
         return esito
 
     def sorteggia(self)-> Missione | None:
@@ -157,7 +159,7 @@ class GestoreMissioni(SerializableMixin):
         except ValueError as e :
             msg = f"Errore: {e}"
             Messaggi.add_to_messaggi(msg)
-            Log.scrivi_log(msg)
+            #Log.scrivi_log(msg)
             return None
 
     def to_dict(self) -> dict:
