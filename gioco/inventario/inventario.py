@@ -1,6 +1,6 @@
-from .oggetto import Oggetto
-from .personaggio import Personaggio
-from .ambiente import Ambiente
+from ..oggetto import Oggetto
+from ..personaggio import Personaggio
+from ..ambiente import Ambiente
 from utils.messaggi import Messaggi
 # from utils.log import Log
 # from utils.salvataggio import SerializableMixin, Json

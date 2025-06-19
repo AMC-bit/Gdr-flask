@@ -2,6 +2,7 @@ import os
 from flask import Flask
 from flask_session import Session
 from gioco.routes import gioco
+from gioco.inventario.routes import inventario_bp
 
 app = Flask(
     __name__,
@@ -18,6 +19,7 @@ Session(app)
 
 # Registra il blueprint che contiene tutte le route di gioco
 app.register_blueprint(gioco)
+app.register_blueprint(inventario_bp)
 
 if __name__ == '__main__':
     # Modalità di sviluppo con reload automatico
