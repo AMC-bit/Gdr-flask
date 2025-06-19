@@ -6,11 +6,11 @@ from gioco.classi import Mago, Guerriero, Ladro
 from gioco.ambiente import Ambiente, Vulcano, Foresta, Palude
 from gioco.oggetto import Oggetto, PozioneCura, BombaAcida, Medaglione
 from gioco.inventario import Inventario
-from utils.salvataggio import SerializableMixin, Json
+#from utils.salvataggio import SerializableMixin, Json
 from utils.messaggi import Messaggi
 
-@SerializableMixin.register_class
-class Missione(SerializableMixin):
+# @SerializableMixin.register_class
+class Missione():
     """
     Si occupa di aggregare istanze di ambiente , nemici e ricompense
     Rappresenta una missione, composta da un ambiente, nemici e premi.
@@ -128,8 +128,8 @@ class Missione(SerializableMixin):
             Messaggi.add_to_messaggi(msg)
            # Log.scrivi_log(msg)
             dati_da_salvare = [self.to_dict(), inventario.to_dict()]
-            for dati in dati_da_salvare:
-                Json.scrivi_dati("data/salvataggio.json",Json.applica_patch(dati))
+            # for dati in dati_da_salvare:
+            #     Json.scrivi_dati("data/salvataggio.json",Json.applica_patch(dati))
 
     #QUESTO METODO E' PROVVISORIO
     def check_missione(self, inventari_vincitori : list[Inventario] )->None:
