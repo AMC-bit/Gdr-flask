@@ -1,11 +1,14 @@
-from flask import Blueprint, render_template, request, session, redirect, url_for, flash
+from flask import Blueprint, render_template, request, session, redirect, url_for, Flask
 
 #from gioco.menu_principale import MenuPrincipale
 #from gioco.missione import MissioneFactory
 #from gioco.ambiente import AmbienteFactory
 #from gioco.scontro import Scontro
+import os
+template_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'templates'))
+gioco = Blueprint('gioco', __name__, template_folder=template_dir)
 
-gioco = Blueprint('gioco', __name__, template_folder='../templates')
+# gioco = Blueprint('gioco', __name__, template_folder='../templates')
 
 # Home / menu principale
 @gioco.route('/')

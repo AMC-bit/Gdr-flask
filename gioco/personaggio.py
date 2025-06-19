@@ -70,7 +70,8 @@ class Personaggio(SerializableMixin):
             "attacco_min": self.attacco_min,
             "attacco_max": self.attacco_max,
             "storico_danni_subiti": self.storico_danni_subiti,
-            "livello": self.livello
+            "livello": self.livello,
+            "messaggi": self.messaggi
         }
 
     @classmethod

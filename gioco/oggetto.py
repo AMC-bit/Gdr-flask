@@ -14,6 +14,8 @@ class Oggetto(SerializableMixin):
         self.nome = nome
         self.usato = False
         self.offensivo = offensivo
+        self.messaggi = ""
+    
 
     def usa(
             self,
@@ -28,12 +30,16 @@ class Oggetto(SerializableMixin):
             "classe": self.__class__.__name__,
             "nome": self.nome,
             "usato": self.usato,
-            "offensivo": self.offensivo
+            "offensivo": self.offensivo,
+            "messaggi": self.messaggi
         }
 
     @classmethod
     def from_dict(cls, data: dict) -> "Oggetto":
-        return cls(nome=data["nome"])
+        oggetto = cls(nome=data["nome"])
+        oggetto.usato = data.get("usato", False)
+        oggetto.messaggi = data.get("messaggi", "")
+        return oggetto
 
 @SerializableMixin.register_class
 class PozioneCura(Oggetto):
@@ -65,12 +71,15 @@ class PozioneCura(Oggetto):
         Messaggi.add_to_messaggi(text)
         Log.scrivi_log(text)
         self.usato = True
+        
     def to_dict(self) -> dict:
-        data = super().to_dict()
-        data.update({
-            "valore": self.valore
-        })
-        return data
+        return {
+            "classe": self.__class__.__name__,
+            "nome": self.nome,
+            "usato": self.usato,
+            "offensivo": self.offensivo,
+            "messaggi": self.messaggi
+        }
 
     @classmethod
     def from_dict(cls, data: dict) -> "PozioneCura":

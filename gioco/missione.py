@@ -1,6 +1,6 @@
 import random
-from utils.log import Log
-from utils.salvataggio import SerializableMixin
+#from utils.log import Log
+#from utils.salvataggio import SerializableMixin
 from gioco.personaggio import Personaggio
 from gioco.classi import Mago, Guerriero, Ladro
 from gioco.ambiente import Ambiente, Vulcano, Foresta, Palude
@@ -28,8 +28,8 @@ class Missione(SerializableMixin):
         self.nemici.remove(nemico)
         msg = f"{nemico} rimosso dalla lista nemici della missione"
         Messaggi.add_to_messaggi(msg)
-        Log.scrivi_log(msg)
-        Json.scrivi_dati("data/salvataggio.json",Json.applica_patch(self.to_dict()))
+        #Log.scrivi_log(msg)
+        #Json.scrivi_dati("data/salvataggio.json",Json.applica_patch(self.to_dict()))
 
     def rimuovi_nemici_sconfitti(self)->None:
         #Metto in una lista i nemici sconfitti che devo rinuovere
@@ -47,7 +47,7 @@ class Missione(SerializableMixin):
             self.completata = True
             msg = f"Missione '{self.nome}' completata"
             Messaggi.add_to_messaggi(msg)
-            Log.scrivi_log(msg)
+           # Log.scrivi_log(msg)
             return True
         return False
 
@@ -62,7 +62,7 @@ class Missione(SerializableMixin):
             inventario.aggiungi(premio)
             msg = f"Premio {premio.nome} aggiunto all'inventario di {inventario.proprietario.nome} "
             Messaggi.add_to_messaggi(msg)
-            Log.scrivi_log(msg)
+           # Log.scrivi_log(msg)
             dati_da_salvare = [self.to_dict(), inventario.to_dict()]
             for dati in dati_da_salvare:
                 Json.scrivi_dati("data/salvataggio.json",Json.applica_patch(dati))
@@ -102,8 +102,9 @@ class Missione(SerializableMixin):
 
 
 #Lista delle missioni
-@SerializableMixin.register_class
-class GestoreMissioni(SerializableMixin):
+#@SerializableMixin.register_class
+class GestoreMissioni():
+#class GestoreMissioni(SerializableMixin):
     """
     È un gestore di istanze della classe Missione, e le gestisce con diversi metodi
     """
@@ -116,17 +117,17 @@ class GestoreMissioni(SerializableMixin):
          #Istanzio le missioni
         imboscata = Missione("Imboscata", Foresta(), [Guerriero("Robin Hood"), Guerriero("Little Jhon")], [PozioneCura(),PozioneCura(),BombaAcida()])
         salva_principessa = Missione("Salva la principessa", Palude(),[Ladro("Megera furfante")],[Medaglione()])
-        culto = Missione("Sgomina il culto di Graz'zt sul vulcano Gheemir", Vulcano(),[Mago("Cultista1"), Mago("Cultista2"), Mago("Cultista3")],[PozioneCura(),Medaglione()])
+        culto = Missione("Sgomina il culto di Graz'zt sul vulcano Gheemir", Vulcano(),[Mago("Cubista1"), Mago("Cultista2"), Mago("Cultista3")],[PozioneCura(),Medaglione()])
         return [imboscata, salva_principessa, culto]
 
     def mostra(self)->None:
         msg = ("Missioni disponibili:")
         Messaggi.add_to_messaggi(msg)
-        Log.scrivi_log(msg)
+        #Log.scrivi_log(msg)
         for missione in self.lista_missioni:
             msg = f"-{missione.nome}"
             self.messaggi.add_to_messaggi(msg)
-            Log.scrivi_log(msg)
+            #Log.scrivi_log(msg)
 
     def finita(self)->bool:
         esito = True
@@ -137,8 +138,8 @@ class GestoreMissioni(SerializableMixin):
                 missione.attiva = False
                 msg = f"Missione : {missione.nome} completata"
                 Messaggi.add_to_messaggi(msg)
-                Log.scrivi_log(msg)
-        Json.scrivi_dati("data/salvataggio.json",Json.applica_patch(self.to_dict()))
+                #Log.scrivi_log(msg)
+        #Json.scrivi_dati("data/salvataggio.json",Json.applica_patch(self.to_dict()))
         return esito
 
     def sorteggia(self)-> Missione | None:
@@ -157,7 +158,7 @@ class GestoreMissioni(SerializableMixin):
         except ValueError as e :
             msg = f"Errore: {e}"
             Messaggi.add_to_messaggi(msg)
-            Log.scrivi_log(msg)
+            #Log.scrivi_log(msg)
             return None
 
     def to_dict(self) -> dict:
