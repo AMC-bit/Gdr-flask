@@ -1,6 +1,6 @@
 from utils.log import Log
 # serve per random.randint nei metodi attacca
-import random
+import random, uuid
 from utils.salvataggio import SerializableMixin
 from utils.messaggi import Messaggi
 
@@ -11,6 +11,7 @@ class Personaggio(SerializableMixin):
     Contiene le proprietà comuni a ogni classe (Mago, Ladro, Guerriero)
     """
     def __init__(self, nome: str) -> None:
+        self.id = str(uuid.uuid4())  # Genera un ID unico per il personaggio
         self.nome = nome
         self.salute = 100
         self.salute_max = 200
@@ -20,7 +21,7 @@ class Personaggio(SerializableMixin):
         self.livello = 1
 
     def attacca(self, bersaglio: 'Personaggio', mod_ambiente: int = 0) -> None:
-        danno = random.randint(self.attacco_min, (self.attacco_max + mod_ambiente)) 
+        danno = random.randint(self.attacco_min, (self.attacco_max + mod_ambiente))
         msg = f"{self.nome} attacca {bersaglio.nome} per {danno} punti!"
         Messaggi.add_to_messaggi(msg)
         Log.scrivi_log(msg)
@@ -62,6 +63,7 @@ class Personaggio(SerializableMixin):
         """Restituisce uno stato serializzabile per session o JSON."""
         return {
             "classe": self.__class__.__name__,
+            "id": self.id,
             "nome": self.nome,
             "salute": self.salute,
             "salute_max": self.salute_max,
@@ -75,6 +77,7 @@ class Personaggio(SerializableMixin):
     def from_dict(cls, data: dict) -> "Personaggio":
         """Ricostruisce l’istanza a partire da un dict serializzato."""
         obj = cls(data["nome"])
+        obj.id = data.get("id", str(uuid.uuid4()))
         obj.salute = data.get("salute", 100)
         obj.salute_max = data.get("salute_max", 200)
         obj.attacco_min = data.get("attacco_min", 5)

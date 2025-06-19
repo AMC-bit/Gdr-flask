@@ -1,1 +1,0 @@
-from .inventario import Inventario
