@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for, flash
-from gioco.oggetto import Oggetto
+from gioco.oggetto import BombaAcida, Medaglione, Oggetto, PozioneCura
 from gioco.personaggio import Personaggio
 from gioco.classi import Ladro, Mago, Guerriero
 from .inventario import Inventario
@@ -14,38 +14,41 @@ def test_inventory():
 
     pg_nome = "Gandalf"
     pg_test = Mago(pg_nome)
-    session['pg'] = pg_test.to_dict()  # Salva il personaggio nella session
-    session.modified = True  # Assicurati che la session sia aggiornata
-    if 'pg' not in session:
-        flash("Personaggio non trovato nella sessione.", "error")
-    else:
-        pg_nome = session['pg']['nome']
 
-    inventario_pg = Inventario.from_dict(session.get('inventario', {}))
+    inventario_pg = Inventario(pg_test)
     inventario_pg.oggetti = [
-        {"nome": "Pozione di Guarigione"},
-        {"nome": "Pergamena Magica"},
-        {"nome": "Antidoto"}
+        PozioneCura(),
+        Medaglione(),
+        BombaAcida()
+    ]
+
+    bersagli = [
+        pg_test,
+        Guerriero("Aragorn"),
+        Ladro("Frodo"),
+        Mago("Saruman"),
+        Guerriero("Orco")
     ]
 
     oggetto_selezionato = None
-    bersagli = []
+    bersaglio_selezionato = None
     messaggio = None
 
+    # Gestione della richiesta POST
     if request.method == 'POST':
         if 'action' in request.form and request.form['action'] == 'close':
             return redirect(url_for('gioco.index'))
 
     oggetto = request.form.get('oggetto')
-    if oggetto:
-        oggetto_selezionato = oggetto
-        # Simula bersagli per test
-        bersagli = [
-            {"nome": "Frodo", "salute": 50, "salute_max": 80, "classe": "Hobbit", "tipologia": "Alleato"},
-            {"nome": "Orco", "salute": 30, "salute_max": 60, "classe": "Guerriero", "tipologia": "Nemico"}
-        ]
-
     bersaglio = request.form.get('bersaglio')
+
+    if oggetto:
+        oggetto_selezionato = next(
+            (o for o in inventario_pg.oggetti if o.nome == oggetto), None
+        )
+        if not oggetto_selezionato:
+            flash(f"Oggetto '{oggetto}' non trovato nell'inventario.", 'error')
+            return redirect(url_for('inventario.test_inventory'))
     if oggetto and bersaglio:
         messaggio = f"{pg_nome} usa {oggetto} su {bersaglio}! Successo!"
 
