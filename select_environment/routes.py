@@ -1,6 +1,6 @@
 from flask import render_template
-from . import create_character_bp
+from . import select_environment_bp
 
-@create_character_bp.route('/create_character')
+@select_environment_bp.route('/select_environment')
 def create_character():
-    return render_template('create_character.html')
+    return render_template('select_environment.html')
