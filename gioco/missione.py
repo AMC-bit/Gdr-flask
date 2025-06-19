@@ -234,7 +234,7 @@ class GestoreMissioni():
         #Log.scrivi_log(msg)
         for missione in self.lista_missioni:
             msg = f"-{missione.nome}"
-            self.messaggi.add_to_messaggi(msg)
+            # self.messaggi.add_to_messaggi(msg)
             #Log.scrivi_log(msg)
 
     def finita(self)->bool:
