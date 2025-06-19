@@ -3,7 +3,7 @@ from flask import Flask
 from flask_session import Session
 from gioco.routes import gioco
 from battle.routes import battle_bp
-from create_character.routes import create_character_bp
+from create_char.routes import create_char_bp
 from view_characters.routes import view_characters_bp
 from select_environment.routes import select_environment_bp
 from inventory.routes import inventory_bp
@@ -15,7 +15,7 @@ def create_app():
 
     app.register_blueprint(gioco)
     app.register_blueprint(battle_bp)
-    app.register_blueprint(create_character_bp)
+    app.register_blueprint(create_char_bp)
     app.register_blueprint(view_characters_bp)
     app.register_blueprint(select_environment_bp)
     app.register_blueprint(inventory_bp)
