@@ -10,7 +10,7 @@ def select_environment():
         ambiente = AmbienteFactory.seleziona_da_id(ambiente_id)
         session['ambiente'] = ambiente.to_dict()  # Salva l'ambiente in sessione
         flash(f'Ambiente selezionato: {ambiente.nome}', 'success')
-        return redirect(url_for('environment_bp.show_environment'))
+        return redirect(url_for('environment.show_environment'))
 
     ambienti = AmbienteFactory.get_opzioni()
     return render_template('select_environment.html', ambienti=ambienti)
@@ -21,7 +21,7 @@ def show_environment():
     ambiente_data = session.get('ambiente')
     if not ambiente_data:
         flash('Nessun ambiente selezionato.', 'warning')
-        return redirect(url_for('environment_bp.select_environment'))
+        return redirect(url_for('environment.select_environment'))
 
     ambiente = Ambiente.from_dict(ambiente_data)
     return render_template('show_environment.html', ambiente=ambiente)
