@@ -29,8 +29,8 @@ class Missione():
         self.nemici.remove(nemico)
         msg = f"{nemico} rimosso dalla lista nemici della missione"
         Messaggi.add_to_messaggi(msg)
-        Log.scrivi_log(msg)
-        Json.scrivi_dati("data/salvataggio.json",Json.applica_patch(self.to_dict()))
+        #Log.scrivi_log(msg)
+        #Json.scrivi_dati("data/salvataggio.json",Json.applica_patch(self.to_dict()))
 
     def rimuovi_nemici_sconfitti(self)->None:
         #Metto in una lista i nemici sconfitti che devo rinuovere
@@ -48,7 +48,7 @@ class Missione():
             self.completata = True
             msg = f"Missione '{self.nome}' completata"
             Messaggi.add_to_messaggi(msg)
-            Log.scrivi_log(msg)
+           # Log.scrivi_log(msg)
             return True
         return False
 
@@ -63,7 +63,7 @@ class Missione():
             inventario.aggiungi(premio)
             msg = f"Premio {premio.nome} aggiunto all'inventario di {inventario.proprietario.nome} "
             Messaggi.add_to_messaggi(msg)
-            Log.scrivi_log(msg)
+           # Log.scrivi_log(msg)
             dati_da_salvare = [self.to_dict(), inventario.to_dict()]
             for dati in dati_da_salvare:
                 Json.scrivi_dati("data/salvataggio.json",Json.applica_patch(dati))

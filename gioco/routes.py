@@ -123,3 +123,6 @@ def test_inventory():
                          oggetto_selezionato=oggetto_selezionato,
                          bersagli=bersagli,
                          messaggio=messaggio)
+
+
+
