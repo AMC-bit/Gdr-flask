@@ -13,7 +13,7 @@ def create_app():
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'cambia_questa_chiave_per_una_più_sicura')
     app.config['SESSION_TYPE'] = 'filesystem'
 
-    app.register_blueprint(gioco)
+    #app.register_blueprint(gioco)
     app.register_blueprint(battle_bp)
     app.register_blueprint(create_char_bp)
     app.register_blueprint(view_characters_bp)
