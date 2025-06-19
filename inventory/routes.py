@@ -32,7 +32,7 @@ def test_inventory():
     bersagli_dict = {b.id: b for b in bersagli}
 
     oggetto_selezionato = request.form.get('oggetto')
-    bersaglio_id = request
+    bersaglio_id = request.form.get('bersaglio')
     messaggio = None
 
     # Gestione della richiesta POST
@@ -40,32 +40,34 @@ def test_inventory():
         if 'action' in request.form and request.form['action'] == 'close':
             return redirect(url_for('gioco.index'))
 
-    oggetto = request.form.get('oggetto')
-    bersaglio_id = request.form.get('bersaglio')
+        if oggetto_selezionato and bersaglio_id:
+            oggetto = next((o for o in inventario_pg.oggetti if o.nome == oggetto_selezionato), None)
+            bersaglio = bersagli_dict.get(bersaglio_id)
+            if oggetto and bersaglio:
+                inventario_pg.usa_oggetto(oggetto, utilizzatore=pg_test, bersaglio=bersaglio)
+                messaggio = Messaggi.get_messaggi()
+                Messaggi.delete_messaggi()
+            else:
+                messaggio = "Oggetto o bersaglio non trovato!"
 
-    if oggetto:
-        oggetto_selezionato = next(
-            (o for o in inventario_pg.oggetti if o.nome == oggetto), None
-        )
-        if not oggetto_selezionato:
-            flash(f"Oggetto '{oggetto}' non trovato nell'inventario.", 'error')
-            return redirect(url_for('inventario.test_inventory'))
-    if oggetto and bersaglio:
-        oggetto_selezionato = next(
-            (o for o in inventario_pg.oggetti if o.nome == oggetto), None
-        )
-        messaggio_completo = Messaggi.get_messaggi()
-        righe = messaggio_completo.strip().split('\n')
-        messaggio = '\n'.join(righe[-3:])  # Ottieni solo le ultime 3 righe
-    else:
-        messaggio = "Oggetto o bersaglio non trovato!"
-        Messaggi.add_to_messaggi(messaggio)
+    oggetti = [{"nome": o.nome} for o in inventario_pg.oggetti]
+    bersagli_view = [
+        {
+            "id": b.id,
+            "nome": b.nome,
+            "salute": b.salute,
+            "salute_max": getattr(b, "salute_max", 100),
+            "classe": b.__class__.__name__,
+            "tipologia": "Sè stesso" if b is pg_test else "Alleato"
+        }
+        for b in bersagli
+    ]
 
     return render_template(
         'inventory.html',
         pg_nome=pg_test.nome,
-        oggetti=inventario_pg.mostra_lista_inventario(),
+        oggetti=oggetti,
         oggetto_selezionato=oggetto_selezionato,
-        bersagli=bersagli,
+        bersagli=bersagli_view if oggetto_selezionato else [],
         messaggio=messaggio
     )
