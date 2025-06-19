@@ -1,6 +1,6 @@
 from . import mission_bp
 from flask import render_template
-from gioco.missione import gestore_missioni
+from gioco.missione import GestoreMissioni
 
 @mission_bp.route('/select_mission')
 def select_mission():
@@ -8,13 +8,13 @@ def select_mission():
 
 @mission_bp.route('/missioni')
 def mostra_missioni():
-    missioni = gestore_missioni.lista_missioni
+    missioni = GestoreMissioni.lista_missioni
     return render_template('missioni.html', missioni=missioni)
 
 
 @mission_bp.route('/missione/attiva')
 def missione_attiva():
-    missione = gestore_missioni.sorteggia()
+    missione = GestoreMissioni.sorteggia()
     if missione:
         return render_template('missione_attiva.html', missione=missione)
     return "Non ci sono missioni attive o disponibili."
@@ -22,5 +22,5 @@ def missione_attiva():
 
 @mission_bp.route('/missioni/stato')
 def stato_missioni():
-    complete = gestore_missioni.finita()
+    complete = GestoreMissioni.finita()
     return f"Tutte le missioni completate: {complete}"
