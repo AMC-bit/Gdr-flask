@@ -7,6 +7,7 @@ from create_character.routes import create_character_bp
 from view_characters.routes import view_characters_bp
 from select_environment.routes import select_environment_bp
 from inventory.routes import inventory_bp
+from select_mission.routes import select_mission_bp
 def create_app():
     app = Flask(
         __name__,
@@ -22,6 +23,7 @@ def create_app():
     app.register_blueprint(view_characters_bp)
     app.register_blueprint(select_environment_bp)
     app.register_blueprint(inventory_bp)
+    app.register_blueprint(select_mission_bp)
 
     return app
 
