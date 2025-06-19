@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Dettaglio {{ pg.nome }}</title>
+</head>
+<body>
+    <h1>{{ pg.nome }}</h1>
+    <p><strong>Classe:</strong> {{ pg.__class__.__name__ }}</p>
+    <p><strong>Salute:</strong> {{ pg.salute }} / {{ pg.salute_max }}</p>
+    <p><strong>Attacco:</strong> {{ pg.attacco_min }} - {{ pg.attacco_max }}</p>
+    <p><strong>Livello:</strong> {{ pg.livello }}</p>
+    <p><strong>Danni subiti:</strong> {{ pg.storico_danni_subiti }}</p>
+
+    <a href="{{ url_for('gioco.list_personaggi') }}">← Torna alla lista</a>
+</body>
+</html>

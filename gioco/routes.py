@@ -124,5 +124,31 @@ def test_inventory():
                          bersagli=bersagli,
                          messaggio=messaggio)
 
+# Istanze di test
+from gioco.personaggio import Personaggio
+from gioco.classi import Mago, Guerriero, Ladro
 
+mago = Mago("Gandalf")
+guerriero = Guerriero("Aragorn")
+ladro = Ladro("Legolas")
+
+personaggi_factory = [Mago("Gandalf"), Guerriero("Aragorn"), Ladro("Legolas")]
+lista_personaggi = [mago, guerriero, ladro]
+
+# Route per visualizzare la lista dei personaggi
+@gioco.route('/personaggi')
+def list_personaggi():
+    return render_template('list_char.html', personaggi=lista_personaggi)
+
+# route per visualizzare la lista dei personaggi
+@gioco.route('/personaggi/<id>')
+def dettaglio_personaggio(id):
+    pg = lista_personaggi.get(id)
+    return render_template('detail_char.html', pg=pg, id=id)
+
+# route per cancellare un personaggio
+@gioco.route('/personaggi/<id>/elimina', methods=['POST'])
+def elimina_personaggio(id):
+    lista_personaggi.pop(id, None)
+    return redirect(url_for('gioco.list_personaggi'))
 
