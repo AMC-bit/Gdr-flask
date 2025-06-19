@@ -9,11 +9,7 @@ from select_environment.routes import select_environment_bp
 from inventory.routes import inventory_bp
 from select_mission.routes import select_mission_bp
 def create_app():
-    app = Flask(
-        __name__,
-        template_folder='templates',
-        static_folder='static'
-    )
+    app = Flask( __name__)
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'cambia_questa_chiave_per_una_più_sicura')
     app.config['SESSION_TYPE'] = 'filesystem'
 
