@@ -2,25 +2,36 @@ import os
 from flask import Flask
 from flask_session import Session
 from gioco.routes import gioco
-from gioco.inventario.routes import inventario_bp
+from battle.routes import battle_bp
+from create_char.routes import create_char_bp
+from view_characters.routes import view_characters_bp
+from select_environment.routes import select_environment_bp
+from inventory.routes import inventory_bp
+from select_mission.routes import select_mission_bp
+def create_app():
+    app = Flask( __name__)
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'cambia_questa_chiave_per_una_più_sicura')
+    app.config['SESSION_TYPE'] = 'filesystem'
 
-app = Flask(
-    __name__,
-    template_folder='templates',
-    static_folder='static'
-)
+    #app.register_blueprint(gioco)
+    app.register_blueprint(battle_bp)
+    app.register_blueprint(create_char_bp)
+    app.register_blueprint(view_characters_bp)
+    app.register_blueprint(select_environment_bp)
+    app.register_blueprint(inventory_bp)
+    app.register_blueprint(select_mission_bp)
+
+    return app
 
 # Imposta una SECRET_KEY sicura (meglio via variabile d'ambiente)
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'cambia_questa_chiave_per_una_più_sicura')
-app.config['SESSION_TYPE'] = 'filesystem'
 
 # Inizializza il supporto alle sessioni sul filesystem
-Session(app)
+
 
 # Registra il blueprint che contiene tutte le route di gioco
-app.register_blueprint(gioco)
-app.register_blueprint(inventario_bp)
+
 
 if __name__ == '__main__':
     # Modalità di sviluppo con reload automatico
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app = create_app()
+    app.run(debug=True)
