@@ -5,6 +5,7 @@ from gioco.personaggio import Personaggio
 from gioco.classi import Ladro, Mago, Guerriero
 from gioco.inventario import Inventario
 from utils.messaggi import Messaggi
+from utils.log import Log
 
 @inventory_bp.route('/inventory', methods=['GET', 'POST'])
 def inventory():
@@ -22,6 +23,8 @@ def inventory():
         for inv in inventari:
             if inv['proprietario'] == id_selezionato:
                 inventario_selezionato = inv
+                Log.scrivi_log(f"Inventario di {nome_per_id[id_selezionato]} selezionato.")
+
                 break
 
     return render_template(
