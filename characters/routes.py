@@ -4,6 +4,7 @@ from gioco.personaggio import Personaggio
 from gioco.classi import Mago, Guerriero, Ladro
 from gioco.oggetto import PozioneCura, BombaAcida, Medaglione
 from gioco.inventario import Inventario
+from utils.log import Log
 
 # mappa dinamica delle classi disponibili
 CLASSI = {
@@ -11,6 +12,7 @@ CLASSI = {
     'Guerriero': Guerriero,
     'Ladro': Ladro
 }
+
 # mappa dinamica degli oggetti disponibili
 OGGETTI = {
     'Pozione Rossa': PozioneCura,
@@ -19,34 +21,29 @@ OGGETTI = {
 }
 
 
-@characters_bp.route('/create_char', methods=['GET','POST'])
+@characters_bp.route('/create_char', methods=['GET', 'POST'])
 def create_char():
     if request.method == 'POST':
-
-        # prendo i dati dal form
         nome = request.form['nome'].strip()
         classe_sel = request.form['classe']
         oggetto_sel = request.form['oggetto']
 
-        # istanziamento personaggio, oggetto e inventario
         pg = CLASSI[classe_sel](nome)
         ogg = OGGETTI[oggetto_sel]()
         inv = Inventario(proprietario=pg.id)
         inv.aggiungi_oggetto(ogg)
 
-        # prendo o inizializzo le due liste
         pg_list = session.get('personaggi', [])
-        inv_list = session.get('inventari',  [])
+        inv_list = session.get('inventari', [])
 
-        # aggiungo i nuovi dizionari alle liste
         pg_list.append(pg.to_dict())
         inv_list.append(inv.to_dict())
 
-        # riassegno alle chiavi di sessione le liste aggiornate
         session['personaggi'] = pg_list
-        session['inventari']   = inv_list
+        session['inventari'] = inv_list
 
-        # redirect al menu principale
+        Log.scrivi_log(f"Creato personaggio: {pg.nome}, Classe: {classe_sel}, Oggetto iniziale: {oggetto_sel}")
+
         return redirect(url_for('gioco.index'))
 
     return render_template(
@@ -58,32 +55,37 @@ def create_char():
 
 @characters_bp.route('/view_characters')
 def view_characters():
+    Log.scrivi_log("Visualizzazione pagina personaggi (view_characters)")
     return render_template('view_characters.html')
 
-# Route per visualizzare la lista dei personaggi
+
 @characters_bp.route('/personaggi', methods=['GET', 'POST'])
 def mostra_personaggi():
     lista_pers = session.get('personaggi', [])
+    Log.scrivi_log(f"Richiesta lista personaggi. Numero personaggi: {len(lista_pers)}")
     return render_template('list_char.html', personaggi=lista_pers)
 
-# Route per visualizzare un personaggio singolo tramite indice
+
 @characters_bp.route('/personaggi/<int:id>')
 def dettaglio_personaggio(id):
     lista_pers = session.get('personaggi', [])
     try:
         pg = lista_pers[id]
+        Log.scrivi_log(f"Visualizzazione dettagli personaggio con ID: {pg.get('id')}, Nome: {pg.get('nome', 'N/A')}")
     except IndexError:
+        Log.scrivi_log(f"Tentativo di accesso a personaggio inesistente con ID: {id}")
         abort(404)
     return render_template('details_char.html', pg=pg, id=id)
 
-# Route per eliminare un personaggio (usando indice)
+
 @characters_bp.route('/personaggi/<int:id>', methods=['POST'])
 def elimina_personaggio(id):
     lista_pers = session.get('personaggi', [])
     try:
-        lista_pers.pop(id)
+        pg = lista_pers.pop(id)
         session['personaggi'] = lista_pers
+        Log.scrivi_log(f"Eliminato personaggio con ID: {id}, Nome: {pg.get('nome', 'N/A')}")
     except IndexError:
+        Log.scrivi_log(f"Errore durante eliminazione: ID inesistente {id}")
         abort(404)
     return redirect(url_for('characters.mostra_personaggi'))
-

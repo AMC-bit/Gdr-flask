@@ -3,12 +3,11 @@ from gioco.oggetto import BombaAcida, Oggetto, PozioneCura
 from gioco.classi import Guerriero, Ladro, Mago
 from gioco.personaggio import Personaggio
 from utils.log import Log
-from utils.salvataggio import SerializableMixin
 from utils.messaggi import Messaggi
 
 
-@SerializableMixin.register_class
-class Ambiente(SerializableMixin):
+ 
+class Ambiente():
     """
     E responsabile alla gestione di variabili  globali dovuti all'ambiente
     interagisce con le classi Personaggio e Oggetto
@@ -59,7 +58,7 @@ class Ambiente(SerializableMixin):
         return ambiente_cls()
 
 
-@SerializableMixin.register_class
+ 
 class Foresta(Ambiente):
     """
     La classe Foresta eredita da Ambiente e rappresenta un ambiente specifico
@@ -113,7 +112,7 @@ class Foresta(Ambiente):
         return 0
 
 
-@SerializableMixin.register_class
+ 
 class Vulcano(Ambiente):
     """
     La classe Vulcano eredita da Ambiente e rappresenta un ambiente specifico
@@ -182,7 +181,7 @@ class Vulcano(Ambiente):
         return self.modifica_cura
 
 
-@SerializableMixin.register_class
+ 
 class Palude(Ambiente):
     """
     La classe Palude eredita da Ambiente e rappresenta un ambiente specifico
