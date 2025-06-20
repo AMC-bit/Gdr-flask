@@ -14,6 +14,7 @@ class Inventario(Basic):
     Sarà la classe inventario a gestire le istanze di classe Oggetto
     """
     def __init__(self, proprietario : Personaggio = None )->None:
+        self.id = str(uuid.uuid4())
         self.oggetti = []
         self.proprietario = proprietario
 
@@ -207,11 +208,12 @@ class Inventario(Basic):
         Returns:
             dict: Rappresentazione dell'inventario come dizionario.
         """
+        print(self.proprietario)
         return {
             'classe': self.__class__.__name__,
             'id': str(self.id),
             'oggetti': [oggetto.to_dict() for oggetto in self.oggetti],
-            'proprietario': self.proprietario.nome if self.proprietario else None
+            'proprietario': self.proprietario if self.proprietario else None
         }
 
     @classmethod

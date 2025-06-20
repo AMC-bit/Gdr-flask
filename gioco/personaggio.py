@@ -12,6 +12,7 @@ class Personaggio(SerializableMixin, Basic):
     Contiene le proprietà comuni a ogni classe (Mago, Ladro, Guerriero)
     """
     def __init__(self, nome: str) -> None:
+        self.id = str(uuid.uuid4())  
         self.nome = nome
         self.salute = 100
         self.salute_max = 200

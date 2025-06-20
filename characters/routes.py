@@ -31,7 +31,7 @@ def create_char():
         # istanziamento personaggio, oggetto e inventario
         pg = CLASSI[classe_sel](nome)
         ogg = OGGETTI[oggetto_sel]()
-        inv = Inventario(proprietario=pg)
+        inv = Inventario(proprietario=pg.id)
         inv.aggiungi_oggetto(ogg)
 
         # prendo o inizializzo le due liste
