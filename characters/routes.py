@@ -87,10 +87,8 @@ def dettaglio_personaggio(id):
 def elimina_personaggio(id):
     lista_pers = session.get('personaggi', [])
     try:
-        for pg in lista_pers:
-            if pg['id'] == id:
-                lista_pers.remove(pg)
-            return redirect(url_for('characters.mostra_personaggi'))
+        lista_pers.pop(id)
+        session['personaggi'] = lista_pers
     except IndexError:
         abort(404)
     return redirect(url_for('characters.mostra_personaggi'))

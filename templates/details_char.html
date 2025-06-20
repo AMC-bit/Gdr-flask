@@ -1,25 +1,22 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <title>Dettaglio {{ pg.nome }}</title>
-</head>
-<body>
-    <h1>{{ pg.nome }}</h1>
-    <p><strong>Classe:</strong> {{ pg.__class__.__name__ }}</p>
-    <p><strong>Salute:</strong> {{ pg.salute }} / {{ pg.salute_max }}</p>
-    <p><strong>Attacco:</strong> {{ pg.attacco_min }} - {{ pg.attacco_max }}</p>
-    <p><strong>Livello:</strong> {{ pg.livello }}</p>
-    <p><strong>Danni subiti:</strong> {{ pg.storico_danni_subiti }}</p>
+{% extends "layout.html" %}
+{% block title %}Dettagli Personaggio{% endblock %}
 
-    <!-- Pulsante per tornare alla lista dei personaggi-->
-    <form action="{{ url_for('characters.mostra_personaggi') }}" method="get">
-        <button type="submit">← Torna alla lista</button>
-    </form>
+{% block content %}
+<div class="container mt-5">
+  <div class="card mx-auto" style="max-width: 500px;">
+    <div class="card-body text-center">
+      <h2 class="card-title mb-3">{{ pg.nome }}</h2>
+      <p class="card-text"><strong>Classe:</strong> {{ pg.__class__.__name__ }}</p>
+      <p class="card-text"><strong>Salute:</strong> {{ pg.salute }} / {{ pg.salute_max }}</p>
+      <p class="card-text"><strong>Attacco:</strong> {{ pg.attacco_min }} - {{ pg.attacco_max }}</p>
+      <p class="card-text"><strong>Livello:</strong> {{ pg.livello }}</p>
+      <p class="card-text"><strong>Danni subiti:</strong> {{ pg.storico_danni_subiti }}</p>
 
-    <!-- Pulsante per tornare al menu principale -->
-    <form action="{{ url_for('gioco.index') }}" method="get">
-        <button type="submit">Torna al menu principale</button>
-    </form>
-</body>
-</html>
+      <div class="d-grid gap-2 mt-4">
+        <a href="{{ url_for('characters.mostra_personaggi') }}" class="btn btn-outline-primary">← Torna alla lista</a>
+        <a href="{{ url_for('gioco.index') }}" class="btn btn-secondary">Torna al menu principale</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
