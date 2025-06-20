@@ -5,18 +5,19 @@ from gioco.oggetto import Oggetto
 from gioco.inventario import Inventario
 from utils.log import Log
 
-CLASSI = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
-OGGETTI = {cls.__name__: cls for cls in Oggetto.__subclasses__()}
-
 @characters_bp.route('/create_char', methods=['GET', 'POST'])
 def create_char():
+
+    classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
+    oggetti = {cls.__name__: cls for cls in Oggetto.__subclasses__()}
+
     if request.method == 'POST':
         nome = request.form['nome'].strip()
         classe_sel = request.form['classe']
         oggetto_sel = request.form['oggetto']
 
-        pg = CLASSI[classe_sel](nome)
-        ogg = OGGETTI[oggetto_sel]()
+        pg = classi[classe_sel](nome)
+        ogg = oggetti[oggetto_sel]()
         inv = Inventario(proprietario=pg.id)
         inv.aggiungi_oggetto(ogg)
 
@@ -35,8 +36,8 @@ def create_char():
 
     return render_template(
         'create_char.html',
-        classi=list(CLASSI.keys()),
-        oggetti=list(OGGETTI.keys())
+        classi=list(classi.keys()),
+        oggetti=list(oggetti.keys())
     )
 
 
