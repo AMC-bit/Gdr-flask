@@ -3,23 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <title>Lista personaggi</title>
+  <style>
+    .personaggio {
+      margin-bottom: 10px;
+    }
+
+    .rigapg {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .rigapg form {
+      margin: 0;
+    }
+  </style>
 </head>
 <body>
   <h1>Lista personaggi</h1>
-  <ul>
+  <ul style="list-style-type: none; padding-left: 0;">
     {% for pg in personaggi %}
-      <li>
-        <strong>{{ pg.nome }}</strong> ({{ pg.__class__.__name__ }})<br>
+      <li class="personaggio">
+        <div class="rigapg">
+          <span><strong>{{ pg.nome }}</strong> ({{ pg.__class__.__name__ }})</span>
 
-        <!-- Pulsante per i dettagli -->
-        <form method="get" action="{{ url_for('gioco.dettaglio_personaggio', id=loop.index0) }}" style="display:inline;">
-          <button type="submit">Dettagli</button>
-        </form>
+          <!-- Pulsante per visualizzare i dettagli del singolo personaggio-->
+          <form method="get" action="{{ url_for('gioco.dettaglio_personaggio', id=loop.index0) }}">
+            <button type="submit">Dettagli</button>
+          </form>
 
-        <!-- Pulsante per eliminare -->
-        <form method="post" action="{{ url_for('gioco.elimina_personaggio', id=loop.index0) }}" style="display:inline;">
-          <button type="submit" onclick="return confirm('Eliminare {{ pg.nome }}?')">Elimina</button>
-        </form>
+          <!-- Pulsante per eliminare un personaggio -->
+          <form method="post" action="{{ url_for('gioco.elimina_personaggio', id=loop.index0) }}">
+            <button type="submit" onclick="return confirm('Eliminare {{ pg.nome }}?')">Elimina</button>
+          </form>
+        </div>
       </li>
     {% else %}
       <li>Nessun personaggio.</li>
