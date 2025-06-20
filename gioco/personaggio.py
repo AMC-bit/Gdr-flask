@@ -6,7 +6,7 @@ import random, uuid
 from utils.messaggi import Messaggi
 
  
-class Personaggio( , Basic):
+class Personaggio(Basic):
     """
     Classe Padre per tutte classi
     Contiene le proprietà comuni a ogni classe (Mago, Ladro, Guerriero)
