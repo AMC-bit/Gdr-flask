@@ -5,8 +5,8 @@ from gioco.personaggio import Personaggio
 from gioco.ambiente import Ambiente
 from utils.messaggi import Messaggi
 # from utils.log import Log
-# from utils.salvataggio import SerializableMixin, Json
-# @SerializableMixin.register_class
+#  , Json
+#  
 
 class Inventario(Basic):
     """
