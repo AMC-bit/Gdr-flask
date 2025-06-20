@@ -13,7 +13,11 @@ def create_app():
     app.config['SESSION_TYPE'] = 'filesystem'
 
     app.register_blueprint(gioco)
+<<<<<<< HEAD
     # app.register_blueprint(battle_bp)
+=======
+    app.register_blueprint(battle_bp)
+>>>>>>> a6bd28d26b576c4343fb5e7421c5ab52fbc9516d
     app.register_blueprint(characters_bp)
     # app.register_blueprint(environment_bp)
     # app.register_blueprint(inventory_bp)

@@ -1,17 +1,20 @@
-from .oggetto import Oggetto
-from .personaggio import Personaggio
-from .ambiente import Ambiente
+import uuid
+from gioco.basic import Basic
+from gioco.oggetto import Oggetto
+from gioco.personaggio import Personaggio
+from gioco.ambiente import Ambiente
 from utils.messaggi import Messaggi
 # from utils.log import Log
 # from utils.salvataggio import SerializableMixin, Json
 # @SerializableMixin.register_class
 
-class Inventario():
+class Inventario(Basic):
     """
     Gestisce la lista di oggetti posseduto da ogni personaggio
     Sarà la classe inventario a gestire le istanze di classe Oggetto
     """
     def __init__(self, proprietario : Personaggio = None )->None:
+        self.id = str(uuid.uuid4())
         self.oggetti = []
         self.proprietario = proprietario
 
@@ -205,10 +208,12 @@ class Inventario():
         Returns:
             dict: Rappresentazione dell'inventario come dizionario.
         """
+        print(self.proprietario)
         return {
             'classe': self.__class__.__name__,
+            'id': str(self.id),
             'oggetti': [oggetto.to_dict() for oggetto in self.oggetti],
-            'proprietario': self.proprietario.nome if self.proprietario else None
+            'proprietario': self.proprietario if self.proprietario else None
         }
 
     @classmethod
@@ -223,6 +228,7 @@ class Inventario():
             Inventario: L'oggetto Inventario deserializzato.
         """
         inventario = cls()
+        inventario.id = data.get('id', str(uuid.uuid4()))
         inventario.oggetti = [
             Oggetto.from_dict(oggetto) for oggetto in data.get('oggetti', [])
         ]
