@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="it">
-<head><meta charset="UTF-8"><title>Lista personaggi</title></head>
+<head>
+  <meta charset="UTF-8">
+  <title>Lista personaggi</title>
+</head>
 <body>
   <h1>Lista personaggi</h1>
-        <!--<a href="{{ url_for('gioco.create_char') }}">+ Crea nuovo</a> {% endcomment %} -->
   <ul>
-    {% for id, pg in enumerate(personaggi) %}
+    {% for pg in personaggi %}
       <li>
         <strong>{{ pg.nome }}</strong> ({{ pg.__class__.__name__ }})<br>
-        <a href="{{ url_for('gioco.dettaglio_personaggio', id=id) }}">Dettagli</a> |
-        <form method="post" action="{{ url_for('gioco.elimina_personaggio', id=id) }}" style="display:inline;">
-          <button type="submit" onclick="return confirm('Eliminare {{ pg.nome }}?')">Elimina</button>
-        </form>
+        <a href="{{ url_for('gioco.dettaglio_personaggio', id=loop.index0) }}">Dettagli</a>
       </li>
     {% else %}
       <li>Nessun personaggio.</li>

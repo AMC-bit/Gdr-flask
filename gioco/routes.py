@@ -1,5 +1,9 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for, Flask
 
+# Istanze di test
+from gioco.personaggio import Personaggio
+from gioco.classi import Mago, Guerriero, Ladro
+
 #from gioco.menu_principale import MenuPrincipale
 #from gioco.missione import MissioneFactory
 #from gioco.ambiente import AmbienteFactory
@@ -124,31 +128,34 @@ def test_inventory():
                          bersagli=bersagli,
                          messaggio=messaggio)
 
-# Istanze di test
-from gioco.personaggio import Personaggio
-from gioco.classi import Mago, Guerriero, Ladro
-
+# ------------Metodi crud per personaggi---------------------------
 mago = Mago("Gandalf")
 guerriero = Guerriero("Aragorn")
 ladro = Ladro("Legolas")
 
-personaggi_factory = [Mago("Gandalf"), Guerriero("Aragorn"), Ladro("Legolas")]
-lista_personaggi = [mago, guerriero, ladro]
+# Lista di personaggi
+lista_pers = [mago, guerriero, ladro]
 
 # Route per visualizzare la lista dei personaggi
-@gioco.route('/personaggi')
-def list_personaggi():
-    return render_template('list_char.html', personaggi=lista_personaggi)
+@gioco.route('/personaggi', methods=['GET', 'POST'])
+def mostra_personaggi():
+    return render_template('list_char.html', personaggi=lista_pers)
 
-# route per visualizzare la lista dei personaggi
-@gioco.route('/personaggi/<id>')
+# Route per visualizzare un personaggio singolo tramite indice
+@gioco.route('/personaggi/<int:id>')
 def dettaglio_personaggio(id):
-    pg = lista_personaggi.get(id)
-    return render_template('detail_char.html', pg=pg, id=id)
+    try:
+        pg = lista_pers[id]
+    except IndexError:
+        abort(404)
+    return render_template('details_char.html', pg=pg, id=id)
 
-# route per cancellare un personaggio
-@gioco.route('/personaggi/<id>/elimina', methods=['POST'])
+# Route per eliminare un personaggio (usando indice)
+@gioco.route('/personaggi/<int:id>/elimina', methods=['POST'])
 def elimina_personaggio(id):
-    lista_personaggi.pop(id, None)
-    return redirect(url_for('gioco.list_personaggi'))
+    try:
+        lista_pers.pop(id)
+    except IndexError:
+        abort(404)
+    return redirect(url_for('gioco.mostra_personaggi'))
 
