@@ -12,9 +12,14 @@
     <p><strong>Livello:</strong> {{ pg.livello }}</p>
     <p><strong>Danni subiti:</strong> {{ pg.storico_danni_subiti }}</p>
 
-    <a href="{{ url_for('gioco.mostra_personaggi') }}">← Torna alla lista</a>
-    <p>
-       <a href="{{ url_for('gioco.index') }}">Torna al menu principale</a>
-    </p>
+    <!-- Pulsante: Torna alla lista -->
+    <form action="{{ url_for('gioco.mostra_personaggi') }}" method="get">
+        <button type="submit">← Torna alla lista</button>
+    </form>
+
+    <!-- Pulsante: Torna al menu -->
+    <form action="{{ url_for('gioco.index') }}" method="get">
+        <button type="submit">Torna al menu principale</button>
+    </form>
 </body>
 </html>

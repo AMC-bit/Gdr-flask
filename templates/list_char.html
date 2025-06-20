@@ -10,8 +10,13 @@
     {% for pg in personaggi %}
       <li>
         <strong>{{ pg.nome }}</strong> ({{ pg.__class__.__name__ }})<br>
-        <a href="{{ url_for('gioco.dettaglio_personaggio', id=loop.index0) }}">Dettagli</a>
 
+        <!-- Pulsante per i dettagli -->
+        <form method="get" action="{{ url_for('gioco.dettaglio_personaggio', id=loop.index0) }}" style="display:inline;">
+          <button type="submit">Dettagli</button>
+        </form>
+
+        <!-- Pulsante per eliminare -->
         <form method="post" action="{{ url_for('gioco.elimina_personaggio', id=loop.index0) }}" style="display:inline;">
           <button type="submit" onclick="return confirm('Eliminare {{ pg.nome }}?')">Elimina</button>
         </form>
@@ -19,9 +24,11 @@
     {% else %}
       <li>Nessun personaggio.</li>
     {% endfor %}
-      <p>
-    <a href="{{ url_for('gioco.index') }}">Torna al menu principale</a>
-  </p>
   </ul>
+
+  <!-- Pulsante per tornare al menu -->
+  <form action="{{ url_for('gioco.index') }}">
+    <button type="submit">Torna al menu principale</button>
+  </form>
 </body>
 </html>
