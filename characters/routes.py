@@ -42,7 +42,7 @@ def create_char():
         session['personaggi'] = pg_list
         session['inventari'] = inv_list
 
-        Log.scrivi_log(f"Creato personaggio: {pg.nome}, Classe: {classe_sel}, Oggetto iniziale: {oggetto_sel}")
+        Log.scrivi_log(f"Creato personaggio: {pg.nome}, Classe: {classe_sel}, id: {pg.id}, Oggetto iniziale: {oggetto_sel}")
 
         return redirect(url_for('gioco.index'))
 
@@ -73,7 +73,7 @@ def dettaglio_personaggio(id):
         pg = lista_pers[id]
         Log.scrivi_log(f"Visualizzazione dettagli personaggio con ID: {pg.get('id')}, Nome: {pg.get('nome', 'N/A')}")
     except IndexError:
-        Log.scrivi_log(f"Tentativo di accesso a personaggio inesistente con ID: {id}")
+        Log.scrivi_log(f"Tentativo di accesso a personaggio inesistente con ID: {pg.get('id')}")
         abort(404)
     return render_template('details_char.html', pg=pg, id=id)
 
@@ -84,8 +84,8 @@ def elimina_personaggio(id):
     try:
         pg = lista_pers.pop(id)
         session['personaggi'] = lista_pers
-        Log.scrivi_log(f"Eliminato personaggio con ID: {id}, Nome: {pg.get('nome', 'N/A')}")
+        Log.scrivi_log(f"Eliminato personaggio con ID: {pg.get('id')}, Nome: {pg.get('nome', 'N/A')}")
     except IndexError:
-        Log.scrivi_log(f"Errore durante eliminazione: ID inesistente {id}")
+        Log.scrivi_log(f"Errore durante eliminazione: ID inesistente {pg.get('id')}")
         abort(404)
     return redirect(url_for('characters.mostra_personaggi'))
