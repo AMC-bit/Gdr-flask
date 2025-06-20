@@ -208,7 +208,6 @@ class Inventario(Basic):
         Returns:
             dict: Rappresentazione dell'inventario come dizionario.
         """
-        print(self.proprietario)
         return {
             'classe': self.__class__.__name__,
             'id': str(self.id),
@@ -233,8 +232,6 @@ class Inventario(Basic):
             Oggetto.from_dict(oggetto) for oggetto in data.get('oggetti', [])
         ]
 
-        inventario.proprietario = Personaggio.from_dict(
-            data['proprietario']
-        ) if data.get('proprietario') else None
+        inventario.proprietario = data['proprietario'] if data.get('proprietario') else None
 
         return inventario
