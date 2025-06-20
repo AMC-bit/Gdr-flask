@@ -128,34 +128,5 @@ def test_inventory():
                          bersagli=bersagli,
                          messaggio=messaggio)
 
-# ------------Metodi crud per personaggi---------------------------
-mago = Mago("Gandalf")
-guerriero = Guerriero("Aragorn")
-ladro = Ladro("Legolas")
 
-# Lista di personaggi
-lista_pers = [mago, guerriero, ladro]
-
-# Route per visualizzare la lista dei personaggi
-@gioco.route('/personaggi', methods=['GET', 'POST'])
-def mostra_personaggi():
-    return render_template('list_char.html', personaggi=lista_pers)
-
-# Route per visualizzare un personaggio singolo tramite indice
-@gioco.route('/personaggi/<int:id>')
-def dettaglio_personaggio(id):
-    try:
-        pg = lista_pers[id]
-    except IndexError:
-        abort(404)
-    return render_template('details_char.html', pg=pg, id=id)
-
-# Route per eliminare un personaggio (usando indice)
-@gioco.route('/personaggi/<int:id>/elimina', methods=['POST'])
-def elimina_personaggio(id):
-    try:
-        lista_pers.pop(id)
-    except IndexError:
-        abort(404)
-    return redirect(url_for('gioco.mostra_personaggi'))
 

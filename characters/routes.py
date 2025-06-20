@@ -1,5 +1,5 @@
 from . import characters_bp
-from flask import render_template, request, redirect, url_for, session
+from flask import render_template, request, redirect, url_for, session, abort
 from gioco.personaggio import Personaggio
 from gioco.classi import Mago, Guerriero, Ladro
 from gioco.oggetto import PozioneCura, BombaAcida, Medaglione
@@ -63,6 +63,35 @@ def debug():
 
 
 @characters_bp.route('/view_characters')
-def view_characters():    
+def view_characters():
     return render_template('view_characters.html')
+
+# Route per visualizzare la lista dei personaggi
+@characters_bp.route('/personaggi', methods=['GET', 'POST'])
+def mostra_personaggi():
+    lista_pers = session.get('personaggi', [])
+    return render_template('list_char.html', personaggi=lista_pers)
+
+# Route per visualizzare un personaggio singolo tramite indice
+@characters_bp.route('/personaggi/<int:id>')
+def dettaglio_personaggio(id):
+    lista_pers = session.get('personaggi', [])
+    try:
+        pg = lista_pers[id]
+    except IndexError:
+        abort(404)
+    return render_template('details_char.html', pg=pg, id=id)
+
+# Route per eliminare un personaggio (usando indice)
+@characters_bp.route('/personaggi/<int:id>', methods=['POST'])
+def elimina_personaggio(id):
+    lista_pers = session.get('personaggi', [])
+    try:
+        for pg in lista_pers:
+            if pg['id'] == id:
+                lista_pers.remove(pg)
+            return redirect(url_for('characters.mostra_personaggi'))
+    except IndexError:
+        abort(404)
+    return redirect(url_for('characters.mostra_personaggi'))
 
