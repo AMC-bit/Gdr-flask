@@ -22,3 +22,5 @@
 2025-06-20 12:10:03 - Ambiente mostrato: Vulcano (id: None)
 2025-06-20 12:10:54 - Ambiente selezionato: Vulcano (id: 2)
 2025-06-20 12:10:54 - Ambiente mostrato: Vulcano (id: None)
+2025-06-20 12:13:55 - Ambiente selezionato: Foresta (id: 1)
+2025-06-20 12:13:55 - Ambiente mostrato: Foresta

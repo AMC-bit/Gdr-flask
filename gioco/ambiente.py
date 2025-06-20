@@ -41,24 +41,23 @@ class Ambiente():
 
     @classmethod
     def from_dict(cls, data: dict) -> "Ambiente":
-        """Ricostruisce l’istanza a partire da un dict serializzato.
+        """
+        Ricostruisce un'istanza di Ambiente o di una sua sottoclasse a partire da un dizionario serializzato.
+
+        Utilizza il valore associato alla chiave "classe" per determinare quale sottoclasse
+        di Ambiente istanziare. Se la classe non è riconosciuta, restituisce un'istanza di Foresta come default.
 
         Args:
-            data (dict): Dati serializzati
+            data (dict): Dizionario contenente i dati serializzati dell'ambiente.
+                Deve contenere almeno la chiave "classe" con il nome della sottoclasse.
 
         Returns:
-            Ambiente: Dati deserializzati
+            Ambiente: Un'istanza della sottoclasse di Ambiente indicata nel dizionario.
         """
-        mapping = {
-            "Foresta": Foresta,
-            "Vulcano": Vulcano,
-            "Palude": Palude
-        }
-        ambiente_cls = mapping.get(data.get("classe"), Foresta)
+        classe_nome = data.get("classe", "Foresta")
+        ambiente_cls = globals().get(classe_nome, Foresta)
         return ambiente_cls()
 
-
- 
 class Foresta(Ambiente):
     """
     La classe Foresta eredita da Ambiente e rappresenta un ambiente specifico
