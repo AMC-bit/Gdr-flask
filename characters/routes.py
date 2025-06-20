@@ -1,25 +1,12 @@
 from . import characters_bp
 from flask import render_template, request, redirect, url_for, session, abort
 from gioco.personaggio import Personaggio
-from gioco.classi import Mago, Guerriero, Ladro
-from gioco.oggetto import PozioneCura, BombaAcida, Medaglione
+from gioco.oggetto import Oggetto
 from gioco.inventario import Inventario
 from utils.log import Log
 
-# mappa dinamica delle classi disponibili
-CLASSI = {
-    'Mago': Mago,
-    'Guerriero': Guerriero,
-    'Ladro': Ladro
-}
-
-# mappa dinamica degli oggetti disponibili
-OGGETTI = {
-    'Pozione Rossa': PozioneCura,
-    'Bomba Acida': BombaAcida,
-    'Medaglione': Medaglione
-}
-
+CLASSI = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
+OGGETTI = {cls.__name__: cls for cls in Oggetto.__subclasses__()}
 
 @characters_bp.route('/create_char', methods=['GET', 'POST'])
 def create_char():

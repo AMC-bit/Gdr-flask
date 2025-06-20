@@ -1,0 +1,2 @@
+2025-06-20 12:28:12 - Creato personaggio: kebab2, Classe: Mago, id: 0b7f97d7-448f-4b59-9c41-c19bf5e4ee40, Oggetto iniziale: PozioneCura
+2025-06-20 12:28:13 - Richiesta lista personaggi. Numero personaggi: 8
