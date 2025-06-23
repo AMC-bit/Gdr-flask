@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-2025-06-20 12:28:12 - Creato personaggio: kebab2, Classe: Mago, id: 0b7f97d7-448f-4b59-9c41-c19bf5e4ee40, Oggetto iniziale: PozioneCura
-2025-06-20 12:28:13 - Richiesta lista personaggi. Numero personaggi: 8
-=======
 2025-06-20 11:59:56 - Ambiente selezionato: Foresta (id: 1)
 2025-06-20 11:59:56 - Ambiente mostrato: Foresta
 2025-06-20 12:00:02 - Ambiente selezionato: Palude (id: 3)
@@ -28,9 +24,35 @@
 2025-06-20 12:10:54 - Ambiente mostrato: Vulcano (id: None)
 2025-06-20 12:13:55 - Ambiente selezionato: Foresta (id: 1)
 2025-06-20 12:13:55 - Ambiente mostrato: Foresta
->>>>>>> 0c99b928fe3274c4b3514ec5ce016f0c5f7786d8
 2025-06-20 12:35:38 - Creato personaggio: ce, Classe: Ladro, id: e7199f93-0ef0-4d70-ac49-9e5eadc8ecd0, Oggetto iniziale: BombaAcida
 2025-06-20 12:35:39 - Richiesta lista personaggi. Numero personaggi: 1
 2025-06-20 12:36:21 - Creato personaggio: daniele, Classe: Mago, id: 66462b53-8765-4351-9bda-b9167831e418, Oggetto iniziale: PozioneCura
 2025-06-20 12:36:44 - Creato personaggio: eecec, Classe: Ladro, id: 3c662d0b-3a0e-4674-9846-fc2b23042fee, Oggetto iniziale: BombaAcida
 2025-06-20 12:59:47 - Inventario di Alberto selezionato.
+2025-06-23 09:17:17 - Creato personaggio: Alberto, Classe: Mago, id: 922a33b1-4ec5-46b1-a4ed-becf85df3e1a, Oggetto iniziale: PozioneCura
+2025-06-23 09:17:18 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-23 09:17:22 - Visualizzazione dettagli personaggio con ID: 922a33b1-4ec5-46b1-a4ed-becf85df3e1a, Nome: Alberto
+2025-06-23 09:17:24 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-23 09:17:43 - Creato personaggio: AAAA, Classe: Mago, id: 19acbd1b-afbd-42d0-826b-6a4c95cef11d, Oggetto iniziale: PozioneCura
+2025-06-23 09:17:45 - Richiesta lista personaggi. Numero personaggi: 2
+2025-06-23 09:17:47 - Visualizzazione dettagli personaggio con ID: 19acbd1b-afbd-42d0-826b-6a4c95cef11d, Nome: AAAA
+2025-06-23 09:17:48 - Richiesta lista personaggi. Numero personaggi: 2
+2025-06-23 09:17:51 - Eliminato personaggio con ID: 19acbd1b-afbd-42d0-826b-6a4c95cef11d, Nome: AAAA
+2025-06-23 09:17:51 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-23 09:18:07 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-23 09:18:19 - Inventario di Alberto selezionato.
+2025-06-23 09:18:45 - Ambiente selezionato: Foresta (id: 1)
+2025-06-23 09:18:45 - Ambiente mostrato: Foresta
+2025-06-23 09:18:55 - Ambiente selezionato: Palude (id: 3)
+2025-06-23 09:18:55 - Ambiente mostrato: Palude
+2025-06-23 09:19:00 - Ambiente selezionato: Foresta (id: 1)
+2025-06-23 09:19:00 - Ambiente mostrato: Foresta
+2025-06-23 09:19:11 - Ambiente selezionato: Vulcano (id: 2)
+2025-06-23 09:19:11 - Ambiente mostrato: Vulcano
+2025-06-23 09:20:31 - Ambiente selezionato: Foresta (id: 1)
+2025-06-23 09:20:31 - Ambiente mostrato: Foresta
+2025-06-23 09:21:08 - Ambiente mostrato: Foresta
+2025-06-23 09:21:13 - Ambiente selezionato: Vulcano (id: 2)
+2025-06-23 09:21:13 - Ambiente mostrato: Vulcano
+2025-06-23 09:23:02 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-23 09:23:04 - Visualizzazione dettagli personaggio con ID: 922a33b1-4ec5-46b1-a4ed-becf85df3e1a, Nome: Alberto
