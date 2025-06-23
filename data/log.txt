@@ -29,30 +29,16 @@
 2025-06-20 12:36:21 - Creato personaggio: daniele, Classe: Mago, id: 66462b53-8765-4351-9bda-b9167831e418, Oggetto iniziale: PozioneCura
 2025-06-20 12:36:44 - Creato personaggio: eecec, Classe: Ladro, id: 3c662d0b-3a0e-4674-9846-fc2b23042fee, Oggetto iniziale: BombaAcida
 2025-06-20 12:59:47 - Inventario di Alberto selezionato.
-2025-06-23 09:17:17 - Creato personaggio: Alberto, Classe: Mago, id: 922a33b1-4ec5-46b1-a4ed-becf85df3e1a, Oggetto iniziale: PozioneCura
-2025-06-23 09:17:18 - Richiesta lista personaggi. Numero personaggi: 1
-2025-06-23 09:17:22 - Visualizzazione dettagli personaggio con ID: 922a33b1-4ec5-46b1-a4ed-becf85df3e1a, Nome: Alberto
-2025-06-23 09:17:24 - Richiesta lista personaggi. Numero personaggi: 1
-2025-06-23 09:17:43 - Creato personaggio: AAAA, Classe: Mago, id: 19acbd1b-afbd-42d0-826b-6a4c95cef11d, Oggetto iniziale: PozioneCura
-2025-06-23 09:17:45 - Richiesta lista personaggi. Numero personaggi: 2
-2025-06-23 09:17:47 - Visualizzazione dettagli personaggio con ID: 19acbd1b-afbd-42d0-826b-6a4c95cef11d, Nome: AAAA
-2025-06-23 09:17:48 - Richiesta lista personaggi. Numero personaggi: 2
-2025-06-23 09:17:51 - Eliminato personaggio con ID: 19acbd1b-afbd-42d0-826b-6a4c95cef11d, Nome: AAAA
-2025-06-23 09:17:51 - Richiesta lista personaggi. Numero personaggi: 1
-2025-06-23 09:18:07 - Richiesta lista personaggi. Numero personaggi: 1
-2025-06-23 09:18:19 - Inventario di Alberto selezionato.
-2025-06-23 09:18:45 - Ambiente selezionato: Foresta (id: 1)
-2025-06-23 09:18:45 - Ambiente mostrato: Foresta
-2025-06-23 09:18:55 - Ambiente selezionato: Palude (id: 3)
-2025-06-23 09:18:55 - Ambiente mostrato: Palude
-2025-06-23 09:19:00 - Ambiente selezionato: Foresta (id: 1)
-2025-06-23 09:19:00 - Ambiente mostrato: Foresta
-2025-06-23 09:19:11 - Ambiente selezionato: Vulcano (id: 2)
-2025-06-23 09:19:11 - Ambiente mostrato: Vulcano
-2025-06-23 09:20:31 - Ambiente selezionato: Foresta (id: 1)
-2025-06-23 09:20:31 - Ambiente mostrato: Foresta
-2025-06-23 09:21:08 - Ambiente mostrato: Foresta
-2025-06-23 09:21:13 - Ambiente selezionato: Vulcano (id: 2)
-2025-06-23 09:21:13 - Ambiente mostrato: Vulcano
-2025-06-23 09:23:02 - Richiesta lista personaggi. Numero personaggi: 1
-2025-06-23 09:23:04 - Visualizzazione dettagli personaggio con ID: 922a33b1-4ec5-46b1-a4ed-becf85df3e1a, Nome: Alberto
+2025-06-23 10:09:05 - Creato personaggio: kebab, Classe: Mago, id: 48ed9ede-7f26-4d37-b117-12fbc88bb445, Oggetto iniziale: PozioneCura
+2025-06-23 10:09:07 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-23 10:18:56 - Ambiente selezionato: Foresta (id: 1)
+2025-06-23 10:18:56 - Ambiente mostrato: Foresta
+2025-06-23 10:23:21 - Creato personaggio: mister, Classe: Mago, id: 046eb64b-0b61-4315-b56c-afc820a57821, Oggetto iniziale: PozioneCura
+2025-06-23 10:29:36 - Creato personaggio: Konrad, Classe: Mago, id: 350f0387-0b0e-4e1c-9ae0-2119359c84e4, Oggetto iniziale: PozioneCura
+2025-06-23 10:40:08 - Creato personaggio: luca, Classe: Guerriero, id: d4622dbf-515d-4f40-9735-1a4f721474fe, Oggetto iniziale: BombaAcida
+2025-06-23 11:26:42 - Creato personaggio: alpha, Classe: Mago, id: 7b622ca3-2228-402f-b49e-53906c01ca5d, Oggetto iniziale: PozioneCura
+2025-06-23 11:26:47 - Creato personaggio: Konrad, Classe: Ladro, id: 2a21fa24-694c-44db-a363-5044e015823d, Oggetto iniziale: PozioneCura
+2025-06-23 11:31:29 - Creato personaggio: luca, Classe: Guerriero, id: 5b803788-0dca-4deb-bf1a-0e235bac1947, Oggetto iniziale: PozioneCura
+2025-06-23 11:31:32 - Richiesta lista personaggi. Numero personaggi: 5
+2025-06-23 11:31:38 - Eliminato personaggio con ID: 5b803788-0dca-4deb-bf1a-0e235bac1947, Nome: luca
+2025-06-23 11:31:38 - Richiesta lista personaggi. Numero personaggi: 4
