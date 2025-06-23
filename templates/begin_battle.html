@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block title %}Battaglia{% endblock %}
+
+{% block content %}
+    <p>Personaggi: {{personaggi}}, Inventari: {{inventari}}, Ambiente: {{ambiente}}, Missione: {{missione}}</p>
+    <button type="button" class="btn btn-danger" disabled= {{buttons_diasable}}>attacca</button>
+    <button type="button" class="btn btn-success" disabled= {{buttons_diasable}}>inventario</button>
+    <textarea id="log_display" row="100" >"Qui ci andrà il LOG"</textarea>
+{% endblock %}

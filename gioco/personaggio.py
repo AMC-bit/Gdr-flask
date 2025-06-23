@@ -136,13 +136,14 @@ class Personaggio(Basic):
             data (dict): Dati serializzati
 
         Returns:
-            Ambiente: Dati deserializzati
+            Personaggio: Dati deserializzati
         """
-        oggetto = cls(data["nome"])
-        oggetto.salute = data.get("salute", 100)
-        oggetto.salute_max = data.get("salute_max", 200)
-        oggetto.attacco_min = data.get("attacco_min", 5)
-        oggetto.attacco_max = data.get("attacco_max", 80)
-        oggetto.storico_danni_subiti = data.get("storico_danni_subiti", [])
-        oggetto.livello = data.get("livello", 1)
-        return oggetto
+        obj = cls(data["nome"])
+        obj.id = data.get(['id'])
+        obj.salute = data.get("salute", 100)
+        obj.salute_max = data.get("salute_max", 200)
+        obj.attacco_min = data.get("attacco_min", 5)
+        obj.attacco_max = data.get("attacco_max", 80)
+        obj.storico_danni_subiti = data.get("storico_danni_subiti", [])
+        obj.livello = data.get("livello", 1)
+        return obj

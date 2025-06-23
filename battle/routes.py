@@ -1,10 +1,37 @@
 from flask import redirect, render_template, session, url_for, request
-from requests import request
 from . import battle_bp
 from gioco.personaggio import Personaggio
 from gioco.inventario import Inventario
 from gioco.ambiente import Ambiente, Foresta
 from gioco.missione import Missione, GestoreMissioni
+
+@battle_bp.route('/begin_battle')
+def begin_battle():
+    #liste degli oggetti deserializzati
+    print(session)
+    personaggi_battle = []
+    inventari_battle = []
+    ambiente = Ambiente.from_dict(session['ambiente'])
+    missione = Missione.from_dict(session['missione'])
+    
+    if 'personaggi_selezionati' in session :
+        personaggi = session['personaggi_selezionati']
+        for personaggio in personaggi:
+            #Deserializiamo i singoli oggetti e inseriamoli nella lista perrsonaggi_battle
+            personaggio = Personaggio.from_dict(personaggio)
+            personaggi_battle.append(personaggio)
+    if 'inventari_selezionati' in session :
+        inventari = session['inventari_selezionati']
+        for inventario in inventari:
+            inventario = Inventario.from_dict(inventario)
+            inventari_battle.append(inventari)
+    
+    return render_template('begin_battle.html',
+                           personaggi = personaggi_battle,
+                           inventari = inventari_battle,
+                           ambiente = ambiente,
+                           missione = missione)
+
 @battle_bp.route('/select_char', methods=['GET', 'POST'] )
 def select_char():
     #if request.method == 'POST':
@@ -61,8 +88,9 @@ def select_char():
         # serializzo le liste nella sessione
         session['personaggi_selezionati'] = [pg.to_dict() for pg in personaggi_selezionati]
         session['inventari_selezionati'] = [inv.to_dict() for inv in inventari_selezionati]
+        session['missione']= Missione.to_dict(missione_corrente)
         # reindirizzo verso la pagina di destinazione
-        return redirect(url_for(battle_bp.battle))
+        return redirect(url_for('battle.begin_battle'))
     # eventualmente carico la selezione precedente per avere dei vaolri di default
     selezionati_pg = []
     selezionati_inv = []
