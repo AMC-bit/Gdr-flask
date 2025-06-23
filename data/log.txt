@@ -34,3 +34,8 @@
 2025-06-20 12:36:21 - Creato personaggio: daniele, Classe: Mago, id: 66462b53-8765-4351-9bda-b9167831e418, Oggetto iniziale: PozioneCura
 2025-06-20 12:36:44 - Creato personaggio: eecec, Classe: Ladro, id: 3c662d0b-3a0e-4674-9846-fc2b23042fee, Oggetto iniziale: BombaAcida
 2025-06-20 12:59:47 - Inventario di Alberto selezionato.
+2025-06-23 10:09:05 - Creato personaggio: kebab, Classe: Mago, id: 48ed9ede-7f26-4d37-b117-12fbc88bb445, Oggetto iniziale: PozioneCura
+2025-06-23 10:09:07 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-23 10:18:56 - Ambiente selezionato: Foresta (id: 1)
+2025-06-23 10:18:56 - Ambiente mostrato: Foresta
+2025-06-23 10:23:21 - Creato personaggio: mister, Classe: Mago, id: 046eb64b-0b61-4315-b56c-afc820a57821, Oggetto iniziale: PozioneCura
