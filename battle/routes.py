@@ -21,10 +21,13 @@ def begin_battle():
         pg_list = session.get('personaggi', [])
         inv_list = session.get('inventari',  [])
         #Deserializzo gli elementi delle liste
+        print(pg_list)
+        print(inv_list)
+        """
         for serialized in  pg_list :
             personaggi.append(Personaggio.from_dict(serialized))
         for serialized in inv_list:
             inventari.append(Inventario.from_dict(serialized))
         #Ora le liste personaggi e  inventari contengono i dati deserializzati
-
-    return render_template('begin_battle.html', personaggi=personaggi, inventari=inventari, ambiente_corrente = ambiente, missione_corrente = missione_corrente)
+        """
+    return render_template('begin_battle.html', personaggi=pg_list, inventari=inv_list, ambiente_corrente = ambiente, missione_corrente = missione_corrente)

@@ -10,7 +10,8 @@
         <select class="form-select" id="selected_pg">
           <option value="" disabled selected>Seleziona un personaggio</option>
           {% for personaggio in personaggi %}
-            <option value="{{ personaggio }}">{{personaggio.nome }} Classe: {{personaggio.__class__.__name__}}</option>
+            <option value="{{ personaggio }}">{{personaggio.nome }} Classe: {{personaggio.classe}}</option>
+            
           {% endfor %}
         </select>
         <button type="submit">Inizia la battaglia!</button>
