@@ -39,3 +39,11 @@
 2025-06-23 10:18:56 - Ambiente selezionato: Foresta (id: 1)
 2025-06-23 10:18:56 - Ambiente mostrato: Foresta
 2025-06-23 10:23:21 - Creato personaggio: mister, Classe: Mago, id: 046eb64b-0b61-4315-b56c-afc820a57821, Oggetto iniziale: PozioneCura
+2025-06-23 10:29:36 - Creato personaggio: Konrad, Classe: Mago, id: 350f0387-0b0e-4e1c-9ae0-2119359c84e4, Oggetto iniziale: PozioneCura
+2025-06-23 10:40:08 - Creato personaggio: luca, Classe: Guerriero, id: d4622dbf-515d-4f40-9735-1a4f721474fe, Oggetto iniziale: BombaAcida
+2025-06-23 11:26:42 - Creato personaggio: alpha, Classe: Mago, id: 7b622ca3-2228-402f-b49e-53906c01ca5d, Oggetto iniziale: PozioneCura
+2025-06-23 11:26:47 - Creato personaggio: Konrad, Classe: Ladro, id: 2a21fa24-694c-44db-a363-5044e015823d, Oggetto iniziale: PozioneCura
+2025-06-23 11:31:29 - Creato personaggio: luca, Classe: Guerriero, id: 5b803788-0dca-4deb-bf1a-0e235bac1947, Oggetto iniziale: PozioneCura
+2025-06-23 11:31:32 - Richiesta lista personaggi. Numero personaggi: 5
+2025-06-23 11:31:38 - Eliminato personaggio con ID: 5b803788-0dca-4deb-bf1a-0e235bac1947, Nome: luca
+2025-06-23 11:31:38 - Richiesta lista personaggi. Numero personaggi: 4
