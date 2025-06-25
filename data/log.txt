@@ -47,3 +47,9 @@
 2025-06-23 11:31:32 - Richiesta lista personaggi. Numero personaggi: 5
 2025-06-23 11:31:38 - Eliminato personaggio con ID: 5b803788-0dca-4deb-bf1a-0e235bac1947, Nome: luca
 2025-06-23 11:31:38 - Richiesta lista personaggi. Numero personaggi: 4
+2025-06-25 09:46:49 - Ambiente selezionato: Vulcano (id: 2)
+2025-06-25 09:46:49 - Ambiente mostrato: Vulcano
+2025-06-25 09:47:59 - Creato personaggio: Franco, Classe: Mago, id: a8105d5c-5d04-4f0a-858a-d815cd95064d, Oggetto iniziale: PozioneCura
+2025-06-25 09:55:29 - Creato personaggio: silvia, Classe: Mago, id: 6fb6739f-c1bc-46ae-a2ec-69b9fbfc8cf2, Oggetto iniziale: PozioneCura
+2025-06-25 09:55:40 - Ambiente selezionato: Palude (id: 3)
+2025-06-25 09:55:40 - Ambiente mostrato: Palude

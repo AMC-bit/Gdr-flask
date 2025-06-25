@@ -49,8 +49,6 @@ def select_char():
         pg_list = session.get('personaggi', [])
         inv_list = session.get('inventari',  [])
         #Deserializzo gli elementi delle liste
-        print(pg_list)
-        print(inv_list)
         """
         for serialized in  pg_list :
             personaggi.append(Personaggio.from_dict(serialized))

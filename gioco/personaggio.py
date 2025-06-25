@@ -139,7 +139,7 @@ class Personaggio(Basic):
             Personaggio: Dati deserializzati
         """
         obj = cls(data["nome"])
-        obj.id = data.get(['id'])
+        obj.id = data.get('id')
         obj.salute = data.get("salute", 100)
         obj.salute_max = data.get("salute_max", 200)
         obj.attacco_min = data.get("attacco_min", 5)
