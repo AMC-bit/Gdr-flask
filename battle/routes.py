@@ -28,12 +28,15 @@ def begin_battle():
         for inventario in inventari:
             inventario = Inventario.from_dict(inventario) 
             inventari_battle.append(inventario)
-    
+
     return render_template('begin_battle.html',
                            personaggi = personaggi_battle,
                            inventari = inventari_battle,
                            ambiente = ambiente,
-                           missione = missione)
+                           missione = missione,
+                           #TODO Personaggio turno è da riempire con il personaggio a cui tocca il turno
+                           personaggio_turno = personaggi_battle[0]
+                           )
 
 @battle_bp.route('/select_char', methods=['GET', 'POST'] )
 def select_char():
