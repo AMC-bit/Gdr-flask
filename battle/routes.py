@@ -4,6 +4,7 @@ from gioco.personaggio import Personaggio
 from gioco.inventario import Inventario
 from gioco.ambiente import Ambiente, Foresta
 from gioco.missione import Missione, GestoreMissioni
+classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
 
 @battle_bp.route('/begin_battle')
 def begin_battle():
@@ -16,9 +17,11 @@ def begin_battle():
     
     if 'personaggi_selezionati' in session :
         personaggi = session['personaggi_selezionati']
-        for personaggio in personaggi:
+        for pg in personaggi:
             #Deserializiamo i singoli oggetti e inseriamoli nella lista perrsonaggi_battle
-            personaggio = Personaggio.from_dict(personaggio)
+            cls = classi.get(pg.get('classe'))
+            if cls:
+                personaggio = cls.from_dict(pg)
             personaggi_battle.append(personaggio)
     if 'inventari_selezionati' in session :
         inventari = session['inventari_selezionati']
@@ -34,6 +37,7 @@ def begin_battle():
 
 @battle_bp.route('/select_char', methods=['GET', 'POST'] )
 def select_char():
+    
     #if request.method == 'POST':
     if 'personaggi' not in session:
         flash("Devi aggiungere almeno un personaggio.")
@@ -79,11 +83,14 @@ def select_char():
                 # creazione oggetti
                 for pgs in pg_list:
                     if idx == pgs['id']:
-                        pg = Personaggio.from_dict(pgs)
+                        cls = classi.get(pgs.get('classe'))
+                        if cls:
+                            pg = cls.from_dict(pgs)                        
                 for invs in inv_list:
                     if invs['proprietario'] == idx:
                         inv = Inventario.from_dict(invs)
                 # aggingiamo i personaggi alle liste
+                print("PROVA", type(pg).__name__)
                 personaggi_selezionati.append(pg)
                 inventari_selezionati.append(inv)
             except (ValueError, IndexError):
@@ -99,7 +106,9 @@ def select_char():
     selezionati_inv = []
     if 'personaggi_selezionati' in session:
         for sec in session['personaggi_selezionati']:
-            selezionati_pg.append(Personaggio.from_dict(sec))
+            cls = classi.get(sec.get('classe'))
+            if cls:
+                selezionati_pg.append(cls.from_dict(sec))
         for sec in session.get('inventari_selezionati', []):
             selezionati_inv.append(Inventario.from_dict(sec))
 
