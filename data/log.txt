@@ -1,0 +1,4 @@
+2025-06-25 11:08:33 - Creato personaggio: franco, Classe: Mago, id: bfa60c17-a014-4f0d-9399-6e06383eb615, Oggetto iniziale: PozioneCura
+2025-06-25 11:08:33 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-25 11:08:51 - Ambiente selezionato: Vulcano (id: 2)
+2025-06-25 11:08:51 - Ambiente mostrato: Vulcano

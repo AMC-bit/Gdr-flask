@@ -2,11 +2,17 @@
 {% block title %}Battaglia{% endblock %}
 
 {% block content %}
+<div><p><strong>Ambiente:</strong> {{ambiente.__class__.__name__}}</p></div> 
+<div><p><strong>Missione:</strong> {{missione.nome}}</p></div>
+<h4>Personaggi:</h4>
 {% for personaggio in personaggi %}
-        <p></p>
+        <p>{{personaggio.nome}} <strong>classe:</strong> {{personaggio.__class__.__name__}} <strong>HP: </strong>{{personaggio.salute}}/{{personaggio.salute_max}}</p>
 {% endfor %}
-    <p>Personaggi: {{personaggi}}, Inventari: {{inventari}}, Ambiente: {{ambiente}}, Missione: {{missione}}</p>
-    <button type="button" class="btn btn-danger" disabled= {{buttons_diasable}}>attacca</button>
-    <button type="button" class="btn btn-success" disabled= {{buttons_diasable}}>inventario</button>
+<h4>Nemici:</h4>
+{% for nemico in missione.nemici %}
+        <p>{{nemico.nome}} <strong>classe:</strong> {{nemico.__class__.__name__}} <strong>HP: </strong>{{nemico.salute}}/{{nemico.salute_max}}</p>
+{% endfor %}
+    <button type="button" class="btn btn-danger"  >attacca</button>
+    <button type="button" class="btn btn-success"  >inventario</button>
     <textarea id="log_display" row="100" >"Qui ci andrà il LOG"</textarea>
 {% endblock %}
