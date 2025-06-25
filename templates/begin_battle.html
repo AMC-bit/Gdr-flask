@@ -2,6 +2,9 @@
 {% block title %}Battaglia{% endblock %}
 
 {% block content %}
+{% for personaggio in personaggi %}
+        <p></p>
+{% endfor %}
     <p>Personaggi: {{personaggi}}, Inventari: {{inventari}}, Ambiente: {{ambiente}}, Missione: {{missione}}</p>
     <button type="button" class="btn btn-danger" disabled= {{buttons_diasable}}>attacca</button>
     <button type="button" class="btn btn-success" disabled= {{buttons_diasable}}>inventario</button>
