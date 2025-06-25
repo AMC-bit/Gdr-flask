@@ -32,19 +32,13 @@ def create_char():
 
         Log.scrivi_log(f"Creato personaggio: {pg.nome}, Classe: {classe_sel}, id: {pg.id}, Oggetto iniziale: {oggetto_sel}")
 
-        return redirect(url_for('gioco.index'))
+        return redirect(url_for('characters.mostra_personaggi'))
 
     return render_template(
         'create_char.html',
         classi=list(classi.keys()),
         oggetti=list(oggetti.keys())
     )
-
-
-@characters_bp.route('/view_characters')
-def view_characters():
-    Log.scrivi_log("Visualizzazione pagina personaggi (view_characters)")
-    return render_template('view_characters.html')
 
 
 @characters_bp.route('/personaggi', methods=['GET', 'POST'])
