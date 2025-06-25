@@ -69,4 +69,7 @@ def test_inventory():
         messaggio=messaggio)
 
 
-
+@gioco.route('/clear')
+def clear():
+    session.clear()
+    return redirect(url_for('gioco.index'))
