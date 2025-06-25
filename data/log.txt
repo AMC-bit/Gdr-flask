@@ -2,3 +2,7 @@
 2025-06-25 11:08:33 - Richiesta lista personaggi. Numero personaggi: 1
 2025-06-25 11:08:51 - Ambiente selezionato: Vulcano (id: 2)
 2025-06-25 11:08:51 - Ambiente mostrato: Vulcano
+2025-06-25 11:17:12 - Creato personaggio: sora, Classe: Mago, id: e717814b-3e8a-4a67-afcb-1018529cefda, Oggetto iniziale: PozioneCura
+2025-06-25 11:17:12 - Richiesta lista personaggi. Numero personaggi: 2
+2025-06-25 11:17:22 - Ambiente selezionato: Foresta (id: 1)
+2025-06-25 11:17:22 - Ambiente mostrato: Foresta
