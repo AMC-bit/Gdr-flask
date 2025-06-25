@@ -8,7 +8,7 @@ from gioco.missione import Missione, GestoreMissioni
 @battle_bp.route('/begin_battle')
 def begin_battle():
     #liste degli oggetti deserializzati
-    print(session)
+    print(session['personaggi_selezionati'], session['inventari_selezionati'] )
     personaggi_battle = []
     inventari_battle = []
     ambiente = Ambiente.from_dict(session['ambiente'])
@@ -74,10 +74,13 @@ def select_char():
         # se nel form passi l'indice iallora dobbiamo ricreare il personaggio per conservare i dati in sessione
         for idx in indici_selezionati:
             try:
-                indice = int(idx)
                 # creazione oggetti
-                pg = Personaggio.from_dict(pg_list[indice])
-                inv = Inventario.from_dict(inv_list[indice])
+                for pgs in pg_list:
+                    if idx == pgs['id']:
+                        pg = Personaggio.from_dict(pgs)
+                for invs in inv_list:
+                    if invs['proprietario'] == idx:
+                        inv = Inventario.from_dict(invs)
                 # aggingiamo i personaggi alle liste
                 personaggi_selezionati.append(pg)
                 inventari_selezionati.append(inv)
