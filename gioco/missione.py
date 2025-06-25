@@ -160,9 +160,9 @@ class Missione():
         return {
             "classe": self.__class__.__name__,
             "nome": self.nome,
-            "ambiente": self.ambiente.to_dict(),
-            "nemici": [nemico.to_dict() for nemico in self.nemici],
-            "premi": [premio.to_dict() for premio in self.premi],
+            "ambiente": Ambiente.to_dict(self.ambiente),
+            "nemici": [Personaggio.to_dict(nemico) for nemico in self.nemici],
+            "premi": [Oggetto.to_dict(premio) for premio in self.premi],
             "completata": self.completata,
             "attiva": self.attiva
         }
