@@ -6,3 +6,8 @@
 2025-06-25 11:17:12 - Richiesta lista personaggi. Numero personaggi: 2
 2025-06-25 11:17:22 - Ambiente selezionato: Foresta (id: 1)
 2025-06-25 11:17:22 - Ambiente mostrato: Foresta
+2025-06-25 12:51:02 - Creato personaggio: Franco, Classe: Mago, id: a643cc23-4217-406c-9812-b401aae151f3, Oggetto iniziale: PozioneCura
+2025-06-25 12:51:02 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-25 12:51:17 - Nessun ambiente selezionato.
+2025-06-25 12:51:21 - Ambiente selezionato: Foresta (id: 1)
+2025-06-25 12:51:21 - Ambiente mostrato: Foresta

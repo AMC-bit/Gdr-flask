@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block title %}Inventario di {{personaggio_turno_corrente.nome}}{% endblock %}
+
+{% block content %}
+<h4>Inventario di {{personaggio_turno_corrente.nome}}</h4>
+<form method="POST" class="card shadow-sm p-4" style="max-width: 800px; width: 100%;">
+    <select id="oggetto_selezionato" name="oggetto_selezionato" class="form-select" required>
+        {% for oggetto in inventario.oggetti %}
+            <option value="{{oggetto}}">{{ oggetto.nome }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit" class="btn btn-outline-primary btn-lg w-100">Usa oggetto</button>
+</form>
+{% endblock %}
