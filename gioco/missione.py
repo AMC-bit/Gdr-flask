@@ -176,8 +176,16 @@ class Missione():
         Returns:
             Ambiente: Dati deserializzati
         """
+        classi = {clss.__name__: clss for clss in Personaggio.__subclasses__()}
+
         ambiente_cls = Ambiente.from_dict(data["ambiente"])
-        nemici = [Personaggio.from_dict(nemico) for nemico in data.get("nemici", [])]
+        nemici = []
+        for nemico in data.get("nemici", []):
+            clss = classi.get(nemico.get("classe"))
+            if clss:
+                nemico = clss.from_dict(nemico)
+                
+                nemici.append(nemico)
         premi = [Oggetto.from_dict(premio) for premio in data.get("premi", [])]
         missione = cls(
             nome=data["nome"],
