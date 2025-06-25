@@ -37,11 +37,7 @@ def begin_battle():
 
 @battle_bp.route('/select_char', methods=['GET', 'POST'] )
 def select_char():
-    
     #if request.method == 'POST':
-    if 'personaggi' not in session:
-        flash("Devi aggiungere almeno un personaggio.")
-        return redirect(url_for('characters.create_char'))
     #prendo i dati da sessione :
     personaggi=[]
     inventari=[]
