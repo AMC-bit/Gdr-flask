@@ -18,7 +18,14 @@
 
     <a href="{{ url_for('environment.select_environment') }}" class="btn btn-danger btn-lg mb-2">Seleziona Ambiente</a>
     <a href="{{ url_for('environment.show_environment') }}" class="btn btn-warning btn-lg mb-2">Mostra Ambiente</a>
-    <a href="{{ url_for('battle.select_char') }}" class="btn btn-dark btn-lg mb-2">Seleziona Personaggio</a>
+    {% if can_select_char %}
+        <a href="{{ url_for('battle.select_char') }}" class="btn btn-dark btn-lg mb-2">Seleziona Personaggio</a>
+        {% else %}
+        <button class="btn btn-dark btn-lg mb-2" disabled>Seleziona Personaggio</button>
+        <p class="text-muted text-center small">
+            ⚠️ Crea almeno un personaggio e seleziona un ambiente per procedere
+        </p>
+    {% endif %}
 </div>
 {% endblock %}
 
