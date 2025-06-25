@@ -47,3 +47,10 @@
 2025-06-23 11:31:32 - Richiesta lista personaggi. Numero personaggi: 5
 2025-06-23 11:31:38 - Eliminato personaggio con ID: 5b803788-0dca-4deb-bf1a-0e235bac1947, Nome: luca
 2025-06-23 11:31:38 - Richiesta lista personaggi. Numero personaggi: 4
+2025-06-25 10:08:38 - Creato personaggio: tarzan, Classe: Mago, id: fc3baf53-100f-4906-8c6e-a1ae9b781e73, Oggetto iniziale: PozioneCura
+2025-06-25 10:08:59 - Creato personaggio: tarzan, Classe: Mago, id: 9da18d3a-5762-4261-99cc-38a5f3f3f244, Oggetto iniziale: PozioneCura
+2025-06-25 10:08:59 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-25 10:09:07 - Creato personaggio: maxim, Classe: Mago, id: 9054661c-b30e-44d0-8e6d-e3c4c917a7fb, Oggetto iniziale: PozioneCura
+2025-06-25 10:09:07 - Richiesta lista personaggi. Numero personaggi: 2
+2025-06-25 10:09:13 - Creato personaggio: defefef, Classe: Mago, id: d307ad13-8555-4918-a092-792caf474071, Oggetto iniziale: PozioneCura
+2025-06-25 10:09:13 - Richiesta lista personaggi. Numero personaggi: 3

@@ -32,7 +32,7 @@ def create_char():
 
         Log.scrivi_log(f"Creato personaggio: {pg.nome}, Classe: {classe_sel}, id: {pg.id}, Oggetto iniziale: {oggetto_sel}")
 
-        return redirect(url_for('characters_bp.mostra_personaggi'))
+        return redirect(url_for('characters.mostra_personaggi'))
 
     return render_template(
         'create_char.html',
