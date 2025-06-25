@@ -318,7 +318,7 @@ class GestoreMissioni():
             data (dict): Dati serializzati
 
         Returns:
-            Ambiente: Dati deserializzati
+            Ambiente: Dati deserializzati.
         """
         gestore = cls()
         gestore.lista_missioni = [Missione.from_dict(missione) for missione in data.get("lista_missioni", [])]
