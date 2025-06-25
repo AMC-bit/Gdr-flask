@@ -24,7 +24,7 @@ def begin_battle():
         inventari = session['inventari_selezionati']
         for inventario in inventari:
             inventario = Inventario.from_dict(inventario)
-            inventari_battle.append(inventari)
+            inventari_battle.append(inventario)
     
     return render_template('begin_battle.html',
                            personaggi = personaggi_battle,
