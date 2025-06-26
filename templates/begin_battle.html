@@ -12,8 +12,8 @@
 {% for nemico in missione.nemici %}
         <p>{{nemico.nome}} <strong>classe:</strong> {{nemico.__class__.__name__}} <strong>HP: </strong>{{nemico.salute}}/{{nemico.salute_max}}</p>
 {% endfor %}
-<h4>E' il turno di : {{personaggio_turno.nome}}</h4>
+<h4>E' il turno di : {{personaggio_turno_corrente.nome}}</h4>
     <button type="button" class="btn btn-danger"  >attacca</button>
-    <button type="button" class="btn btn-success"  >inventario</button>
+    <a href="{{ url_for('battle.show_inventory') }}"><button type="button" class="btn btn-success"  >inventario</button></a>
     <textarea id="log_display" row="100" >"Qui ci andrà il LOG"</textarea>
 {% endblock %}
