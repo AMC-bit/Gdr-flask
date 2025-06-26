@@ -11,7 +11,7 @@ gioco = Blueprint('gioco', __name__, template_folder=template_dir)
 # Home / menu principale
 @gioco.route('/')
 def index():
-    has_personaggi = 'personaggi' in session and len(session['personaggi']) > 0
+    has_personaggi = 'personaggi' in session
     has_ambiente = 'ambiente' in session
     has_missione = 'missione' in session
     can_select_char = has_personaggi and has_ambiente and has_missione
