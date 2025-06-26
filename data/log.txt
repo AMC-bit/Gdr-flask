@@ -25,3 +25,53 @@
 2025-06-25 13:43:17 - Missione non trovata.
 2025-06-25 13:43:21 - Nessuna missione selezionata.
 2025-06-25 13:43:24 - Missione non trovata.
+2025-06-25 11:08:33 - Creato personaggio: franco, Classe: Mago, id: bfa60c17-a014-4f0d-9399-6e06383eb615, Oggetto iniziale: PozioneCura
+2025-06-25 11:08:33 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-25 11:08:51 - Ambiente selezionato: Vulcano (id: 2)
+2025-06-25 11:08:51 - Ambiente mostrato: Vulcano
+2025-06-25 11:17:12 - Creato personaggio: sora, Classe: Mago, id: e717814b-3e8a-4a67-afcb-1018529cefda, Oggetto iniziale: PozioneCura
+2025-06-25 11:17:12 - Richiesta lista personaggi. Numero personaggi: 2
+2025-06-25 11:17:22 - Ambiente selezionato: Foresta (id: 1)
+2025-06-25 11:17:22 - Ambiente mostrato: Foresta
+2025-06-25 12:51:02 - Creato personaggio: Franco, Classe: Mago, id: a643cc23-4217-406c-9812-b401aae151f3, Oggetto iniziale: PozioneCura
+2025-06-25 12:51:02 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-25 12:51:17 - Nessun ambiente selezionato.
+2025-06-25 12:51:21 - Ambiente selezionato: Foresta (id: 1)
+2025-06-25 12:51:21 - Ambiente mostrato: Foresta
+2025-06-26 00:13:53 - Richiesta lista personaggi. Numero personaggi: 0
+2025-06-26 00:14:02 - Creato personaggio: Konrad, Classe: Mago, id: 087fd25d-9cd4-4540-917c-79df0ba6d38a, Oggetto iniziale: PozioneCura
+2025-06-26 00:14:02 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-26 00:14:13 - Creato personaggio: Alastor, Classe: Mago, id: d4e7241b-a00f-49c0-b5da-d514cd143460, Oggetto iniziale: Medaglione
+2025-06-26 00:14:14 - Richiesta lista personaggi. Numero personaggi: 2
+2025-06-26 00:14:16 - Visualizzazione dettagli personaggio con ID: 087fd25d-9cd4-4540-917c-79df0ba6d38a, Nome: Konrad
+2025-06-26 00:14:20 - Richiesta lista personaggi. Numero personaggi: 2
+2025-06-26 00:14:33 - Missione non trovata.
+2025-06-26 00:14:38 - Missione non trovata.
+2025-06-26 00:18:05 - Nessuna missione selezionata.
+2025-06-26 00:18:17 - Ambiente selezionato: Palude (id: 3)
+2025-06-26 00:18:17 - Ambiente mostrato: Palude
+2025-06-26 00:18:36 - Missione non trovata.
+2025-06-26 00:18:41 - Ambiente mostrato: Palude
+2025-06-26 00:21:00 - Missione non trovata.
+2025-06-26 00:24:18 - DEBUG: missione_id ricevuto: '9855d4ef-3127-4e9a-aaba-0509cb2fc045'
+2025-06-26 00:24:18 - DEBUG: Confronto 'a51fd3b4-25fa-4adb-b963-bfa87478de18' con '9855d4ef-3127-4e9a-aaba-0509cb2fc045'
+2025-06-26 00:24:18 - DEBUG: Confronto '90a37d33-f3a4-4501-b6c7-65e199ba4521' con '9855d4ef-3127-4e9a-aaba-0509cb2fc045'
+2025-06-26 00:24:18 - DEBUG: Confronto 'a4c052e6-e914-40d6-b48e-bb4a9e4ebc88' con '9855d4ef-3127-4e9a-aaba-0509cb2fc045'
+2025-06-26 00:24:18 - Missione non trovata.
+2025-06-26 00:24:30 - DEBUG: missione_id ricevuto: '67defebc-f2fc-4e22-a642-9ade492ab4f9'
+2025-06-26 00:24:30 - DEBUG: Confronto '23df105f-af47-4ac7-bbec-fa28bfa822af' con '67defebc-f2fc-4e22-a642-9ade492ab4f9'
+2025-06-26 00:24:30 - DEBUG: Confronto '3a46fa84-e6c4-4fde-80be-e00189f6ee68' con '67defebc-f2fc-4e22-a642-9ade492ab4f9'
+2025-06-26 00:24:30 - DEBUG: Confronto '8ae0b3bc-672a-44ae-b631-ae028b517bc6' con '67defebc-f2fc-4e22-a642-9ade492ab4f9'
+2025-06-26 00:24:30 - Missione non trovata.
+2025-06-26 00:36:50 - Ambiente selezionato: Vulcano (id: 2)
+2025-06-26 00:36:50 - Ambiente mostrato: Vulcano
+2025-06-26 00:37:01 - DEBUG: missione_id ricevuto: '34dc4ee4-ca22-44d5-80fc-860a1f9e8b34'
+2025-06-26 00:37:01 - DEBUG: Confronto '34dc4ee4-ca22-44d5-80fc-860a1f9e8b34' con '34dc4ee4-ca22-44d5-80fc-860a1f9e8b34'
+2025-06-26 00:37:01 - Missione selezionata: Imboscata
+2025-06-26 00:37:01 - Missione mostrata: Imboscata
+2025-06-26 00:38:55 - Missione mostrata: Imboscata
+2025-06-26 00:40:23 - Missione mostrata: Imboscata
+2025-06-26 00:40:36 - Ambiente mostrato: Foresta
+2025-06-26 00:40:52 - Ambiente selezionato: Vulcano (id: 2)
+2025-06-26 00:40:52 - Ambiente mostrato: Vulcano
+2025-06-26 00:40:56 - Missione mostrata: Imboscata

@@ -9,7 +9,8 @@ def select_environment():
     if request.method == 'POST':
         ambiente_id = request.form.get('ambiente_id')
         ambiente = AmbienteFactory.seleziona_da_id(ambiente_id)
-        session['ambiente'] = ambiente.to_dict()  # Salva l'ambiente in sessione
+        session['ambiente'] = ambiente.to_dict()
+        # Salva l'ambiente in sessione
         msg = f"Ambiente selezionato: {ambiente.nome} (id: {ambiente_id})"
         flash(msg, 'success')
         Log.scrivi_log(msg)

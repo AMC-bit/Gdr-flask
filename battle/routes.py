@@ -6,6 +6,28 @@ from gioco.ambiente import Ambiente, Foresta
 from gioco.missione import Missione, GestoreMissioni
 classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
 
+@battle_bp.route('/show_inventory', methods=['GET', 'POST'])
+def show_inventory():
+    #recupero dalla sessione il personaggio che sta giocando il turno corrente
+    if 'personaggio_turno_corrente' in session:
+        personaggio_turno_corrente = session['personaggio_turno_corrente']
+        cls_pg_turno_corr = classi.get(personaggio_turno_corrente.get('classe'))
+        if cls_pg_turno_corr:
+                personaggio_turno_corrente = cls_pg_turno_corr.from_dict(personaggio_turno_corrente)
+                
+        #Recupero gli inventari dalla sessione cerco l'inventario del personaggio in turno e lo deserializzo
+        inventari_des = []
+        if 'inventari_selezionati' in session :
+            inventari = session['inventari_selezionati']
+            for inventario in inventari:
+                if inventario['proprietario'] ==  personaggio_turno_corrente.id:
+                    inventario = Inventario.from_dict(inventario)
+                    
+    return render_template('show_inventory.html',
+                           personaggio_turno_corrente = personaggio_turno_corrente,
+                           inventario = inventario
+                           )
+
 @battle_bp.route('/begin_battle')
 def begin_battle():
     #liste degli oggetti deserializzati
@@ -28,20 +50,22 @@ def begin_battle():
         for inventario in inventari:
             inventario = Inventario.from_dict(inventario) 
             inventari_battle.append(inventario)
-    
+            
+    #TODO Personaggio turno è da riempire con il personaggio a cui tocca il turno
+    personaggio_turno_corrente = personaggi_battle[0]
+    session['personaggio_turno_corrente']= Personaggio.to_dict(personaggio_turno_corrente)
+
     return render_template('begin_battle.html',
                            personaggi = personaggi_battle,
                            inventari = inventari_battle,
                            ambiente = ambiente,
-                           missione = missione)
+                           missione = missione,
+                           personaggio_turno_corrente = personaggio_turno_corrente
+                           )
 
 @battle_bp.route('/select_char', methods=['GET', 'POST'] )
 def select_char():
-    
     #if request.method == 'POST':
-    if 'personaggi' not in session:
-        flash("Devi aggiungere almeno un personaggio.")
-        return redirect(url_for('characters.create_char'))
     #prendo i dati da sessione :
     personaggi=[]
     inventari=[]

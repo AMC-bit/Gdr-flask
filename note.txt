@@ -1,0 +1,11 @@
+PS C:\Users\kc19k\OneDrive\Desktop\Documenti\GitHub\GDR\Gdr-flask> cd "c:\Users\kc19k\OneDrive\Desktop\Documenti\GitHub\GDR\Gdr-flask" ; python -c "
+>> from gioco.missione import GestoreMissioni
+>> gestore = GestoreMissioni()
+>> for i, missione in enumerate(gestore.lista_missioni):
+>>     print(f'Missione {i}: {missione.nome}')
+>>     print(f'  Ambiente: {missione.ambiente}')
+>>     print(f'  Nome ambiente: {missione.ambiente.nome}')
+>>     print(f'  Numero nemici: {len(missione.nemici)}')
+>>     print(f'  Nemici: {[n.nome for n in missione.nemici]}')
+>>     print('---')
+>> "
