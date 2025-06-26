@@ -75,3 +75,8 @@
 2025-06-26 00:40:52 - Ambiente selezionato: Vulcano (id: 2)
 2025-06-26 00:40:52 - Ambiente mostrato: Vulcano
 2025-06-26 00:40:56 - Missione mostrata: Imboscata
+2025-06-26 10:17:35 - DEBUG: missione_id ricevuto: 'd57b636a-717b-4be1-b45e-26e2405fe36b'
+2025-06-26 10:17:35 - DEBUG: Confronto 'e5eff725-fb97-49d3-9a8c-f8aff329049f' con 'd57b636a-717b-4be1-b45e-26e2405fe36b'
+2025-06-26 10:17:35 - DEBUG: Confronto 'd57b636a-717b-4be1-b45e-26e2405fe36b' con 'd57b636a-717b-4be1-b45e-26e2405fe36b'
+2025-06-26 10:17:35 - Missione selezionata: Salva la principessa
+2025-06-26 10:17:35 - Missione mostrata: Salva la principessa
