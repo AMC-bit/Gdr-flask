@@ -214,8 +214,7 @@ class Missione(Basic):
             nome=data["nome"],
             ambiente=ambiente_cls,
             nemici=nemici,
-            premi=premi,
-            id=uuid.UUID(data["id"]) if "id" in data and data["id"] else None
+            premi=premi
         )
         missione.completata = data.get("completata", False)
         missione.attiva = data.get("attiva", False)
