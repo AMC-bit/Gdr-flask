@@ -7,11 +7,16 @@ from characters.routes import characters_bp
 from environment.routes import environment_bp
 from inventory.routes import inventory_bp
 from mission.routes import mission_bp
+
+
 def create_app():
-    app = Flask( __name__)
-    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'cambia_questa_chiave_per_una_più_sicura')
+    app = Flask(__name__)
+    app.config['SECRET_KEY'] = os.environ.get(
+        'SECRET_KEY',
+        'cambia_questa_chiave_per_una_più_sicura'
+    )
     app.config['SESSION_TYPE'] = 'filesystem'
-    
+
     Session(app)
 
     app.register_blueprint(gioco)
