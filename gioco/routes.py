@@ -13,7 +13,8 @@ gioco = Blueprint('gioco', __name__, template_folder=template_dir)
 def index():
     has_personaggi = 'personaggi' in session and len(session['personaggi']) > 0
     has_ambiente = 'ambiente' in session
-    can_select_char = has_personaggi and has_ambiente
+    has_missione = 'missione' in session
+    can_select_char = has_personaggi and has_ambiente and has_missione
     return render_template('menu.html', can_select_char=can_select_char)
 
 

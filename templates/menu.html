@@ -13,7 +13,7 @@
     <!-- Aggiungi link di test per la lista dei personaggi -->
     <a href="{{ url_for('characters.mostra_personaggi') }}" class="btn btn-primary btn-lg mb-2">Lista personaggi</a>
 
-    <a href="{{ url_for('inventory.inventory') }}" class="btn btn-primary btn-lg mb-2">Mostra Inventario</a>
+    <a href="{{ url_for('inventory.inventory') }}" class="btn btn-primary btn-lg mb-2">Test Inventario</a>
     <a href="{{ url_for('mission.select_mission') }}" class="btn btn-success btn-lg mb-2">Seleziona Missione</a>
 
     <a href="{{ url_for('environment.select_environment') }}" class="btn btn-danger btn-lg mb-2">Seleziona Ambiente</a>
@@ -23,7 +23,7 @@
         {% else %}
         <button class="btn btn-dark btn-lg mb-2" disabled>Seleziona Personaggio</button>
         <p class="text-muted text-center small">
-            ⚠️ Crea almeno un personaggio e seleziona un ambiente per procedere
+            ⚠️ Crea almeno un personaggio, seleziona un ambiente ed una missione per procedere
         </p>
     {% endif %}
 </div>
