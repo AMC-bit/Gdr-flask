@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 2025-06-25 12:24:36 - Richiesta lista personaggi. Numero personaggi: 4
 2025-06-25 12:24:47 - Creato personaggio: Alastor, Classe: Mago, id: 1ccdcccc-aeaa-44bb-884f-9e7ce220f24b, Oggetto iniziale: Medaglione
 2025-06-25 12:24:47 - Richiesta lista personaggi. Numero personaggi: 5
@@ -26,8 +25,6 @@
 2025-06-25 13:43:17 - Missione non trovata.
 2025-06-25 13:43:21 - Nessuna missione selezionata.
 2025-06-25 13:43:24 - Missione non trovata.
-=======
->>>>>>> select-mission
 2025-06-25 11:08:33 - Creato personaggio: franco, Classe: Mago, id: bfa60c17-a014-4f0d-9399-6e06383eb615, Oggetto iniziale: PozioneCura
 2025-06-25 11:08:33 - Richiesta lista personaggi. Numero personaggi: 1
 2025-06-25 11:08:51 - Ambiente selezionato: Vulcano (id: 2)
