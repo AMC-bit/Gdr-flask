@@ -11,7 +11,10 @@ gioco = Blueprint('gioco', __name__, template_folder=template_dir)
 # Home / menu principale
 @gioco.route('/')
 def index():
-    return render_template('menu.html')
+    has_personaggi = 'personaggi' in session and len(session['personaggi']) > 0
+    has_ambiente = 'ambiente' in session
+    can_select_char = has_personaggi and has_ambiente
+    return render_template('menu.html', can_select_char=can_select_char)
 
 
 # Mostra i log dello scontro, permette di attaccare e usare l'inventario

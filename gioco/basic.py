@@ -1,5 +1,6 @@
 import uuid
 
+
 class Basic():
     def __init__(self) -> None:
         """
