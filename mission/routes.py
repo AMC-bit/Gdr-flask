@@ -1,8 +1,6 @@
 from . import mission_bp
-from flask import flash, redirect, render_template, request, session, url_for, session, request, redirect, url_for, flash
-from gioco.missione import GestoreMissioni, Missione
-from utils.messaggi import Messaggi
-from utils.log import Log
+from flask import render_template, session, request, redirect, url_for, flash
+from gioco.missione import GestoreMissioni
 from utils.log import Log
 
 
@@ -21,41 +19,48 @@ def select_mission():
         Renderizza il template 'select_mission.html' con la lista delle missioni disponibili.
         Se una missione è stata selezionata, reindirizza alla pagina di visualizzazione della missione.
     """
-    gestore_data = session.get('gestore_missioni')
-    if gestore_data is None:
-        gestore = GestoreMissioni()
-        session['gestore_missioni'] = gestore.to_dict()
-    else:
-        gestore = GestoreMissioni.from_dict(gestore_data)
-    # missioni = {str(m.id): m for m in gestore.lista_missioni}
-
     if request.method == 'POST':
-        mission_id = request.form.get('mission_id')
-        if not mission_id:
-            flash("Nessuna missione selezionata.", 'warning')
-            return redirect(url_for('mission.select_mission'))
-        try:
-            missione_selezionata = None
-            for missione in gestore.lista_missioni:
-                if str(missione.id) == mission_id:
-                    missione_selezionata = missione
-                    break
-            if missione_selezionata:
-                session['missione'] = missione_selezionata.to_dict()
-                session['ambiente'] = missione_selezionata.ambiente.to_dict()
-                msg = f"Missione selezionata: {missione_selezionata.nome}"
-                flash(msg, 'success')
-                Log.scrivi_log(msg)
-                return redirect(url_for('mission.show_mission'))
-            else:
-                msg = "Missione non trovata."
-                flash(msg, 'error')
-                Log.scrivi_log(msg)
-        except Exception as e:
-            msg = f"Errore durante la selezione della missione: {str(e)}"
+        missione_id = request.form.get('missione_id')
+
+        # Recupera il gestore dalla sessione
+        gestore_data = session.get('gestore_missioni')
+        if not gestore_data:
+            msg = 'Errore: gestore missioni non trovato in sessione.'
             flash(msg, 'error')
             Log.scrivi_log(msg)
             return redirect(url_for('mission.select_mission'))
+
+        # Ricostruisce il gestore dalla sessione
+        gestore = GestoreMissioni.from_dict(gestore_data)
+
+        # Debug: stampa il missione_id ricevuto
+        msg = f"DEBUG: missione_id ricevuto: '{missione_id}'"
+        flash(msg, 'info')
+        Log.scrivi_log(msg)
+
+        # Trova la missione con l'ID specificato
+        missione_selezionata = None
+        for missione in gestore.lista_missioni:
+            msg = f"DEBUG: Confronto '{str(missione.id)}' con '{missione_id}'"
+            flash(msg, 'info')
+            Log.scrivi_log(msg)
+            if str(missione.id) == missione_id:
+                missione_selezionata = missione
+                break
+
+        if missione_selezionata:
+            # Salva missione e ambiente in sessione
+            session['missione'] = missione_selezionata.to_dict()
+            session['ambiente'] = missione_selezionata.ambiente.to_dict()
+
+            msg = f"Missione selezionata: {missione_selezionata.nome}"
+            flash(msg, 'success')
+            Log.scrivi_log(msg)
+            return redirect(url_for('mission.show_mission'))
+        else:
+            msg = 'Missione non trovata.'
+            flash(msg, 'error')
+            Log.scrivi_log(msg)
 
     # GET: mostra il form di selezione
     if 'gestore_missioni' not in session:
@@ -71,7 +76,7 @@ def select_mission():
     return render_template('select_mission.html', missioni=missioni)
 
 
-@mission_bp.route('/show-mission')
+@mission_bp.route('/show_mission')
 def show_mission():
     """
     Mostra i dettagli della missione selezionata.
@@ -80,25 +85,35 @@ def show_mission():
 
     """
     missione_data = session.get('missione')
-    if not missione_data:
-        msg = "Nessuna missione selezionata."
+    ambiente_data = session.get('ambiente')
+
+    if not missione_data or not ambiente_data:
+        msg = 'Nessuna missione selezionata.'
+        flash(msg, 'error')
         Log.scrivi_log(msg)
-        Messaggi.add_to_messaggi(msg)
         return redirect(url_for('mission.select_mission'))
 
-    missione = Missione.from_dict(missione_data)
-    ambiente_data = session.get('ambiente')
-    if not ambiente_data:
-        ambiente_missione = missione.ambiente
-        session['ambiente'] = ambiente_missione.to_dict()
-    elif ambiente_data != missione.ambiente.to_dict():
-        session['ambiente'] = missione.ambiente.to_dict()
+    # Ricostruisce gli oggetti dai dati in sessione
+    from gioco.missione import Missione
+    from gioco.ambiente import Ambiente
 
-    msg = f"Mostra missione: {missione.nome}, ID: {missione.id}"
-    msg += f"\nAmbiente: {missione.ambiente.nome}"
+    missione = Missione.from_dict(missione_data)
+    ambiente = Ambiente.from_dict(ambiente_data)
+
+    msg = f"Missione mostrata: {missione.nome}"
     flash(msg, 'info')
     Log.scrivi_log(msg)
-    return render_template('show_mission.html', missione=missione)
+    return render_template(
+        'show_mission.html',
+        missione=missione,
+        ambiente=ambiente
+    )
+
+
+@mission_bp.route('/missioni')
+def mostra_missioni():
+    missioni = GestoreMissioni.lista_missioni
+    return render_template('missioni.html', missioni=missioni)
 
 
 @mission_bp.route('/missione/attiva')
