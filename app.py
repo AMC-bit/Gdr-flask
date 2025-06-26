@@ -11,6 +11,8 @@ def create_app():
     app = Flask( __name__)
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'cambia_questa_chiave_per_una_più_sicura')
     app.config['SESSION_TYPE'] = 'filesystem'
+    
+    Session(app)
 
     app.register_blueprint(gioco)
     app.register_blueprint(battle_bp)

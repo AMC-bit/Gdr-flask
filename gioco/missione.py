@@ -1,21 +1,23 @@
-import random
+import random, uuid
+
+from sqlalchemy import UUID
 #from utils.log import Log
-# 
 from gioco.personaggio import Personaggio
 from gioco.classi import Mago, Guerriero, Ladro
 from gioco.ambiente import Ambiente, Vulcano, Foresta, Palude
 from gioco.oggetto import Oggetto, PozioneCura, BombaAcida, Medaglione
 from gioco.inventario import Inventario
+from gioco.basic import Basic
 # , Json
 from utils.messaggi import Messaggi
 
-#  
-class Missione():
+#
+class Missione(Basic):
     """
     Si occupa di aggregare istanze di ambiente , nemici e ricompense
     Rappresenta una missione, composta da un ambiente, nemici e premi.
     """
-    def __init__(self, nome:str, ambiente : Ambiente, nemici : list[Personaggio], premi: list[Oggetto])->None :
+    def __init__(self, nome:str, ambiente : Ambiente, nemici : list[Personaggio], premi: list[Oggetto], id: UUID = None )->None :
         """
     Si occupa di aggregare istanze di ambiente , nemici e ricompense
     Rappresenta una missione, composta da un ambiente, nemici e premi.
@@ -30,6 +32,10 @@ class Missione():
         None
     """
         # inizializzazione attributi
+        if id is not None:
+            self.id = id
+        else:
+            super().__init__()
         self.nome = nome
         self.ambiente = ambiente  # ereditato dal torneo corrente
         self.nemici = nemici  # lista dei nemici di tutti i tornei
@@ -123,7 +129,7 @@ class Missione():
                 msg="Non è possibile assegnare un premio ad un inventario senza un personaggio"
                 Messaggi.add_to_messaggi(msg)
                 raise ValueError(msg)
-            inventario.aggiungi(premio)
+            inventario._aggiungi(premio)
             msg = f"Premio {premio.nome} aggiunto all'inventario di {inventario.proprietario.nome} "
             Messaggi.add_to_messaggi(msg)
            # Log.scrivi_log(msg)
@@ -136,7 +142,7 @@ class Missione():
         """
         Questo metodo mette insieme gli altri nella giusta sequenza:
         Idealmente andrebbe chiamato dopo ogni attacco del giocatore
-        Rimuovi i nemici sconfitti. 
+        Rimuovi i nemici sconfitti.
         Verifica completamento (dovrebbe funzionare anche con la lista dei nemici vuota)
         assegna il premio al giocatore_vincitore se la missione è completata
 
@@ -158,6 +164,7 @@ class Missione():
             dict: Dizionario del materiale serializzato
         """
         return {
+            "id": str(self.id),
             "classe": self.__class__.__name__,
             "nome": self.nome,
             "ambiente": Ambiente.to_dict(self.ambiente),
@@ -183,7 +190,8 @@ class Missione():
             nome=data["nome"],
             ambiente=ambiente_cls,
             nemici=nemici,
-            premi=premi
+            premi=premi,
+            id=uuid.UUID(data["id"]) if "id" in data and data["id"] else None
         )
         missione.completata = data.get("completata", False)
         missione.attiva = data.get("attiva", False)
@@ -191,7 +199,7 @@ class Missione():
 
 
 #Lista delle missioni
-# 
+#
 class GestoreMissioni():
 #class GestoreMissioni ():
     """
