@@ -8,8 +8,7 @@ from environment.routes import environment_bp
 from inventory.routes import inventory_bp
 from mission.routes import mission_bp
 from auth.routes import auth_bp
-
-
+from auth.models import db, User 
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = os.environ.get(
@@ -17,7 +16,8 @@ def create_app():
         'cambia_questa_chiave_per_una_più_sicura'
     )
     app.config['SESSION_TYPE'] = 'filesystem'
-
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///user.db'
+    db.init_app(app)
     Session(app)
 
     app.register_blueprint(gioco)
@@ -38,7 +38,14 @@ def create_app():
 # Registra il blueprint che contiene tutte le route di gioco
 
 
+
+
+
+
+
 if __name__ == '__main__':
     # Modalità di sviluppo con reload automatico
     app = create_app()
+    with app.app_context():
+        db.create_all()
     app.run(debug=True, host="0.0.0.0", port=5001)
