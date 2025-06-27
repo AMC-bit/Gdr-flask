@@ -14,7 +14,7 @@ def show_inventory():
         cls_pg_turno_corr = classi.get(personaggio_turno_corrente.get('classe'))
         if cls_pg_turno_corr:
                 personaggio_turno_corrente = cls_pg_turno_corr.from_dict(personaggio_turno_corrente)
-                
+
         #Recupero gli inventari dalla sessione cerco l'inventario del personaggio in turno e lo deserializzo
         inventari_des = []
         if 'inventari_selezionati' in session :
@@ -22,7 +22,7 @@ def show_inventory():
             for inventario in inventari:
                 if inventario['proprietario'] ==  personaggio_turno_corrente.id:
                     inventario = Inventario.from_dict(inventario)
-                    
+
     return render_template('show_inventory.html',
                            personaggio_turno_corrente = personaggio_turno_corrente,
                            inventario = inventario
@@ -31,12 +31,12 @@ def show_inventory():
 @battle_bp.route('/begin_battle')
 def begin_battle():
     #liste degli oggetti deserializzati
-    print(session['personaggi_selezionati'], session['inventari_selezionati'] )
+    print(session['missione'])
     personaggi_battle = []
     inventari_battle = []
     ambiente = Ambiente.from_dict(session['ambiente'])
     missione = Missione.from_dict(session['missione'])
-    
+
     if 'personaggi_selezionati' in session :
         personaggi = session['personaggi_selezionati']
         for pg in personaggi:
@@ -50,7 +50,7 @@ def begin_battle():
         for inventario in inventari:
             inventario = Inventario.from_dict(inventario) 
             inventari_battle.append(inventario)
-            
+
     #TODO Personaggio turno è da riempire con il personaggio a cui tocca il turno
     personaggio_turno_corrente = personaggi_battle[0]
     session['personaggio_turno_corrente']= Personaggio.to_dict(personaggio_turno_corrente)
@@ -69,12 +69,7 @@ def select_char():
     #prendo i dati da sessione :
     personaggi=[]
     inventari=[]
-    ambiente = Foresta()
-    gestore_missioni = GestoreMissioni()
-    missione_corrente = gestore_missioni.sorteggia()
-    if 'ambiente' in session :
-        #Recupero l'oggetto ambiente dalla sessione deserializzandolo
-        ambiente = Ambiente.from_dict(session['ambiente'])
+    missione_corrente = session['missione']
     if 'personaggi' in session and 'inventari' in session:
         pg_list = session.get('personaggi', [])
         inv_list = session.get('inventari',  [])
@@ -109,7 +104,7 @@ def select_char():
                     if idx == pgs['id']:
                         cls = classi.get(pgs.get('classe'))
                         if cls:
-                            pg = cls.from_dict(pgs)                        
+                            pg = cls.from_dict(pgs)
                 for invs in inv_list:
                     if invs['proprietario'] == idx:
                         inv = Inventario.from_dict(invs)
@@ -122,7 +117,7 @@ def select_char():
         # serializzo le liste nella sessione
         session['personaggi_selezionati'] = [pg.to_dict() for pg in personaggi_selezionati]
         session['inventari_selezionati'] = [inv.to_dict() for inv in inventari_selezionati]
-        session['missione']= Missione.to_dict(missione_corrente)
+        #session['missione']= Missione.to_dict(missione_corrente)
         # reindirizzo verso la pagina di destinazione
         return redirect(url_for('battle.begin_battle'))
     # eventualmente carico la selezione precedente per avere dei vaolri di default
@@ -141,7 +136,6 @@ def select_char():
         'select_char.html',
         personaggi=pg_list,
         inventari=inv_list,
-        ambiente_corrente = ambiente,
         missione_corrente = missione_corrente,
         selezionati_pg = selezionati_pg,
         selezionati_inv = selezionati_inv
