@@ -80,3 +80,10 @@
 2025-06-26 10:17:35 - DEBUG: Confronto 'd57b636a-717b-4be1-b45e-26e2405fe36b' con 'd57b636a-717b-4be1-b45e-26e2405fe36b'
 2025-06-26 10:17:35 - Missione selezionata: Salva la principessa
 2025-06-26 10:17:35 - Missione mostrata: Salva la principessa
+2025-06-27 10:57:19 - Richiesta lista personaggi. Numero personaggi: 0
+2025-06-27 10:57:47 - Richiesta lista personaggi. Numero personaggi: 0
+2025-06-27 10:57:50 - Richiesta lista personaggi. Numero personaggi: 0
+2025-06-27 10:57:54 - Creato personaggio: kebab, Classe: Mago, id: babdb311-9198-4a75-ab5e-c410c567abdc, Oggetto iniziale: PozioneCura
+2025-06-27 10:57:54 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-27 10:58:01 - Creato personaggio: maxim, Classe: Guerriero, id: 48b54f63-2c27-4afc-9d66-d6ca6f0b0079, Oggetto iniziale: PozioneCura
+2025-06-27 10:58:01 - Richiesta lista personaggi. Numero personaggi: 2
