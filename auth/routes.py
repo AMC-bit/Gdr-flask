@@ -1,25 +1,6 @@
 from . import auth_bp
-from flask import Flask, render_template, request, redirect, url_for
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
-from flask_login import UserMixin, LoginManager, login_user, logout_user, login_required, current_user
-from werkzeug.security import generate_password_hash, check_password_hash
-# configurazione dell'app Flask
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///utenti.db'
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
-app.secret_key = 'chiave'
-login_manager = LoginManager(app)
-login_manager.login_view = 'login'
-class Utente(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), nullable=False)
-    password_hash = db.Column(db.String(128), nullable=False)
-@login_manager.user_loader
-def load_user(user_id):
-    return Utente.query.get(int(user_id))
-
+from flask import render_template, request, redirect, url_for
+from flask_login import login_user
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     messaggio = None
@@ -29,7 +10,25 @@ def login():
         utente = Utente.query.filter_by(username=username).first()
         if utente and utente.check_password(password):
             login_user(utente)
-            return redirect(url_for('utenti'))
+            return render_template("area_personale.html")
         else:
             messaggio = "username o password errati!"
     return render_template("login.html", messaggio=messaggio)
+
+
+@auth_bp.route('/area_personale')
+def area_personale():
+    return render_template("area_personale.html")
+
+@auth_bp.route('/edit_user')
+def edit_user():
+    # Logica per modificare le informazioni dell'utente
+    # L'utente inserirà la password attuale per verificare la persona
+    # L'utente potrà inserire le nuove informazioni sia per nome utente che per la password
+    return render_template("edit_user.html")
+
+@auth_bp.route('/delete_user')
+def delete_user():
+    # Logica per eliminare l'utente
+    # Un messaggio di avviso apparirà per confermare l'eliminazione
+    return render_template("area_personale.html")
