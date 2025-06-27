@@ -1,17 +1,17 @@
+import random, uuid
 from gioco.basic import Basic
 from utils.log import Log
-# serve per random.randint nei metodi attacca
-import random, uuid
- 
 from utils.messaggi import Messaggi
 
- 
+# serve per random.randint nei metodi attacca
+
+
 class Personaggio(Basic):
     """
     Classe Padre per tutte classi
     Contiene le proprietà comuni a ogni classe (Mago, Ladro, Guerriero)
     """
-    def __init__(self, nome: str) -> None:
+    def __init__(self, nome: str, npc: bool = True) -> None:
         self.id = str(uuid.uuid4())
         self.nome = nome
         self.salute = 100
@@ -20,7 +20,9 @@ class Personaggio(Basic):
         self.attacco_max = 80
         self.storico_danni_subiti = []
         self.livello = 1
-        self.destrezza = 15 #Caratteristica per la sistema d20
+        self.destrezza = 15  # Caratteristica per la sistema d20
+        self.npc = npc  # Indica se il personaggio è un NPC
+
 
     def esegui_azione(self) -> bool:
         """
@@ -41,6 +43,7 @@ class Personaggio(Basic):
             Log.scrivi_log(msg)
         return successo
 
+
     def attacca(self, bersaglio: 'Personaggio', mod_ambiente: int = 0) -> None:
         """
         Metodo di attacco di cui viene fatto l'override in ogni classe derivata da personaggio.
@@ -54,14 +57,11 @@ class Personaggio(Basic):
         Returns:
             None
         """
-        if self.esegui_azione():
-            danno = random.randint(self.attacco_min, self.attacco_max) + mod_ambiente
-            msg = f"{self.nome} Attacca con successo {bersaglio.nome} e infligge {danno} danni!"
-            bersaglio.subisci_danno(danno)
-        else:
-            msg = f"{self.nome} Tenta di attaccare {bersaglio.nome} ma fallisce!"
-            Messaggi.add_to_messaggi(msg)
-            Log.scrivi_log(msg)
+        danno = random.randint(self.attacco_min, (self.attacco_max + mod_ambiente)) 
+        msg = f"{self.nome} attacca {bersaglio.nome} per {danno} punti!"
+        Messaggi.add_to_messaggi(msg)
+        Log.scrivi_log(msg)
+        bersaglio.subisci_danno(danno)
 
     def subisci_danno(self, danno: int) -> None:
         """
@@ -150,7 +150,8 @@ class Personaggio(Basic):
             "attacco_max": self.attacco_max,
             "storico_danni_subiti": self.storico_danni_subiti,
             "livello": self.livello,
-            "destrezza": self.destrezza
+            "destrezza": self.destrezza,
+            "npc": self.npc
         }
 
     @classmethod
@@ -172,4 +173,5 @@ class Personaggio(Basic):
         obj.storico_danni_subiti = data.get("storico_danni_subiti", [])
         obj.livello = data.get("livello", 1)
         obj.destrezza = data.get("destrezza", 15)
+        obj.npc = data.get("npc", True)
         return obj
