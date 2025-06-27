@@ -80,6 +80,7 @@
 2025-06-26 10:17:35 - DEBUG: Confronto 'd57b636a-717b-4be1-b45e-26e2405fe36b' con 'd57b636a-717b-4be1-b45e-26e2405fe36b'
 2025-06-26 10:17:35 - Missione selezionata: Salva la principessa
 2025-06-26 10:17:35 - Missione mostrata: Salva la principessa
+<<<<<<< HEAD
 2025-06-27 11:10:12 - Nessuna missione selezionata.
 2025-06-27 11:10:32 - Creato personaggio: jack, Classe: Guerriero, id: f8d4417e-6c4d-4427-b5c5-4e0747df5da7, Oggetto iniziale: BombaAcida
 2025-06-27 11:10:32 - Richiesta lista personaggi. Numero personaggi: 1
@@ -89,3 +90,12 @@
 2025-06-27 11:10:53 - Richiesta lista personaggi. Numero personaggi: 1
 2025-06-27 11:10:54 - Eliminato personaggio con ID: e9802a69-2f30-4651-adea-557649df2aa8, Nome: mike
 2025-06-27 11:10:54 - Richiesta lista personaggi. Numero personaggi: 0
+=======
+2025-06-27 10:57:19 - Richiesta lista personaggi. Numero personaggi: 0
+2025-06-27 10:57:47 - Richiesta lista personaggi. Numero personaggi: 0
+2025-06-27 10:57:50 - Richiesta lista personaggi. Numero personaggi: 0
+2025-06-27 10:57:54 - Creato personaggio: kebab, Classe: Mago, id: babdb311-9198-4a75-ab5e-c410c567abdc, Oggetto iniziale: PozioneCura
+2025-06-27 10:57:54 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-27 10:58:01 - Creato personaggio: maxim, Classe: Guerriero, id: 48b54f63-2c27-4afc-9d66-d6ca6f0b0079, Oggetto iniziale: PozioneCura
+2025-06-27 10:58:01 - Richiesta lista personaggi. Numero personaggi: 2
+>>>>>>> e271eebdbed0f7388b3835f77f9c9967359f8e29
