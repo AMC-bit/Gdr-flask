@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<h2>Login</h2>
+  <form method="POST">
+    username: <input type="username" name="username" value="{{ utente.username }}" required>
+    Password: <input type="password" name="password" required>
+    {% if messaggio %}
+      <p>{{ messaggio }}</p>
+    {% endif %}
+    <input type="submit" value="Invia">
+  </form>
+  {% if nome %}
+    <p>Ciao, {{ nome }}!</p>
+  {% endif %}
+
+{% endblock %}
