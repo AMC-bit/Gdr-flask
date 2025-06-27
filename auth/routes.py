@@ -1,19 +1,35 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for, Flask
-
-# Istanze di test
-from gioco.personaggio import Personaggio
-from gioco.classi import Mago, Guerriero, Ladro
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
 import os
-
-template_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'templates'))
-gioco = Blueprint('gioco', __name__, template_folder=template_dir)
+import re
 
 
-@gioco.route('/sign_in')
+def controllo_email(email):
+    pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+    return re.match(pattern, email)
+
+def psw_proteggi_hash(psw):
+    return generate_password_hash(psw)
+
+@auth_bp .route('/sign_in')
 def sign_in():
     if request.method == 'POST':
         email = request.form['email'].strip()
         psw = request.form['psw']
         re_psw = request.form['re_psw']
-        
+
+        if not email:
+            raise ValueError('Email cant be empty')
+        else:
+            if not controllo_email(email):
+                raise ValueError('Email does not match an email pattern')
+            else:
+                if not ( psw and re_psw and psw == re_psw) :
+                    raise ValueError('Password and repeat Password field must match')
+                else:
+                    #Registra il nuovo utente
+                    hash_psw = psw_proteggi_hash(psw)
+                    #TODO qua  hash_psw e email vanno inseriti all'interno del db 
+                    return redirect(url_for('login'))
     return render_template('sign_in.html')
