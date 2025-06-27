@@ -32,7 +32,7 @@ class Oggetto ():
     def usa(
             self,
             utilizzatore: Personaggio,
-            bersaglio: bool = None,
+            bersaglio: Personaggio = None,
             mod_ambiente: int = 0
             ) -> None:
         """

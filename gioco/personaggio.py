@@ -30,8 +30,8 @@ class Personaggio(Basic):
             bool: True se il testo è superato, False altrimenti.
         """
         tiro = random.randint(1, 20)
-        successo = tiro <= self.destrezza
-        if successo:
+        risultato = tiro <= self.destrezza
+        if risultato:
             msg = f"{self.nome} ha eseguito l'azione con successo!"
             Messaggi.add_to_messaggi(msg)
             Log.scrivi_log(msg)
@@ -39,7 +39,7 @@ class Personaggio(Basic):
             msg = f"{self.nome} ha fallito l'azione!"
             Messaggi.add_to_messaggi(msg)
             Log.scrivi_log(msg)
-        return successo
+        return risultato
 
     def attacca(self, bersaglio: 'Personaggio', mod_ambiente: int = 0) -> None:
         """
