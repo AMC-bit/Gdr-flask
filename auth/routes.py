@@ -30,6 +30,16 @@ def sign_in():
                 else:
                     #Registra il nuovo utente
                     hash_psw = psw_proteggi_hash(psw)
-                    #TODO qua  hash_psw e email vanno inseriti all'interno del db 
+                    #TODO qua  hash_psw e email vanno inseriti all'interno del db
+                    """
+                    utente_exist = Utente.query.filter((Utente.email == email)|((Utente.nome == nome )& (Utente.cognome == cognome))).first()
+                    if utente_exist:
+                        messaggio="utente già presente nel db"
+                    else:
+                        if nome:
+                            nuovo_utente = Utente(nome= nome, cognome = cognome, email= email, password_hash=generate_password_hash(password))
+                            db.session.add(nuovo_utente)
+                            db.session.commit()
+                    """
                     return redirect(url_for('login'))
     return render_template('sign_in.html')
