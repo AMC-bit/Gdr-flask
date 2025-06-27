@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Missione Selezionata</h2>
+<p>Nome: {{ missione.nome }}</p>
+<h2>Ambiente della missione:</h2>
+<p>Nome: {{ ambiente.nome }}</p>
+<p>Modifica Attacco: {{ ambiente.modifica_attacco }}</p>
+<p>Modifica Cura: {{ ambiente.modifica_cura }}</p>
+<br>
+<p>Nemici:</p>
+<ul>
+    {% for nemico in missione.nemici %}
+        <li>{{ nemico.nome }} ({{ nemico.punti_vita }} PV)</li>
+    {% endfor %}
+</ul>
+<br>
+<p>Possibili premi:</p>
+<ul>
+    {% for premio in missione.premi %}
+        <li>{{ premio.nome }} </li>
+    {% endfor %}
+</ul>
+<br>
+<p>Completata: {% if missione.completata %}sì{% else %}no{% endif %}</p>
+<p>Attiva: {% if missione.attiva %}sì{% else %}no{% endif %}</p>
+<a href="{{ url_for('mission.select_mission') }}" class="btn btn-secondary mt-3">Cambia missione</a>
+<a href="{{ url_for('gioco.index') }}" class="btn btn-secondary mt-3">Torna al menu principale</a>
+{% endblock %}

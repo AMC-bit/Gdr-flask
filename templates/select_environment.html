@@ -1,7 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
-<h2>Seleziona Ambiente</h2>
-<form method="post">
+<h1 class="h4 text-center mb-4">Seleziona Ambiente</h1>
+<div class="d-flex justify-content-center align-items-center">
+<form method="post" class = "card shadow-sm p-4 mb-4" style="max-width: 800px; width: 100%;">
   <select name="ambiente_id" required>
     <option disabled selected>-- scegli ambiente --</option>
     {% for id, ambiente in ambienti.items() %}

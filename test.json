@@ -1,0 +1,54 @@
+<SecureCookieSession {'ambiente': {'classe': 'Vulcano', 'modifica_attacco': 10, 'modifica_cura': -5, 'nome': 'Vulcano'
+    }, 'inventari': [
+        {'classe': 'Inventario', 'id': '0fdc0244-f29b-4ef8-88e8-c2bccb7db918', 'oggetti': [
+                {'classe': 'PozioneCura', 'messaggi': '', 'nome': 'Pozione Rossa', 'offensivo': False, 'usato': False
+                }
+            ], 'proprietario': '12e923df-5311-4449-9ab9-24def3fbdea2'
+        },
+        {'classe': 'Inventario', 'id': 'a420b8cc-9715-4aca-adcc-f87749778490', 'oggetti': [
+                {'classe': 'PozioneCura', 'messaggi': '', 'nome': 'Pozione Rossa', 'offensivo': False, 'usato': False
+                }
+            ], 'proprietario': 'a901e97f-66fb-4ac9-9f80-82a40e0f5910'
+        },
+        {'classe': 'Inventario', 'id': 'dd7ecfa9-2a3c-4dd5-ac6f-110ed1b19448', 'oggetti': [
+                {'classe': 'PozioneCura', 'messaggi': '', 'nome': 'Pozione Rossa', 'offensivo': False, 'usato': False
+                }
+            ], 'proprietario': 'c62e0ad2-edc4-44f3-bf0e-9b01ff148ab8'
+        },
+        {'classe': 'Inventario', 'id': 'd651c419-da61-4913-9cf6-6b743f946e58', 'oggetti': [
+                {'classe': 'PozioneCura', 'messaggi': '', 'nome': 'Pozione Rossa', 'offensivo': False, 'usato': False
+                }
+            ], 'proprietario': '7145d04b-213c-40df-b8b6-f99e6a1a15c8'
+        },
+        {'classe': 'Inventario', 'id': '52de5c3c-2458-4881-ac9b-7c8ab59eed18', 'oggetti': [
+                {'classe': 'PozioneCura', 'messaggi': '', 'nome': 'Pozione Rossa', 'offensivo': False, 'usato': False
+                }
+            ], 'proprietario': '5fb2afc1-a629-4623-96e8-f1753eee40fa'
+        }
+    ], 'inventari_selezionati': [], 'missione': {'ambiente': {'classe': 'Foresta', 'modifica_attacco': 5, 'modifica_cura': 5, 'nome': 'Foresta'
+        }, 'attiva': True, 'classe': 'Missione', 'completata': False, 'nemici': [
+            {'attacco_max': 80, 'attacco_min': 5, 'classe': 'Guerriero', 'id': '5aaf5f63-bf5e-4eaa-a0cf-c2b8ed36b391', 'livello': 1, 'nome': 'Robin Hood', 'salute': 120, 'salute_max': 200, 'storico_danni_subiti': []
+            },
+            {'attacco_max': 80, 'attacco_min': 5, 'classe': 'Guerriero', 'id': 'e5f94dc9-c767-4246-b0c2-bfd8d4a41181', 'livello': 1, 'nome': 'Little Jhon', 'salute': 120, 'salute_max': 200, 'storico_danni_subiti': []
+            }
+        ], 'nome': 'Imboscata', 'premi': [
+            {'classe': 'PozioneCura', 'messaggi': '', 'nome': 'Pozione Rossa', 'offensivo': False, 'usato': False
+            },
+            {'classe': 'PozioneCura', 'messaggi': '', 'nome': 'Pozione Rossa', 'offensivo': False, 'usato': False
+            },
+            {'classe': 'BombaAcida', 'messaggi': '', 'nome': 'Bomba Acida', 'offensivo': True, 'usato': False
+            }
+        ]
+    }, 'personaggi': [
+        {'attacco_max': 80, 'attacco_min': 5, 'classe': 'Mago', 'id': '12e923df-5311-4449-9ab9-24def3fbdea2', 'livello': 1, 'nome': 'nik', 'salute': 80, 'salute_max': 200, 'storico_danni_subiti': []
+        },
+        {'attacco_max': 80, 'attacco_min': 5, 'classe': 'Mago', 'id': 'a901e97f-66fb-4ac9-9f80-82a40e0f5910', 'livello': 1, 'nome': 'tddt', 'salute': 80, 'salute_max': 200, 'storico_danni_subiti': []
+        },
+        {'attacco_max': 80, 'attacco_min': 5, 'classe': 'Mago', 'id': 'c62e0ad2-edc4-44f3-bf0e-9b01ff148ab8', 'livello': 1, 'nome': 'fkf', 'salute': 80, 'salute_max': 200, 'storico_danni_subiti': []
+        },
+        {'attacco_max': 80, 'attacco_min': 5, 'classe': 'Mago', 'id': '7145d04b-213c-40df-b8b6-f99e6a1a15c8', 'livello': 1, 'nome': 'Franco', 'salute': 80, 'salute_max': 200, 'storico_danni_subiti': []
+        },
+        {'attacco_max': 80, 'attacco_min': 5, 'classe': 'Mago', 'id': '5fb2afc1-a629-4623-96e8-f1753eee40fa', 'livello': 1, 'nome': 'Franco', 'salute': 80, 'salute_max': 200, 'storico_danni_subiti': []
+        }
+    ], 'personaggi_selezionati': []
+}>

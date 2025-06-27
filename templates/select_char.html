@@ -9,8 +9,7 @@
 
       {% for personaggio in personaggi %}
         <p><input type="checkbox" name= "selected_chars" value="{{ personaggio.id }}" id="selected_pg">
-          {{personaggio.nome}} - classe: {{personaggio.classe}}
-        </input></p>
+          {{personaggio.nome}} - classe: {{personaggio.classe}}</p>
       {% endfor %}
       <div>
         <button type="submit">Inizia la battaglia!</button>

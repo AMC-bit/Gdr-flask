@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block title %}Battaglia{% endblock %}
+
+{% block content %}
+<div><p><strong>Ambiente:</strong> {{ambiente.__class__.__name__}}</p></div> 
+<div><p><strong>Missione:</strong> {{missione.nome}}</p></div>
+<h4>Personaggi:</h4>
+{% for personaggio in personaggi %}
+        <p>{{personaggio.nome}} <strong>classe:</strong> {{personaggio.__class__.__name__}} <strong>HP: </strong>{{personaggio.salute}}/{{personaggio.salute_max}}</p>
+{% endfor %}
+<h4>Nemici:</h4>
+{% for nemico in missione.nemici %}
+        <p>{{nemico.nome}} <strong>classe:</strong> {{nemico.__class__.__name__}} <strong>HP: </strong>{{nemico.salute}}/{{nemico.salute_max}}</p>
+{% endfor %}
+<h4>E' il turno di : {{personaggio_turno_corrente.nome}}</h4>
+    <button type="button" class="btn btn-danger"  >attacca</button>
+    <a href="{{ url_for('battle.show_inventory') }}"><button type="button" class="btn btn-success"  >inventario</button></a>
+    <textarea id="log_display" row="100" >"Qui ci andrà il LOG"</textarea>
+{% endblock %}

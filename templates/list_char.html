@@ -24,14 +24,26 @@
             </form>
           </div>
         </div>
+        
       </li>
     {% else %}
       <li class="text-center">Nessun personaggio.</li>
     {% endfor %}
-  </ul>
+    
+  
 
-  <div class="text-center mt-4">
-    <a href="{{ url_for('gioco.index') }}" class="btn btn-secondary">Torna al menu principale</a>
+    <div class="text-center mt-4">
+      <li class="mb-3">
+        <a href="{{ url_for('characters.create_char') }}" class="text-decoration-none">
+          <div class="d-flex justify-content-center align-items-center border rounded p-3"
+              style="height: 60px; font-size: 2rem; color: #6c757d; font-weight: 300;">
+            +
+          </div>
+        </a>
+      </li>
+
+      <a href="{{ url_for('gioco.index') }}" class="btn btn-secondary">Torna al menu principale</a>
+    </div>
   </div>
-</div>
+</ul>
 {% endblock %}
