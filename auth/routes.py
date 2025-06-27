@@ -15,7 +15,7 @@ def logout():
 @auth_bp.route('/area_riservata', methods=['GET', 'POST'])
 @login_required
 def area_personale():
-    return f'Benvenuto in area riservata, {current_user.nome}!'
+    return render_template('area_riservata.html')
 
 
 @auth_bp.route('/credit_refill', methods=['GET', 'POST'])
