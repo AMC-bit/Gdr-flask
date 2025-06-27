@@ -7,6 +7,7 @@ from characters.routes import characters_bp
 from environment.routes import environment_bp
 from inventory.routes import inventory_bp
 from mission.routes import mission_bp
+from auth.routes import auth_bp
 
 
 def create_app():
@@ -25,6 +26,7 @@ def create_app():
     app.register_blueprint(environment_bp)
     app.register_blueprint(inventory_bp)
     app.register_blueprint(mission_bp)
+    app.register_blueprint(auth_bp)
 
     return app
 
