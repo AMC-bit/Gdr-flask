@@ -1,13 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
 <h1>Modifica Informazioni Utente</h1>
-{# Inserisco la password per verificare l'utente#}
+{# Inserisco la password per verificare l'utente dopodiche compaiono le informazioni dell'utente#}
 <div class="mb-3">
     <label for="password" class="form-label">Password</label>
     <input type="password" id="password" name="password" class="form-control" required>
 </div>
-{# Inserisco le nuove informazioni solo se la password è giusta#}
-<div class="mb-3">
-    
-</div>
+{# Visualizzo le informazioni attuali con accanto un pulsante per la modifica#}
 {% endblock %}
