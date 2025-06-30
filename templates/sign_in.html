@@ -3,22 +3,35 @@
 {% block content%}
 
 
-    <h2>Registrazione nuovo utente</h2>
+    
+        <div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
+            <form method="POST" class="card shadow-sm p-4" style="max-width: 800px; width: 100%;">
+                <h2 class="h4 text-center mb-4">Registrazione nuovo utente</h2>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nome</label>
+                    <input type="text" id="name" name="name" placeholder="Inserisci il nome" class="form-control" required>
+                </div>
 
-    <form method="POST">
-        <label for="name">Nome utente</label>
-        <input type="text" id="name" name="name" required>
+                <div class="mb-3">
+                    <label for="email" class="form-label" >Email</label>
+                    <input type="email" id="email" name="email" placeholder="Inserisci la email" class="form-control" required>
+                </div>
 
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
+                <div class="mb-3">
+                    <label for="psw" class="form-label">Password</label>
+                    <input type="password" id="psw" name="psw" placeholder="Inserisci la password" class="form-control" required>
+                </div>
 
-        <label for="psw">Password</label>
-        <input type="password" id="psw" name="psw" required>
+                <div class="mb-3">
+                    <label for="re_psw" class="form-label">Conferma la Password</label>
+                    <input type="password" id="re_psw" name="re_psw" placeholder="Ripeti la password" class="form-control" required>
+                </div>
 
-        <label for="re_psw">Ripeti Password</label>
-        <input type="password" id="re_psw" name="re_psw" required>
-
-        <button type="submit">Registrati</button>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-success btn-lg mb-2" >Sign_in</button>
+                </div>
+            </form>
+        </div>
 
         {% if error %}
             <p class="error">{{ error }}</p>

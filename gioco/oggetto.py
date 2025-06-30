@@ -113,13 +113,7 @@ class PozioneCura(Oggetto):
         return self.valore + mod_ambiente
 
     def to_dict(self) -> dict:
-        return {
-            "classe": self.__class__.__name__,
-            "nome": self.nome,
-            "valore": self.valore,
-            "usato": self.usato,
-            "tipo_oggetto": self.tipo_oggetto
-        }
+        super().to_dict()
 
     @classmethod
     def from_dict(cls, data: dict) -> "PozioneCura":
@@ -256,6 +250,6 @@ class Medaglione(Oggetto):
         """
         oggetto = cls(nome=data["nome"])
         oggetto.usato = data.get("usato", False)
-        oggetto.valore = data.get("valore", 0)
-        oggetto.tipo_oggetto = data.get("tipo_oggetto", "")
+        oggetto.valore = data.get("valore", 10)
+        oggetto.tipo_oggetto = data.get("tipo_oggetto", "Supporto")
         return oggetto
