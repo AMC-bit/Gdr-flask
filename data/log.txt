@@ -169,3 +169,10 @@
 2025-06-30 11:38:20 - Visualizzazione dettagli personaggio con ID: deb21f0c-c418-4e87-b758-f770662d9a02, Nome: kebab
 2025-06-30 11:39:16 - Richiesta lista personaggi. Numero personaggi: 1
 >>>>>>> cd06cc7730590c68b765a08671141a2dff629d8b
+2025-06-30 12:02:22 - Richiesta lista personaggi. Numero personaggi: 2
+2025-06-30 12:02:23 - Visualizzazione dettagli personaggio con ID: df0e0dff-1d4b-44b4-88f0-6e196fe4c40f, Nome: lucifer
+2025-06-30 12:02:25 - Richiesta lista personaggi. Numero personaggi: 2
+2025-06-30 12:02:26 - Visualizzazione dettagli personaggio con ID: 6826ee46-e5ca-4623-bbc3-a44e634c67a5, Nome: jack daniels
+2025-06-30 12:02:27 - Richiesta lista personaggi. Numero personaggi: 2
+2025-06-30 12:02:45 - Creato personaggio: suka blyat, Classe: Ladro, id: 79f7eb7e-026d-4769-aa68-3b3041a72cb8, Oggetto iniziale: Medaglione
+2025-06-30 12:02:45 - Richiesta lista personaggi. Numero personaggi: 3

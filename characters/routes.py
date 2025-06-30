@@ -43,8 +43,8 @@ def create_char():
 
 @characters_bp.route('/personaggi', methods=['GET', 'POST'])
 def mostra_personaggi():
-    lista_pers_dict = session.get('personaggi', [])
-    personaggi = [Personaggio.from_dict(pg) for pg in lista_pers_dict]
+    lista_pers = session.get('personaggi', [])
+    personaggi = [Personaggio.from_dict(pg) for pg in lista_pers]
     Log.scrivi_log(f"Richiesta lista personaggi. Numero personaggi: {len(personaggi)}")
     return render_template('list_char.html', personaggi=personaggi)
 
@@ -53,10 +53,11 @@ def mostra_personaggi():
 def dettaglio_personaggio(id):
     lista_pers = session.get('personaggi', [])
     try:
-        pg = lista_pers[id]
-        Log.scrivi_log(f"Visualizzazione dettagli personaggio con ID: {pg.get('id')}, Nome: {pg.get('nome', 'N/A')}")
+        pg_dict = lista_pers[id]
+        pg = Personaggio.from_dict(pg_dict)
+        Log.scrivi_log(f"Visualizzazione dettagli personaggio con ID: {pg.id}, Nome: {pg.nome}")
     except IndexError:
-        Log.scrivi_log(f"Tentativo di accesso a personaggio inesistente con ID: {pg.get('id')}")
+        Log.scrivi_log(f"Tentativo di accesso a personaggio inesistente con ID: {id}")
         abort(404)
     return render_template('details_char.html', pg=pg, id=id)
 
