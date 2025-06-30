@@ -2,7 +2,7 @@
 {% block title %}Area Personale{% endblock %}
 {% block content %}
 <h1>Area Personale</h1>
-<p>Benvenuto nel tuo area personale, Mario!</p>
+<p>Benvenuto nel tuo area personale, {{user.nome}}!</p>
 <div class="d-grid gap-2 col-6 mx-auto">
     <a href="{{ url_for('characters.create_char') }}" class="btn btn-dark btn-lg mb-2">Crea Personaggi</a>
     <a href="{{ url_for('characters.create_char') }}" class="btn btn-dark btn-lg mb-2">Modifica Personaggi</a>

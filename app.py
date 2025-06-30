@@ -7,10 +7,12 @@ from characters.routes import characters_bp
 from environment.routes import environment_bp
 from inventory.routes import inventory_bp
 from mission.routes import mission_bp
-# from auth.routes import auth_bp
+from auth.routes import auth_bp
 from flask_migrate import Migrate
 from auth.models import db, User
-
+from flask_login import LoginManager
+login_manager = LoginManager()
+login_manager.login_view = 'auth_bp.login'
 
 def create_app():
     app = Flask(__name__)
@@ -24,16 +26,15 @@ def create_app():
 
     db.init_app(app)
     migrate = Migrate(app, db)
-
+    login_manager.init_app(app)
     Session(app)
-
     app.register_blueprint(gioco)
     app.register_blueprint(battle_bp)
     app.register_blueprint(characters_bp)
     app.register_blueprint(environment_bp)
     app.register_blueprint(inventory_bp)
     app.register_blueprint(mission_bp)
-    # app.register_blueprint(auth_bp)
+    app.register_blueprint(auth_bp)
 
     return app
 
@@ -46,7 +47,9 @@ def create_app():
 
 
 
-
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 
 
