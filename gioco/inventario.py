@@ -3,6 +3,7 @@ from gioco.basic import Basic
 from gioco.oggetto import Oggetto
 from gioco.personaggio import Personaggio
 from gioco.ambiente import Ambiente
+from utils.log import Log
 from utils.messaggi import Messaggi
 # from utils.log import Log
 #  , Json
@@ -13,10 +14,10 @@ class Inventario(Basic):
     Gestisce la lista di oggetti posseduto da ogni personaggio
     Sarà la classe inventario a gestire le istanze di classe Oggetto
     """
-    def __init__(self, proprietario : Personaggio = None )->None:
+    def __init__(self, id_proprietario : uuid.UUID = None )->None:
         super().__init__()
         self.oggetti = []
-        self.proprietario = proprietario
+        self.id_proprietario = id_proprietario
 
     def aggiungi_oggetto(self, oggetto: Oggetto)->None:
         """
@@ -123,8 +124,6 @@ class Inventario(Basic):
     def usa_oggetto(
         self,
         oggetto : Oggetto,
-        # utilizzatore: Personaggio = None,
-        # bersaglio: Personaggio = None,
         ambiente: Ambiente = None)->None:
         """
         Utilizza un oggetto presente nell'inventario.
@@ -142,31 +141,28 @@ class Inventario(Basic):
             None
 
         """
-        msg = ""
         if self.cerca_oggetto(oggetto):
             msg = "l'oggetto non è stato trovato nell'inventario"
+            Messaggi.add_to_messaggi(msg)
         else:
             if ambiente is None:
                 mod_ambiente = 0
             else:
                 mod_ambiente, msg = ambiente.modifica_effetto_oggetto(oggetto)
-                msg += "\n"
             msg += oggetto.usa(
                 mod_ambiente=mod_ambiente
             )
             self.oggetti.remove(oggetto)
-        #
-        # dati_salvataggio = [self.to_dict(), bersaglio.to_dict()]
-        # for dati in dati_salvataggio:
-        #     Json.scrivi_dati("data/salvataggio.json", Json.applica_patch(dati))
-        Messaggi.add_to_messaggi(msg)
+
 
     def riversa_inventario(self, da_inventario : 'Inventario')-> None:
         """
-        Permette ad un inventario di prendere tutti gli oggetti di un altro inventario(da_inventario)
+        Permette ad un inventario di prendere tutti gli oggetti di un secondo
+        inventario (da_inventario)
 
         Args:
-            da_inventario(Inventario): L'inventario da cui vengono prelevati tutti gli oggetti.
+            da_inventario (Inventario): L'inventario da cui vengono prelevati
+            tutti gli oggetti.
 
         Return:
             None
@@ -174,23 +170,15 @@ class Inventario(Basic):
         """
         msg = ""
         if len(da_inventario.oggetti) != 0 :
-            if self.proprietario == None:
-                msg = "Inseriti nell'inventario : "
-                # Log.scrivi_log("Oggetti trasferiti da un inventario a un altro. ")
-            else:
-                msg = f"{self.proprietario.nome} raccoglie :"
-                # Log.scrivi_log(f"{self.proprietario.nome} ha raccolto oggetti dall'inventario di un altro personaggio. ")
+            msg = "Inseriti nell'inventario : "
             for oggetto in da_inventario.oggetti :
                 msg= f"\n - {oggetto.nome}"
                 # Log.scrivi_log(f"{oggetto.nome} trasferito nell'inventario. ")
                 self._aggiungi(oggetto)
             da_inventario.oggetti.clear()
         else:
-            if da_inventario.proprietario == None:
-                msg = "l'inventario è vuoto."
-            else:
-                msg = f"L'inventario di {da_inventario.proprietario.nome} è vuoto"
-            # Log.scrivi_log(msg)
+            msg = "l'inventario è vuoto."
+        Log.scrivi_log(msg)
         Messaggi.add_to_messaggi(msg)
 
     def to_dict(self) -> dict:
@@ -204,7 +192,9 @@ class Inventario(Basic):
             'classe': self.__class__.__name__,
             'id': str(self.id),
             'oggetti': [oggetto.to_dict() for oggetto in self.oggetti],
-            'proprietario': self.proprietario if self.proprietario else None
+            'id_proprietario': str(
+                self.id_proprietario
+                ) if self.id_proprietario else None
         }
 
     @classmethod
@@ -219,11 +209,12 @@ class Inventario(Basic):
             Inventario: L'oggetto Inventario deserializzato.
         """
         inventario = cls()
-        inventario.id = data.get('id', str(uuid.uuid4()))
+        id_temp = data.get('id', None)
+        inventario.id = uuid.UUID(id_temp) if id_temp else uuid.uuid4()
         inventario.oggetti = [
             Oggetto.from_dict(oggetto) for oggetto in data.get('oggetti', [])
         ]
-
-        inventario.proprietario = data['proprietario'] if data.get('proprietario') else None
+        id_prop = data.get('id_proprietario')
+        inventario.id_proprietario = uuid.UUID(id_prop) if id_prop else None
 
         return inventario
