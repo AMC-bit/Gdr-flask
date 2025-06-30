@@ -5,3 +5,13 @@
 2025-06-20 12:36:45 - Ambiente selezionato: Vulcano (id: 2)
 2025-06-20 12:36:45 - Ambiente mostrato: Vulcano
 2025-06-20 12:37:08 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-30 09:31:40 - Creato personaggio: mike, Classe: Guerriero, id: d131abbd-c083-491f-a49f-b4fc2685c917, Oggetto iniziale: Medaglione
+2025-06-30 09:31:40 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-30 09:32:10 - Creato personaggio: jack, Classe: Mago, id: 209af66f-fc53-4085-97e8-86a81978932a, Oggetto iniziale: PozioneCura
+2025-06-30 09:32:10 - Richiesta lista personaggi. Numero personaggi: 2
+2025-06-30 09:32:34 - Richiesta lista personaggi. Numero personaggi: 2
+2025-06-30 09:32:41 - Inventario di mike selezionato.
+2025-06-30 09:32:55 - Nessuna missione selezionata.
+2025-06-30 09:33:21 - Richiesta lista personaggi. Numero personaggi: 2
+2025-06-30 09:33:28 - Richiesta lista personaggi. Numero personaggi: 2
+2025-06-30 09:33:32 - Visualizzazione dettagli personaggio con ID: d131abbd-c083-491f-a49f-b4fc2685c917, Nome: mike
