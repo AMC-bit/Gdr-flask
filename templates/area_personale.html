@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}Area Personale{% endblock %}
+{% block content %}
+<h1>Area Personale</h1>
+<p>Benvenuto nel tuo area personale, {{user.nome}}!</p>
+<div class="d-grid gap-2 col-6 mx-auto">
+    <a href="{{ url_for('characters.create_char') }}" class="btn btn-dark btn-lg mb-2">Crea Personaggi</a>
+    <a href="{{ url_for('characters.create_char') }}" class="btn btn-dark btn-lg mb-2">Modifica Personaggi</a>
+    <a href="{{ url_for('characters.mostra_personaggi') }}" class="btn btn-primary btn-lg mb-2">Lista personaggi</a>
+    <a href="{{ url_for('auth.edit_user') }}" class="btn btn-dark btn-lg mb-2">Modifica informazione utente</a>
+    {# Pulsante per l'eliminazione dell'utente. Al premere del bottone apparirà un messaggio di conferma se si vuole elminare l'utente#}
+    <a href="{{ url_for('auth.delete_user') }}" class="btn btn-danger btn-lg mb-2">Elimina Utente</a>
+    
+</div>
+{% endblock %}
