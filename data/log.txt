@@ -104,3 +104,7 @@
 2025-06-30 11:38:19 - Richiesta lista personaggi. Numero personaggi: 1
 2025-06-30 11:38:20 - Visualizzazione dettagli personaggio con ID: deb21f0c-c418-4e87-b758-f770662d9a02, Nome: kebab
 2025-06-30 11:39:16 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-30 12:18:32 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-30 12:20:20 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-30 12:20:53 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-30 12:21:17 - Richiesta lista personaggi. Numero personaggi: 1

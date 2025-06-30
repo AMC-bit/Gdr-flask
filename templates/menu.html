@@ -7,10 +7,6 @@
 <div class="d-grid gap-2 col-6 mx-auto">
 
     <a href="{{ url_for('characters.create_char') }}" class="btn btn-dark btn-lg mb-2">Crea Personaggi</a>
-    <!-- Commenta temporaneamente i link alle route non definite -->
-    {# <a href="{{ url_for('load_game') }}" class="btn btn-secondary btn-lg">Carica Gioco</a> #}
-
-    <!-- Aggiungi link di test per la lista dei personaggi -->
     <a href="{{ url_for('characters.mostra_personaggi') }}" class="btn btn-primary btn-lg mb-2">Lista personaggi</a>
 
     <a href="{{ url_for('inventory.inventory') }}" class="btn btn-primary btn-lg mb-2">Mostra Inventario</a>
