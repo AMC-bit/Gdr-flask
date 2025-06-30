@@ -1,9 +1,10 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for, Flask
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
-from auth.models import User
+from auth.models import User, db
 import os
 import re
+from . import auth_bp
 
 
 def controllo_email(email):
@@ -40,6 +41,7 @@ def sign_in():
                         if utente_exist:
                             raise ValueError('Utente già presente')
                         else:
+                            #Creo un istanza di user e la metto nel db
                                 nuovo_utente = User(nome= name, email= email, password_hash= hash_psw, crediti= 100, personaggi=[])
                                 db.session.add(nuovo_utente)
                                 db.session.commit()

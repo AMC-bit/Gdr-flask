@@ -11,7 +11,6 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(80), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
     crediti = db.Column(db.Float, nullable=False)
-    personaggi = db.Column(db.String(80), nullable=False)
     character_ids = db.Column(
         JSON,               # su SQLite sarà un TEXT che SQLAlchemy serializza in JSON
         nullable=False,

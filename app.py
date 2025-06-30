@@ -7,7 +7,10 @@ from characters.routes import characters_bp
 from environment.routes import environment_bp
 from inventory.routes import inventory_bp
 from mission.routes import mission_bp
-from auth.routes import auth_bp
+# from auth.routes import auth_bp
+from flask_migrate import Migrate
+from auth import auth_bp
+from auth.models import db, User
 
 
 def create_app():
@@ -17,6 +20,11 @@ def create_app():
         'cambia_questa_chiave_per_una_più_sicura'
     )
     app.config['SESSION_TYPE'] = 'filesystem'
+    # Configurazione per il database.
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///user.db'
+
+    db.init_app(app)
+    migrate = Migrate(app, db)
 
     Session(app)
 
@@ -41,4 +49,7 @@ def create_app():
 if __name__ == '__main__':
     # Modalità di sviluppo con reload automatico
     app = create_app()
+    with app.app_context():
+        db.create_all()
+
     app.run(debug=True, host="0.0.0.0", port=5001)

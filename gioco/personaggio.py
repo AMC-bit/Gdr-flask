@@ -1,17 +1,17 @@
+import random, uuid
 from gioco.basic import Basic
 from utils.log import Log
-# serve per random.randint nei metodi attacca
-import random, uuid
- 
 from utils.messaggi import Messaggi
 
- 
+# serve per random.randint nei metodi attacca
+
+
 class Personaggio(Basic):
     """
     Classe Padre per tutte classi
     Contiene le proprietà comuni a ogni classe (Mago, Ladro, Guerriero)
     """
-    def __init__(self, nome: str) -> None:
+    def __init__(self, nome: str, npc: bool = True) -> None:
         self.id = str(uuid.uuid4())
         self.nome = nome
         self.salute = 100
@@ -20,7 +20,9 @@ class Personaggio(Basic):
         self.attacco_max = 80
         self.storico_danni_subiti = []
         self.livello = 1
-        self.destrezza = 15 #Caratteristica per la sistema d20
+        self.destrezza = 15  # Caratteristica per la sistema d20
+        self.npc = npc  # Indica se il personaggio è un NPC
+
 
     def esegui_azione(self) -> bool:
         """
@@ -40,6 +42,7 @@ class Personaggio(Basic):
             Messaggi.add_to_messaggi(msg)
             Log.scrivi_log(msg)
         return risultato
+
 
     def attacca(self, bersaglio: 'Personaggio', mod_ambiente: int = 0) -> None:
         """
@@ -128,8 +131,8 @@ class Personaggio(Basic):
             None
         """
         self.livello += 1
-        self.attacco_max += 0.02 * self.attacco_max
-        self.salute_max += 0.01 * self.salute_max
+        self.attacco_max = int(self.attacco_max + 0.02 * self.attacco_max)
+        self.salute_max = int(self.salute_max + 0.01 * self.salute_max)
         msg = f"{self.nome} è salito al livello {self.livello}!"
         Messaggi.add_to_messaggi(msg)
         Log.scrivi_log(msg)
@@ -150,7 +153,8 @@ class Personaggio(Basic):
             "attacco_max": self.attacco_max,
             "storico_danni_subiti": self.storico_danni_subiti,
             "livello": self.livello,
-            "destrezza": self.destrezza
+            "destrezza": self.destrezza,
+            "npc": self.npc
         }
 
     @classmethod
@@ -172,4 +176,5 @@ class Personaggio(Basic):
         obj.storico_danni_subiti = data.get("storico_danni_subiti", [])
         obj.livello = data.get("livello", 1)
         obj.destrezza = data.get("destrezza", 15)
+        obj.npc = data.get("npc", True)
         return obj
