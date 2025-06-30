@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Modifica Informazioni Utente</h1>
+{# Inserisco la password per verificare l'utente dopodiche compaiono le informazioni dell'utente#}
+<div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input type="password" id="password" name="password" class="form-control" required>
+    <button type="submit" class="btn btn-primary">Invia</button>
+</div>
+{# Visualizzo le informazioni attuali con accanto un pulsante per la modifica#}
+{% if password %}
+    <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" id="username" name="username" class="form-control" value="{{ utente.username }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" id="email" name="email" class="form-control" value="{{ utente.email }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" id="password" name="password" class="form-control" value="{{ utente.password }}" required>
+    </div>
+    <div class="mb-3">
+    {% endif %}
+{% endblock %}
