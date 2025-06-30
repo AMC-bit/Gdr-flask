@@ -123,8 +123,8 @@ class Inventario(Basic):
     def usa_oggetto(
         self,
         oggetto : Oggetto,
-        utilizzatore: Personaggio = None,
-        bersaglio: Personaggio = None,
+        # utilizzatore: Personaggio = None,
+        # bersaglio: Personaggio = None,
         ambiente: Ambiente = None)->None:
         """
         Utilizza un oggetto presente nell'inventario.
@@ -143,23 +143,15 @@ class Inventario(Basic):
 
         """
         msg = ""
-        if not utilizzatore and self.proprietario:
-            utilizzatore=self.proprietario
-        elif not utilizzatore and not self.proprietario:
-            msg = "manca l'utilizzatore"
-        elif self.cerca_oggetto(oggetto):
+        if self.cerca_oggetto(oggetto):
             msg = "l'oggetto non è stato trovato nell'inventario"
         else:
-            if not bersaglio:
-                bersaglio = utilizzatore
             if ambiente is None:
                 mod_ambiente = 0
             else:
                 mod_ambiente, msg = ambiente.modifica_effetto_oggetto(oggetto)
                 msg += "\n"
             msg += oggetto.usa(
-                utilizzatore,
-                bersaglio,
                 mod_ambiente=mod_ambiente
             )
             self.oggetti.remove(oggetto)
