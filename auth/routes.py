@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, session, redirect, url_fo
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
 from auth.models import User
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_user
 from . import auth_bp
 from app import db
@@ -115,3 +115,10 @@ def credit_refill():
 
     message = request.args.get('message')  # estrae il parametro message dall'URL
     return render_template('credit_refill.html', message=message)
+
+@auth_bp.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash("Logout effettuato con successo", "info")
+    return render_template('menu.html')
