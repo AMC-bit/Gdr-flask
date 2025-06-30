@@ -80,3 +80,7 @@ def elimina_personaggio(id):
         Log.scrivi_log(f"Errore durante eliminazione: ID inesistente {pg.get('id')}")
         abort(404)
     return redirect(url_for('characters.mostra_personaggi'))
+
+@characters_bp.route('/combattimento', methods=['GET', 'POST'])
+def inizio_combatimento():
+    pass
