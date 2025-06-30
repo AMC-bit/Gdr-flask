@@ -6,7 +6,7 @@ from gioco.ambiente import Ambiente
 from utils.messaggi import Messaggi
 # from utils.log import Log
 #  , Json
-#  
+
 
 class Inventario(Basic):
     """
@@ -14,7 +14,7 @@ class Inventario(Basic):
     Sarà la classe inventario a gestire le istanze di classe Oggetto
     """
     def __init__(self, proprietario : Personaggio = None )->None:
-        self.id = str(uuid.uuid4())
+        super().__init__()
         self.oggetti = []
         self.proprietario = proprietario
 
