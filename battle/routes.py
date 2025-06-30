@@ -36,6 +36,7 @@ def begin_battle():
     inventari_battle = []
     ambiente = Ambiente.from_dict(session['ambiente'])
     missione = Missione.from_dict(session['missione'])
+    npc_list = missione.get_nemici
 
     if 'personaggi_selezionati' in session :
         personaggi = session['personaggi_selezionati']
