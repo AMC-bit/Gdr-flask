@@ -14,8 +14,10 @@ def controllo_email(email):
     pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
     return re.match(pattern, email)
 
+
 def psw_proteggi_hash(psw):
     return generate_password_hash(psw)
+
 
 @auth_bp.route('/sign_in', methods=['GET', 'POST'])
 def sign_in():
@@ -50,6 +52,7 @@ def sign_in():
                         return redirect(url_for('auth.login'))
     return render_template('sign_in.html')
 
+
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -67,11 +70,10 @@ def login():
     return render_template('login.html')
 
 
-
-
 @auth_bp.route('/area_personale')
 def area_personale():
     return render_template("area_personale.html", user=current_user)
+
 
 @auth_bp.route('/edit_user')
 def edit_user():
@@ -80,8 +82,31 @@ def edit_user():
     # L'utente potrà inserire le nuove informazioni sia per nome utente che per la password
     return render_template("edit_user.html")
 
+
 @auth_bp.route('/delete_user')
 def delete_user():
     # Logica per eliminare l'utente
     # Un messaggio di avviso apparirà per confermare l'eliminazione
     return render_template("area_personale.html")
+
+
+@auth_bp.route('/credit_refill', methods=['GET', 'POST'])
+@login_required
+def credit_refill():
+    message = None
+
+    if request.method == 'POST':
+        try:
+            amount = int(request.form['amount'])  # controllo per vedere se inserimento è int
+        except (KeyError, ValueError):  # se non è int verrà sollevata un'eccezione
+            message = "Inserisci un numero valido."
+            return render_template('credit_refill.html', message=message)
+
+        if amount <= 0:  # controllo numero positivo
+            message = "La quantità deve essere positiva."
+        else:
+            current_user.crediti += amount  # aggiunta dei crediti
+            db.session.commit()  # salvataggio in database
+            message = f"Ricaricati {amount} crediti. Totale attuale: {current_user.crediti}."
+
+    return render_template('credit_refill.html', message=message)
