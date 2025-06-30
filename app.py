@@ -9,6 +9,7 @@ from inventory.routes import inventory_bp
 from mission.routes import mission_bp
 # from auth.routes import auth_bp
 from flask_migrate import Migrate
+from auth import auth_bp
 from auth.models import db, User
 
 
@@ -33,7 +34,7 @@ def create_app():
     app.register_blueprint(environment_bp)
     app.register_blueprint(inventory_bp)
     app.register_blueprint(mission_bp)
-    # app.register_blueprint(auth_bp)
+    app.register_blueprint(auth_bp)
 
     return app
 
