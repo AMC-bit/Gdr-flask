@@ -9,6 +9,7 @@ from inventory.routes import inventory_bp
 from mission.routes import mission_bp
 from auth.routes import auth_bp
 from flask_migrate import Migrate
+from auth import auth_bp
 from auth.models import db, User
 from flask_login import LoginManager
 login_manager = LoginManager()
