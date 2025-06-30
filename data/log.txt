@@ -1,3 +1,22 @@
+<<<<<<< HEAD
+2025-06-20 12:35:21 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-20 12:35:41 - Nessun ambiente selezionato.
+2025-06-20 12:36:05 - Ambiente selezionato: Foresta (id: 1)
+2025-06-20 12:36:05 - Ambiente mostrato: Foresta
+2025-06-20 12:36:45 - Ambiente selezionato: Vulcano (id: 2)
+2025-06-20 12:36:45 - Ambiente mostrato: Vulcano
+2025-06-20 12:37:08 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-30 09:31:40 - Creato personaggio: mike, Classe: Guerriero, id: d131abbd-c083-491f-a49f-b4fc2685c917, Oggetto iniziale: Medaglione
+2025-06-30 09:31:40 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-30 09:32:10 - Creato personaggio: jack, Classe: Mago, id: 209af66f-fc53-4085-97e8-86a81978932a, Oggetto iniziale: PozioneCura
+2025-06-30 09:32:10 - Richiesta lista personaggi. Numero personaggi: 2
+2025-06-30 09:32:34 - Richiesta lista personaggi. Numero personaggi: 2
+2025-06-30 09:32:41 - Inventario di mike selezionato.
+2025-06-30 09:32:55 - Nessuna missione selezionata.
+2025-06-30 09:33:21 - Richiesta lista personaggi. Numero personaggi: 2
+2025-06-30 09:33:28 - Richiesta lista personaggi. Numero personaggi: 2
+2025-06-30 09:33:32 - Visualizzazione dettagli personaggio con ID: d131abbd-c083-491f-a49f-b4fc2685c917, Nome: mike
+=======
 2025-06-25 12:24:36 - Richiesta lista personaggi. Numero personaggi: 4
 2025-06-25 12:24:47 - Creato personaggio: Alastor, Classe: Mago, id: 1ccdcccc-aeaa-44bb-884f-9e7ce220f24b, Oggetto iniziale: Medaglione
 2025-06-25 12:24:47 - Richiesta lista personaggi. Numero personaggi: 5
@@ -99,8 +118,61 @@
 2025-06-27 10:58:01 - Creato personaggio: maxim, Classe: Guerriero, id: 48b54f63-2c27-4afc-9d66-d6ca6f0b0079, Oggetto iniziale: PozioneCura
 2025-06-27 10:58:01 - Richiesta lista personaggi. Numero personaggi: 2
 >>>>>>> e271eebdbed0f7388b3835f77f9c9967359f8e29
+<<<<<<< HEAD
+>>>>>>> 0017c1425d644db64dd98170dd86e45c27760a57
+2025-06-30 10:30:55 - Creato personaggio: jack, Classe: Guerriero, id: 93808001-c3b2-420c-a439-1bb54a5a185b, Oggetto iniziale: PozioneCura
+2025-06-30 10:30:55 - Richiesta lista personaggi. Numero personaggi: 3
+2025-06-30 10:32:13 - Inventario di jack selezionato.
+2025-06-30 10:32:17 - Nessuna missione selezionata.
+2025-06-30 10:32:24 - Nessuna missione selezionata.
+2025-06-30 11:18:48 - Creato personaggio: mike, Classe: Guerriero, id: c524d8eb-723a-46ed-be74-eb09b8b3cef3, Oggetto iniziale: PozioneCura
+2025-06-30 11:18:48 - Richiesta lista personaggi. Numero personaggi: 4
+2025-06-30 11:18:56 - Richiesta lista personaggi. Numero personaggi: 4
+2025-06-30 11:19:26 - Creato personaggio: jack, Classe: Guerriero, id: 5feb60c3-1c71-456a-86db-d788ce2ed7d2, Oggetto iniziale: PozioneCura
+2025-06-30 11:19:26 - Richiesta lista personaggi. Numero personaggi: 5
+2025-06-30 11:19:36 - Richiesta lista personaggi. Numero personaggi: 5
+2025-06-30 11:21:31 - Richiesta lista personaggi. Numero personaggi: 5
+2025-06-30 11:23:37 - Richiesta lista personaggi. Numero personaggi: 5
+2025-06-30 11:24:52 - Richiesta lista personaggi. Numero personaggi: 5
+2025-06-30 11:27:32 - Richiesta lista personaggi. Numero personaggi: 5
+2025-06-30 11:28:00 - Richiesta lista personaggi. Numero personaggi: 5
+2025-06-30 11:30:54 - Richiesta lista personaggi. Numero personaggi: 5
+2025-06-30 11:30:56 - Visualizzazione dettagli personaggio con ID: d131abbd-c083-491f-a49f-b4fc2685c917, Nome: mike
+2025-06-30 11:31:06 - Richiesta lista personaggi. Numero personaggi: 5
+2025-06-30 11:31:08 - Visualizzazione dettagli personaggio con ID: 5feb60c3-1c71-456a-86db-d788ce2ed7d2, Nome: jack
+2025-06-30 11:31:10 - Richiesta lista personaggi. Numero personaggi: 5
+2025-06-30 11:31:14 - Inventario di jack selezionato.
+2025-06-30 11:31:19 - Nessuna missione selezionata.
+2025-06-30 11:34:18 - Richiesta lista personaggi. Numero personaggi: 5
+2025-06-30 11:34:19 - Visualizzazione dettagli personaggio con ID: 209af66f-fc53-4085-97e8-86a81978932a, Nome: jack
+2025-06-30 11:34:21 - Richiesta lista personaggi. Numero personaggi: 5
+2025-06-30 11:34:23 - Eliminato personaggio con ID: d131abbd-c083-491f-a49f-b4fc2685c917, Nome: mike
+2025-06-30 11:34:23 - Richiesta lista personaggi. Numero personaggi: 4
+2025-06-30 11:34:26 - Eliminato personaggio con ID: 209af66f-fc53-4085-97e8-86a81978932a, Nome: jack
+2025-06-30 11:34:26 - Richiesta lista personaggi. Numero personaggi: 3
+2025-06-30 11:34:28 - Eliminato personaggio con ID: 93808001-c3b2-420c-a439-1bb54a5a185b, Nome: jack
+2025-06-30 11:34:28 - Richiesta lista personaggi. Numero personaggi: 2
+2025-06-30 11:34:30 - Eliminato personaggio con ID: c524d8eb-723a-46ed-be74-eb09b8b3cef3, Nome: mike
+2025-06-30 11:34:30 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-30 11:34:32 - Eliminato personaggio con ID: 5feb60c3-1c71-456a-86db-d788ce2ed7d2, Nome: jack
+2025-06-30 11:34:32 - Richiesta lista personaggi. Numero personaggi: 0
+2025-06-30 11:34:43 - Creato personaggio: jack daniels, Classe: Mago, id: 6826ee46-e5ca-4623-bbc3-a44e634c67a5, Oggetto iniziale: PozioneCura
+2025-06-30 11:34:43 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-30 11:35:09 - Creato personaggio: lucifer, Classe: Guerriero, id: df0e0dff-1d4b-44b4-88f0-6e196fe4c40f, Oggetto iniziale: PozioneCura
+2025-06-30 11:35:09 - Richiesta lista personaggi. Numero personaggi: 2
+2025-06-30 11:39:14 - Richiesta lista personaggi. Numero personaggi: 2
+2025-06-30 11:40:06 - Richiesta lista personaggi. Numero personaggi: 2
+=======
 2025-06-30 11:04:25 - Creato personaggio: kebab, Classe: Guerriero, id: deb21f0c-c418-4e87-b758-f770662d9a02, Oggetto iniziale: Medaglione
 2025-06-30 11:04:25 - Richiesta lista personaggi. Numero personaggi: 1
 2025-06-30 11:38:19 - Richiesta lista personaggi. Numero personaggi: 1
 2025-06-30 11:38:20 - Visualizzazione dettagli personaggio con ID: deb21f0c-c418-4e87-b758-f770662d9a02, Nome: kebab
 2025-06-30 11:39:16 - Richiesta lista personaggi. Numero personaggi: 1
+>>>>>>> cd06cc7730590c68b765a08671141a2dff629d8b
+2025-06-30 12:02:22 - Richiesta lista personaggi. Numero personaggi: 2
+2025-06-30 12:02:23 - Visualizzazione dettagli personaggio con ID: df0e0dff-1d4b-44b4-88f0-6e196fe4c40f, Nome: lucifer
+2025-06-30 12:02:25 - Richiesta lista personaggi. Numero personaggi: 2
+2025-06-30 12:02:26 - Visualizzazione dettagli personaggio con ID: 6826ee46-e5ca-4623-bbc3-a44e634c67a5, Nome: jack daniels
+2025-06-30 12:02:27 - Richiesta lista personaggi. Numero personaggi: 2
+2025-06-30 12:02:45 - Creato personaggio: suka blyat, Classe: Ladro, id: 79f7eb7e-026d-4769-aa68-3b3041a72cb8, Oggetto iniziale: Medaglione
+2025-06-30 12:02:45 - Richiesta lista personaggi. Numero personaggi: 3
