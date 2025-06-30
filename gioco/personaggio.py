@@ -44,27 +44,29 @@ class Personaggio(Basic):
         return risultato
 
 
-    def attacca(self, bersaglio: 'Personaggio', mod_ambiente: int = 0) -> None:
+    def attacca(self, mod_ambiente: int = 0) -> int:
         """
-        Metodo di attacco di cui viene fatto l'override in ogni classe derivata da personaggio.
-
-        Tenta un attacco usando il metodo esegui_azione.
+        Tenta un attacco generando un danno casuale tra attacco_min e attacco_max,
+        influenzato da eventuali modificatori ambientali. Il successo dipende da un tiro
+        basato sulla destrezza (sistama d20).
 
         Args:
-            bersaglio (Personaggio): bersaglio dell'attacco
             mod_ambiente (int): modificatore di attacco in base all'ambiente
 
         Returns:
-            None
+            int: danno inflitto all'avversario, 0 se l'attacco fallisce
         """
         if self.esegui_azione():
             danno = random.randint(self.attacco_min, self.attacco_max) + mod_ambiente
-            msg = f"{self.nome} Attacca con successo {bersaglio.nome} e infligge {danno} danni!"
-            bersaglio.subisci_danno(danno)
-        else:
-            msg = f"{self.nome} Tenta di attaccare {bersaglio.nome} ma fallisce!"
+            msg = f"{self.nome} Attacca con successo e infligge {danno} danni!"
             Messaggi.add_to_messaggi(msg)
             Log.scrivi_log(msg)
+            return danno
+        else:
+            msg = f"{self.nome} Tenta di attaccare ma fallisce!"
+            Messaggi.add_to_messaggi(msg)
+            Log.scrivi_log(msg)
+            return 0
 
     def subisci_danno(self, danno: int) -> None:
         """
