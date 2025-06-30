@@ -83,12 +83,14 @@ def edit_user():
     return render_template("edit_user.html")
 
 
-@auth_bp.route('/delete_user')
-def delete_user():
-    # Logica per eliminare l'utente
-    # Un messaggio di avviso apparirà per confermare l'eliminazione
-    return render_template("area_personale.html")
 
+@auth_bp.route('/delete_user/<int:id>')
+@login_required
+def delete_user(id):
+    utente = User.query.get(id)
+    db.session.delete(utente)
+    db.session.commit()
+    return redirect(url_for('auth.sign_in'))
 
 @auth_bp.route('/credit_refill', methods=['GET', 'POST'])
 @login_required
@@ -100,13 +102,16 @@ def credit_refill():
             amount = int(request.form['amount'])  # controllo per vedere se inserimento è int
         except (KeyError, ValueError):  # se non è int verrà sollevata un'eccezione
             message = "Inserisci un numero valido."
-            return render_template('credit_refill.html', message=message)
+            return redirect(url_for('auth.credit_refill', message=message))
 
         if amount <= 0:  # controllo numero positivo
             message = "La quantità deve essere positiva."
+            return redirect(url_for('auth.credit_refill', message=message))
         else:
             current_user.crediti += amount  # aggiunta dei crediti
             db.session.commit()  # salvataggio in database
-            message = f"Ricaricati {amount} crediti. Totale attuale: {current_user.crediti}."
+            message = f"Ricaricati {amount} crediti. Totale attuale: {int(current_user.crediti)}."
+            return redirect(url_for('auth.credit_refill', message=message))
 
+    message = request.args.get('message')  # estrae il parametro message dall'URL
     return render_template('credit_refill.html', message=message)
