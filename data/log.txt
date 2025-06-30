@@ -176,3 +176,7 @@
 2025-06-30 12:02:27 - Richiesta lista personaggi. Numero personaggi: 2
 2025-06-30 12:02:45 - Creato personaggio: suka blyat, Classe: Ladro, id: 79f7eb7e-026d-4769-aa68-3b3041a72cb8, Oggetto iniziale: Medaglione
 2025-06-30 12:02:45 - Richiesta lista personaggi. Numero personaggi: 3
+2025-06-30 12:46:48 - Creato personaggio: Alberto, Classe: Mago, id: 18599d90-ef09-4507-8fe2-ede64b18090c, Oggetto iniziale: PozioneCura
+2025-06-30 12:46:48 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-30 12:46:55 - Creato personaggio: ANELKA, Classe: Guerriero, id: 30dca327-95d8-4080-8f3c-02dd4ed8d896, Oggetto iniziale: PozioneCura
+2025-06-30 12:46:55 - Richiesta lista personaggi. Numero personaggi: 2
