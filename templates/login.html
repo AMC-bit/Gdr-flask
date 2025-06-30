@@ -1,21 +1,28 @@
 {%extends "layout.html"%}
 {%block title%} Login {% endblock %}
 {% block content%}
-    <h2 style="text-align: center;">Accedi al tuo account</h2>
+ <div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
+    <form method="POST" class="card shadow-sm p-4" style="max-width: 800px; width: 100%;">
+        <h2 style="text-align: center;">Accedi al tuo account</h2>
 
-    <form method="POST">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="Inserisci la tua email" required>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" name="email" placeholder="Inserisci la tua email" class="form-control" required>
+        </div>
 
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Inserisci la password" required>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" id="password" name="password" placeholder="Inserisci la password" class="form-control" required>
+        </div>
 
-        <button type="submit">Accedi</button>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-success btn-lg mb-2">Accedi</button>
+        </div>
 
         {% if error %}
             <p class="error">{{ error }}</p>
         {% endif %}
     </form>
-
+</div>
     <p style="text-align:center;">Non hai un account? <a href="{{ url_for('auth.sign_in') }}">Registrati</a></p>
 {%endblock%}
