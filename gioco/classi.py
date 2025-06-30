@@ -1,10 +1,9 @@
 import random
 from utils.log import Log
- 
 from utils.messaggi import Messaggi
 from gioco.personaggio import Personaggio
 
- 
+
 class Mago(Personaggio):
     """
     Classe che rappresenta un personaggio mago.
@@ -24,7 +23,7 @@ class Mago(Personaggio):
         super().__init__(nome)
         self.salute = 80
 
-    def attacca(self, bersaglio: Personaggio, mod_ambiente: int = 0) -> None:
+    def attacca(self, mod_ambiente: int = 0) -> None:
         """
         Il Mago ha attacco minimo diminuito di 5 e attacco massimo
         aumentato di 10
@@ -34,13 +33,13 @@ class Mago(Personaggio):
             mod_ambiente (int): modificatore ambientale di attacco (default: 0)
 
         Returns:
-            None
+            int: danno inflitto all'avversario
         """
         danno = random.randint(self.attacco_min - 5, self.attacco_max + 10) + mod_ambiente
-        msg = f"{self.nome} lancia un incantesimo su {bersaglio.nome} per {danno} danni!"
+        msg = f"{self.nome} lancia un incantesimo infliggendo {danno} danni!"
         Messaggi.add_to_messaggi(msg)
         Log.scrivi_log(msg)
-        bersaglio.subisci_danno(danno)
+        return danno
 
     def recupera_salute(self, mod_ambiente: int = 0) -> None:
         """
@@ -61,7 +60,6 @@ class Mago(Personaggio):
         Log.scrivi_log(msg)
 
 
- 
 class Guerriero(Personaggio):
     """
     Classe che rappresenta un personaggio guerriero.
@@ -81,7 +79,7 @@ class Guerriero(Personaggio):
         super().__init__(nome)
         self.salute = 120
 
-    def attacca(self, bersaglio: Personaggio, mod_ambiente: int = 0) -> None:
+    def attacca(self, mod_ambiente: int = 0) -> int:
         """
         Il Guerriero ha un attacco minimo aumentato di 15 e un attacco
         massimo aumentato di 20 + il modificatore dell'ambiente corrente
@@ -94,10 +92,10 @@ class Guerriero(Personaggio):
             None
         """
         danno = random.randint(self.attacco_min + 15, self.attacco_max + mod_ambiente + 20)
-        msg = f"{self.nome} colpisce con la spada {bersaglio.nome} per {danno} danni!"
+        msg = f"{self.nome} colpisce con la spada infliggendo {danno} danni!"
         Messaggi.add_to_messaggi(msg)
         Log.scrivi_log(msg)
-        bersaglio.subisci_danno(danno)
+        return danno
 
     def recupera_salute(self, mod_ambiente: int = 0) -> None:
         """
@@ -118,7 +116,6 @@ class Guerriero(Personaggio):
         Log.scrivi_log(msg)
 
 
- 
 class Ladro(Personaggio):
     """
     Estende la classe Personaggio, ha salute elevata a 140, +5 attacco_max e
@@ -138,7 +135,7 @@ class Ladro(Personaggio):
         super().__init__(nome)
         self.salute = 140
 
-    def attacca(self, bersaglio: Personaggio, mod_ambiente: int = 0) -> None:
+    def attacca(self, mod_ambiente: int = 0) -> None:
         """
         Il Ladro ha un attacco minimo aumentato di 5 e un attacco
         massimo aumentato di 5
@@ -151,10 +148,10 @@ class Ladro(Personaggio):
             None
         """
         danno = random.randint(self.attacco_min + 5, self.attacco_max + 5) + mod_ambiente
-        msg = f"{self.nome} colpisce furtivamente {bersaglio.nome} per {danno} danni!"
+        msg = f"{self.nome} colpisce furtivamente infliggendo {danno} danni!"
         Messaggi.add_to_messaggi(msg)
         Log.scrivi_log(msg)
-        bersaglio.subisci_danno(danno)
+        return danno
 
     def recupera_salute(self, mod_ambiente: int = 0) -> None:
         """

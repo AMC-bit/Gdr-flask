@@ -47,7 +47,12 @@ def create_char():
 @characters_bp.route('/personaggi', methods=['GET', 'POST'])
 def mostra_personaggi():
     lista_pers = session.get('personaggi', [])
-    personaggi = [Personaggio.from_dict(pg) for pg in lista_pers]
+    lista_pers_utente = []
+    for pers in lista_pers:
+        for per in current_user.character_ids:
+            if per == pers['id']:
+                lista_pers_utente.append(pers)
+    personaggi = [Personaggio.from_dict(pg) for pg in lista_pers_utente]
     Log.scrivi_log(f"Richiesta lista personaggi. Numero personaggi: {len(personaggi)}")
     return render_template('list_char.html', personaggi=personaggi)
 
@@ -75,3 +80,7 @@ def elimina_personaggio(id):
         Log.scrivi_log(f"Errore durante eliminazione: ID inesistente {pg.get('id')}")
         abort(404)
     return redirect(url_for('characters.mostra_personaggi'))
+
+@characters_bp.route('/combattimento', methods=['GET', 'POST'])
+def inizio_combatimento():
+    pass
