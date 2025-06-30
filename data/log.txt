@@ -99,3 +99,8 @@
 2025-06-27 10:58:01 - Creato personaggio: maxim, Classe: Guerriero, id: 48b54f63-2c27-4afc-9d66-d6ca6f0b0079, Oggetto iniziale: PozioneCura
 2025-06-27 10:58:01 - Richiesta lista personaggi. Numero personaggi: 2
 >>>>>>> e271eebdbed0f7388b3835f77f9c9967359f8e29
+2025-06-30 11:24:07 - Richiesta lista personaggi. Numero personaggi: 0
+2025-06-30 11:26:36 - Creato personaggio: sora, Classe: Mago, id: 159fc82f-329e-475f-88a7-52e295cda7ec, Oggetto iniziale: PozioneCura
+2025-06-30 11:26:36 - Richiesta lista personaggi. Numero personaggi: 1
+2025-06-30 11:26:40 - Visualizzazione dettagli personaggio con ID: 159fc82f-329e-475f-88a7-52e295cda7ec, Nome: sora
+2025-06-30 11:27:13 - Richiesta lista personaggi. Numero personaggi: 1
