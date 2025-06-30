@@ -7,7 +7,7 @@ class Oggetto ():
     """
     Classe padre di tutti gli oggetti contenibili nell'inventario
     """
-    def __init__(self, nome: str) -> None:
+    def __init__(self, nome: str, tipo_oggetto: str="") -> None:
         """
         Inizializza un oggetto con nome e tipo
 
@@ -21,6 +21,7 @@ class Oggetto ():
         self.nome = nome
         self.usato = False
         self.valore = 0
+        self.tipo_oggetto = tipo_oggetto
 
 
     def usa(
@@ -37,6 +38,7 @@ class Oggetto ():
             int: Valore dell'oggetto usato
         """
         raise NotImplementedError("Questo oggetto non ha effetto definito.")
+    
 
     def to_dict(self) -> dict:
         """Restituisce uno stato serializzabile per session o JSON.
@@ -74,7 +76,8 @@ class PozioneCura(Oggetto):
     def __init__(
             self,
             nome: str = "Pozione Rossa",
-            valore: int = 30
+            valore: int = 30,
+            tipo_oggetto: str = "Ristorativo"
             ) -> None:
         """
         Inizializza una pozione di cura
@@ -88,6 +91,7 @@ class PozioneCura(Oggetto):
         """
         super().__init__(nome)
         self.valore = valore
+        self.tipo_oggetto = tipo_oggetto
 
     def usa(self, mod_ambiente: int = 0) -> int:
         """
@@ -128,7 +132,12 @@ class BombaAcida(Oggetto):
     """
     Infligge danno pari al valore(Proprietà)
     """
-    def __init__(self, nome: str = "Bomba Acida", danno: int = 30) -> None:
+    def __init__(
+        self, 
+        nome: str = "Bomba Acida", 
+        danno: int = 30,
+        tipo_oggetto: str = "Offensivo"
+        ) -> None:
         """
         Inizializza una bomba acida
 
@@ -141,6 +150,7 @@ class BombaAcida(Oggetto):
         """
         super().__init__(nome, offensivo=True)
         self.valore = danno
+        self.tipo_oggetto = tipo_oggetto
 
     def usa(self, mod_ambiente: int = 0) -> int:
         """
@@ -186,7 +196,7 @@ class Medaglione(Oggetto):
     """
     Incrementa l'attacco_max del personaggio che lo usa
     """
-    def __init__(self) -> None:
+    def __init__(self, tipo_oggetto: str = "Supporto") -> None:
         """
         Inizializza un medaglione
 
@@ -198,6 +208,7 @@ class Medaglione(Oggetto):
         """
         super().__init__("Medaglione")
         self.valore = 10
+        self.tipo_oggetto = tipo_oggetto
 
     def usa(self, mod_ambiente: int = 0) -> None:
         """
