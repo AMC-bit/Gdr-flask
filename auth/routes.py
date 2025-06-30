@@ -83,12 +83,14 @@ def edit_user():
     return render_template("edit_user.html")
 
 
-@auth_bp.route('/delete_user')
-def delete_user():
-    # Logica per eliminare l'utente
-    # Un messaggio di avviso apparirà per confermare l'eliminazione
-    return render_template("area_personale.html")
 
+@auth_bp.route('/delete_user/<int:id>')
+@login_required
+def delete_user(id):
+    utente = User.query.get(id)
+    db.session.delete(utente)
+    db.session.commit()
+    return redirect(url_for('auth.sign_in'))
 
 @auth_bp.route('/credit_refill', methods=['GET', 'POST'])
 @login_required
