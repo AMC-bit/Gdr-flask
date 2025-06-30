@@ -4,10 +4,11 @@ from gioco.personaggio import Personaggio
 from gioco.oggetto import Oggetto
 from gioco.inventario import Inventario
 from utils.log import Log
-
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
+import json
 @characters_bp.route('/create_char', methods=['GET', 'POST'])
 def create_char():
-
+    from app import db
     classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
     oggetti = {cls.__name__: cls for cls in Oggetto.__subclasses__()}
 
@@ -29,7 +30,9 @@ def create_char():
 
         session['personaggi'] = pg_list
         session['inventari'] = inv_list
-
+        character_ids = (current_user.character_ids or []) + [pg.id]
+        current_user.character_ids = character_ids
+        db.session.commit()
         Log.scrivi_log(f"Creato personaggio: {pg.nome}, Classe: {classe_sel}, id: {pg.id}, Oggetto iniziale: {oggetto_sel}")
 
         return redirect(url_for('characters.mostra_personaggi'))
