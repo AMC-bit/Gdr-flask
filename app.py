@@ -13,7 +13,7 @@ from auth import auth_bp
 from auth.models import db, User
 from flask_login import LoginManager
 login_manager = LoginManager()
-login_manager.login_view = 'auth_bp.login'
+login_manager.login_view = 'auth.login'
 
 def create_app():
     app = Flask(__name__)
