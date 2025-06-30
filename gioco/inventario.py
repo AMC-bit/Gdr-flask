@@ -124,35 +124,34 @@ class Inventario(Basic):
     def usa_oggetto(
         self,
         oggetto : Oggetto,
-        ambiente: Ambiente = None)->None:
+        ambiente: Ambiente = None)-> int|None:
         """
         Utilizza un oggetto presente nell'inventario.
 
         Args:
             oggetto (Oggetto): oggetto da usare.
-            utilizzatore (Personaggio): Il Personaggio che usa l'oggetto se non passato
-            si proverà ad utilizzare quello presente in self.Proprietario se presente.
-            bersaglio(Any): None di Default è un parametro opzionale che
-            permette di usare un oggetto su un altro Personaggio che non sia l'utilizzatore.
             ambiente (Ambiente): L'ambiente può alterare il funzionamento degli
             oggetti
 
         Return:
-            None
-
+            int: il risultato dell'uso dell'oggetto, se l'oggetto è stato
+            trovato e usato correttamente.
+            None: se l'oggetto non è stato trovato nell'inventario.
         """
+        result = None
         if self.cerca_oggetto(oggetto):
             msg = "l'oggetto non è stato trovato nell'inventario"
             Messaggi.add_to_messaggi(msg)
         else:
-            if ambiente is None:
-                mod_ambiente = 0
-            else:
-                mod_ambiente, msg = ambiente.modifica_effetto_oggetto(oggetto)
-            msg += oggetto.usa(
+            mod_ambiente = (
+                ambiente.modifica_effetto_oggetto(oggetto)
+                if ambiente else 0
+            )
+            result = oggetto.usa(
                 mod_ambiente=mod_ambiente
             )
             self.oggetti.remove(oggetto)
+        return result
 
 
     def riversa_inventario(self, da_inventario : 'Inventario')-> None:
