@@ -2,8 +2,225 @@
 {% block title %}Battaglia{% endblock %}
 
 {% block content %}
-    <div id="turn_display">E' il turno di : {{nome_personaggio_attivo}}  </div>
-    <button type="button" class="btn btn-danger" disabled= {{buttons_diasable}}>attacca</button>
-    <button type="button" class="btn btn-success" disabled= {{buttons_diasable}}>inventario</button>
-    <textarea id="log_display" row="100" >"Qui ci andrà il LOG"</textarea>
+<div class="container-fluid">
+    <!-- Informazioni battaglia -->
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Informazioni Battaglia</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Ambiente:</strong> {{ambiente.__class__.__name__}}</p>
+                    <p><strong>Missione:</strong> {{missione.nome}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Stato Battaglia</h5>
+                </div>
+                <div class="card-body">
+                    {% if battaglia_finita %}
+                        {% if vittoria %}
+                            <div class="alert alert-success">
+                                <h4>Vittoria!</h4>
+                                <p>Tutti i nemici sono stati sconfitti!</p>
+                            </div>
+                        {% else %}
+                            <div class="alert alert-danger">
+                                <h4>Sconfitta!</h4>
+                                <p>Tutti i personaggi sono stati sconfitti!</p>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <div class="alert alert-info">
+                            <h5>Turno di: {{personaggio_turno_corrente.nome}}</h5>
+                            <p><strong>Tipo:</strong> {% if personaggio_turno_corrente.npc %}NPC{% else %}Giocatore{% endif %}</p>
+                            <p><strong>Classe:</strong> {{personaggio_turno_corrente.__class__.__name__}}</p>
+                            <p><strong>HP:</strong> {{personaggio_turno_corrente.salute}}/{{personaggio_turno_corrente.salute_max}}</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lista personaggi -->
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Personaggi Giocabili</h5>
+                </div>
+                <div class="card-body">
+                    {% for personaggio in tutti_personaggi %}
+                        {% if not personaggio.npc %}
+                            <div class="mb-2 p-2 border rounded {% if personaggio.sconfitto() %}bg-light text-muted{% endif %}">
+                                <strong>{{personaggio.nome}}</strong> ({{personaggio.__class__.__name__}})
+                                <br>HP: {{personaggio.salute}}/{{personaggio.salute_max}}
+                                {% if personaggio.sconfitto() %}<span class="badge badge-danger">Sconfitto</span>{% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Nemici (NPC)</h5>
+                </div>
+                <div class="card-body">
+                    {% for personaggio in tutti_personaggi %}
+                        {% if personaggio.npc %}
+                            <div class="mb-2 p-2 border rounded {% if personaggio.sconfitto() %}bg-light text-muted{% endif %}">
+                                <strong>{{personaggio.nome}}</strong> ({{personaggio.__class__.__name__}})
+                                <br>HP: {{personaggio.salute}}/{{personaggio.salute_max}}
+                                {% if personaggio.sconfitto() %}<span class="badge badge-danger">Sconfitto</span>{% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Azioni del turno -->
+    {% if not battaglia_finita and not personaggio_turno_corrente.npc %}
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Azioni disponibili per {{personaggio_turno_corrente.nome}}</h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('battle.esegui_azione') }}">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Seleziona Azione:</h6>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="azione" id="attacco" value="attacco" checked>
+                                    <label class="form-check-label" for="attacco">
+                                        Attacco
+                                    </label>
+                                </div>
+                                {% if inventario_corrente and inventario_corrente.oggetti %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="azione" id="usa_oggetto" value="usa_oggetto">
+                                    <label class="form-check-label" for="usa_oggetto">
+                                        Usa Oggetto
+                                    </label>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Seleziona Bersaglio:</h6>
+                                {% for personaggio in tutti_personaggi %}
+                                    {% if not personaggio.sconfitto() and personaggio.id != personaggio_turno_corrente.id %}
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="bersaglio_id" value="{{personaggio.id}}" required>
+                                        <label class="form-check-label">
+                                            {{personaggio.nome}} ({{personaggio.__class__.__name__}})
+                                            {% if personaggio.npc %}<span class="badge badge-warning">NPC</span>{% endif %}
+                                        </label>
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        {% if inventario_corrente and inventario_corrente.oggetti %}
+                        <div class="row mt-3" id="oggetti_div" style="display: none;">
+                            <div class="col-12">
+                                <h6>Seleziona Oggetto:</h6>
+                                {% for oggetto in inventario_corrente.oggetti %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="oggetto_nome" value="{{oggetto.nome}}">
+                                    <label class="form-check-label">
+                                        {{oggetto.nome}}
+                                    </label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Esegui Azione</button>
+                                <button type="submit" name="salva_stato" value="true" class="btn btn-secondary">Salva Stato</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if not battaglia_finita and personaggio_turno_corrente.npc %}
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Turno NPC</h5>
+                </div>
+                <div class="card-body">
+                    <p>{{personaggio_turno_corrente.nome}} sta decidendo la sua azione...</p>
+                    <form method="POST" action="{{ url_for('battle.turno_npc') }}">
+                        <button type="submit" class="btn btn-warning">Esegui Turno NPC</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Log dei messaggi -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Log di Battaglia</h5>
+                </div>
+                <div class="card-body">
+                    <div id="log_display" style="height: 300px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px; background-color: #f8f9fa;">
+                        {% if messaggi %}
+                            {% for messaggio in messaggi %}
+                                <div>{{messaggio}}</div>
+                            {% endfor %}
+                        {% else %}
+                            <div>Inizia la battaglia!</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Mostra/nascondi sezione oggetti
+document.addEventListener('DOMContentLoaded', function() {
+    const radioAttacco = document.getElementById('attacco');
+    const radioOggetto = document.getElementById('usa_oggetto');
+    const oggettiDiv = document.getElementById('oggetti_div');
+
+    if (radioAttacco && radioOggetto && oggettiDiv) {
+        radioAttacco.addEventListener('change', function() {
+            if (this.checked) {
+                oggettiDiv.style.display = 'none';
+            }
+        });
+
+        radioOggetto.addEventListener('change', function() {
+            if (this.checked) {
+                oggettiDiv.style.display = 'block';
+            }
+        });
+    }
+});
+</script>
 {% endblock %}

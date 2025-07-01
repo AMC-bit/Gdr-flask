@@ -1,9 +1,16 @@
-from flask import redirect, render_template, session, url_for, request, flash
+from flask import redirect, render_template, session, url_for, request, flash, jsonify
 from . import battle_bp
 from gioco.personaggio import Personaggio
 from gioco.inventario import Inventario
 from gioco.ambiente import Ambiente, Foresta
 from gioco.missione import Missione, GestoreMissioni
+from gioco.oggetto import Oggetto
+from utils.messaggi import Messaggi
+from utils.log import Log
+import random
+import json
+import os
+
 classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
 
 @battle_bp.route('/show_inventory', methods=['GET', 'POST'])
