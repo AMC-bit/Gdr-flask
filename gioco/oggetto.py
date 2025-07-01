@@ -113,7 +113,8 @@ class PozioneCura(Oggetto):
         return self.valore + mod_ambiente
 
     def to_dict(self) -> dict:
-        super().to_dict()
+        data = super().to_dict()
+        return data
 
     @classmethod
     def from_dict(cls, data: dict) -> "PozioneCura":
