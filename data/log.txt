@@ -180,3 +180,17 @@
 2025-06-30 12:46:48 - Richiesta lista personaggi. Numero personaggi: 1
 2025-06-30 12:46:55 - Creato personaggio: ANELKA, Classe: Guerriero, id: 30dca327-95d8-4080-8f3c-02dd4ed8d896, Oggetto iniziale: PozioneCura
 2025-06-30 12:46:55 - Richiesta lista personaggi. Numero personaggi: 2
+2025-07-01 09:55:51 - Richiesta lista personaggi. Numero personaggi: 0
+2025-07-01 10:06:03 - Richiesta lista personaggi. Numero personaggi: 0
+2025-07-01 10:06:16 - Nessuna missione selezionata.
+2025-07-01 10:06:16 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-01 10:06:16 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-01 10:06:16 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-01 10:06:16 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-01 10:06:16 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-01 10:06:19 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-01 10:06:19 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-01 10:06:19 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-01 10:06:19 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-01 10:06:19 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-01 10:08:32 - Richiesta lista personaggi. Numero personaggi: 0

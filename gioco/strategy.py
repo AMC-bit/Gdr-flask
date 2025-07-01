@@ -1,6 +1,6 @@
 import random
-from ambiente import Ambiente
-from inventario import Inventario
+from gioco.ambiente import Ambiente
+from gioco.inventario import Inventario
 from utils.log import Log
 
 
