@@ -81,35 +81,60 @@ def elimina_personaggio(id):
         abort(404)
     return redirect(url_for('characters.mostra_personaggi'))
 
+
 @characters_bp.route('/combattimento', methods=['GET', 'POST'])
 def inizio_combatimento():
     lista_pers = session.get('personaggi', [])
     personaggi_utente = [p for p in lista_pers if p['id'] in (current_user.character_ids or [])]
-    
-##npc e personaggi sono inclusi
 
     if request.method == 'POST':
         id_1 = int(request.form['pg1'])
         id_2 = int(request.form['pg2'])
 
-        if id_1 == id_2:
-            Log.scrivi_log("Tentativo di combattere contro sé stessi.")
-            return render_template('battle.html', personaggi=personaggi_utente, errore="Non puoi combattere contro te stesso.")
 
         pg1_dict = next((p for p in personaggi_utente if p['id'] == id_1), None)
         pg2_dict = next((p for p in personaggi_utente if p['id'] == id_2), None)
 
+        if not pg1_dict or not pg2_dict:
+            abort(400, "Personaggio non trovato.")
+
         pg1 = Personaggio.from_dict(pg1_dict)
         pg2 = Personaggio.from_dict(pg2_dict)
 
+        log_combattimento = []
 
-        Log.scrivi_log(f"Combattimento tra {pg1.nome} (ID: {pg1.id}) e {pg2.nome} (ID: {pg2.id}) - Risultato: {risultato}")
+        while pg1.salute > 0 and pg2.salute > 0:
+            log_combattimento.append(f"Turno {turno}:")
+
+            danno1 = pg1.attacca()
+            pg2.subisci_danno(danno1)
+            log_combattimento.append(f"{pg1.nome} infligge {danno1} danni a {pg2.nome} (Salute residua: {pg2.salute})")
+
+            if pg2.salute <= 0:
+                break
+
+            danno2 = pg2.attacca()
+            pg1.subisci_danno(danno2)
+            log_combattimento.append(f"{pg2.nome} infligge {danno2} danni a {pg1.nome} (Salute residua: {pg1.salute})")
+
+            turno += 1
+
+        if pg1.salute > pg2.salute:
+            risultato = f"Vittoria di {pg1.nome}!"
+        elif pg2.salute > pg1.salute:
+            risultato = f"Vittoria di {pg2.nome}!"
+        else:
+            risultato = "Pareggio!"
+
+        log_combattimento.append(f"Risultato finale: {risultato}")
+        Log.scrivi_log(f"Combattimento terminato - {risultato}")
 
         return render_template(
-            'combat_result.html',
+            'battle.html',
             pg1=pg1,
             pg2=pg2,
-            risultato=risultato
+            risultato=risultato,
+            log_combattimento=log_combattimento
         )
 
     return render_template('combat.html', personaggi=personaggi_utente)
