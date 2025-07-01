@@ -1,6 +1,6 @@
 import random
-from ambiente import Ambiente
-from inventario import Inventario
+from gioco.ambiente import Ambiente
+from gioco.inventario import Inventario
 from utils.log import Log
 
 
@@ -243,7 +243,7 @@ class Equilibrata(Strategia):
                     "viene utilizzata una Bomba Acida causando un danno di "
                     f"{result} punti ferita"
                 )
-        if msg is not "":
+        if msg != "":
             Log.scrivi_log(msg)
         return result
 
@@ -271,7 +271,7 @@ class StrategiaFactory:
         random_choice = random.choice(
             ["aggressiva", "difensiva", "equilibrata"]
         )
-        r.usa_strategia(random_choice)
+        return StrategiaFactory.usa_strategia(random_choice)
 
     @staticmethod
     def usa_strategia(tipo: str) -> Strategia:
