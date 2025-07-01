@@ -83,4 +83,33 @@ def elimina_personaggio(id):
 
 @characters_bp.route('/combattimento', methods=['GET', 'POST'])
 def inizio_combatimento():
-    pass
+    lista_pers = session.get('personaggi', [])
+    personaggi_utente = [p for p in lista_pers if p['id'] in (current_user.character_ids or [])]
+    
+##npc e personaggi sono inclusi
+
+    if request.method == 'POST':
+        id_1 = int(request.form['pg1'])
+        id_2 = int(request.form['pg2'])
+
+        if id_1 == id_2:
+            Log.scrivi_log("Tentativo di combattere contro sé stessi.")
+            return render_template('battle.html', personaggi=personaggi_utente, errore="Non puoi combattere contro te stesso.")
+
+        pg1_dict = next((p for p in personaggi_utente if p['id'] == id_1), None)
+        pg2_dict = next((p for p in personaggi_utente if p['id'] == id_2), None)
+
+        pg1 = Personaggio.from_dict(pg1_dict)
+        pg2 = Personaggio.from_dict(pg2_dict)
+
+
+        Log.scrivi_log(f"Combattimento tra {pg1.nome} (ID: {pg1.id}) e {pg2.nome} (ID: {pg2.id}) - Risultato: {risultato}")
+
+        return render_template(
+            'combat_result.html',
+            pg1=pg1,
+            pg2=pg2,
+            risultato=risultato
+        )
+
+    return render_template('combat.html', personaggi=personaggi_utente)
