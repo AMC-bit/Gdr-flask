@@ -74,33 +74,39 @@ def area_personale():
 
 
 @auth_bp.route('/edit_user', methods=['GET', 'POST'])
+@login_required
 def edit_user():
     enable_edit_user= False
     user = None
     psw = ""
     if request.method == 'POST':
         form_type = request.form.get('form_type')
+        # Questa parte fa il controllo della  psw iniziale e fa spawnare il form
+        # per la modifica dei dati dell'utente
         if form_type=='check_form':
             psw = request.form['password']
             user = current_user
             if user and check_password_hash(user.password_hash, psw):
                 enable_edit_user= True
-
+   
     if request.method == 'POST':
         form_type = request.form.get('form_type')
+        #Catturo i dati inseriti nel form per la modifica dell'utente e li uso per 
+        #modificare i dati dell'utente sul db, invine redirige alla pagina login
         if form_type=='edit_form':
             new_name = request.form['new_username']
             new_email = request.form['new_email']
             new_psw = request.form['new_password']
-            #Accedi al db e modifica i dati dell'utente
-            #TODO C'è un problema qua controlla !!!!!!!!!!!!
+            user = current_user
             if user:
-                user.nome = new_name
-                user.email = new_email
-                user.password_hash = psw_proteggi_hash(new_psw)
+                id = user.id
+                db_user = User.query.get_or_404(id)
+                db_user.nome = new_name
+                db_user.email = new_email
+                db_user.password_hash = psw_proteggi_hash(new_psw)
                 db.session.commit()
                 return redirect(url_for('auth.login'))
-    return render_template("edit_user.html", enable_edit_user = enable_edit_user, utente = user, password=psw  )
+    return render_template("edit_user.html", enable_edit_user = enable_edit_user, utente = user, password = psw  )
 
 
 
