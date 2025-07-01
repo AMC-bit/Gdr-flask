@@ -2,32 +2,35 @@
 {% block title %}Menu iniziale{% endblock %}
 
 {% block content %}
-<h2>Benvenuto nel gioco GDR</h2>
-<h2>Setup</h2>
-<div class="d-grid gap-2 col-6 mx-auto">
 
-    <a href="{{ url_for('characters.create_char') }}" class="btn btn-dark btn-lg mb-2">Crea Personaggi</a>
-    <!-- Commenta temporaneamente i link alle route non definite -->
-    {# <a href="{{ url_for('load_game') }}" class="btn btn-secondary btn-lg">Carica Gioco</a> #}
+<h2 class="text-center mb-4">Benvenuto nel gioco GDR</h2>
+<div class="d-grid gap-2 col-6 mx-auto m-3">
 
-    <!-- Aggiungi link di test per la lista dei personaggi -->
-    <a href="{{ url_for('characters.mostra_personaggi') }}" class="btn btn-primary btn-lg mb-2">Lista personaggi</a>
+    {% if current_user.is_authenticated %}
+        <a href="{{ url_for('mission.select_mission') }}" class="btn btn-primary btn-lg">Seleziona Missione</a>
+        <a href="{{ url_for('mission.show_mission') }}" class="btn btn-primary btn-lg">Mostra Missione</a>
 
-    <a href="{{ url_for('inventory.inventory') }}" class="btn btn-primary btn-lg mb-2">Mostra Inventario</a>
-    <a href="{{ url_for('mission.select_mission') }}" class="btn btn-success btn-lg mb-2">Seleziona Missione</a>
-    <a href="{{ url_for('mission.show_mission') }}" class="btn btn-info btn-lg mb-2">Mostra Missione</a>
-    <a href="{{ url_for('auth.sign_in') }}" class="btn btn-info btn-lg mb-2">Registrati</a>
-    {# <a href="{{ url_for('environment.select_environment') }}" class="btn btn-danger btn-lg mb-2">Seleziona Ambiente</a>
-    <a href="{{ url_for('environment.show_environment') }}" class="btn btn-warning btn-lg mb-2">Mostra Ambiente</a>#}
-    {% if can_select_char %}
-        <a href="{{ url_for('battle.select_char') }}" class="btn btn-dark btn-lg mb-2">Seleziona Personaggio</a>
+        {#
+        <a href="{{ url_for('environment.select_environment') }}" class="btn btn-danger btn-lg">Seleziona Ambiente</a>
+        <a href="{{ url_for('environment.show_environment') }}" class="btn btn-warning btn-lg">Mostra Ambiente</a>
+        #}
+
+        {% if can_select_char %}
+            <a href="{{ url_for('battle.select_char') }}" class="btn btn-dark btn-lg">Seleziona Personaggio</a>
         {% else %}
-        <button class="btn btn-dark btn-lg mb-2" disabled>Seleziona Personaggio</button>
-        <p class="text-muted text-center small">
-            ⚠️ Crea almeno un personaggio e seleziona una missione per procedere
-        </p>
+            <button class="btn btn-dark btn-lg" disabled>Seleziona Personaggio</button>
+            <p class="text-muted text-center small">
+                ⚠️ Crea almeno un personaggio e seleziona una missione per procedere
+            </p>
+        {% endif %}
+
+    {% else %}
+        <a href="{{ url_for('auth.login') }}" class="btn btn-info btn-lg">Login</a>
+        <a href="{{ url_for('auth.sign_in') }}" class="btn btn-secondary btn-lg">Registrati</a>
     {% endif %}
+
 </div>
+
 {% endblock %}
 
 {% block scripts %}
