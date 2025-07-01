@@ -17,7 +17,7 @@ def create_char():
         classe_sel = request.form['classe']
         oggetto_sel = request.form['oggetto']
 
-        pg = classi[classe_sel](nome)
+        pg = classi[classe_sel](nome, npc=False)
         ogg = oggetti[oggetto_sel]()
         inv = Inventario(id_proprietario=pg.id)
         inv.aggiungi_oggetto(ogg)

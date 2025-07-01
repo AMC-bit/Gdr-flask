@@ -1,9 +1,16 @@
-from flask import redirect, render_template, session, url_for, request, flash
+from flask import redirect, render_template, session, url_for, request, flash, jsonify
 from . import battle_bp
 from gioco.personaggio import Personaggio
 from gioco.inventario import Inventario
 from gioco.ambiente import Ambiente, Foresta
 from gioco.missione import Missione, GestoreMissioni
+from gioco.oggetto import Oggetto
+from utils.messaggi import Messaggi
+from utils.log import Log
+import random
+import json
+import os
+
 classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
 
 @battle_bp.route('/show_inventory', methods=['GET', 'POST'])
@@ -20,7 +27,7 @@ def show_inventory():
         if 'inventari_selezionati' in session :
             inventari = session['inventari_selezionati']
             for inventario in inventari:
-                if inventario['proprietario'] ==  personaggio_turno_corrente.id:
+                if inventario['id_proprietario'] ==  personaggio_turno_corrente.id:
                     inventario = Inventario.from_dict(inventario)
 
     return render_template('show_inventory.html',
@@ -107,7 +114,7 @@ def select_char():
                         if cls:
                             pg = cls.from_dict(pgs)
                 for invs in inv_list:
-                    if invs['proprietario'] == idx:
+                    if invs['id_proprietario'] == idx:
                         inv = Inventario.from_dict(invs)
                 # aggingiamo i personaggi alle liste
                 print("PROVA", type(pg).__name__)
