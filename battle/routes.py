@@ -27,7 +27,7 @@ def show_inventory():
         if 'inventari_selezionati' in session :
             inventari = session['inventari_selezionati']
             for inventario in inventari:
-                if inventario['proprietario'] ==  personaggio_turno_corrente.id:
+                if inventario['id_proprietario'] ==  personaggio_turno_corrente.id:
                     inventario = Inventario.from_dict(inventario)
 
     return render_template('show_inventory.html',
@@ -114,7 +114,7 @@ def select_char():
                         if cls:
                             pg = cls.from_dict(pgs)
                 for invs in inv_list:
-                    if invs['proprietario'] == idx:
+                    if invs['id_proprietario'] == idx:
                         inv = Inventario.from_dict(invs)
                 # aggingiamo i personaggi alle liste
                 print("PROVA", type(pg).__name__)

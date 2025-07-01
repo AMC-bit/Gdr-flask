@@ -19,7 +19,7 @@ def create_char():
 
         pg = classi[classe_sel](nome, npc=False)
         ogg = oggetti[oggetto_sel]()
-        inv = Inventario(proprietario=pg.id)
+        inv = Inventario(id_proprietario=pg.id)
         inv.aggiungi_oggetto(ogg)
 
         pg_list = session.get('personaggi', [])
