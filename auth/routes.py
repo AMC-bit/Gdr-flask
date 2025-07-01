@@ -70,7 +70,11 @@ def login():
 
 @auth_bp.route('/area_personale')
 def area_personale():
-    return render_template("area_personale.html", user=current_user)
+    message = ""
+    message1 = request.args.get('message', '')
+    if message1:
+        message = message1
+    return render_template("area_personale.html", user=current_user, message=message)
 
 
 @auth_bp.route('/edit_user', methods=['GET', 'POST'])
@@ -105,7 +109,8 @@ def edit_user():
                 db_user.email = new_email
                 db_user.password_hash = psw_proteggi_hash(new_psw)
                 db.session.commit()
-                return redirect(url_for('auth.area_personale',message = "Utente modificato con successo !"))
+                message = "Utente modificato con successo!"
+                return redirect(url_for('auth.area_personale', message=message))
             
     return render_template("edit_user.html", enable_edit_user = enable_edit_user, utente = user, password = psw  )
 
