@@ -10,7 +10,7 @@ class Mago(Personaggio):
     Estende la classe personaggio con attacco diminuito e recupero
     di salute personalizzato
     """
-    def __init__(self, nome: str) -> None:
+    def __init__(self, nome: str, npc: bool = False) -> None:
         """
         Inizializza il personaggio Mago con salute 80
 
@@ -20,7 +20,7 @@ class Mago(Personaggio):
         Returns:
             None
         """
-        super().__init__(nome)
+        super().__init__(nome, npc)
         self.salute = 80
 
     def attacca(self, mod_ambiente: int = 0) -> None:
@@ -66,7 +66,7 @@ class Guerriero(Personaggio):
     Estende la classe Personaggio, con salute_max di 120, attacco piu potente e
     guarigione post duello fissa di 30 salute
     """
-    def __init__(self, nome: str) -> None:
+    def __init__(self, nome: str, npc: bool = False) -> None:
         """
         Inizializza il personaggio Guerriero con salute 120
 
@@ -76,7 +76,7 @@ class Guerriero(Personaggio):
         Returns:
             None
         """
-        super().__init__(nome)
+        super().__init__(nome, npc)
         self.salute = 120
 
     def attacca(self, mod_ambiente: int = 0) -> int:
@@ -122,7 +122,7 @@ class Ladro(Personaggio):
     attacco_min, recupera punti salute al termine del duello
     casualmente in un range 10-40
     """
-    def __init__(self, nome: str) -> None:
+    def __init__(self, nome: str, npc: bool = False) -> None:
         """
         Inizializza il personaggio Ladro con salute 140
 
@@ -132,7 +132,7 @@ class Ladro(Personaggio):
         Returns:
             None
         """
-        super().__init__(nome)
+        super().__init__(nome, npc)
         self.salute = 140
 
     def attacca(self, mod_ambiente: int = 0) -> None:
