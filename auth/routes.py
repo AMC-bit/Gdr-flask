@@ -92,6 +92,7 @@ def edit_user():
             user = current_user
             if user and check_password_hash(user.password_hash, psw):
                 enable_edit_user= True
+                flash("Password corretta, modifica i tuoi dati nel form!", "info")
    
     if request.method == 'POST':
         form_type = request.form.get('form_type')
