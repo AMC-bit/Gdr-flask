@@ -194,3 +194,23 @@
 2025-07-01 10:06:19 - Attenzione! le classi da utilizzare sono le classi derivate!
 2025-07-01 10:06:19 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
 2025-07-01 10:08:32 - Richiesta lista personaggi. Numero personaggi: 0
+2025-07-01 10:21:09 - Richiesta lista personaggi. Numero personaggi: 0
+2025-07-01 10:25:10 - Richiesta lista personaggi. Numero personaggi: 0
+2025-07-01 10:25:18 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-01 10:25:18 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-01 10:25:18 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-01 10:25:18 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-01 10:25:18 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-01 10:25:23 - Nessuna missione selezionata.
+2025-07-01 10:25:23 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-01 10:25:23 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-01 10:25:23 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-01 10:25:23 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-01 10:25:23 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-01 10:25:52 - Nessuna missione selezionata.
+2025-07-01 10:25:52 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-01 10:25:52 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-01 10:25:52 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-01 10:25:52 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-01 10:25:52 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-01 10:27:36 - Richiesta lista personaggi. Numero personaggi: 0
