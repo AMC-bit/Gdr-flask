@@ -84,3 +84,5 @@ def elimina_personaggio(id):
 @characters_bp.route('/combattimento', methods=['GET', 'POST'])
 def inizio_combatimento():
     pass
+
+

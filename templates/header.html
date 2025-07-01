@@ -1,38 +1,24 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
   <div class="container-fluid">
     <a class="navbar-brand" href="{{ url_for('gioco.index') }}">RPG Web</a>
+
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav me-auto">
         <li class="nav-item"><a class="nav-link" href="{{ url_for('gioco.index') }}">Home</a></li>
-        <!-- Commento temporaneamente i link alle route non ancora definite -->
-        {# <li class="nav-item"><a class="nav-link" href="{{ url_for('gioco.new_game') }}">Nuovo Gioco</a></li> #}
-        {# <li class="nav-item"><a class="nav-link" href="{{ url_for('gioco.load_game') }}">Carica Partita</a></li> #}
-        {# <li class="nav-item"><a class="nav-link" href="{{ url_for('gioco.select_mission') }}">Missioni</a></li> #}
-        {# <li class="nav-item"><a class="nav-link" href="{{ url_for('gioco.battle') }}">Battaglia</a></li> #}
-        {# <li class="nav-item"><a class="nav-link" href="{{ url_for('gioco.inventory') }}">Inventario</a></li> #}
-        <!-- link alla pagina di test -->
-       {# <li class="nav-item"><a class="nav-link" href="{{ url_for('gioco.test_inventory') }}">Test Inventario</a></li>#}
-      </ul> 
-
-          <!-- LOGIN/LOGOUT A DESTRA -->
-
-          <div class="d-flex align-items-center ms-auto">
-            {% if current_user.is_authenticated %}
-              <span class="text-light me-2">
-                <i class="bi bi-person-circle me-1"></i>Ciao, {{ current_user.nome }}
-              </span>
-              <a href="{{ url_for('auth.logout') }}" class="btn btn-outline-light btn-sm me-2 rounded-pill">Logout</a>
-            {% else %}
-              <a href="{{ url_for('auth.login') }}" class="btn btn-outline-light btn-sm me-2 rounded-pill">
-                <i class="bi bi-box-arrow-in-right me-1"></i> Login
-              </a>
-              <a href="{{ url_for('auth.sign_in') }}" class="btn btn-outline-success btn-sm rounded-pill">
-                <i class="bi bi-person-plus me-1"></i> Sign in
-              </a>
-            {% endif %}
-          </div>
-
-
+      </ul>
+      {% if current_user.is_authenticated %}
+      <div class="d-flex ms-auto align-items-center gap-3 text-white">
+        <div class="d-flex align-items-center gap-1">
+          <strong>User:</strong> {{ current_user.nome }}
+        </div>
+        <div class="d-flex align-items-center gap-1">
+          <strong>Crediti:</strong> {{ current_user.crediti|int }}
+          <img src="{{ url_for('static', filename='img/bitcoin4.png') }}" alt="coin" style="height: 1.5em;">
+        </div>
+        <a class="btn btn-primary" href="{{ url_for('auth.area_personale') }}">Area Personale</a>
+        <a class="btn btn-outline-danger" href="{{ url_for('auth.logout') }}">Logout</a>
+      </div>
+      {% endif %}
     </div>
   </div>
 </nav>

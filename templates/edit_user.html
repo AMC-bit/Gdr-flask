@@ -3,24 +3,32 @@
 <h1>Modifica Informazioni Utente</h1>
 {# Inserisco la password per verificare l'utente dopodiche compaiono le informazioni dell'utente#}
 <div class="mb-3">
-    <label for="password" class="form-label">Password</label>
-    <input type="password" id="password" name="password" class="form-control" required>
-    <button type="submit" class="btn btn-primary">Invia</button>
+    <form method="POST" class="card shadow-sm p-4" style="max-width: 800px; width: 100%;">
+        <input type="hidden" name= "form_type" value="check_form">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" id="password" name="password" class="form-control" required>
+        <button type="submit" class="btn btn-primary">Invia</button>
+    </form>
 </div>
 {# Visualizzo le informazioni attuali con accanto un pulsante per la modifica#}
-{% if password %}
-    <div class="mb-3">
-        <label for="username" class="form-label">Username</label>
-        <input type="text" id="username" name="username" class="form-control" value="{{ utente.username }}" required>
-    </div>
-    <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" id="email" name="email" class="form-control" value="{{ utente.email }}" required>
-    </div>
-    <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" id="password" name="password" class="form-control" value="{{ utente.password }}" required>
-    </div>
-    <div class="mb-3">
-    {% endif %}
+{% if enable_edit_user %}
+    <form method="POST" class="card shadow-sm p-4" style="max-width: 800px; width: 100%;">
+        <input type="hidden" name= "form_type" value="edit_form">
+        <div class="mb-3">
+            <label for="new_username" class="form-label">Nuovo Username</label>
+            <input type="text" id="new_username" name="new_username" class="form-control" value="{{ utente.nome }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="new_email" class="form-label">Nuova Email</label>
+            <input type="email" id="new_email" name="new_email" class="form-control" value="{{ utente.email }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="new_password" class="form-label">Nuova Password</label>
+            <input type="password" id="new_password" name="new_password" class="form-control" value="{{ password }}" required>
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Invia</button>
+        </div>
+    </form>
+{% endif %}
 {% endblock %}

@@ -1,7 +1,7 @@
 {%extends "layout.html"%}
 {%block title%} Login {% endblock %}
 {% block content%}
- <div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
+<div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
     <form method="POST" class="card shadow-sm p-4" style="max-width: 800px; width: 100%;">
         <h2 style="text-align: center;">Accedi al tuo account</h2>
 
@@ -15,7 +15,11 @@
             <input type="password" id="password" name="password" placeholder="Inserisci la password" class="form-control" required>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 text-center">
+            <label class="form-label">Non hai un account? <a href="{{ url_for('auth.sign_in') }}">Registrati</a></label>
+        </div>
+
+        <div class="mb-3 text-center">
             <button type="submit" class="btn btn-success btn-lg mb-2">Accedi</button>
         </div>
 
@@ -24,5 +28,5 @@
         {% endif %}
     </form>
 </div>
-    <p style="text-align:center;">Non hai un account? <a href="{{ url_for('auth.sign_in') }}">Registrati</a></p>
+
 {%endblock%}
