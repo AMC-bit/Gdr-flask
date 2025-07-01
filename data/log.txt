@@ -225,3 +225,11 @@
 2025-07-01 10:25:52 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
 2025-07-01 10:27:36 - Richiesta lista personaggi. Numero personaggi: 0
 >>>>>>> 8d36a02cf34613ad295e7da5375371a19559af0e
+2025-07-01 12:41:43 - Richiesta lista personaggi. Numero personaggi: 1
+2025-07-01 12:42:23 - Creato personaggio: giue, Classe: Guerriero, id: 7714ec0c-75ae-448c-aa81-bf23804f50b6, Oggetto iniziale: PozioneCura
+2025-07-01 12:42:23 - Richiesta lista personaggi. Numero personaggi: 2
+2025-07-01 12:47:34 - Richiesta lista personaggi. Numero personaggi: 2, Personaggi: [{'classe': 'Mago', 'id': '159fc82f-329e-475f-88a7-52e295cda7ec', 'nome': 'sora', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': True}, {'classe': 'Guerriero', 'id': '7714ec0c-75ae-448c-aa81-bf23804f50b6', 'nome': 'giue', 'salute': 120, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-01 12:50:15 - Eliminato personaggio con ID: 7714ec0c-75ae-448c-aa81-bf23804f50b6, Nome: giue
+2025-07-01 12:50:15 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '159fc82f-329e-475f-88a7-52e295cda7ec', 'nome': 'sora', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': True}]
+2025-07-01 12:50:17 - Visualizzazione dettagli personaggio con ID: 159fc82f-329e-475f-88a7-52e295cda7ec, Nome: sora
+2025-07-01 12:50:24 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '159fc82f-329e-475f-88a7-52e295cda7ec', 'nome': 'sora', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': True}]
