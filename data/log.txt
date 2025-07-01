@@ -194,3 +194,11 @@
 2025-07-01 10:06:19 - Attenzione! le classi da utilizzare sono le classi derivate!
 2025-07-01 10:06:19 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
 2025-07-01 10:08:32 - Richiesta lista personaggi. Numero personaggi: 0
+2025-07-01 11:26:04 - Richiesta lista personaggi. Numero personaggi: 0
+2025-07-01 11:27:41 - Creato personaggio: belin, Classe: Mago, id: 3126fe40-90bf-4e02-bdda-90b8757100a1, Oggetto iniziale: PozioneCura
+2025-07-01 11:27:41 - Richiesta lista personaggi. Numero personaggi: 1
+2025-07-01 11:27:54 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-01 11:27:54 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-01 11:27:54 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-01 11:27:54 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-01 11:27:54 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!

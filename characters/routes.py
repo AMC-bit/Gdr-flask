@@ -19,7 +19,7 @@ def create_char():
 
         pg = classi[classe_sel](nome)
         ogg = oggetti[oggetto_sel]()
-        inv = Inventario(proprietario=pg.id)
+        inv = Inventario(id_proprietario=pg.id)
         inv.aggiungi_oggetto(ogg)
 
         pg_list = session.get('personaggi', [])
@@ -130,11 +130,11 @@ def inizio_combatimento():
         Log.scrivi_log(f"Combattimento terminato - {risultato}")
 
         return render_template(
-            'battle.html',
+            'test_battle.html',
             pg1=pg1,
             pg2=pg2,
             risultato=risultato,
             log_combattimento=log_combattimento
         )
 
-    return render_template('combat.html', personaggi=personaggi_utente)
+    return render_template('test_battle.html', personaggi=personaggi_utente)
