@@ -8,6 +8,7 @@ from gioco.ambiente import Ambiente, Vulcano, Foresta, Palude
 from gioco.oggetto import Oggetto, PozioneCura, BombaAcida, Medaglione
 from gioco.inventario import Inventario
 
+from gioco.strategy import Strategia, StrategiaFactory
 from utils.messaggi import Messaggi
 # from utils.log import Log
 
@@ -23,6 +24,7 @@ class Missione(Basic):
         ambiente: Ambiente,
         nemici: list[Personaggio],
         premi: list[Oggetto],
+        strategia_nemici: Strategia = None,
         id: uuid.UUID = None
     ) -> None:
         """
@@ -50,6 +52,7 @@ class Missione(Basic):
         self.premi = premi  # supporta premio singolo o multiplo
         self.completata = False  # flag per premio in inventario
         self.attiva = False
+        self.strategia_nemici = strategia_nemici
 
     def get_nemici(self) -> list[Personaggio]:
         """
@@ -184,6 +187,10 @@ class Missione(Basic):
             "ambiente": Ambiente.to_dict(self.ambiente),
             "nemici": [Personaggio.to_dict(nemico) for nemico in self.nemici],
             "premi": [Oggetto.to_dict(premio) for premio in self.premi],
+            "strategia_nemici": (
+                Strategia.to_dict(self.strategia_nemici)
+                if self.strategia_nemici else None
+            ),
             "completata": self.completata,
             "attiva": self.attiva
         }
@@ -209,11 +216,16 @@ class Missione(Basic):
 
                 nemici.append(nemico)
         premi = [Oggetto.from_dict(premio) for premio in data.get("premi", [])]
+        strategia_nemici = (
+            Strategia.from_dict(data["strategia_nemici"])
+            if data.get("strategia_nemici") else None
+        )
         missione = cls(
             id=uuid.UUID(data["id"]) if data.get("id") else uuid.uuid4(),
             nome=data["nome"],
             ambiente=ambiente_cls,
             nemici=nemici,
+            strategia_nemici=strategia_nemici,
             premi=premi
         )
         missione.completata = data.get("completata", False)
@@ -247,26 +259,29 @@ class GestoreMissioni():
         """
         # Istanzio le missioni
         imboscata = Missione(
-            "Imboscata",
-            Foresta(),
-            [Guerriero("Robin Hood"), Guerriero("Little Jhon")],
-            [PozioneCura(), PozioneCura(), BombaAcida()]
+            nome="Imboscata",
+            ambiente=Foresta(),
+            nemici=[Guerriero("Robin Hood"), Guerriero("Little Jhon")],
+            premi=[PozioneCura(), PozioneCura(), BombaAcida()],
+            strategia_nemici= StrategiaFactory.usa_strategia("equilibrata")
         )
         salva_principessa = Missione(
-            "Salva la principessa",
-            Palude(),
-            [Ladro("Megera furfante")],
-            [Medaglione()]
+            nome="Salva la principessa",
+            ambiente=Palude(),
+            nemici=[Ladro("Megera furfante")],
+            premi=[Medaglione()],
+            strategia_nemici= StrategiaFactory.usa_strategia("difensiva")
         )
         culto = Missione(
-            "Sgomina il culto di Graz'zt sul vulcano Gheemir",
-            Vulcano(),
-            [
+            nome="Sgomina il culto di Graz'zt sul vulcano Gheemir",
+            ambiente=Vulcano(),
+            nemici=[
                 Mago("Cultista 1"),
                 Mago("Cultista 2"),
                 Mago("Cultista 3")
             ],
-            [PozioneCura(), Medaglione()]
+            premi=[PozioneCura(), Medaglione()],
+            strategia_nemici= StrategiaFactory.usa_strategia("aggressiva")
         )
         return [imboscata, salva_principessa, culto]
 

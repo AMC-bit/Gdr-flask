@@ -4,9 +4,9 @@ from inventario import Inventario
 from utils.log import Log
 
 
-class StrategiaAttacco ():
+class Strategia ():
     '''
-    La classe StrategiaAttacco è una classe base per le strategie di attacco
+    La classe Strategia è una classe base per le strategie di attacco
     degli NPC (non-player-character, personaggio non giocabile).
     Ogni strategia di attacco deve derivare da questa classe e implementare il
     metodo uso_inventario_npc.
@@ -51,7 +51,7 @@ durante il suo turno
 '''
 
 
-class Aggressiva(StrategiaAttacco):
+class Aggressiva(Strategia):
     '''
     la classe Aggressiva rappresenta una strategia in cui l'NPC decide di
     focalizzarsi sul fare il maggior danno possibile alla salute del bersaglio.
@@ -109,7 +109,7 @@ class Aggressiva(StrategiaAttacco):
         '''
         return destrezza + 3
 
-class Difensiva(StrategiaAttacco):
+class Difensiva(Strategia):
     '''
     La classe Difensiva rappresenta una strategia in cui il NPC si concentra
     sulla propria salute, curandosi quando questa è sotto i 60 punti e
@@ -168,7 +168,7 @@ class Difensiva(StrategiaAttacco):
             int: la destrezza incrementata di 5 punti
         '''
         return destrezza + 2
-class Equilibrata(StrategiaAttacco):
+class Equilibrata(Strategia):
     '''
     La classe Equilibrata rappresenta una strategia in cui il NPC decide di
     curarsi quando la salute è sotto i 40 punti, altrimenti di usare una bomba
@@ -250,14 +250,14 @@ class Equilibrata(StrategiaAttacco):
 # ----------------------------------------------------------------------------
 
 
-class StrategiaAttaccoFactory:
+class StrategiaFactory:
     '''
-    la classe StrategiaAttaccoFactory è una factory che crea le istanze delle
-    classi derivate di StrategiaAttacco in base
+    la c è una factory che crea le istanze delle
+    classi derivate di Strategia in base
     al tipo di strategia richiesta o randomicamente.
     '''
     @staticmethod
-    def strategia_random() -> StrategiaAttacco:
+    def strategia_random() -> Strategia:
         '''
         Restituisce una strategia randomica tra le tre disponibili utilizzando
         l'altro metodo usa_strategia.
@@ -266,15 +266,15 @@ class StrategiaAttaccoFactory:
             None
 
         Returns:
-            StrategiaAttacco: un'istanza della strategia randomica.
+            Strategia: un'istanza della strategia randomica.
         '''
         random_choice = random.choice(
             ["aggressiva", "difensiva", "equilibrata"]
         )
-        return StrategiaAttaccoFactory.usa_strategia(random_choice)
+        r.usa_strategia(random_choice)
 
     @staticmethod
-    def usa_strategia(tipo: str) -> StrategiaAttacco:
+    def usa_strategia(tipo: str) -> Strategia:
         '''
         Restituisce un'istanza della strategia richiesta in base
         al tipo passato come argomento.
@@ -284,7 +284,7 @@ class StrategiaAttaccoFactory:
                 può essere "aggressiva", "difensiva" o "equilibrata".
 
         Returns:
-            StrategiaAttacco: un'istanza della strategia richiesta.
+            Strategia: un'istanza della strategia richiesta.
 
         Raises:
             ValueError: se il tipo di strategia non è valido.
