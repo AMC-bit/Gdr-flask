@@ -44,6 +44,30 @@ class Strategia ():
             "Devi implementare il metodo esegui nella sottoclasse"
         )
 
+    def to_dict(self) -> dict:
+        """Restituisce uno stato serializzabile per session o JSON.
+
+        Returns:
+            dict: Dizionario del materiale serializzato
+        """
+        return {
+            "classe": self.__class__.__name__,
+            "nome": self.nome
+        }
+
+    @classmethod
+    def from_dict(cls, data: dict) -> "Strategia":
+        """Ricostruisce l’istanza a partire da un dict serializzato.
+
+        Args:
+            data (dict): Dati serializzati
+
+        Returns:
+            Strategia:Dati deserializzati
+        """
+        strat = cls(data["nome"])
+        return strat
+
 
 '''
 le classi si occuperanno di gestire le decisioni del NPC
