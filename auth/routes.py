@@ -40,8 +40,6 @@ def sign_in():
                     else:
                         #Registra il nuovo utente
                         hash_psw = psw_proteggi_hash(psw)
-                        #TODO qua  hash_psw e email vanno inseriti all'interno del db
-                        #Controllo che nel db non ci sia già un utente con quel nome e psw
                         utente_exist = User.query.filter((User.email == email)and((User.nome == name ))).first()
                         if utente_exist:
                             raise ValueError('Utente già presente')
@@ -75,12 +73,40 @@ def area_personale():
     return render_template("area_personale.html", user=current_user)
 
 
-@auth_bp.route('/edit_user')
+@auth_bp.route('/edit_user', methods=['GET', 'POST'])
+@login_required
 def edit_user():
-    # Logica per modificare le informazioni dell'utente
-    # L'utente inserirà la password attuale per verificare la persona
-    # L'utente potrà inserire le nuove informazioni sia per nome utente che per la password
-    return render_template("edit_user.html")
+    enable_edit_user= False
+    user = None
+    psw = ""
+    if request.method == 'POST':
+        form_type = request.form.get('form_type')
+        # Questa parte fa il controllo della  psw iniziale e fa spawnare il form
+        # per la modifica dei dati dell'utente
+        if form_type=='check_form':
+            psw = request.form['password']
+            user = current_user
+            if user and check_password_hash(user.password_hash, psw):
+                enable_edit_user= True
+   
+    if request.method == 'POST':
+        form_type = request.form.get('form_type')
+        #Catturo i dati inseriti nel form per la modifica dell'utente e li uso per 
+        #modificare i dati dell'utente sul db, invine redirige alla pagina login
+        if form_type=='edit_form':
+            new_name = request.form['new_username']
+            new_email = request.form['new_email']
+            new_psw = request.form['new_password']
+            user = current_user
+            if user:
+                id = user.id
+                db_user = User.query.get_or_404(id)
+                db_user.nome = new_name
+                db_user.email = new_email
+                db_user.password_hash = psw_proteggi_hash(new_psw)
+                db.session.commit()
+                return redirect(url_for('auth.login'))
+    return render_template("edit_user.html", enable_edit_user = enable_edit_user, utente = user, password = psw  )
 
 
 
