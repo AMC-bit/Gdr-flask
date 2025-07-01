@@ -16,8 +16,9 @@
 <br>
 <p>Possibili premi:</p>
 <ul>
-    {% for premio in missione.premi %}
-        <li>{{ premio.nome }} </li>
+    {% regroup missione.premi by nome as premi_raggruppati %}
+    {% for gruppo in premi_raggruppati %}
+        <li>{{ gruppo.grouper }} (quantità: {{ gruppo.list|length }})</li>
     {% endfor %}
 </ul>
 <br>
