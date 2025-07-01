@@ -93,10 +93,10 @@ def edit_user():
             if user and check_password_hash(user.password_hash, psw):
                 enable_edit_user= True
                 flash("Password corretta, modifica i tuoi dati nel form!", "info")
-   
+
     if request.method == 'POST':
         form_type = request.form.get('form_type')
-        #Catturo i dati inseriti nel form per la modifica dell'utente e li uso per 
+        #Catturo i dati inseriti nel form per la modifica dell'utente e li uso per
         #modificare i dati dell'utente sul db, invine redirige alla pagina login
         if form_type=='edit_form':
             new_name = request.form['new_username']

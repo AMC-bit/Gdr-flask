@@ -1,5 +1,5 @@
 from . import characters_bp
-from flask import render_template, request, redirect, url_for, session, abort
+from flask import render_template, request, redirect, url_for, session, abort, flash
 from gioco.personaggio import Personaggio
 from gioco.oggetto import Oggetto
 from gioco.inventario import Inventario
@@ -52,9 +52,8 @@ def mostra_personaggi():
         for per in current_user.character_ids:
             if per == pers['id']:
                 lista_pers_utente.append(pers)
-    personaggi = [Personaggio.from_dict(pg) for pg in lista_pers_utente]
-    Log.scrivi_log(f"Richiesta lista personaggi. Numero personaggi: {len(personaggi)}")
-    return render_template('list_char.html', personaggi=personaggi)
+    Log.scrivi_log(f"Richiesta lista personaggi. Numero personaggi: {len(lista_pers)}, Personaggi: {lista_pers}")
+    return render_template('list_char.html', personaggi = lista_pers )
 
 
 @characters_bp.route('/personaggi/<int:id>')
