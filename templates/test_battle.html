@@ -3,64 +3,120 @@
 
 {% block content %}
 <div class="container-fluid">
-    <!-- Informazioni battaglia -->
-    <div class="row mb-3">
-        <div class="col-md-6">
-            <div class="card">
+    <!-- Header con informazioni battaglia -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card bg-dark text-white">
                 <div class="card-header">
-                    <h5>Informazioni Battaglia</h5>
+                    <h3 class="mb-0"><i class="fas fa-sword"></i> Battaglia in Corso</h3>
                 </div>
                 <div class="card-body">
-                    <p><strong>Ambiente:</strong> {{ambiente.__class__.__name__}}</p>
-                    <p><strong>Missione:</strong> {{missione.nome}}</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Stato Battaglia</h5>
-                </div>
-                <div class="card-body">
-                    {% if battaglia_finita %}
-                        {% if vittoria %}
-                            <div class="alert alert-success">
-                                <h4>Vittoria!</h4>
-                                <p>Tutti i nemici sono stati sconfitti!</p>
-                            </div>
-                        {% else %}
-                            <div class="alert alert-danger">
-                                <h4>Sconfitta!</h4>
-                                <p>Tutti i personaggi sono stati sconfitti!</p>
-                            </div>
-                        {% endif %}
-                    {% else %}
-                        <div class="alert alert-info">
-                            <h5>Turno di: {{personaggio_turno_corrente.nome}}</h5>
-                            <p><strong>Tipo:</strong> {% if personaggio_turno_corrente.npc %}NPC{% else %}Giocatore{% endif %}</p>
-                            <p><strong>Classe:</strong> {{personaggio_turno_corrente.__class__.__name__}}</p>
-                            <p><strong>HP:</strong> {{personaggio_turno_corrente.salute}}/{{personaggio_turno_corrente.salute_max}}</p>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5><i class="fas fa-map"></i> Ambiente</h5>
+                            <p class="mb-0">{{ambiente.__class__.__name__}}</p>
                         </div>
-                    {% endif %}
+                        <div class="col-md-4">
+                            <h5><i class="fas fa-flag"></i> Missione</h5>
+                            <p class="mb-0">{{missione.nome}}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h5><i class="fas fa-trophy"></i> Premi</h5>
+                            <ul class="list-unstyled mb-0">
+                                {% regroup missione.premi by nome as premi_raggruppati %}
+                                {% for gruppo in premi_raggruppati %}
+                                    <li><small>{{ gruppo.grouper }} ({{gruppo.list|length}})</small></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Stato battaglia e turno corrente -->
+    <div class="row mb-4">
+        <div class="col-12">
+            {% if battaglia_finita %}
+                {% if vittoria %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <h4 class="alert-heading"><i class="fas fa-crown"></i> Vittoria!</h4>
+                        <p class="mb-0">Tutti i nemici sono stati sconfitti! La missione è completata con successo.</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% else %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <h4 class="alert-heading"><i class="fas fa-skull"></i> Sconfitta!</h4>
+                        <p class="mb-0">Tutti i personaggi sono stati sconfitti! La missione è fallita.</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="card border-primary">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="fas fa-user"></i> Turno Corrente</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h6 class="text-primary">{{personaggio_turno_corrente.nome}}</h6>
+                                <div class="d-flex align-items-center gap-3">
+                                    <span class="badge {% if personaggio_turno_corrente.npc %}bg-warning{% else %}bg-info{% endif %}">
+                                        {% if personaggio_turno_corrente.npc %}NPC{% else %}Giocatore{% endif %}
+                                    </span>
+                                    <span class="badge bg-secondary">{{personaggio_turno_corrente.__class__.__name__}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped" 
+                                         style="width: {% widthratio personaggio_turno_corrente.salute personaggio_turno_corrente.salute_max 100 %}%">
+                                        {{personaggio_turno_corrente.salute}}/{{personaggio_turno_corrente.salute_max}} HP
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
     <!-- Lista personaggi -->
-    <div class="row mb-3">
+    <div class="row mb-4">
         <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Personaggi Giocabili</h5>
+            <div class="card h-100">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="fas fa-users"></i> Personaggi Giocabili</h5>
                 </div>
                 <div class="card-body">
                     {% for personaggio in tutti_personaggi %}
                         {% if not personaggio.npc %}
-                            <div class="mb-2 p-2 border rounded {% if personaggio.sconfitto() %}bg-light text-muted{% endif %}">
-                                <strong>{{personaggio.nome}}</strong> ({{personaggio.__class__.__name__}})
-                                <br>HP: {{personaggio.salute}}/{{personaggio.salute_max}}
-                                {% if personaggio.sconfitto() %}<span class="badge badge-danger">Sconfitto</span>{% endif %}
+                            <div class="card mb-2 {% if personaggio.sconfitto() %}border-danger{% else %}border-success{% endif %}">
+                                <div class="card-body p-2">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong class="{% if personaggio.sconfitto() %}text-muted{% endif %}">
+                                                {{personaggio.nome}}
+                                            </strong>
+                                            <small class="text-muted d-block">{{personaggio.__class__.__name__}}</small>
+                                        </div>
+                                        <div class="text-end">
+                                            {% if personaggio.sconfitto() %}
+                                                <span class="badge bg-danger">Sconfitto</span>
+                                            {% else %}
+                                                <div class="progress" style="width: 100px; height: 20px;">
+                                                    <div class="progress-bar bg-success" 
+                                                         style="width: {% widthratio personaggio.salute personaggio.salute_max 100 %}%">
+                                                        {{personaggio.salute}}
+                                                    </div>
+                                                </div>
+                                                <small class="text-muted">{{personaggio.salute}}/{{personaggio.salute_max}}</small>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         {% endif %}
                     {% endfor %}
@@ -68,17 +124,37 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Nemici (NPC)</h5>
+            <div class="card h-100">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0"><i class="fas fa-dragon"></i> Nemici (NPC)</h5>
                 </div>
                 <div class="card-body">
                     {% for personaggio in tutti_personaggi %}
                         {% if personaggio.npc %}
-                            <div class="mb-2 p-2 border rounded {% if personaggio.sconfitto() %}bg-light text-muted{% endif %}">
-                                <strong>{{personaggio.nome}}</strong> ({{personaggio.__class__.__name__}})
-                                <br>HP: {{personaggio.salute}}/{{personaggio.salute_max}}
-                                {% if personaggio.sconfitto() %}<span class="badge badge-danger">Sconfitto</span>{% endif %}
+                            <div class="card mb-2 {% if personaggio.sconfitto() %}border-danger{% else %}border-warning{% endif %}">
+                                <div class="card-body p-2">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong class="{% if personaggio.sconfitto() %}text-muted{% endif %}">
+                                                {{personaggio.nome}}
+                                            </strong>
+                                            <small class="text-muted d-block">{{personaggio.__class__.__name__}}</small>
+                                        </div>
+                                        <div class="text-end">
+                                            {% if personaggio.sconfitto() %}
+                                                <span class="badge bg-danger">Sconfitto</span>
+                                            {% else %}
+                                                <div class="progress" style="width: 100px; height: 20px;">
+                                                    <div class="progress-bar bg-warning" 
+                                                         style="width: {% widthratio personaggio.salute personaggio.salute_max 100 %}%">
+                                                        {{personaggio.salute}}
+                                                    </div>
+                                                </div>
+                                                <small class="text-muted">{{personaggio.salute}}/{{personaggio.salute_max}}</small>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         {% endif %}
                     {% endfor %}
@@ -89,68 +165,69 @@
 
     <!-- Azioni del turno -->
     {% if not battaglia_finita and not personaggio_turno_corrente.npc %}
-    <div class="row mb-3">
+    <div class="row mb-4">
         <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Azioni disponibili per {{personaggio_turno_corrente.nome}}</h5>
+            <div class="card border-success">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="fas fa-gamepad"></i> Azioni per {{personaggio_turno_corrente.nome}}</h5>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ url_for('battle.esegui_azione') }}">
+                    <form method="POST">
                         <div class="row">
                             <div class="col-md-6">
                                 <h6>Seleziona Azione:</h6>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="azione" id="attacco" value="attacco" checked>
-                                    <label class="form-check-label" for="attacco">
-                                        Attacco
+                                <div class="btn-group" role="group">
+                                    <input type="radio" class="btn-check" name="azione" id="attacco" value="attacco" checked>
+                                    <label class="btn btn-outline-danger" for="attacco">
+                                        <i class="fas fa-sword"></i> Attacco
                                     </label>
+                                    
+                                    {% if inventario_corrente and inventario_corrente.oggetti %}
+                                    <input type="radio" class="btn-check" name="azione" id="usa_oggetto" value="usa_oggetto">
+                                    <label class="btn btn-outline-primary" for="usa_oggetto">
+                                        <i class="fas fa-magic"></i> Usa Oggetto
+                                    </label>
+                                    {% endif %}
                                 </div>
+                                
                                 {% if inventario_corrente and inventario_corrente.oggetti %}
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="azione" id="usa_oggetto" value="usa_oggetto">
-                                    <label class="form-check-label" for="usa_oggetto">
-                                        Usa Oggetto
-                                    </label>
+                                <div class="mt-3" id="oggetti_div" style="display: none;">
+                                    <label class="form-label">Seleziona Oggetto:</label>
+                                    <select class="form-select" name="oggetto_nome">
+                                        {% for oggetto in inventario_corrente.oggetti %}
+                                            <option value="{{oggetto.nome}}">{{oggetto.nome}}</option>
+                                        {% endfor %}
+                                    </select>
                                 </div>
                                 {% endif %}
                             </div>
                             <div class="col-md-6">
                                 <h6>Seleziona Bersaglio:</h6>
-                                {% for personaggio in tutti_personaggi %}
-                                    {% if not personaggio.sconfitto() and personaggio.id != personaggio_turno_corrente.id %}
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="bersaglio_id" value="{{personaggio.id}}" required>
-                                        <label class="form-check-label">
-                                            {{personaggio.nome}} ({{personaggio.__class__.__name__}})
-                                            {% if personaggio.npc %}<span class="badge badge-warning">NPC</span>{% endif %}
-                                        </label>
-                                    </div>
-                                    {% endif %}
-                                {% endfor %}
+                                <select class="form-select" name="bersaglio_id" required>
+                                    <option value="">-- Scegli un bersaglio --</option>
+                                    {% for p in tutti_personaggi %}
+                                        {% if not p.sconfitto() and p.id != personaggio_turno_corrente.id %}
+                                            <option value="{{p.id}}">
+                                                {{p.nome}} ({{p.__class__.__name__}}) 
+                                                {% if p.npc %}[NPC]{% else %}[PC]{% endif %} 
+                                                - {{p.salute}} HP
+                                            </option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
                             </div>
                         </div>
-
-                        {% if inventario_corrente and inventario_corrente.oggetti %}
-                        <div class="row mt-3" id="oggetti_div" style="display: none;">
-                            <div class="col-12">
-                                <h6>Seleziona Oggetto:</h6>
-                                {% for oggetto in inventario_corrente.oggetti %}
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="oggetto_nome" value="{{oggetto.nome}}">
-                                    <label class="form-check-label">
-                                        {{oggetto.nome}}
-                                    </label>
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        {% endif %}
-
+                        
                         <div class="row mt-3">
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary">Esegui Azione</button>
-                                <button type="submit" name="salva_stato" value="true" class="btn btn-secondary">Salva Stato</button>
+                                <div class="btn-group gap-2">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        <i class="fas fa-play"></i> Esegui Azione
+                                    </button>
+                                    <button type="submit" name="salva_stato" value="true" class="btn btn-secondary">
+                                        <i class="fas fa-save"></i> Salva Stato
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -161,16 +238,18 @@
     {% endif %}
 
     {% if not battaglia_finita and personaggio_turno_corrente.npc %}
-    <div class="row mb-3">
+    <div class="row mb-4">
         <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Turno NPC</h5>
+            <div class="card border-warning">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0"><i class="fas fa-robot"></i> Turno NPC</h5>
                 </div>
-                <div class="card-body">
-                    <p>{{personaggio_turno_corrente.nome}} sta decidendo la sua azione...</p>
-                    <form method="POST" action="{{ url_for('battle.turno_npc') }}">
-                        <button type="submit" class="btn btn-warning">Esegui Turno NPC</button>
+                <div class="card-body text-center">
+                    <p class="mb-3">{{personaggio_turno_corrente.nome}} sta decidendo la sua azione...</p>
+                    <form method="POST" style="display: inline;">
+                        <button type="submit" class="btn btn-warning btn-lg">
+                            <i class="fas fa-forward"></i> Esegui Turno NPC
+                        </button>
                     </form>
                 </div>
             </div>
@@ -182,17 +261,21 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <h5>Log di Battaglia</h5>
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0"><i class="fas fa-scroll"></i> Log di Battaglia</h5>
                 </div>
-                <div class="card-body">
-                    <div id="log_display" style="height: 300px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px; background-color: #f8f9fa;">
+                <div class="card-body p-0">
+                    <div id="log_display" style="height: 300px; overflow-y: auto;" class="p-3 bg-light">
                         {% if messaggi %}
                             {% for messaggio in messaggi %}
-                                <div>{{messaggio}}</div>
+                                <div class="border-bottom pb-1 mb-1">
+                                    <small class="text-muted">{{forloop.counter}}.</small> {{messaggio}}
+                                </div>
                             {% endfor %}
                         {% else %}
-                            <div>Inizia la battaglia!</div>
+                            <div class="text-center text-muted">
+                                <i class="fas fa-info-circle"></i> Inizia la battaglia!
+                            </div>
                         {% endif %}
                     </div>
                 </div>
@@ -202,7 +285,7 @@
 </div>
 
 <script>
-// Mostra/nascondi sezione oggetti
+// JavaScript per gestire la visualizzazione degli oggetti
 document.addEventListener('DOMContentLoaded', function() {
     const radioAttacco = document.getElementById('attacco');
     const radioOggetto = document.getElementById('usa_oggetto');
@@ -220,6 +303,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 oggettiDiv.style.display = 'block';
             }
         });
+    }
+
+    // Auto-scroll del log alla fine
+    const logDisplay = document.getElementById('log_display');
+    if (logDisplay) {
+        logDisplay.scrollTop = logDisplay.scrollHeight;
     }
 });
 </script>
