@@ -6,7 +6,10 @@ from gioco.inventario import Inventario
 from utils.log import Log
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
 import json
+
+
 @characters_bp.route('/create_char', methods=['GET', 'POST'])
+@login_required
 def create_char():
     from app import db
     classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
@@ -44,6 +47,51 @@ def create_char():
     )
 
 
+@characters_bp.route('/edit_char/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_char(id):
+    from app import db
+    # mappa nomi-classi per poter permettere di cambiare classe
+    classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
+    # prende valore associato a chiave 'personaggi' da sessione oppure lista vuota
+    lista_pg = session.get('personaggi', [])
+    try:
+        # prova a recuperare il dizionario del pg da lista_pg tramite id
+        pg_dict = lista_pg[id]
+    except IndexError:
+        flash("Impossibile trovare il personaggio desiderato")
+        return redirect(url_for('characters.mostra_personaggi'))
+    if request.method == 'POST':
+
+        # otteniamo i valori dal form
+        nuovo_nome = request.form['nome'].strip()
+        nuova_classe = request.form['classe']
+
+        vecchio_nome = pg_dict['nome']  # cattura vecchio nome a fini di log
+
+        # ricreiamo istanza di personaggio con dati aggiornati
+        pg_dict['nome'] = nuovo_nome
+        pg_dict['classe'] = nuova_classe
+
+        Log.scrivi_log(
+            f"Modificato personaggio id={id}: "
+            f"Nome: da '{vecchio_nome}' a '{nuovo_nome}', "
+            f"Nuova classe: '{nuova_classe}'"
+        )
+
+        # salvataggio in sessione
+        session['personaggi'] = lista_pg
+        return redirect(url_for('characters.mostra_personaggi'))
+
+    # mostra form precompilato
+    return render_template(
+        'edit_char.html',
+        id=id,
+        pg=pg_dict,
+        classi=list(classi.keys())
+    )
+
+
 @characters_bp.route('/personaggi', methods=['GET', 'POST'])
 def mostra_personaggi():
     lista_pers = session.get('personaggi', [])
@@ -61,12 +109,13 @@ def dettaglio_personaggio(id):
     lista_pers = session.get('personaggi', [])
     try:
         pg_dict = lista_pers[id]
-        pg = Personaggio.from_dict(pg_dict)
-        Log.scrivi_log(f"Visualizzazione dettagli personaggio con ID: {pg.id}, Nome: {pg.nome}")
+        
+        Log.scrivi_log(f"Visualizzazione dettagli personaggio con ID: {id}, Nome: {pg_dict["nome"]}")
     except IndexError:
         Log.scrivi_log(f"Tentativo di accesso a personaggio inesistente con ID: {id}")
         abort(404)
-    return render_template('details_char.html', pg=pg, id=id)
+    return render_template('details_char.html', pg = pg_dict, id=id)
+
 
 @characters_bp.route('/personaggi/<int:id>', methods=['POST'])
 def elimina_personaggio(id):
@@ -82,7 +131,7 @@ def elimina_personaggio(id):
 
 
 @characters_bp.route('/combattimento', methods=['GET', 'POST'])
-def inizio_combatimento():
+def inizio_combattimento():
     lista_pers = session.get('personaggi', [])
     personaggi_utente = [p for p in lista_pers if p['id'] in (current_user.character_ids or [])]
 
