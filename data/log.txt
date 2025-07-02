@@ -257,3 +257,143 @@
 2025-07-02 10:45:39 - Visualizzazione dettagli personaggio con ID: 0, Nome: carolina
 2025-07-02 10:54:39 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '963a1757-8584-4f88-a4a3-a7eaa89bb5c6', 'nome': 'carolina', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
 2025-07-02 10:54:42 - Visualizzazione dettagli personaggio con ID: 0, Nome: carolina
+2025-07-02 11:04:02 - Creato personaggio: carolina, Classe: Guerriero, id: 48bc24b0-412c-40c2-99cd-1e4881f25108, Oggetto iniziale: BombaAcida
+2025-07-02 11:04:02 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Guerriero', 'id': '48bc24b0-412c-40c2-99cd-1e4881f25108', 'nome': 'carolina', 'salute': 120, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-02 11:05:08 - Inventario di carolina selezionato.
+2025-07-02 11:06:02 - Visualizzazione dettagli personaggio con ID: 0, Nome: carolina
+2025-07-02 11:06:11 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Guerriero', 'id': '48bc24b0-412c-40c2-99cd-1e4881f25108', 'nome': 'carolina', 'salute': 120, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-02 11:06:14 - Visualizzazione dettagli personaggio con ID: 0, Nome: carolina
+2025-07-02 11:06:20 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Guerriero', 'id': '48bc24b0-412c-40c2-99cd-1e4881f25108', 'nome': 'carolina', 'salute': 120, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-02 11:06:38 - Modificato personaggio id=0: Nome: da 'carolina' a 'caro', Nuova classe: 'Mago'
+2025-07-02 11:06:38 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '48bc24b0-412c-40c2-99cd-1e4881f25108', 'nome': 'caro', 'salute': 120, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-02 11:06:57 - Eliminato personaggio con ID: 48bc24b0-412c-40c2-99cd-1e4881f25108, Nome: caro
+2025-07-02 11:06:57 - Richiesta lista personaggi. Numero personaggi: 0, Personaggi: []
+2025-07-02 11:07:04 - Creato personaggio: carolina, Classe: Mago, id: 039e24c8-30bb-4f5e-8b4e-1768f2262bb5, Oggetto iniziale: PozioneCura
+2025-07-02 11:07:04 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '039e24c8-30bb-4f5e-8b4e-1768f2262bb5', 'nome': 'carolina', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-02 11:09:41 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '039e24c8-30bb-4f5e-8b4e-1768f2262bb5', 'nome': 'carolina', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-02 11:10:07 - Modificato personaggio id=0: Nome: da 'carolina' a 'carol', Nuova classe: 'Mago'
+2025-07-02 11:10:08 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '039e24c8-30bb-4f5e-8b4e-1768f2262bb5', 'nome': 'carol', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-02 11:10:32 - Creato personaggio: carol, Classe: Guerriero, id: 0ffc2347-be0b-4045-94b4-91f83918a6e6, Oggetto iniziale: PozioneCura
+2025-07-02 11:10:32 - Richiesta lista personaggi. Numero personaggi: 2, Personaggi: [{'classe': 'Mago', 'id': '039e24c8-30bb-4f5e-8b4e-1768f2262bb5', 'nome': 'carol', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}, {'classe': 'Guerriero', 'id': '0ffc2347-be0b-4045-94b4-91f83918a6e6', 'nome': 'carol', 'salute': 120, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-02 11:11:34 - Richiesta lista personaggi. Numero personaggi: 2, Personaggi: [{'classe': 'Mago', 'id': '039e24c8-30bb-4f5e-8b4e-1768f2262bb5', 'nome': 'carol', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}, {'classe': 'Guerriero', 'id': '0ffc2347-be0b-4045-94b4-91f83918a6e6', 'nome': 'carol', 'salute': 120, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-02 11:12:51 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:12:51 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-02 11:12:51 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:12:51 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:12:51 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-02 11:12:56 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:12:56 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-02 11:12:56 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:12:56 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:12:56 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-02 11:12:56 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:12:56 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:12:56 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:12:56 - DEBUG: missione_id ricevuto: '999d5e2e-6ce6-47d5-9b51-662d2a0855a6'
+2025-07-02 11:12:56 - DEBUG: Confronto '999d5e2e-6ce6-47d5-9b51-662d2a0855a6' con '999d5e2e-6ce6-47d5-9b51-662d2a0855a6'
+2025-07-02 11:12:56 - Missione selezionata: Imboscata
+2025-07-02 11:12:56 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:12:56 - Missione mostrata: Imboscata
+2025-07-02 11:30:46 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:30:46 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-02 11:30:46 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:30:46 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:30:46 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-02 11:30:46 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:30:46 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:30:46 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:30:53 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:30:53 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-02 11:30:53 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:30:53 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:30:53 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-02 11:30:53 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:30:53 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:30:53 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:31:04 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:31:04 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-02 11:31:04 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:31:04 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:31:04 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-02 11:31:04 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:31:04 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:31:04 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:31:04 - DEBUG: missione_id ricevuto: 'b9805f3a-99d1-44db-ac8d-71dd5f6fbdaf'
+2025-07-02 11:31:04 - DEBUG: Confronto '999d5e2e-6ce6-47d5-9b51-662d2a0855a6' con 'b9805f3a-99d1-44db-ac8d-71dd5f6fbdaf'
+2025-07-02 11:31:04 - DEBUG: Confronto 'b9805f3a-99d1-44db-ac8d-71dd5f6fbdaf' con 'b9805f3a-99d1-44db-ac8d-71dd5f6fbdaf'
+2025-07-02 11:31:04 - Missione selezionata: Salva la principessa
+2025-07-02 11:31:04 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:31:04 - Missione mostrata: Salva la principessa
+2025-07-02 11:33:10 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:33:10 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-02 11:33:10 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:33:10 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:33:10 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-02 11:33:10 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:33:10 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:33:10 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:33:20 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:33:20 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-02 11:33:20 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:33:20 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:33:20 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-02 11:33:20 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:33:20 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:33:20 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:33:20 - DEBUG: missione_id ricevuto: 'b9805f3a-99d1-44db-ac8d-71dd5f6fbdaf'
+2025-07-02 11:33:20 - DEBUG: Confronto '999d5e2e-6ce6-47d5-9b51-662d2a0855a6' con 'b9805f3a-99d1-44db-ac8d-71dd5f6fbdaf'
+2025-07-02 11:33:20 - DEBUG: Confronto 'b9805f3a-99d1-44db-ac8d-71dd5f6fbdaf' con 'b9805f3a-99d1-44db-ac8d-71dd5f6fbdaf'
+2025-07-02 11:33:20 - Missione selezionata: Salva la principessa
+2025-07-02 11:33:20 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:33:20 - Missione mostrata: Salva la principessa
+2025-07-02 11:33:47 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:33:47 - Missione mostrata: Salva la principessa
+2025-07-02 11:35:05 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:35:05 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-02 11:35:05 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:35:05 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:35:05 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-02 11:35:05 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:35:05 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:35:05 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:35:09 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:35:09 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-02 11:35:09 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:35:09 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:35:09 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-02 11:35:09 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:35:09 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:35:09 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:35:09 - DEBUG: missione_id ricevuto: '35fd95cc-0554-4323-9944-21f3ee9288cd'
+2025-07-02 11:35:09 - DEBUG: Confronto '999d5e2e-6ce6-47d5-9b51-662d2a0855a6' con '35fd95cc-0554-4323-9944-21f3ee9288cd'
+2025-07-02 11:35:09 - DEBUG: Confronto 'b9805f3a-99d1-44db-ac8d-71dd5f6fbdaf' con '35fd95cc-0554-4323-9944-21f3ee9288cd'
+2025-07-02 11:35:09 - DEBUG: Confronto '35fd95cc-0554-4323-9944-21f3ee9288cd' con '35fd95cc-0554-4323-9944-21f3ee9288cd'
+2025-07-02 11:35:09 - Missione selezionata: Sgomina il culto di Graz'zt sul vulcano Gheemir
+2025-07-02 11:35:09 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:35:09 - Missione mostrata: Sgomina il culto di Graz'zt sul vulcano Gheemir
+2025-07-02 11:35:30 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:35:30 - Missione mostrata: Sgomina il culto di Graz'zt sul vulcano Gheemir
+2025-07-02 11:35:41 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:35:41 - Missione mostrata: Sgomina il culto di Graz'zt sul vulcano Gheemir
+2025-07-02 11:36:04 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:37:04 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:37:04 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-02 11:37:04 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:37:04 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:37:04 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-02 11:37:04 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:37:04 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:37:04 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:37:07 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:37:07 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-02 11:37:07 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:37:07 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:37:07 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-02 11:37:07 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:37:07 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:37:07 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:37:07 - DEBUG: missione_id ricevuto: '999d5e2e-6ce6-47d5-9b51-662d2a0855a6'
+2025-07-02 11:37:07 - DEBUG: Confronto '999d5e2e-6ce6-47d5-9b51-662d2a0855a6' con '999d5e2e-6ce6-47d5-9b51-662d2a0855a6'
+2025-07-02 11:37:07 - Missione selezionata: Imboscata
+2025-07-02 11:37:07 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-02 11:37:07 - Missione mostrata: Imboscata
