@@ -13,13 +13,28 @@ def inventory():
     personaggi = session.get('personaggi', [])
     inventari = session.get('inventari', [])
 
+
     nome_per_id = {p['id']: p['nome'] for p in personaggi}
 
     id_selezionato = None
+    id_passato = None
     inventario_selezionato = None
+    personaggio = None
+    if request.method == 'GET':
+        id_passato = request.args.get('personaggio_id')
+        personaggio = next((p for p in personaggi if p['id'] == id_passato), None)
+        if id_passato:
+            for inv in inventari:
+                if inv['id_proprietario'] == id_passato:
+                    inventario_selezionato = inv
+                    Log.scrivi_log(
+                        f"Inventario di {nome_per_id[id_passato]} selezionato via GET."
+                    )
+                    break
 
     if request.method == 'POST':
         id_selezionato = request.form.get('personaggio_id')
+        personaggio = next((p for p in personaggi if p['id'] == id_selezionato), None)
         # Cerca l'inventario del personaggio selezionato
         for inv in inventari:
             if inv['id_proprietario'] == id_selezionato:
@@ -35,7 +50,9 @@ def inventory():
         personaggi=personaggi,
         nome_per_id=nome_per_id,
         id_selezionato=id_selezionato,
-        inventario=inventario_selezionato
+        id_passato=id_passato,
+        inventario=inventario_selezionato,
+        personaggio=personaggio
     )
 
 """
