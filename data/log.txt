@@ -296,3 +296,31 @@
 2025-07-02 10:44:59 - Salute di ciospa: 0
 
 2025-07-02 10:44:59 - Combattimento terminato - Vittoria di belin!
+2025-07-02 10:52:48 - Richiesta lista personaggi. Numero personaggi: 2, Personaggi: [{'classe': 'Mago', 'id': 'da2160f2-84d0-4d68-bb81-470f535e853e', 'nome': 'belin', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [42, 0, 0, 49, 12], 'livello': 1, 'destrezza': 15, 'npc': False}, {'classe': 'Guerriero', 'id': '51026ee0-1dc9-4f44-afe3-e07a7d8f9248', 'nome': 'ciospa', 'salute': 120, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [40, 0, 31, 73, 75], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-02 10:53:18 - belin ha eseguito l'azione con successo!
+2025-07-02 10:53:18 - belin ha fallito l'azione!
+2025-07-02 10:53:18 - belin Tenta di attaccare ma fallisce!
+2025-07-02 10:53:18 - Salute di ciospa: 120
+
+2025-07-02 10:53:18 - ciospa ha eseguito l'azione con successo!
+2025-07-02 10:53:18 - ciospa ha eseguito l'azione con successo!
+2025-07-02 10:53:18 - ciospa Attacca con successo e infligge 45 danni!
+2025-07-02 10:53:18 - Salute di belin: 35
+
+2025-07-02 10:53:18 - belin ha fallito l'azione!
+2025-07-02 10:53:18 - ciospa ha eseguito l'azione con successo!
+2025-07-02 10:53:18 - ciospa ha eseguito l'azione con successo!
+2025-07-02 10:53:18 - ciospa Attacca con successo e infligge 19 danni!
+2025-07-02 10:53:18 - Salute di belin: 16
+
+2025-07-02 10:53:18 - belin ha eseguito l'azione con successo!
+2025-07-02 10:53:18 - belin ha fallito l'azione!
+2025-07-02 10:53:18 - belin Tenta di attaccare ma fallisce!
+2025-07-02 10:53:18 - Salute di ciospa: 120
+
+2025-07-02 10:53:18 - ciospa ha eseguito l'azione con successo!
+2025-07-02 10:53:18 - ciospa ha eseguito l'azione con successo!
+2025-07-02 10:53:18 - ciospa Attacca con successo e infligge 63 danni!
+2025-07-02 10:53:18 - Salute di belin: 0
+
+2025-07-02 10:53:18 - Combattimento terminato - Vittoria di ciospa!
