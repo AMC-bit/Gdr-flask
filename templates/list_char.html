@@ -20,7 +20,7 @@
             <!-- Pulsante per i dettagli -->
             <form method="get" action="{{ url_for('characters.dettaglio_personaggio', id=loop.index0) }}">
               <button type="submit" class="btn btn-outline-primary btn-sm">Dettagli</button>
-            </form>
+            </form> 
 
             <!-- Pulsante per eliminare -->
             <form method="post" action="{{ url_for('characters.elimina_personaggio', id=loop.index0) }}">
