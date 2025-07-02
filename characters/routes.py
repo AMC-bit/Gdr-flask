@@ -5,7 +5,10 @@ from gioco.oggetto import Oggetto
 from gioco.inventario import Inventario
 from utils.log import Log
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
+from auth.models import User
 import json
+
+
 @characters_bp.route('/create_char', methods=['GET', 'POST'])
 def create_char():
     from app import db
@@ -16,6 +19,13 @@ def create_char():
         nome = request.form['nome'].strip()
         classe_sel = request.form['classe']
         oggetto_sel = request.form['oggetto']
+
+        # Controllo se ci sono almeno 10 crediti per eseguire la creazione di un personaggio
+        if current_user.crediti < 10:
+            flash("Non hai abbastanza crediti per creare un personaggio (minimo richiesto: 10).", "danger")
+            return render_template('area_personale.html')
+        else:
+            current_user.crediti -= 10
 
         pg = classi[classe_sel](nome, npc=False)
         ogg = oggetti[oggetto_sel]()
@@ -32,6 +42,7 @@ def create_char():
         session['inventari'] = inv_list
         character_ids = (current_user.character_ids or []) + [pg.id]
         current_user.character_ids = character_ids
+
         db.session.commit()
         Log.scrivi_log(f"Creato personaggio: {pg.nome}, Classe: {classe_sel}, id: {pg.id}, Oggetto iniziale: {oggetto_sel}")
 

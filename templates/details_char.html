@@ -11,7 +11,7 @@
       <p class="card-text"><strong>Attacco:</strong> {{ pg.attacco_min }} - {{ pg.attacco_max }}</p>
       <p class="card-text"><strong>Livello:</strong> {{ pg.livello }}</p>
       <p class="card-text"><strong>Destrezza:</strong> {{ pg.destrezza }}</p>
-      <p class="card-text"><strong>Danni subiti:</strong> 
+      <p class="card-text"><strong>Danni subiti:</strong>
         {% if pg.storico_danni_subiti %}
           {% for danno in pg.storico_danni_subiti %}
             {{ danno }}{% if not loop.last %}, {% endif %}
