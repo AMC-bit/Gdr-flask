@@ -27,10 +27,28 @@ def show_environment():
         msg = 'Nessun ambiente selezionato.'
         flash(msg, 'error')
         Log.scrivi_log(msg)
-        return redirect(url_for('environment.select_environment'))
+        # return redirect(url_for('environment.select_environment'))
+        return redirect(url_for('mission.select_mission'))
 
     ambiente = Ambiente.from_dict(ambiente_data)
     msg = f"Ambiente mostrato: {ambiente.nome}"
     flash(msg, 'info')
     Log.scrivi_log(msg)
     return render_template('show_environment.html', ambiente=ambiente)
+
+@staticmethod
+def descrizione():
+    from gioco.classi import Mago, Ladro, Guerriero
+    from gioco.oggetto import PozioneCura, Medaglione, BombaAcida
+    from gioco.inventario import Inventario
+    ambiente = session.get('ambiente')
+    if not ambiente:
+        msg = 'Nessun ambiente selezionato.'
+        flash(msg, 'error')
+        Log.scrivi_log(msg)
+        # return redirect(url_for('environment.select_environment'))
+        return redirect(url_for('mission.select_mission'))
+    inventario = Inventario()
+    inventario.oggetti = [PozioneCura(), Medaglione(), BombaAcida()]
+    classi = [Mago("x"), Ladro("y"), Guerriero("z") ]
+    
