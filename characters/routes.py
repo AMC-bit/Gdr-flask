@@ -61,12 +61,12 @@ def dettaglio_personaggio(id):
     lista_pers = session.get('personaggi', [])
     try:
         pg_dict = lista_pers[id]
-        pg = Personaggio.from_dict(pg_dict)
-        Log.scrivi_log(f"Visualizzazione dettagli personaggio con ID: {pg.id}, Nome: {pg.nome}")
+        flash( f"{pg_dict}","info")
+        Log.scrivi_log(f"Visualizzazione dettagli personaggio con ID: {id}, Nome: {pg_dict["nome"]}")
     except IndexError:
         Log.scrivi_log(f"Tentativo di accesso a personaggio inesistente con ID: {id}")
         abort(404)
-    return render_template('details_char.html', pg=pg, id=id)
+    return render_template('details_char.html', pg = pg_dict, id=id)
 
 @characters_bp.route('/personaggi/<int:id>', methods=['POST'])
 def elimina_personaggio(id):

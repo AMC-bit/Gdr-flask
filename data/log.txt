@@ -250,3 +250,8 @@
 2025-07-02 09:56:21 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '2b3bc225-eb60-47f5-82d6-913b064f797c', 'nome': 'Franco', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
 2025-07-02 10:01:05 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '2b3bc225-eb60-47f5-82d6-913b064f797c', 'nome': 'Franco', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
 2025-07-02 10:04:43 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '2b3bc225-eb60-47f5-82d6-913b064f797c', 'nome': 'Franco', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-02 10:34:11 - Creato personaggio: carolina, Classe: Mago, id: 963a1757-8584-4f88-a4a3-a7eaa89bb5c6, Oggetto iniziale: BombaAcida
+2025-07-02 10:34:11 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '963a1757-8584-4f88-a4a3-a7eaa89bb5c6', 'nome': 'carolina', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-02 10:34:13 - Visualizzazione dettagli personaggio con ID: 963a1757-8584-4f88-a4a3-a7eaa89bb5c6, Nome: carolina
+2025-07-02 10:38:09 - Visualizzazione dettagli personaggio con ID: 963a1757-8584-4f88-a4a3-a7eaa89bb5c6, Nome: carolina
+2025-07-02 10:45:39 - Visualizzazione dettagli personaggio con ID: 0, Nome: carolina
