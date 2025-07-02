@@ -233,3 +233,66 @@
 2025-07-01 12:50:15 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '159fc82f-329e-475f-88a7-52e295cda7ec', 'nome': 'sora', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': True}]
 2025-07-01 12:50:17 - Visualizzazione dettagli personaggio con ID: 159fc82f-329e-475f-88a7-52e295cda7ec, Nome: sora
 2025-07-01 12:50:24 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '159fc82f-329e-475f-88a7-52e295cda7ec', 'nome': 'sora', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': True}]
+2025-07-02 10:33:02 - Creato personaggio: belin, Classe: Mago, id: da2160f2-84d0-4d68-bb81-470f535e853e, Oggetto iniziale: PozioneCura
+2025-07-02 10:33:02 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': 'da2160f2-84d0-4d68-bb81-470f535e853e', 'nome': 'belin', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-02 10:33:13 - Creato personaggio: ciospa, Classe: Guerriero, id: 51026ee0-1dc9-4f44-afe3-e07a7d8f9248, Oggetto iniziale: BombaAcida
+2025-07-02 10:33:13 - Richiesta lista personaggi. Numero personaggi: 2, Personaggi: [{'classe': 'Mago', 'id': 'da2160f2-84d0-4d68-bb81-470f535e853e', 'nome': 'belin', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}, {'classe': 'Guerriero', 'id': '51026ee0-1dc9-4f44-afe3-e07a7d8f9248', 'nome': 'ciospa', 'salute': 120, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-02 10:44:21 - belin ha eseguito l'azione con successo!
+2025-07-02 10:44:21 - belin ha eseguito l'azione con successo!
+2025-07-02 10:44:21 - belin Attacca con successo e infligge 40 danni!
+2025-07-02 10:44:21 - Salute di ciospa: 80
+
+2025-07-02 10:44:21 - ciospa ha eseguito l'azione con successo!
+2025-07-02 10:44:21 - ciospa ha eseguito l'azione con successo!
+2025-07-02 10:44:21 - ciospa Attacca con successo e infligge 42 danni!
+2025-07-02 10:44:21 - Salute di belin: 38
+
+2025-07-02 10:44:21 - belin ha eseguito l'azione con successo!
+2025-07-02 10:44:21 - belin ha fallito l'azione!
+2025-07-02 10:44:21 - belin Tenta di attaccare ma fallisce!
+2025-07-02 10:44:21 - Salute di ciospa: 80
+
+2025-07-02 10:44:21 - ciospa ha fallito l'azione!
+2025-07-02 10:44:21 - belin ha fallito l'azione!
+2025-07-02 10:44:21 - ciospa ha eseguito l'azione con successo!
+2025-07-02 10:44:21 - ciospa ha fallito l'azione!
+2025-07-02 10:44:21 - ciospa Tenta di attaccare ma fallisce!
+2025-07-02 10:44:21 - Salute di belin: 38
+
+2025-07-02 10:44:21 - belin ha fallito l'azione!
+2025-07-02 10:44:21 - ciospa ha fallito l'azione!
+2025-07-02 10:44:21 - belin ha fallito l'azione!
+2025-07-02 10:44:21 - ciospa ha eseguito l'azione con successo!
+2025-07-02 10:44:21 - ciospa ha fallito l'azione!
+2025-07-02 10:44:21 - ciospa Tenta di attaccare ma fallisce!
+2025-07-02 10:44:21 - Salute di belin: 38
+
+2025-07-02 10:44:21 - belin ha eseguito l'azione con successo!
+2025-07-02 10:44:21 - belin ha eseguito l'azione con successo!
+2025-07-02 10:44:21 - belin Attacca con successo e infligge 31 danni!
+2025-07-02 10:44:21 - Salute di ciospa: 49
+
+2025-07-02 10:44:21 - ciospa ha eseguito l'azione con successo!
+2025-07-02 10:44:21 - ciospa ha eseguito l'azione con successo!
+2025-07-02 10:44:21 - ciospa Attacca con successo e infligge 49 danni!
+2025-07-02 10:44:21 - Salute di belin: 0
+
+2025-07-02 10:44:21 - Combattimento terminato - Vittoria di ciospa!
+2025-07-02 10:44:59 - belin ha fallito l'azione!
+2025-07-02 10:44:59 - ciospa ha eseguito l'azione con successo!
+2025-07-02 10:44:59 - ciospa ha eseguito l'azione con successo!
+2025-07-02 10:44:59 - ciospa Attacca con successo e infligge 12 danni!
+2025-07-02 10:44:59 - Salute di belin: 68
+
+2025-07-02 10:44:59 - belin ha eseguito l'azione con successo!
+2025-07-02 10:44:59 - belin ha eseguito l'azione con successo!
+2025-07-02 10:44:59 - belin Attacca con successo e infligge 73 danni!
+2025-07-02 10:44:59 - Salute di ciospa: 47
+
+2025-07-02 10:44:59 - ciospa ha fallito l'azione!
+2025-07-02 10:44:59 - belin ha eseguito l'azione con successo!
+2025-07-02 10:44:59 - belin ha eseguito l'azione con successo!
+2025-07-02 10:44:59 - belin Attacca con successo e infligge 75 danni!
+2025-07-02 10:44:59 - Salute di ciospa: 0
+
+2025-07-02 10:44:59 - Combattimento terminato - Vittoria di belin!
