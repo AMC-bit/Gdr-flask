@@ -1,0 +1,3 @@
+2025-07-02 12:55:48 - Creato personaggio: franco, Classe: Mago, id: 455d4b92-e255-44b3-b599-1d0d7fe8fe82, Oggetto iniziale: PozioneCura
+2025-07-02 12:55:48 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '455d4b92-e255-44b3-b599-1d0d7fe8fe82', 'nome': 'franco', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-02 12:57:31 - Richiesta lista personaggi. Numero personaggi: 0, Personaggi: []
