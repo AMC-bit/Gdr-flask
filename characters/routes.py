@@ -61,7 +61,7 @@ def dettaglio_personaggio(id):
     lista_pers = session.get('personaggi', [])
     try:
         pg_dict = lista_pers[id]
-        flash( f"{pg_dict}","info")
+        
         Log.scrivi_log(f"Visualizzazione dettagli personaggio con ID: {id}, Nome: {pg_dict["nome"]}")
     except IndexError:
         Log.scrivi_log(f"Tentativo di accesso a personaggio inesistente con ID: {id}")
