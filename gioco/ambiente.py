@@ -6,7 +6,6 @@ from utils.log import Log
 from utils.messaggi import Messaggi
 
 
- 
 class Ambiente():
     """
     E responsabile alla gestione di variabili  globali dovuti all'ambiente
@@ -57,6 +56,7 @@ class Ambiente():
         classe_nome = data.get("classe", "Foresta")
         ambiente_cls = globals().get(classe_nome, Foresta)
         return ambiente_cls()
+
 
 class Foresta(Ambiente):
     """
@@ -111,7 +111,6 @@ class Foresta(Ambiente):
         return 0
 
 
- 
 class Vulcano(Ambiente):
     """
     La classe Vulcano eredita da Ambiente e rappresenta un ambiente specifico
@@ -180,7 +179,6 @@ class Vulcano(Ambiente):
         return self.modifica_cura
 
 
- 
 class Palude(Ambiente):
     """
     La classe Palude eredita da Ambiente e rappresenta un ambiente specifico
@@ -229,6 +227,7 @@ class Palude(Ambiente):
         return 0
 
 
+# ------------------------------------------
 class AmbienteFactory:
     """
     Factory per la generazione di ambienti nel sistema di combattimento.
@@ -243,7 +242,7 @@ class AmbienteFactory:
         }
 
     @staticmethod
-    def seleziona_da_id(scelta: str) -> Ambiente:
+    def usa_ambiente(scelta: str) -> Ambiente:
         """
         Permette all'utente di selezionare un ambiente tra quelli disponibili.
 
@@ -255,10 +254,20 @@ class AmbienteFactory:
         Returns:
             ambiente: Un'istanza della sottoclasse selezionata di Ambiente, o Foresta come default.
         """
-        return AmbienteFactory.get_opzioni().get(scelta, Foresta())
+        scelta = str(scelta).strip().lower()
+        if scelta == ("foresta" or "1"):
+            return Foresta()
+        elif scelta == ("vulcano" or "2"):
+            return Vulcano()
+        elif scelta == ("palude" or "3"):
+            return Palude()
+        else:
+            msg = f"Tipo di ambiente sconosciuto: {scelta}"
+            Log.scrivi_log(msg)
+            raise ValueError(msg)
 
     @staticmethod
-    def sorteggia_ambiente() -> Ambiente:
+    def ambiente_random() -> Ambiente:
         """
         Sorteggia un ambiente casuale tra quelli disponibili.
 
@@ -268,8 +277,8 @@ class AmbienteFactory:
         Returns:
            ambiente: Un'istanza di una sottoclasse di Ambiente scelta casualmente (Foresta, Vulcano o Palude).
         """
-        ambienti = list(AmbienteFactory.get_opzioni().values())
-        ambiente = random.choice(ambienti)
+        random_choice = random.choice(["1", "2", "3"])
+        ambiente = AmbienteFactory.usa_ambiente(random_choice)
         msg = f"Ambiente Casuale Selezionato: {ambiente.nome}"
         Messaggi.add_to_messaggi(msg)
         Log.scrivi_log(msg)

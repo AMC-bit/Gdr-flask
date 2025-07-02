@@ -148,3 +148,137 @@ def select_char():
         selezionati_pg = selezionati_pg,
         selezionati_inv = selezionati_inv
     )
+
+
+@battle_bp.route('/test_battle', methods=['GET', 'POST'])
+def test_battle():
+    # --- SETUP DATI ---
+    # Recupera o crea la lista unica di personaggi (giocatori + npc)
+    if 'tutti_personaggi' not in session:
+        tutti_personaggi = []
+        if 'personaggi_selezionati' in session:
+            for pg in session['personaggi_selezionati']:
+                cls = classi.get(pg.get('classe'))
+                if cls:
+                    tutti_personaggi.append(cls.from_dict(pg))
+        missione = Missione.from_dict(session['missione'])
+        for nemico in missione.nemici:
+            tutti_personaggi.append(nemico)
+        session['tutti_personaggi'] = [p.to_dict() for p in tutti_personaggi]
+        ordine_turni = list(range(len(tutti_personaggi)))
+        random.shuffle(ordine_turni)
+        session['ordine_turni'] = ordine_turni
+        session['indice_turno_corrente'] = 0
+        session['messaggi_battaglia'] = []
+    else:
+        tutti_personaggi = []
+        for p in session['tutti_personaggi']:
+            cls = classi.get(p.get('classe'))
+            if cls:
+                tutti_personaggi.append(cls.from_dict(p))
+
+    ambiente = Ambiente.from_dict(session['ambiente'])
+    missione = Missione.from_dict(session['missione'])
+    inventari = []
+    if 'inventari_selezionati' in session:
+        for inv in session['inventari_selezionati']:
+            inventari.append(Inventario.from_dict(inv))
+
+    # --- TURNO CORRENTE ---
+    ordine_turni = session['ordine_turni']
+    indice_turno = session['indice_turno_corrente']
+    idx_pg = ordine_turni[indice_turno]
+    personaggio_turno_corrente = tutti_personaggi[idx_pg]
+
+    # --- CONDIZIONI DI VITTORIA/SCONFITTA ---
+    pc_vivi = [p for p in tutti_personaggi if not p.npc and not p.sconfitto()]
+    npc_vivi = [p for p in tutti_personaggi if p.npc and not p.sconfitto()]
+    battaglia_finita = False
+    vittoria = False
+    if not pc_vivi:
+        battaglia_finita = True
+        vittoria = False
+        session['messaggi_battaglia'].append("Tutti i personaggi sono stati sconfitti! Sconfitta!")
+    elif not npc_vivi:
+        battaglia_finita = True
+        vittoria = True
+        session['messaggi_battaglia'].append("Tutti i nemici sono stati sconfitti! Vittoria!")
+
+    # --- AZIONI TURNO GIOCATORE ---
+    if request.method == 'POST' and not battaglia_finita:
+        azione = request.form.get('azione')
+        bersaglio_id = request.form.get('bersaglio_id')
+        oggetto_nome = request.form.get('oggetto_nome')
+        messaggi = session['messaggi_battaglia']
+
+        # Trova bersaglio
+        bersaglio = next((p for p in tutti_personaggi if p.id == bersaglio_id and not p.sconfitto()), None)
+        if azione == 'attacco' and bersaglio:
+            danno = personaggio_turno_corrente.attacca()
+            bersaglio.subisci_danno(danno)
+            messaggi.append(f"{personaggio_turno_corrente.nome} attacca {bersaglio.nome} per {danno} danni!")
+            if bersaglio.sconfitto():
+                messaggi.append(f"{bersaglio.nome} è stato sconfitto!")
+        elif azione == 'usa_oggetto' and bersaglio and oggetto_nome:
+            inventario = next((inv for inv in inventari if inv.id_proprietario == personaggio_turno_corrente.id), None)
+            if inventario:
+                oggetto = next((o for o in inventario.oggetti if o.nome == oggetto_nome), None)
+                if oggetto:
+                    risultato = inventario.usa_oggetto(oggetto, ambiente)
+                    bersaglio.recupera_salute(risultato)
+                    messaggi.append(f"{personaggio_turno_corrente.nome} usa {oggetto.nome} su {bersaglio.nome} per {risultato} HP!")
+        elif 'salva_stato' in request.form:
+            stato = {
+                'tutti_personaggi': [p.to_dict() for p in tutti_personaggi],
+                'ordine_turni': ordine_turni,
+                'indice_turno_corrente': indice_turno,
+                'messaggi_battaglia': messaggi
+            }
+            with open('data/battaglia_salvata.json', 'w', encoding='utf-8') as f:
+                json.dump(stato, f, ensure_ascii=False, indent=2)
+            flash('Stato battaglia salvato!', 'success')
+
+        # Passa al prossimo turno vivo
+        for _ in range(len(ordine_turni)):
+            indice_turno = (indice_turno + 1) % len(ordine_turni)
+            if not tutti_personaggi[ordine_turni[indice_turno]].sconfitto():
+                break
+        session['indice_turno_corrente'] = indice_turno
+        session['tutti_personaggi'] = [p.to_dict() for p in tutti_personaggi]
+        session['messaggi_battaglia'] = messaggi
+        return redirect(url_for('battle.test_battle'))
+
+    # --- AZIONE NPC ---
+    if not battaglia_finita and personaggio_turno_corrente.npc:
+        # Scegli un bersaglio valido (giocatore vivo)
+        bersagli_validi = [p for p in tutti_personaggi if not p.npc and not p.sconfitto()]
+        if bersagli_validi:
+            bersaglio = random.choice(bersagli_validi)
+            danno = personaggio_turno_corrente.attacca()
+            bersaglio.subisci_danno(danno)
+            session['messaggi_battaglia'].append(f"{personaggio_turno_corrente.nome} (NPC) attacca {bersaglio.nome} per {danno} danni!")
+            if bersaglio.sconfitto():
+                session['messaggi_battaglia'].append(f"{bersaglio.nome} è stato sconfitto!")
+        # Passa al prossimo turno vivo
+        for _ in range(len(ordine_turni)):
+            indice_turno = (indice_turno + 1) % len(ordine_turni)
+            if not tutti_personaggi[ordine_turni[indice_turno]].sconfitto():
+                break
+        session['indice_turno_corrente'] = indice_turno
+        session['tutti_personaggi'] = [p.to_dict() for p in tutti_personaggi]
+        return redirect(url_for('battle.test_battle'))
+
+    # --- INVENTARIO DEL TURNO CORRENTE ---
+    inventario_corrente = next((inv for inv in inventari if inv.id_proprietario == personaggio_turno_corrente.id), None)
+
+    return render_template(
+        'test_battle.html',
+        tutti_personaggi=tutti_personaggi,
+        ambiente=ambiente,
+        missione=missione,
+        personaggio_turno_corrente=personaggio_turno_corrente,
+        inventario_corrente=inventario_corrente,
+        battaglia_finita=battaglia_finita,
+        vittoria=vittoria,
+        messaggi=session.get('messaggi_battaglia', [])
+    )
