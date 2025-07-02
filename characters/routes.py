@@ -1,3 +1,4 @@
+import os
 from . import characters_bp
 from flask import render_template, request, redirect, url_for, session, abort, flash
 from gioco.personaggio import Personaggio
@@ -6,6 +7,11 @@ from gioco.inventario import Inventario
 from utils.log import Log
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
 import json
+
+
+path = "data/json/characters.json"
+with open(path, "r") as file:
+    obj = json.load(file)  # deserializza il file JSON
 
 
 @characters_bp.route('/create_char', methods=['GET', 'POST'])
@@ -30,6 +36,10 @@ def create_char():
 
         pg_list.append(pg.to_dict())
         inv_list.append(inv.to_dict())
+
+        obj.append(pg.to_dict())
+        with open(path, "w", encoding="utf-8") as file:
+            json.dump(obj, file, indent=4)
 
         session['personaggi'] = pg_list
         session['inventari'] = inv_list
