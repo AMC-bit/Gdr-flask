@@ -245,3 +245,22 @@
 2025-07-02 09:14:33 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '2b3bc225-eb60-47f5-82d6-913b064f797c', 'nome': 'Franco', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
 2025-07-02 09:14:56 - Visualizzazione dettagli personaggio con ID: 2b3bc225-eb60-47f5-82d6-913b064f797c, Nome: Franco
 2025-07-02 09:17:30 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '2b3bc225-eb60-47f5-82d6-913b064f797c', 'nome': 'Franco', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-02 10:11:31 - Creato personaggio: silvia salis, Classe: Ladro, id: bfd6ac65-71fc-4e09-bb96-6cff2eddc95b, Oggetto iniziale: Medaglione
+2025-07-02 10:11:31 - Richiesta lista personaggi. Numero personaggi: 2, Personaggi: [{'classe': 'Mago', 'id': '2b3bc225-eb60-47f5-82d6-913b064f797c', 'nome': 'Franco', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}, {'classe': 'Ladro', 'id': 'bfd6ac65-71fc-4e09-bb96-6cff2eddc95b', 'nome': 'silvia salis', 'salute': 140, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-02 10:11:43 - Eliminato personaggio con ID: 2b3bc225-eb60-47f5-82d6-913b064f797c, Nome: Franco
+2025-07-02 10:11:43 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Ladro', 'id': 'bfd6ac65-71fc-4e09-bb96-6cff2eddc95b', 'nome': 'silvia salis', 'salute': 140, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-02 10:18:53 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Ladro', 'id': 'bfd6ac65-71fc-4e09-bb96-6cff2eddc95b', 'nome': 'silvia salis', 'salute': 140, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-02 10:19:14 - Eliminato personaggio con ID: bfd6ac65-71fc-4e09-bb96-6cff2eddc95b, Nome: silvia salis
+2025-07-02 10:19:14 - Richiesta lista personaggi. Numero personaggi: 0, Personaggi: []
+2025-07-02 10:19:32 - Creato personaggio: carolina, Classe: Ladro, id: 836b2539-06bd-4641-93d6-caeb10e65843, Oggetto iniziale: BombaAcida
+2025-07-02 10:19:32 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Ladro', 'id': '836b2539-06bd-4641-93d6-caeb10e65843', 'nome': 'carolina', 'salute': 140, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-02 10:20:58 - Richiesta lista personaggi. Numero personaggi: 0, Personaggi: []
+2025-07-02 10:22:21 - Creato personaggio: frodo, Classe: Guerriero, id: 7ed7fe9d-c802-49d9-a2df-35c05617d65c, Oggetto iniziale: BombaAcida
+2025-07-02 10:22:21 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Guerriero', 'id': '7ed7fe9d-c802-49d9-a2df-35c05617d65c', 'nome': 'frodo', 'salute': 120, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-02 10:22:28 - Inventario di frodo selezionato.
+2025-07-02 10:23:15 - Richiesta lista personaggi. Numero personaggi: 0, Personaggi: []
+2025-07-02 10:23:25 - Creato personaggio: carolina, Classe: Mago, id: cf13a34e-275a-4240-8b6c-9ee4f47169de, Oggetto iniziale: PozioneCura
+2025-07-02 10:23:25 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': 'cf13a34e-275a-4240-8b6c-9ee4f47169de', 'nome': 'carolina', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-02 10:23:34 - Inventario di carolina selezionato.
+2025-07-02 10:23:46 - Visualizzazione dettagli personaggio con ID: cf13a34e-275a-4240-8b6c-9ee4f47169de, Nome: carolina
+2025-07-02 10:23:49 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': 'cf13a34e-275a-4240-8b6c-9ee4f47169de', 'nome': 'carolina', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
