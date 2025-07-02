@@ -1,3 +1,4 @@
+from collections import defaultdict
 from . import mission_bp
 from flask import flash, redirect, render_template, request, session, url_for, session, request, redirect, url_for, flash
 from gioco.missione import GestoreMissioni, Missione
@@ -101,6 +102,10 @@ def show_mission():
 
     missione = Missione.from_dict(missione_data)
     ambiente = Ambiente.from_dict(ambiente_data)
+    premi = missione.premi
+    premi_raggruppati = defaultdict(list)
+    for premio in premi:
+        premi_raggruppati[premio.nome].append(premio)
 
     msg = f"Missione mostrata: {missione.nome}"
     flash(msg, 'info')
@@ -108,7 +113,8 @@ def show_mission():
     return render_template(
         'show_mission.html',
         missione=missione,
-        ambiente=ambiente
+        ambiente=ambiente,
+        premi_raggruppati=premi_raggruppati
     )
 
 
