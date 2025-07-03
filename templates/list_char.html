@@ -13,7 +13,8 @@
 
           <div class="d-flex gap-2">
             <!-- Pulsante per i inventario -->
-            <form method="get" action="{{ url_for('inventory.inventory', id = pg['id'] ) }}">
+            <form method="get" action="{{ url_for('inventory.inventory') }}">
+              <input type="hidden" name="personaggio_id" value="{{pg['id']}}" >
               <button type="submit" class="btn btn-outline-primary btn-sm">Inventario</button>
             </form>
 
