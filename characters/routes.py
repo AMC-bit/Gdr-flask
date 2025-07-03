@@ -6,6 +6,8 @@ from gioco.inventario import Inventario
 from utils.log import Log
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
 from auth.models import User
+from auth.models import db
+from credits.credits import credits_for_char
 import json
 
 
@@ -21,11 +23,13 @@ def create_char():
         oggetto_sel = request.form['oggetto']
 
         # Controllo se ci sono almeno 10 crediti per eseguire la creazione di un personaggio
-        if current_user.crediti < 10:
-            flash("Non hai abbastanza crediti per creare un personaggio (minimo richiesto: 10).", "danger")
-            return render_template('area_personale.html')
+        CREDITI_NECESSARI = 20
+        if current_user.crediti < CREDITI_NECESSARI:
+            msg = f"Non hai abbastanza crediti per creare un personaggio (minimo richiesto: {CREDITI_NECESSARI})."
+            flash(msg, "danger")
+            return redirect(url_for('auth.area_personale'))
         else:
-            current_user.crediti -= 10
+            current_user.crediti -= CREDITI_NECESSARI
 
         pg = classi[classe_sel](nome, npc=False)
         ogg = oggetti[oggetto_sel]()
@@ -81,11 +85,17 @@ def dettaglio_personaggio(id):
 
 @characters_bp.route('/personaggi/<int:id>', methods=['POST'])
 def elimina_personaggio(id):
+    CREDITI_RIMBORSATI = 20
     lista_pers = session.get('personaggi', [])
     try:
         pg = lista_pers.pop(id)
         session['personaggi'] = lista_pers
         Log.scrivi_log(f"Eliminato personaggio con ID: {pg.get('id')}, Nome: {pg.get('nome', 'N/A')}")
+
+        current_user.crediti += CREDITI_RIMBORSATI
+        db.session.commit()
+        flash("Personaggio eliminato con successo!", "success")
+
     except IndexError:
         Log.scrivi_log(f"Errore durante eliminazione: ID inesistente {pg.get('id')}")
         abort(404)
