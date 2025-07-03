@@ -81,7 +81,7 @@ class Foresta(Ambiente):
             msg = f"{attaccante.nome} guadagna {self.mod_attacco} attacco nella Foresta!"
             Messaggi.add_to_messaggi(msg)
             Log.scrivi_log(msg)
-            return self.modifica_attacco
+            return self.mod_attacco
         return 0
 
     def modifica_effetto_oggetto(self, oggetto: Oggetto) -> int:
@@ -107,7 +107,7 @@ class Foresta(Ambiente):
             int: L'aumento della cura se il soggetto è un ladro, altrimenti 0
         """
         if isinstance(soggetto, Ladro):
-            return self.modifica_cura
+            return self.mod_cura
         return 0
 
 
@@ -138,7 +138,7 @@ class Vulcano(Ambiente):
             msg = f"{attaccante.nome} guadagna {self.mod_attacco} attacco nel Vulcano!"
             Messaggi.add_to_messaggi(msg)
             Log.scrivi_log(msg)
-            return self.modifica_attacco
+            return self.mod_attacco
         elif isinstance(attaccante, Ladro):
             msg = f"{attaccante.nome} perde {self.mod_attacco} attacco nel Vulcano!"
             Messaggi.add_to_messaggi(msg)
@@ -176,7 +176,7 @@ class Vulcano(Ambiente):
             int: L'aumento della cura se il soggetto è un ladro, altrimenti 0
 
         """
-        return self.modifica_cura
+        return self.mod_cura
 
 
 class Palude(Ambiente):
