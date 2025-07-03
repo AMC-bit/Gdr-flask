@@ -36,6 +36,7 @@ def show_environment():
     Log.scrivi_log(msg)
     return render_template('show_environment.html', ambiente=ambiente)
 
+
 @staticmethod
 def descrizione():
     from gioco.classi import Mago, Ladro, Guerriero
@@ -47,9 +48,10 @@ def descrizione():
     if isinstance(ambiente, dict):
         ambiente = Ambiente.from_dict(ambiente)
 
-
     oggetti = [PozioneCura(), Medaglione(), BombaAcida()]
-    classi = {'Mago': Mago("x"), 'Ladro': Ladro("y"), 'Guerriero': Guerriero("z")}
+    classi = {
+        'Mago': Mago("x"), 'Ladro': Ladro("y"), 'Guerriero': Guerriero("z")
+    }
 
     classe = classi['Guerriero']
     val_standard_guerriero = {
@@ -62,7 +64,7 @@ def descrizione():
 
     classe = classi['Ladro']
     val_standard_ladro = {
-        'attacco':{
+        'attacco': {
             'da': classe.attacco_min + 5,
             'a': classe.attacco_max + 5
         },
@@ -71,11 +73,11 @@ def descrizione():
 
     classe = classi['Mago']
     val_standard_mago = {
-        'attacco':{
+        'attacco': {
             'da': classe.attacco_min - 5,
             'a': classe.attacco_max + 10
         },
-        'cura': {'recupero salute': f"20% salute rimanente"}
+        'cura': {'recupero salute':  f"{20}% salute rimanente"}
     }
 
     val_standard_oggetti = {}
@@ -103,7 +105,11 @@ def descrizione():
         istanza = chiave
         var_attacco_amb[istanza] = int(ambiente.modifica_attacco(classe))
         var_cura_amb[istanza] = int(ambiente.modifica_cura(classe))
-        print (f"DEBUG - {chiave}: attacco={var_attacco_amb[istanza]}, cura={var_cura_amb[istanza]}")
+
+        print(
+            f"DEBUG - {chiave}: attacco={var_attacco_amb[istanza]}, "
+            f"cura={var_cura_amb[istanza]}"
+        )
 
     for chiave in var_amb:
         valore = var_amb[chiave]
@@ -111,16 +117,26 @@ def descrizione():
             n_att = var_attacco_amb[chiave]
             if n_att != 0:
                 if not chiave == 'Guerriero':
-                    valore['attacco']['da'] = int(valore['attacco']['da']) + int(n_att)
+                    valore['attacco']['da'] = (
+                        int(valore['attacco']['da']) + int(n_att)
+                    )
                 valore['attacco']['a'] += n_att
 
         if chiave in var_cura_amb and 'cura' in valore:
             n_cura = var_cura_amb[chiave]
             if n_cura != 0:
                 if chiave == 'Mago':
-                    valore['cura']['recupero salute'] = f"20% (salute rimanente {f"+ {n_cura}" if n_cura > 0 else "- " + str(abs(n_cura))})"
+                    if n_cura > 0:
+                        x = f"+ {n_cura}"
+                    else:
+                        x = f"- {abs(n_cura)}"
+                    valore['cura']['recupero salute'] = (
+                        f"20% (salute rimanente {x})"
+                    )
                 if chiave == 'Ladro':
-                    valore['cura']['recupero salute'] = f"da {10 + n_cura} a {40 + n_cura}"
+                    valore['cura']['recupero salute'] = (
+                        f"da {10 + n_cura} a {40 + n_cura}"
+                    )
                 if chiave == 'Guerriero':
                     valore['cura']['recupero salute'] = f"{30 + n_cura}"
 
@@ -131,7 +147,7 @@ def descrizione():
                 if obj_name in valore and n_obj != 0:
                     valore[obj_name]['valore'] += n_obj
 
-    print (f"val_standard: {val_standard}")
-    print (f"var_amb: {var_amb}")
+    print(f"val_standard: {val_standard}")
+    print(f"var_amb: {var_amb}")
 
     return {'val_standard': val_standard, 'var_amb': var_amb}
