@@ -7,7 +7,7 @@ from utils.log import Log
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
 from auth.models import User
 from auth.models import db
-from credits.credits import credits_for_char
+from auth.credits import credits_to_create, credits_to_refund
 import json
 
 
@@ -23,19 +23,20 @@ def create_char():
         classe_sel = request.form['classe']
         oggetto_sel = request.form['oggetto']
 
-        # Controllo se ci sono almeno 10 crediti per eseguire la creazione di un personaggio
-        CREDITI_NECESSARI_PERSONAGGIO = 20
-        if current_user.crediti < CREDITI_NECESSARI_PERSONAGGIO:
-            msg = f"Non hai abbastanza crediti per creare un personaggio (minimo richiesto: {CREDITI_NECESSARI_PERSONAGGIO})."
-            flash(msg, "danger")
-            return redirect(url_for('auth.area_personale'))
-        else:
-            current_user.crediti -= CREDITI_NECESSARI_PERSONAGGIO
 
         pg = classi[classe_sel](nome, npc=False)
         ogg = oggetti[oggetto_sel]()
         inv = Inventario(id_proprietario=pg.id)
         inv.aggiungi_oggetto(ogg)
+
+        # Controllo se ci sono almeno 10 crediti per eseguire la creazione di un personaggio
+        costo_pg = credits_to_create(pg)
+        if current_user.crediti < costo_pg:
+            msg = f"Non hai abbastanza crediti per creare un personaggio (minimo richiesto: {costo_pg})."
+            flash(msg, "danger")
+            return redirect(url_for('auth.area_personale'))
+        else:
+            current_user.crediti -= costo_pg
 
         pg_list = session.get('personaggi', [])
         inv_list = session.get('inventari', [])
@@ -122,7 +123,7 @@ def dettaglio_personaggio(id):
     lista_pers = session.get('personaggi', [])
     try:
         pg_dict = lista_pers[id]
-        
+
         Log.scrivi_log(f"Visualizzazione dettagli personaggio con ID: {id}, Nome: {pg_dict["nome"]}")
     except IndexError:
         Log.scrivi_log(f"Tentativo di accesso a personaggio inesistente con ID: {id}")
