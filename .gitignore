@@ -5,5 +5,5 @@ __pycache__/
 /venv
 /flask_session
 *.db
-/log.txt
+log.txt
 /instance
