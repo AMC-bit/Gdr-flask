@@ -80,40 +80,30 @@ def area_personale():
 @auth_bp.route('/edit_user', methods=['GET', 'POST'])
 @login_required
 def edit_user():
-    enable_edit_user= False
-    user = None
-    psw = ""
-    if request.method == 'POST':
-        form_type = request.form.get('form_type')
-        # Questa parte fa il controllo della  psw iniziale e fa spawnare il form
-        # per la modifica dei dati dell'utente
-        if form_type=='check_form':
-            psw = request.form['password']
-            user = current_user
-            if user and check_password_hash(user.password_hash, psw):
-                enable_edit_user= True
-                flash("Password corretta, modifica i tuoi dati nel form!", "info")
-
-    if request.method == 'POST':
-        form_type = request.form.get('form_type')
-        #Catturo i dati inseriti nel form per la modifica dell'utente e li uso per
-        #modificare i dati dell'utente sul db, invine redirige alla pagina login
-        if form_type=='edit_form':
+    user = current_user
+    if user:
+        if request.method == 'POST':
+            #Catturo i dati inseriti nel form per la modifica dell'utente e li uso per
+            #modificare i dati dell'utente sul db, invine redirige alla pagina login
+            
+            #Perchè non mostra il flash e perchè non prende i value precedenti nel form ?
             new_name = request.form['new_username']
             new_email = request.form['new_email']
             new_psw = request.form['new_password']
-            user = current_user
             if user:
                 id = user.id
                 db_user = User.query.get_or_404(id)
                 db_user.nome = new_name
                 db_user.email = new_email
-                db_user.password_hash = psw_proteggi_hash(new_psw)
-                db.session.commit()
-                message = "Utente modificato con successo!"
-                return redirect(url_for('auth.area_personale', message=message))
+                if not controllo_email(new_email):
+                        flash("Email does not match an email pattern","error")
+                else:
+                    db_user.password_hash = psw_proteggi_hash(new_psw)
+                    db.session.commit()
+                    message = "Utente modificato con successo!"
+                    return redirect(url_for('auth.area_personale', message=message))
             
-    return render_template("edit_user.html", enable_edit_user = enable_edit_user, utente = user, password = psw  )
+    return render_template("edit_user.html", utente = user )
 
 
 

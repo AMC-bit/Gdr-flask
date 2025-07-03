@@ -1,3 +1,21 @@
 2025-07-02 12:55:48 - Creato personaggio: franco, Classe: Mago, id: 455d4b92-e255-44b3-b599-1d0d7fe8fe82, Oggetto iniziale: PozioneCura
 2025-07-02 12:55:48 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '455d4b92-e255-44b3-b599-1d0d7fe8fe82', 'nome': 'franco', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
 2025-07-02 12:57:31 - Richiesta lista personaggi. Numero personaggi: 0, Personaggi: []
+2025-07-03 09:16:35 - Richiesta lista personaggi. Numero personaggi: 0, Personaggi: []
+2025-07-03 09:16:46 - Creato personaggio: Franco, Classe: Mago, id: 265024e2-6496-48a7-8ca2-b3a85358976d, Oggetto iniziale: PozioneCura
+2025-07-03 09:16:46 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '265024e2-6496-48a7-8ca2-b3a85358976d', 'nome': 'Franco', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-03 09:16:56 - Inventario di Franco selezionato.
+2025-07-03 09:21:43 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '265024e2-6496-48a7-8ca2-b3a85358976d', 'nome': 'Franco', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-03 09:26:38 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '265024e2-6496-48a7-8ca2-b3a85358976d', 'nome': 'Franco', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-03 09:26:40 - Visualizzazione dettagli personaggio con ID: 0, Nome: Franco
+2025-07-03 09:26:44 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '265024e2-6496-48a7-8ca2-b3a85358976d', 'nome': 'Franco', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-03 09:29:21 - Visualizzazione dettagli personaggio con ID: 0, Nome: Franco
+2025-07-03 09:29:35 - Inventario di Franco selezionato.
+2025-07-03 09:29:37 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '265024e2-6496-48a7-8ca2-b3a85358976d', 'nome': 'Franco', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-03 09:31:17 - Visualizzazione dettagli personaggio con ID: 0, Nome: Franco
+2025-07-03 09:31:21 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '265024e2-6496-48a7-8ca2-b3a85358976d', 'nome': 'Franco', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-03 09:31:28 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '265024e2-6496-48a7-8ca2-b3a85358976d', 'nome': 'Franco', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-03 09:33:11 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '265024e2-6496-48a7-8ca2-b3a85358976d', 'nome': 'Franco', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-03 09:33:23 - Visualizzazione dettagli personaggio con ID: 0, Nome: Franco
+2025-07-03 09:33:32 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '265024e2-6496-48a7-8ca2-b3a85358976d', 'nome': 'Franco', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-03 09:59:09 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Mago', 'id': '265024e2-6496-48a7-8ca2-b3a85358976d', 'nome': 'Franco', 'salute': 80, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
