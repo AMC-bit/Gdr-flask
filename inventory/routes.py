@@ -1,5 +1,5 @@
 from . import inventory_bp
-from flask import render_template, request, session  # , \
+from flask import render_template, request, session, flash  # , \
 # redirect, url_for, flash
 # from gioco.oggetto import BombaAcida, Medaglione, Oggetto, PozioneCura
 # from gioco.personaggio import Personaggio
@@ -12,7 +12,7 @@ from utils.log import Log
 def inventory():
     personaggi = session.get('personaggi', [])
     inventari = session.get('inventari', [])
-
+    
 
     nome_per_id = {p['id']: p['nome'] for p in personaggi}
 
