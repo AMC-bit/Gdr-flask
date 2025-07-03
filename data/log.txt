@@ -70,3 +70,191 @@
 2025-07-03 12:21:15 - y perde 5 attacco nella Palude!
 2025-07-03 12:21:15 - z perde 5 attacco nella Palude!
 2025-07-03 12:21:15 - Nella Palude, la Pozione Cura ha effetto ridotto di 9 punti!
+2025-07-03 12:26:55 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:26:55 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-03 12:26:55 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:26:55 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:26:55 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-03 12:26:55 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:26:55 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:26:55 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:27:00 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Ladro', 'id': '6ac2ee88-a4a9-49a6-8483-80547deb7cdf', 'nome': 'CherryBomb', 'salute': 140, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-03 12:27:06 - Visualizzazione dettagli personaggio con ID: 0, Nome: CherryBomb
+2025-07-03 12:27:09 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Ladro', 'id': '6ac2ee88-a4a9-49a6-8483-80547deb7cdf', 'nome': 'CherryBomb', 'salute': 140, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-03 12:27:22 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Ladro', 'id': '6ac2ee88-a4a9-49a6-8483-80547deb7cdf', 'nome': 'CherryBomb', 'salute': 140, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-03 12:28:40 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Ladro', 'id': '6ac2ee88-a4a9-49a6-8483-80547deb7cdf', 'nome': 'CherryBomb', 'salute': 140, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-03 12:28:43 - Visualizzazione dettagli personaggio con ID: 0, Nome: CherryBomb
+2025-07-03 12:28:45 - Richiesta lista personaggi. Numero personaggi: 1, Personaggi: [{'classe': 'Ladro', 'id': '6ac2ee88-a4a9-49a6-8483-80547deb7cdf', 'nome': 'CherryBomb', 'salute': 140, 'salute_max': 200, 'attacco_min': 5, 'attacco_max': 80, 'storico_danni_subiti': [], 'livello': 1, 'destrezza': 15, 'npc': False}]
+2025-07-03 12:28:48 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:28:48 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-03 12:28:48 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:28:48 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:28:48 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-03 12:28:48 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:28:48 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:28:48 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:28:52 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:28:52 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-03 12:28:52 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:28:52 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:28:52 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-03 12:28:52 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:28:52 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:28:52 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:28:52 - DEBUG: missione_id ricevuto: '3ba201e6-343e-4838-8542-72c15cb81eb9'
+2025-07-03 12:28:52 - DEBUG: Confronto '0a801000-7626-499f-aad8-e5700f5611fb' con '3ba201e6-343e-4838-8542-72c15cb81eb9'
+2025-07-03 12:28:52 - DEBUG: Confronto '3ba201e6-343e-4838-8542-72c15cb81eb9' con '3ba201e6-343e-4838-8542-72c15cb81eb9'
+2025-07-03 12:28:52 - Missione selezionata: Salva la principessa
+2025-07-03 12:28:52 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:28:52 - Missione mostrata: Salva la principessa
+2025-07-03 12:28:52 - y perde 5 attacco nella Palude!
+2025-07-03 12:28:52 - z perde 5 attacco nella Palude!
+2025-07-03 12:28:52 - Nella Palude, la Pozione Cura ha effetto ridotto di 9 punti!
+2025-07-03 12:38:51 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:38:51 - Missione mostrata: Salva la principessa
+2025-07-03 12:38:51 - y perde 5 attacco nella Palude!
+2025-07-03 12:38:51 - z perde 5 attacco nella Palude!
+2025-07-03 12:38:51 - Nella Palude, la Pozione Cura ha effetto ridotto di 9 punti!
+2025-07-03 12:39:05 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:39:05 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-03 12:39:05 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:39:05 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:39:05 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-03 12:39:05 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:39:05 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:39:05 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:39:10 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:39:10 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-03 12:39:10 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:39:10 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:39:10 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-03 12:39:10 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:39:10 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:39:10 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:39:10 - DEBUG: missione_id ricevuto: '0a801000-7626-499f-aad8-e5700f5611fb'
+2025-07-03 12:39:10 - DEBUG: Confronto '0a801000-7626-499f-aad8-e5700f5611fb' con '0a801000-7626-499f-aad8-e5700f5611fb'
+2025-07-03 12:39:10 - Missione selezionata: Imboscata
+2025-07-03 12:39:10 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:39:10 - Missione mostrata: Imboscata
+2025-07-03 12:41:02 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:41:02 - Missione mostrata: Imboscata
+2025-07-03 12:42:11 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:42:11 - Missione mostrata: Imboscata
+2025-07-03 12:42:11 - z guadagna 5 attacco nella Foresta!
+2025-07-03 12:42:12 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:42:12 - Missione mostrata: Imboscata
+2025-07-03 12:42:12 - z guadagna 5 attacco nella Foresta!
+2025-07-03 12:45:41 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:45:41 - Missione mostrata: Imboscata
+2025-07-03 12:48:20 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:48:20 - Missione mostrata: Imboscata
+2025-07-03 12:48:20 - z guadagna 5 attacco nella Foresta!
+2025-07-03 12:48:28 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:48:28 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-03 12:48:28 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:48:28 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:48:28 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-03 12:48:28 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:48:28 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:48:28 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:48:28 - DEBUG: missione_id ricevuto: '0a801000-7626-499f-aad8-e5700f5611fb'
+2025-07-03 12:48:28 - DEBUG: Confronto '0a801000-7626-499f-aad8-e5700f5611fb' con '0a801000-7626-499f-aad8-e5700f5611fb'
+2025-07-03 12:48:28 - Missione selezionata: Imboscata
+2025-07-03 12:48:28 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:48:28 - Missione mostrata: Imboscata
+2025-07-03 12:48:28 - z guadagna 5 attacco nella Foresta!
+2025-07-03 12:49:48 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:49:48 - Missione mostrata: Imboscata
+2025-07-03 12:49:48 - z guadagna 5 attacco nella Foresta!
+2025-07-03 12:51:28 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:51:28 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-03 12:51:28 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:51:28 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:51:28 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-03 12:51:28 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:51:28 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:51:28 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:51:32 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:51:32 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-03 12:51:32 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:51:32 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:51:32 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-03 12:51:32 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:51:32 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:51:32 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:51:32 - DEBUG: missione_id ricevuto: '12034ff8-7ca2-4fc8-b3af-429b251d0603'
+2025-07-03 12:51:32 - DEBUG: Confronto '0a801000-7626-499f-aad8-e5700f5611fb' con '12034ff8-7ca2-4fc8-b3af-429b251d0603'
+2025-07-03 12:51:32 - DEBUG: Confronto '3ba201e6-343e-4838-8542-72c15cb81eb9' con '12034ff8-7ca2-4fc8-b3af-429b251d0603'
+2025-07-03 12:51:32 - DEBUG: Confronto '12034ff8-7ca2-4fc8-b3af-429b251d0603' con '12034ff8-7ca2-4fc8-b3af-429b251d0603'
+2025-07-03 12:51:32 - Missione selezionata: Sgomina il culto di Graz'zt sul vulcano Gheemir
+2025-07-03 12:51:32 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:51:32 - Missione mostrata: Sgomina il culto di Graz'zt sul vulcano Gheemir
+2025-07-03 12:51:32 - x guadagna 10 attacco nel Vulcano!
+2025-07-03 12:51:32 - y perde 10 attacco nel Vulcano!
+2025-07-03 12:51:32 - Nella Vulcano, la Bomba Acida guadagna 12 danni!
+2025-07-03 12:55:13 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:55:13 - Missione mostrata: Sgomina il culto di Graz'zt sul vulcano Gheemir
+2025-07-03 12:55:13 - x guadagna 10 attacco nel Vulcano!
+2025-07-03 12:55:13 - y perde 10 attacco nel Vulcano!
+2025-07-03 12:55:13 - Nella Vulcano, la Bomba Acida guadagna 12 danni!
+2025-07-03 12:58:30 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 12:58:30 - Missione mostrata: Sgomina il culto di Graz'zt sul vulcano Gheemir
+2025-07-03 12:58:30 - x guadagna 10 attacco nel Vulcano!
+2025-07-03 12:58:30 - y perde 10 attacco nel Vulcano!
+2025-07-03 12:58:30 - Nella Vulcano, la Bomba Acida guadagna 15 danni!
+2025-07-03 13:14:13 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 13:14:13 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-03 13:14:13 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 13:14:13 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 13:14:13 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-03 13:14:13 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 13:14:13 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 13:14:13 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 13:14:26 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 13:14:26 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-03 13:14:26 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 13:14:26 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 13:14:26 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-03 13:14:26 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 13:14:26 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 13:14:26 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 13:14:26 - DEBUG: missione_id ricevuto: '12034ff8-7ca2-4fc8-b3af-429b251d0603'
+2025-07-03 13:14:26 - DEBUG: Confronto '0a801000-7626-499f-aad8-e5700f5611fb' con '12034ff8-7ca2-4fc8-b3af-429b251d0603'
+2025-07-03 13:14:26 - DEBUG: Confronto '3ba201e6-343e-4838-8542-72c15cb81eb9' con '12034ff8-7ca2-4fc8-b3af-429b251d0603'
+2025-07-03 13:14:26 - DEBUG: Confronto '12034ff8-7ca2-4fc8-b3af-429b251d0603' con '12034ff8-7ca2-4fc8-b3af-429b251d0603'
+2025-07-03 13:14:26 - Missione selezionata: Sgomina il culto di Graz'zt sul vulcano Gheemir
+2025-07-03 13:14:26 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 13:14:26 - Missione mostrata: Sgomina il culto di Graz'zt sul vulcano Gheemir
+2025-07-03 13:14:26 - x guadagna 10 attacco nel Vulcano!
+2025-07-03 13:14:26 - y perde 10 attacco nel Vulcano!
+2025-07-03 13:14:26 - Nella Vulcano, la Bomba Acida guadagna 12 danni!
+2025-07-03 13:24:14 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 13:24:14 - Missione mostrata: Sgomina il culto di Graz'zt sul vulcano Gheemir
+2025-07-03 13:24:14 - x guadagna 10 attacco nel Vulcano!
+2025-07-03 13:24:14 - y perde 10 attacco nel Vulcano!
+2025-07-03 13:24:14 - Nella Vulcano, la Bomba Acida guadagna 4 danni!
+2025-07-03 13:24:29 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 13:24:29 - Missione mostrata: Sgomina il culto di Graz'zt sul vulcano Gheemir
+2025-07-03 13:24:29 - x guadagna 10 attacco nel Vulcano!
+2025-07-03 13:24:29 - y perde 10 attacco nel Vulcano!
+2025-07-03 13:24:29 - Nella Vulcano, la Bomba Acida guadagna 0 danni!
+2025-07-03 13:24:30 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 13:24:30 - Missione mostrata: Sgomina il culto di Graz'zt sul vulcano Gheemir
+2025-07-03 13:24:30 - x guadagna 10 attacco nel Vulcano!
+2025-07-03 13:24:30 - y perde 10 attacco nel Vulcano!
+2025-07-03 13:24:30 - Nella Vulcano, la Bomba Acida guadagna 8 danni!
+2025-07-03 13:25:22 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 13:25:22 - Missione mostrata: Sgomina il culto di Graz'zt sul vulcano Gheemir
+2025-07-03 13:25:22 - x guadagna 10 attacco nel Vulcano!
+2025-07-03 13:25:22 - y perde 10 attacco nel Vulcano!
+2025-07-03 13:25:22 - Nella Vulcano, la Bomba Acida guadagna 6 danni!
+2025-07-03 13:28:00 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 13:28:00 - Missione mostrata: Sgomina il culto di Graz'zt sul vulcano Gheemir
+2025-07-03 13:28:00 - x guadagna 10 attacco nel Vulcano!
+2025-07-03 13:28:00 - y perde 10 attacco nel Vulcano!
+2025-07-03 13:28:00 - Nella Vulcano, la Bomba Acida guadagna 5 danni!
+2025-07-03 13:29:44 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-03 13:29:44 - Missione mostrata: Sgomina il culto di Graz'zt sul vulcano Gheemir
+2025-07-03 13:29:44 - x guadagna 10 attacco nel Vulcano!
+2025-07-03 13:29:44 - y perde 10 attacco nel Vulcano!
+2025-07-03 13:29:44 - Nella Vulcano, la Bomba Acida guadagna 7 danni!

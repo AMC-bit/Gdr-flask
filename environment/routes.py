@@ -87,7 +87,6 @@ def descrizione():
                 'tipo_oggetto': oggetto.tipo_oggetto,
             }
 
-
     val_standard = {
         'Guerriero': val_standard_guerriero,
         'Ladro': val_standard_ladro,
@@ -104,25 +103,27 @@ def descrizione():
         istanza = chiave
         var_attacco_amb[istanza] = int(ambiente.modifica_attacco(classe))
         var_cura_amb[istanza] = int(ambiente.modifica_cura(classe))
+        print (f"DEBUG - {chiave}: attacco={var_attacco_amb[istanza]}, cura={var_cura_amb[istanza]}")
 
     for chiave in var_amb:
         valore = var_amb[chiave]
         if chiave in var_attacco_amb and 'attacco' in valore:
             n_att = var_attacco_amb[chiave]
             if n_att != 0:
-                continue
-            if not chiave == 'guerriero':
-                valore['attacco']['da'] = int(valore['attacco']['da']) + int(n_att)
-            valore['attacco']['a'] += n_att
-        elif chiave in var_cura_amb and 'cura' in valore:
+                if not chiave == 'Guerriero':
+                    valore['attacco']['da'] = int(valore['attacco']['da']) + int(n_att)
+                valore['attacco']['a'] += n_att
+
+        if chiave in var_cura_amb and 'cura' in valore:
             n_cura = var_cura_amb[chiave]
             if n_cura != 0:
                 if chiave == 'Mago':
-                    valore['cura']['recupero salute'] = f"20% (salute rimanente + {n_cura})"
-                elif chiave == 'Ladro':
+                    valore['cura']['recupero salute'] = f"20% (salute rimanente {f"+ {n_cura}" if n_cura > 0 else "- " + str(abs(n_cura))})"
+                if chiave == 'Ladro':
                     valore['cura']['recupero salute'] = f"da {10 + n_cura} a {40 + n_cura}"
-                elif chiave == 'Guerriero':
+                if chiave == 'Guerriero':
                     valore['cura']['recupero salute'] = f"{30 + n_cura}"
+
         elif chiave == 'Oggetto':
             for obj in oggetti:
                 n_obj = ambiente.modifica_effetto_oggetto(obj)
