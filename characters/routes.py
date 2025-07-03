@@ -23,13 +23,13 @@ def create_char():
         oggetto_sel = request.form['oggetto']
 
         # Controllo se ci sono almeno 10 crediti per eseguire la creazione di un personaggio
-        CREDITI_NECESSARI = 20
-        if current_user.crediti < CREDITI_NECESSARI:
-            msg = f"Non hai abbastanza crediti per creare un personaggio (minimo richiesto: {CREDITI_NECESSARI})."
+        CREDITI_NECESSARI_PERSONAGGIO = 20
+        if current_user.crediti < CREDITI_NECESSARI_PERSONAGGIO:
+            msg = f"Non hai abbastanza crediti per creare un personaggio (minimo richiesto: {CREDITI_NECESSARI_PERSONAGGIO})."
             flash(msg, "danger")
             return redirect(url_for('auth.area_personale'))
         else:
-            current_user.crediti -= CREDITI_NECESSARI
+            current_user.crediti -= CREDITI_NECESSARI_PERSONAGGIO
 
         pg = classi[classe_sel](nome, npc=False)
         ogg = oggetti[oggetto_sel]()
@@ -85,16 +85,17 @@ def dettaglio_personaggio(id):
 
 @characters_bp.route('/personaggi/<int:id>', methods=['POST'])
 def elimina_personaggio(id):
-    CREDITI_RIMBORSATI = 20
+    # CREDITI_RIMBORSATI = 20
     lista_pers = session.get('personaggi', [])
     try:
         pg = lista_pers.pop(id)
         session['personaggi'] = lista_pers
         Log.scrivi_log(f"Eliminato personaggio con ID: {pg.get('id')}, Nome: {pg.get('nome', 'N/A')}")
 
-        current_user.crediti += CREDITI_RIMBORSATI
-        db.session.commit()
-        flash("Personaggio eliminato con successo!", "success")
+        # Questo pezzo di codice è commentato perché non è chiaro se si voglia rimborsare i crediti
+        # current_user.crediti += CREDITI_RIMBORSATI
+        # db.session.commit()
+        # flash("Personaggio eliminato con successo!", "success")
 
     except IndexError:
         Log.scrivi_log(f"Errore durante eliminazione: ID inesistente {pg.get('id')}")
