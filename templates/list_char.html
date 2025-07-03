@@ -22,14 +22,9 @@
               <button type="submit" class="btn btn-outline-primary btn-sm">Dettagli</button>
             </form> 
 
-            <!-- TODO Pulsante per la modifica dei personaggi -->
-            <form method="get" action="{{ url_for('characters.dettaglio_personaggio', id=loop.index0) }}">
-              <button type="submit" class="btn btn-outline-info btn-sm">Modifica</button>
-            </form>
-
-            <!-- Pulsante per i modificare il personaggio -->
+            <!-- Pulsante per la modifica dei personaggi -->
             <form method="get" action="{{ url_for('characters.edit_char', id=loop.index0) }}">
-              <button type="submit" class="btn btn-outline-primary btn-sm">Modifica</button>
+              <button type="submit" class="btn btn-outline-info btn-sm">Modifica</button>
             </form>
 
             <!-- Pulsante per eliminare -->
