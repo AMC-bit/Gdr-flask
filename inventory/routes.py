@@ -13,7 +13,6 @@ def inventory():
     personaggi = session.get('personaggi', [])
     inventari = session.get('inventari', [])
 
-
     nome_per_id = {p['id']: p['nome'] for p in personaggi}
 
     id_selezionato = None
