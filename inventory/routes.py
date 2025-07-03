@@ -1,5 +1,5 @@
 from . import inventory_bp
-from flask import render_template, request, session  # , \
+from flask import render_template, request, session, flash  # , \
 # redirect, url_for, flash
 # from gioco.oggetto import BombaAcida, Medaglione, Oggetto, PozioneCura
 # from gioco.personaggio import Personaggio
@@ -21,6 +21,8 @@ def inventory():
     personaggio = None
     if request.method == 'GET':
         id_passato = request.args.get('personaggio_id')
+        #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        flash(f"{id_passato}","info")
         personaggio = next((p for p in personaggi if p['id'] == id_passato), None)
         if id_passato:
             for inv in inventari:
