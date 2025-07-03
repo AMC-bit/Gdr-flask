@@ -40,112 +40,77 @@ def show_environment():
 @staticmethod
 def descrizione():
     from gioco.classi import Mago, Ladro, Guerriero
-
-    from gioco.oggetto import Oggetto, PozioneCura, Medaglione, BombaAcida
+    from gioco.oggetto import PozioneCura, Medaglione, BombaAcida
     from copy import deepcopy
 
     ambiente = session.get('ambiente')
     if isinstance(ambiente, dict):
         ambiente = Ambiente.from_dict(ambiente)
 
+    # Dati base per classi derivate da personaggio
+    # (definite in maniera statica per ridurre la complessità del metodo)
+    classi_data = {
+        'Guerriero': {'at_min': 15, 'att_max_bonus': 20, 'cura_base': 30},
+        'Ladro': {'at_min': 5, 'att_max_bonus': 5, 'cura_base': '10-40'},
+        'Mago': {'at_min': -5, 'att_max_bonus': 10, 'cura_base': '20%'}
+    }
+
+    # Importo dinamico delle classi
+    classi_map = {'Mago': Mago, 'Ladro': Ladro, 'Guerriero': Guerriero}
+    classi = {nome: classi_map[nome]("temp") for nome in classi_data.keys()}
     oggetti = [PozioneCura(), Medaglione(), BombaAcida()]
-    classi = {
-        'Mago': Mago("x"), 'Ladro': Ladro("y"), 'Guerriero': Guerriero("z")
+
+    print(f"DEBUG - classi: {classi}")
+
+    # Costruisci valori standard
+    val_standard = {}
+    for nome, classe in classi.items():
+        data = classi_data[nome]
+        val_standard[nome] = {
+            'attacco': {
+                'da': classe.attacco_min + data['at_min'],
+                'a': classe.attacco_max + data['att_max_bonus']
+            },
+            'cura': {'recupero salute': str(data['cura_base'])}
+        }
+
+    # Aggiungo gli oggetti al dizionario
+    val_standard['Oggetto'] = {
+        obj.__class__.__name__: {
+            'valore': obj.valore,
+            'tipo_oggetto': obj.tipo_oggetto
+        } for obj in oggetti
     }
 
-    classe = classi['Guerriero']
-    val_standard_guerriero = {
-        'attacco': {
-            'da': classe.attacco_min + 15,
-            'a': classe.attacco_max + 20
-        },
-        'cura': {'recupero salute': f"{30}"}
-    }
-
-    classe = classi['Ladro']
-    val_standard_ladro = {
-        'attacco': {
-            'da': classe.attacco_min + 5,
-            'a': classe.attacco_max + 5
-        },
-        'cura': {'recupero salute': f"da {10} a {40}"}
-    }
-
-    classe = classi['Mago']
-    val_standard_mago = {
-        'attacco': {
-            'da': classe.attacco_min - 5,
-            'a': classe.attacco_max + 10
-        },
-        'cura': {'recupero salute':  f"{20}% salute rimanente"}
-    }
-
-    val_standard_oggetti = {}
-    for oggetto in oggetti:
-        if isinstance(oggetto, Oggetto):
-            class_name = oggetto.__class__.__name__
-            val_standard_oggetti[class_name] = {
-                'valore': oggetto.valore,
-                'tipo_oggetto': oggetto.tipo_oggetto,
-            }
-
-    val_standard = {
-        'Guerriero': val_standard_guerriero,
-        'Ladro': val_standard_ladro,
-        'Mago': val_standard_mago,
-        'Oggetto': val_standard_oggetti
-    }
-
-    var_attacco_amb = {}
-    var_cura_amb = {}
+    # Calcola modifiche ambiente
+    # (la deepcopy è necessaria per non modificare val_standard)
     var_amb = deepcopy(val_standard)
 
-    for chiave in classi:
-        classe = classi[chiave]
-        istanza = chiave
-        var_attacco_amb[istanza] = int(ambiente.modifica_attacco(classe))
-        var_cura_amb[istanza] = int(ambiente.modifica_cura(classe))
+    for nome, classe in classi.items():
+        mod_att = int(ambiente.modifica_attacco(classe))
+        mod_cura = int(ambiente.modifica_cura(classe))
 
-        print(
-            f"DEBUG - {chiave}: attacco={var_attacco_amb[istanza]}, "
-            f"cura={var_cura_amb[istanza]}"
-        )
+        print(f"DEBUG - {nome}: attacco={mod_att}, cura={mod_cura}")
 
-    for chiave in var_amb:
-        valore = var_amb[chiave]
-        if chiave in var_attacco_amb and 'attacco' in valore:
-            n_att = var_attacco_amb[chiave]
-            if n_att != 0:
-                if not chiave == 'Guerriero':
-                    valore['attacco']['da'] = (
-                        int(valore['attacco']['da']) + int(n_att)
-                    )
-                valore['attacco']['a'] += n_att
+        if mod_att != 0:
+            if nome != 'Guerriero':
+                var_amb[nome]['attacco']['da'] += mod_att
+            var_amb[nome]['attacco']['a'] += mod_att
 
-        if chiave in var_cura_amb and 'cura' in valore:
-            n_cura = var_cura_amb[chiave]
-            if n_cura != 0:
-                if chiave == 'Mago':
-                    if n_cura > 0:
-                        x = f"+ {n_cura}"
-                    else:
-                        x = f"- {abs(n_cura)}"
-                    valore['cura']['recupero salute'] = (
-                        f"20% (salute rimanente {x})"
-                    )
-                if chiave == 'Ladro':
-                    valore['cura']['recupero salute'] = (
-                        f"da {10 + n_cura} a {40 + n_cura}"
-                    )
-                if chiave == 'Guerriero':
-                    valore['cura']['recupero salute'] = f"{30 + n_cura}"
+        if mod_cura != 0:
+            segno = '+' if mod_cura > 0 else '-'
+            cura_str = {
+                'Mago': f"20% (salute rimanente {segno} {abs(mod_cura)})",
+                'Ladro': f"da {10 + mod_cura} a {40 + mod_cura}",
+                'Guerriero': f"{30 + mod_cura}"
+            }
+            var_amb[nome]['cura']['recupero salute'] = cura_str[nome]
 
-        elif chiave == 'Oggetto':
-            for obj in oggetti:
-                n_obj = ambiente.modifica_effetto_oggetto(obj)
-                obj_name = obj.__class__.__name__
-                if obj_name in valore and n_obj != 0:
-                    valore[obj_name]['valore'] += n_obj
+    # Modifica oggetti
+    for obj in oggetti:
+        mod_obj = ambiente.modifica_effetto_oggetto(obj)
+        if mod_obj != 0:
+            var_amb['Oggetto'][obj.__class__.__name__]['valore'] += mod_obj
 
     print(f"val_standard: {val_standard}")
     print(f"var_amb: {var_amb}")
