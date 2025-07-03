@@ -1,4 +1,6 @@
 from collections import defaultdict
+
+from environment import routes as environment_routes
 from . import mission_bp
 from flask import flash, redirect, render_template, request, session, url_for, session, request, redirect, url_for, flash
 from gioco.missione import GestoreMissioni, Missione
@@ -110,6 +112,7 @@ def show_mission():
     msg = f"Missione mostrata: {missione.nome}"
     flash(msg, 'info')
     Log.scrivi_log(msg)
+    environment_routes.descrizione()
     return render_template(
         'show_mission.html',
         missione=missione,

@@ -13,16 +13,16 @@ class Ambiente():
     """
     def __init__(self, nome: str, modifica_attacco: int = 0, modifica_cura: float = 0):
         self.nome = nome
-        self.modifica_attacco = modifica_attacco
-        self.modifica_cura = modifica_cura
+        self.mod_attacco = modifica_attacco
+        self.mod_cura = modifica_cura
 
-    def modifica_attacco_max(self, attaccante: Personaggio) -> int:
+    def modifica_attacco(self, attaccante: Personaggio) -> int:
         raise NotImplementedError
 
     def modifica_effetto_oggetto(self, oggetto: Oggetto) -> int:
         raise NotImplementedError
 
-    def mod_cura(self, soggetto: Personaggio) -> int:
+    def modifica_cura(self, soggetto: Personaggio) -> int:
         raise NotImplementedError
 
     def to_dict(self) -> dict:
@@ -66,7 +66,7 @@ class Foresta(Ambiente):
     def __init__(self):
         super().__init__(nome="Foresta", modifica_attacco=5, modifica_cura=5)
 
-    def modifica_attacco_max(self, attaccante: Personaggio) -> int:
+    def modifica_attacco(self, attaccante: Personaggio) -> int:
         """
         Il metodo controlla se l'attaccante è un Guerriero e, in caso affermativo,
         aumenta il suo attacco massimo di un valore definito modifica_attacco=5.
@@ -78,7 +78,7 @@ class Foresta(Ambiente):
             int: Il valore intero che andrà a modificare l'attacco o 0 se l'attaccante non è un guerriero
         """
         if isinstance(attaccante, Guerriero):
-            msg = f"{attaccante.nome} guadagna {self.modifica_attacco} attacco nella Foresta!"
+            msg = f"{attaccante.nome} guadagna {self.mod_attacco} attacco nella Foresta!"
             Messaggi.add_to_messaggi(msg)
             Log.scrivi_log(msg)
             return self.modifica_attacco
@@ -96,7 +96,7 @@ class Foresta(Ambiente):
         """
         return 0
 
-    def mod_cura(self, soggetto: Personaggio) -> int:
+    def modifica_cura(self, soggetto: Personaggio) -> int:
         """
         Questa funzione aumenta la cura del ladro di un valore definito nell'ambiente Foresta.
 
@@ -120,7 +120,7 @@ class Vulcano(Ambiente):
     def __init__(self):
         super().__init__(nome="Vulcano", modifica_attacco=10, modifica_cura=-5)
 
-    def modifica_attacco_max(self, attaccante: Personaggio) -> int:
+    def modifica_attacco(self, attaccante: Personaggio) -> int:
         """
         Il metodo controlla se l'attaccante è un Mago e, in caso affermativo,
         aumenta il suo attacco massimo di un valore definito modifica_attacco=10.
@@ -135,15 +135,15 @@ class Vulcano(Ambiente):
         """
 
         if isinstance(attaccante, Mago):
-            msg = f"{attaccante.nome} guadagna {self.modifica_attacco} attacco nel Vulcano!"
+            msg = f"{attaccante.nome} guadagna {self.mod_attacco} attacco nel Vulcano!"
             Messaggi.add_to_messaggi(msg)
             Log.scrivi_log(msg)
             return self.modifica_attacco
         elif isinstance(attaccante, Ladro):
-            msg = f"{attaccante.nome} perde {self.modifica_attacco} attacco nel Vulcano!"
+            msg = f"{attaccante.nome} perde {self.mod_attacco} attacco nel Vulcano!"
             Messaggi.add_to_messaggi(msg)
             Log.scrivi_log(msg)
-            return -self.modifica_attacco
+            return -self.mod_attacco
         return 0
 
     def modifica_effetto_oggetto(self, oggetto: Oggetto) -> int:
@@ -164,7 +164,7 @@ class Vulcano(Ambiente):
             return variazione
         return 0
 
-    def mod_cura(self, soggetto: Personaggio) -> int:
+    def modifica_cura(self, soggetto: Personaggio) -> int:
         """
         Questo metodo aumenta la cura di tutti i personaggi di un valore definito
         nell'ambiente Vulcano.
@@ -187,8 +187,8 @@ class Palude(Ambiente):
     """
     def __init__(self):
         super().__init__(nome="Palude", modifica_attacco=-5, modifica_cura=0.3)
-    
-    def modifica_attacco_max(self, attaccante: Personaggio) -> int:
+
+    def modifica_attacco(self, attaccante: Personaggio) -> int:
         """
         Il metodo controlla se l'attaccante è un Guerriero o un Ladro e, in caso affermativo,
         diminuisce il suo attacco massimo di un valore definito modifica_attacco=-5 nell'ambiente Palude.
@@ -200,10 +200,10 @@ class Palude(Ambiente):
             int: La diminuzione dell'attacco massimo
         """
         if isinstance(attaccante, (Guerriero, Ladro)):
-            msg = f"{attaccante.nome} perde {-self.modifica_attacco} attacco nella Palude!"
+            msg = f"{attaccante.nome} perde {- self.mod_attacco} attacco nella Palude!"
             Messaggi.add_to_messaggi(msg)
             Log.scrivi_log(msg)
-            return self.modifica_attacco
+            return self.mod_attacco
         return 0
 
     def modifica_effetto_oggetto(self, oggetto: Oggetto) -> int:
@@ -216,14 +216,14 @@ class Palude(Ambiente):
             int: Riduzione dell'effetto della Pozione Cura
         """
         if isinstance(oggetto, PozioneCura):
-            riduzione = int(oggetto.valore * self.modifica_cura)
+            riduzione = int(oggetto.valore * self.mod_cura)
             msg = f"Nella {self.nome}, la Pozione Cura ha effetto ridotto di {riduzione} punti!"
             Messaggi.add_to_messaggi(msg)
             Log.scrivi_log(msg)
             return -riduzione
         return 0
 
-    def mod_cura(self, soggetto: Personaggio) -> int:
+    def modifica_cura(self, soggetto: Personaggio) -> int:
         return 0
 
 

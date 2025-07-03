@@ -39,16 +39,98 @@ def show_environment():
 @staticmethod
 def descrizione():
     from gioco.classi import Mago, Ladro, Guerriero
-    from gioco.oggetto import PozioneCura, Medaglione, BombaAcida
-    from gioco.inventario import Inventario
+
+    from gioco.oggetto import Oggetto, PozioneCura, Medaglione, BombaAcida
+    from copy import deepcopy
+
     ambiente = session.get('ambiente')
-    if not ambiente:
-        msg = 'Nessun ambiente selezionato.'
-        flash(msg, 'error')
-        Log.scrivi_log(msg)
-        # return redirect(url_for('environment.select_environment'))
-        return redirect(url_for('mission.select_mission'))
-    inventario = Inventario()
-    inventario.oggetti = [PozioneCura(), Medaglione(), BombaAcida()]
-    classi = [Mago("x"), Ladro("y"), Guerriero("z") ]
-    
+    if isinstance(ambiente, dict):
+        ambiente = Ambiente.from_dict(ambiente)
+
+
+    oggetti = [PozioneCura(), Medaglione(), BombaAcida()]
+    classi = {'Mago': Mago("x"), 'Ladro': Ladro("y"), 'Guerriero': Guerriero("z")}
+
+    classe = classi['Guerriero']
+    val_standard_guerriero = {
+        'attacco': {
+            'da': classe.attacco_min + 15,
+            'a': classe.attacco_max + 20
+        },
+        'cura': {'recupero salute': f"{30}"}
+    }
+
+    classe = classi['Ladro']
+    val_standard_ladro = {
+        'attacco':{
+            'da': classe.attacco_min + 5,
+            'a': classe.attacco_max + 5
+        },
+        'cura': {'recupero salute': f"da {10} a {40}"}
+    }
+
+    classe = classi['Mago']
+    val_standard_mago = {
+        'attacco':{
+            'da': classe.attacco_min - 5,
+            'a': classe.attacco_max + 10
+        },
+        'cura': {'recupero salute': f"20% salute rimanente"}
+    }
+
+    val_standard_oggetti = {}
+    for oggetto in oggetti:
+        if isinstance(oggetto, Oggetto):
+            class_name = oggetto.__class__.__name__
+            val_standard_oggetti[class_name] = {
+                'valore': oggetto.valore,
+                'tipo_oggetto': oggetto.tipo_oggetto,
+            }
+
+
+    val_standard = {
+        'Guerriero': val_standard_guerriero,
+        'Ladro': val_standard_ladro,
+        'Mago': val_standard_mago,
+        'Oggetto': val_standard_oggetti
+    }
+
+    var_attacco_amb = {}
+    var_cura_amb = {}
+    var_amb = deepcopy(val_standard)
+
+    for chiave in classi:
+        classe = classi[chiave]
+        istanza = chiave
+        var_attacco_amb[istanza] = int(ambiente.modifica_attacco(classe))
+        var_cura_amb[istanza] = int(ambiente.modifica_cura(classe))
+
+    for chiave in var_amb:
+        valore = var_amb[chiave]
+        if chiave in var_attacco_amb and 'attacco' in valore:
+            n_att = var_attacco_amb[chiave]
+            if n_att != 0:
+                continue
+            if not chiave == 'guerriero':
+                valore['attacco']['da'] = int(valore['attacco']['da']) + int(n_att)
+            valore['attacco']['a'] += n_att
+        elif chiave in var_cura_amb and 'cura' in valore:
+            n_cura = var_cura_amb[chiave]
+            if n_cura != 0:
+                if chiave == 'Mago':
+                    valore['cura']['recupero salute'] = f"20% (salute rimanente + {n_cura})"
+                elif chiave == 'Ladro':
+                    valore['cura']['recupero salute'] = f"da {10 + n_cura} a {40 + n_cura}"
+                elif chiave == 'Guerriero':
+                    valore['cura']['recupero salute'] = f"{30 + n_cura}"
+        elif chiave == 'Oggetto':
+            for obj in oggetti:
+                n_obj = ambiente.modifica_effetto_oggetto(obj)
+                obj_name = obj.__class__.__name__
+                if obj_name in valore and n_obj != 0:
+                    valore[obj_name]['valore'] += n_obj
+
+    print (f"val_standard: {val_standard}")
+    print (f"var_amb: {var_amb}")
+
+    return {'val_standard': val_standard, 'var_amb': var_amb}
