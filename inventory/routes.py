@@ -12,6 +12,7 @@ from utils.log import Log
 def inventory():
     personaggi = session.get('personaggi', [])
     inventari = session.get('inventari', [])
+    
 
     nome_per_id = {p['id']: p['nome'] for p in personaggi}
 
@@ -21,8 +22,6 @@ def inventory():
     personaggio = None
     if request.method == 'GET':
         id_passato = request.args.get('personaggio_id')
-        #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        flash(f"{id_passato}","info")
         personaggio = next((p for p in personaggi if p['id'] == id_passato), None)
         if id_passato:
             for inv in inventari:

@@ -15,7 +15,8 @@
             <!-- Pulsante per i inventario -->
             
             <p>{{pg['id']}}</p>
-            <form method="get" action="{{ url_for('inventory.inventory', personaggio_id = pg['id'] ) }}">
+            <form method="get" action="{{ url_for('inventory.inventory') }}">
+              <input type="hidden" name="personaggio_id" value="{{pg['id']}}" >
               <button type="submit" class="btn btn-outline-primary btn-sm">Inventario</button>
             </form>
 
