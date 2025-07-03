@@ -88,27 +88,50 @@ def create_char():
 @login_required
 def edit_char(id):
     from app import db
+
     # mappa nomi-classi per poter permettere di cambiare classe
     classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
+
     # prende valore associato a chiave 'personaggi' da sessione oppure lista vuota
     lista_pg = session.get('personaggi', [])
+
+    # deserializzazione
+    os.makedirs(DATA_DIR, exist_ok=True)  # check cartella esistente
+    try:
+        with open(CHAR_FILE, 'r', encoding='utf-8') as f:
+            characters = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        characters = [] # se il file manca o corrotto creo lista nuova
+
     try:
         # prova a recuperare il dizionario del pg da lista_pg tramite id
         pg_dict = lista_pg[id]
     except IndexError:
         flash("Impossibile trovare il personaggio desiderato")
         return redirect(url_for('characters.mostra_personaggi'))
-    if request.method == 'POST':
 
+    if request.method == 'POST':
         # otteniamo i valori dal form
-        nuovo_nome = request.form['nome'].strip()
-        nuova_classe = request.form['classe']
+        nuovo_nome    = request.form['nome'].strip()
+        nuova_classe  = request.form['classe']
 
         vecchio_nome = pg_dict['nome']  # cattura vecchio nome a fini di log
 
         # ricreiamo istanza di personaggio con dati aggiornati
-        pg_dict['nome'] = nuovo_nome
+        pg_dict['nome']   = nuovo_nome
         pg_dict['classe'] = nuova_classe
+
+        # aggiornamento lista caricata da file
+        try:
+            characters[id]['nome']   = nuovo_nome
+            characters[id]['classe'] = nuova_classe
+        except IndexError:
+            # dovrebbe essere impossibile se sessione e file erano in sync
+            pass
+
+        # serializzazione
+        with open(CHAR_FILE, 'w', encoding='utf-8') as f:
+            json.dump(characters, f, indent=4)
 
         Log.scrivi_log(
             f"Modificato personaggio id={id}: "
@@ -116,8 +139,8 @@ def edit_char(id):
             f"Nuova classe: '{nuova_classe}'"
         )
 
-        # salvataggio in sessione
-        session['personaggi'] = lista_pg
+        session['personaggi'] = lista_pg  # salvataggio in sessione
+
         return redirect(url_for('characters.mostra_personaggi'))
 
     # mostra form precompilato
@@ -218,6 +241,16 @@ def elimina_personaggio(id):
             json.dump(characters, f, indent=4)
 
         Log.scrivi_log(f"Eliminato personaggio con ID: {pg.get('id')}, Nome: {pg.get('nome', 'N/A')}")
+
+        # Rimozione esplicita dell'id da current_user.character_ids
+        ids = current_user.character_ids or []  # lista id
+        nuova_lista = []
+
+        for c_id in ids:  # controllo tutti gli id esistenti in lista
+            if c_id != pg.get('id'):  # se non è quello da rimuovere
+                nuova_lista.append(c_id)  # lo aggiungo alla nuova lista
+
+        current_user.character_ids = nuova_lista  # assegno la lista filtrata
 
         # Questo pezzo di codice è commentato perché non è chiaro se si voglia rimborsare i crediti
         # current_user.crediti += CREDITI_RIMBORSATI
