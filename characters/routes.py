@@ -221,7 +221,7 @@ def elimina_personaggio(id):
 
         # Questo pezzo di codice è commentato perché non è chiaro se si voglia rimborsare i crediti
         # current_user.crediti += CREDITI_RIMBORSATI
-        # db.session.commit()
+        db.session.commit()
         # flash("Personaggio eliminato con successo!", "success")
 
     except IndexError:
