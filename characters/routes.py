@@ -1,4 +1,4 @@
-import os
+import os, json
 from . import characters_bp
 from flask import render_template, request, redirect, url_for, session, abort, flash
 from gioco.personaggio import Personaggio
@@ -6,22 +6,33 @@ from gioco.oggetto import Oggetto
 from gioco.inventario import Inventario
 from utils.log import Log
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
-import json
-
-
-path = "data/json/characters.json"
-with open(path, "r") as file:
-    obj = json.load(file)  # deserializza il file JSON
+from config import DATA_DIR, CHAR_FILE
 
 
 @characters_bp.route('/create_char', methods=['GET', 'POST'])
 @login_required
 def create_char():
+
+    # provo a caricare (DESERIALIZZAZIONE) il contenuto JSON in una lista
+    try:
+        with open(CHAR_FILE, "r", encoding="utf-8") as file:
+            # json.load legge e converte il testo JSON in oggetto (qui: lista di dizionari)
+            characters = json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        # FileNotFoundError: file non esiste, JSONDecodeError: file vuoto/corrotto
+        characters = []  # creazione lista vuota di personaggi
+        os.makedirs(DATA_DIR, exist_ok=True)  # creazione dir se inesistente
+        # serializzo lista vuota su file per inizializzarlo comunque
+        with open(CHAR_FILE, "w", encoding="utf-8") as file:
+            json.dump(characters, file, indent=4)
+
     from app import db
+    # cattura dinamica di tutte le sottoclassi di Oggetto e Personaggio
     classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
     oggetti = {cls.__name__: cls for cls in Oggetto.__subclasses__()}
 
     if request.method == 'POST':
+        # lettura valori dal form
         nome = request.form['nome'].strip()
         classe_sel = request.form['classe']
         oggetto_sel = request.form['oggetto']
@@ -37,9 +48,11 @@ def create_char():
         pg_list.append(pg.to_dict())
         inv_list.append(inv.to_dict())
 
-        obj.append(pg.to_dict())
-        with open(path, "w", encoding="utf-8") as file:
-            json.dump(obj, file, indent=4)
+        # SERIALIZZAZIONE: aggiunta del nuovo personaggio alla lista obj
+        characters.append(pg.to_dict())
+        # scrittura del file JSON con il contenuto aggiornato di obj
+        with open(CHAR_FILE, "w", encoding="utf-8") as file:
+            json.dump(characters, file, indent=4)
 
         session['personaggi'] = pg_list
         session['inventari'] = inv_list
@@ -55,6 +68,7 @@ def create_char():
         classi=list(classi.keys()),
         oggetti=list(oggetti.keys())
     )
+
 
 
 @characters_bp.route('/edit_char/<int:id>', methods=['GET', 'POST'])
@@ -133,6 +147,18 @@ def elimina_personaggio(id):
     try:
         pg = lista_pers.pop(id)
         session['personaggi'] = lista_pers
+
+        # caricamento JSON da file
+        with open(CHAR_FILE, 'r', encoding='utf-8') as f:
+            characters = json.load(f)
+
+        # rimozione elemento per indice
+        characters.pop(id)
+
+        # riscrittura file con lista aggiornata
+        with open(CHAR_FILE, 'w', encoding='utf-8') as f:
+            json.dump(characters, f, indent=4)
+
         Log.scrivi_log(f"Eliminato personaggio con ID: {pg.get('id')}, Nome: {pg.get('nome', 'N/A')}")
     except IndexError:
         Log.scrivi_log(f"Errore durante eliminazione: ID inesistente {pg.get('id')}")
