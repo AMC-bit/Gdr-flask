@@ -129,29 +129,73 @@ def edit_char(id):
     )
 
 
-@characters_bp.route('/personaggi', methods=['GET', 'POST'])
+@characters_bp.route('/personaggi', methods=['GET'])
 def mostra_personaggi():
-    lista_pers = session.get('personaggi', [])
-    lista_pers_utente = []
-    for pers in lista_pers:
-        for per in current_user.character_ids:
-            if per == pers['id']:
-                lista_pers_utente.append(pers)
-    Log.scrivi_log(f"Richiesta lista personaggi. Numero personaggi: {len(lista_pers)}, Personaggi: {lista_pers}")
-    return render_template('list_char.html', personaggi = lista_pers )
+    # check cartella esistente
+    os.makedirs(DATA_DIR, exist_ok=True)
 
-
-@characters_bp.route('/personaggi/<int:id>')
-def dettaglio_personaggio(id):
-    lista_pers = session.get('personaggi', [])
+    # deserializzazione
     try:
-        pg_dict = lista_pers[id]
-        
-        Log.scrivi_log(f"Visualizzazione dettagli personaggio con ID: {id}, Nome: {pg_dict["nome"]}")
-    except IndexError:
-        Log.scrivi_log(f"Tentativo di accesso a personaggio inesistente con ID: {id}")
+        with open(CHAR_FILE, 'r', encoding='utf-8') as f:
+            lista_pers = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        lista_pers = []
+
+    lista_pers_utente = []
+
+    # id personaggi dell'utente
+    character_ids = current_user.character_ids or []
+
+    for p in lista_pers:
+        # check se id nel dizionario è tra quelli dell'utente
+        if p.get('id') in character_ids:
+            lista_pers_utente.append(p)  # in caso positivo aggiungo
+
+    Log.scrivi_log(
+        f"Richiesta lista personaggi. "
+        f"Totale nel file: {len(lista_pers)}, "
+        f"Di questo utente: {len(lista_pers_utente)}"
+    )
+
+    return render_template(
+        'list_char.html',
+        personaggi=lista_pers_utente
+    )
+
+
+@characters_bp.route('/personaggi/<string:char_id>', methods=['GET'])
+@login_required
+def dettaglio_personaggio(char_id):
+    # check cartella esistente
+    os.makedirs(DATA_DIR, exist_ok=True)
+
+    # deserializzazione
+    try:
+        with open(CHAR_FILE, 'r', encoding='utf-8') as f:
+            lista_pers = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        lista_pers = []
+
+    # ricerca del personaggio tramite ID
+    pg_dict = None  # conterrà il dizionario del pg trovato
+    for p in lista_pers:  # prendo tutti i p dentro la lista di dizionari
+        if str(p.get('id')) == char_id:  # char id viene preso da URL
+            pg_dict = p  # in caso di corrispondenza il diz trovato diventa pg_dict
+            break  # mi basta un solo match perché i pg non sono duplicabili
+
+    if pg_dict is None:
+        Log.scrivi_log(f"Tentativo di accesso a personaggio inesistente con ID: {char_id}")
         abort(404)
-    return render_template('details_char.html', pg = pg_dict, id=id)
+
+    Log.scrivi_log(
+        f"Visualizzazione dettagli personaggio con ID: {char_id}, Nome: {pg_dict.get('nome', 'N/A')}"
+    )
+    return render_template(
+        'details_char.html',
+        pg=pg_dict,
+        id=char_id
+    )
+
 
 
 @characters_bp.route('/personaggi/<int:id>', methods=['POST'])
