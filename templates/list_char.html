@@ -13,7 +13,7 @@
 
           <div class="d-flex gap-2">
             <!-- Pulsante per i inventario -->
-            <form method="get" action="{{ url_for('inventory.inventory') }}">
+            <form method="get" action="{{ url_for('inventory.inventory', id = pg['id'] ) }}">
               <button type="submit" class="btn btn-outline-primary btn-sm">Inventario</button>
             </form>
 
@@ -21,6 +21,16 @@
             <form method="get" action="{{ url_for('characters.dettaglio_personaggio', id=loop.index0) }}">
               <button type="submit" class="btn btn-outline-primary btn-sm">Dettagli</button>
             </form> 
+
+            <!-- TODO Pulsante per la modifica dei personaggi -->
+            <form method="get" action="{{ url_for('characters.dettaglio_personaggio', id=loop.index0) }}">
+              <button type="submit" class="btn btn-outline-info btn-sm">Modifica</button>
+            </form>
+
+            <!-- Pulsante per i modificare il personaggio -->
+            <form method="get" action="{{ url_for('characters.edit_char', id=loop.index0) }}">
+              <button type="submit" class="btn btn-outline-primary btn-sm">Modifica</button>
+            </form>
 
             <!-- Pulsante per eliminare -->
             <form method="post" action="{{ url_for('characters.elimina_personaggio', id=loop.index0) }}">

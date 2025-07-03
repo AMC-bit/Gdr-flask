@@ -10,7 +10,6 @@
 <div class="d-grid gap-2 col-6 mx-auto">
     <a href="{{ url_for('characters.create_char') }}" class="btn btn-success btn-lg">Crea Personaggi</a>
     <a href="{{ url_for('characters.mostra_personaggi') }}" class="btn btn-primary btn-lg">Lista personaggi</a>
-    <a href="{{ url_for('characters.create_char') }}" class="btn btn-primary btn-lg">Modifica Personaggi</a>
     <a href="{{ url_for('auth.edit_user') }}" class="btn btn-warning btn-lg">Modifica informazione utente</a>
     {# Pulsante per l'eliminazione dell'utente. Al premere del bottone apparirà un messaggio di conferma se si vuole elminare l'utente#}
     <a href="{{ url_for('auth.delete_user', id=user.id) }}"

@@ -153,5 +153,5 @@ def credit_refill():
 @login_required
 def logout():
     logout_user()
-    flash("Logout effettuato con successo", "info")
+    flash("Logout effettuato con successo", "info") 
     return render_template('menu.html')
