@@ -14,14 +14,15 @@ def credits_to_create(personaggio: Personaggio) -> int:
     Returns:
         int: crediti necessari alla creazione del personaggio
     """
-    if personaggio.__class__.__name__ == "Mago":
-        return 20
-    elif personaggio.__class__.__name__ == "Guerriero":
-        return 25
-    elif personaggio.__class__.__name__ == "Ladro":
-        return 50
+    classe = personaggio.__class__.__name__
+    if classe == "Mago":
+        return 2
+    elif classe == "Guerriero":
+        return 5
+    elif classe == "Ladro":
+        return 7
     else:
-        raise ValueError(f"Classe '{personaggio.__class__.__name__}' non riconosciuta.")
+        raise ValueError(f"Classe del personaggio non riconosciuta.")
 
 
 @staticmethod
@@ -38,11 +39,14 @@ def credits_to_refund(personaggio: Personaggio) -> int:
     Returns:
         int: crediti rimborsati all'utente
     """
-    if personaggio.__class__.__name__ == "Mago":
-        return 10
-    elif personaggio.__class__.__name__ == "Guerriero":
-        return 12
-    elif personaggio.__class__.__name__ == "Ladro":
-        return 25
+    # pg_dict = personaggio.to_dict()
+    # classe = pg_dict['classe']
+    classe = personaggio.__class__.__name__
+    if classe == "Mago":
+        return 2
+    elif classe == "Guerriero":
+        return 5
+    elif classe == "Ladro":
+        return 7
     else:
-        raise ValueError(f"Classe '{personaggio.__class__.__name__}' non riconosciuta.")
+        raise ValueError(f"Classe del personaggio non riconosciuta.")
