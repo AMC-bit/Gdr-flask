@@ -39,6 +39,15 @@ def show_environment():
 
 @staticmethod
 def descrizione():
+    """
+    Il metodo descrive i cambiamenti
+    che l'ambiente apporta ai personaggi e agli oggetti rispetto
+    alle condizioni originali.
+
+    Returns:
+        dict: Un dizionario contenente i valori standard e le modifiche
+              apportate dall'ambiente ai personaggi e agli oggetti.
+    """
     from gioco.classi import Mago, Ladro, Guerriero
     from gioco.oggetto import PozioneCura, Medaglione, BombaAcida
     from copy import deepcopy
@@ -64,7 +73,7 @@ def descrizione():
 
     print(f"DEBUG - classi: {classi}")
 
-    # Costruisci valori standard
+    # valori standard
     val_standard = {}
     for nome, classe in classi.items():
         data = classi_data[nome]
@@ -76,7 +85,7 @@ def descrizione():
             'cura': {'recupero salute': str(data['cura_base'])}
         }
 
-    # Aggiungo gli oggetti al dizionario
+    # Aggiungo i valori degli oggetti al dizionario
     val_standard['Oggetto'] = {
         obj.__class__.__name__: {
             'valore': obj.valore,
@@ -84,10 +93,10 @@ def descrizione():
         } for obj in oggetti
     }
 
-    # Calcola modifiche ambiente
     # (la deepcopy è necessaria per non modificare val_standard)
     var_amb = deepcopy(val_standard)
 
+    # Calcolo delle modifiche ambiente per i personaggi
     for nome, classe in classi.items():
         mod_att = int(ambiente.modifica_attacco(classe))
         mod_cura = int(ambiente.modifica_cura(classe))
@@ -108,12 +117,13 @@ def descrizione():
             }
             var_amb[nome]['cura']['recupero salute'] = cura_str[nome]
 
-    # Modifica oggetti
+    # Modifica del campo valore degli oggetti
     for obj in oggetti:
         mod_obj = ambiente.modifica_effetto_oggetto(obj)
         if mod_obj != 0:
             var_amb['Oggetto'][obj.__class__.__name__]['valore'] += mod_obj
 
+    # Debugging output
     print(f"val_standard: {val_standard}")
     print(f"var_amb: {var_amb}")
 
