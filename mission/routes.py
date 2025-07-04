@@ -1,9 +1,11 @@
 from collections import defaultdict
+
+from environment import routes as environment_routes
 from . import mission_bp
-from flask import flash, redirect, render_template, request, session, url_for, session, request, redirect, url_for, flash
+from flask import flash, render_template, request, session, \
+    redirect, url_for
 from gioco.missione import GestoreMissioni, Missione
 from utils.messaggi import Messaggi
-from utils.log import Log
 from utils.log import Log
 
 
@@ -11,16 +13,22 @@ from utils.log import Log
 def select_mission():
     """
     Gestisce la selezione di una missione da parte dell'utente.
-    Se l'utente seleziona una missione, la salva nella sessione e reindirizza alla pagina di visualizzazione della missione.
+    Se l'utente seleziona una missione, la salva nella sessione e reindirizza
+    alla pagina di visualizzazione della missione.
     Se non ci sono missioni disponibili, mostra un messaggio di errore.
     Se non è stata selezionata alcuna missione, mostra un messaggio di avviso.
-    Se non esiste un gestore di missioni nella sessione, ne crea uno nuovo e lo salva nella sessione.
-    Seleziona una missione dalla lista delle missioni disponibili e la salva nella sessione.
-    Dalla missione selezionata, salva anche l'ambiente associato nella sessione.
+    Se non esiste un gestore di missioni nella sessione, ne crea uno nuovo e
+    lo salva nella sessione.
+    Seleziona una missione dalla lista delle missioni disponibili e la salva
+    nella sessione.
+    Dalla missione selezionata, salva anche l'ambiente associato nella
+    sessione.
 
     Returns:
-        Renderizza il template 'select_mission.html' con la lista delle missioni disponibili.
-        Se una missione è stata selezionata, reindirizza alla pagina di visualizzazione della missione.
+        Renderizza il template 'select_mission.html' con la lista delle
+        missioni disponibili.
+        Se una missione è stata selezionata, reindirizza alla pagina di
+        visualizzazione della missione.
     """
     if request.method == 'POST':
         missione_id = request.form.get('missione_id')
@@ -110,13 +118,13 @@ def show_mission():
     msg = f"Missione mostrata: {missione.nome}"
     flash(msg, 'info')
     Log.scrivi_log(msg)
+    environment_routes.descrizione()
     return render_template(
         'show_mission.html',
         missione=missione,
         ambiente=ambiente,
         premi_raggruppati=premi_raggruppati
     )
-
 
 
 @mission_bp.route('/missioni')
