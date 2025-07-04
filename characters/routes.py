@@ -9,14 +9,58 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 from auth.models import User
 from auth.models import db
 from auth.credits import credits_to_create, credits_to_refund
-from config import DATA_DIR, CHAR_FILE
+from config import DATA_DIR
+
+@characters_bp.route('/load_char')
+@login_required
+def load_char():
+    # DESERIALIZZAZIONE
+    # provo a leggere il contenuto della cartella json
+    # ciclo su ogni file e ne estraggo i nomi
+    # confronto i nomi dei file con i valori 'character_ids' del db
+    # aggiungo i match a una lista
+
+    all_char_json = []
+    user_char = []
+    owned_char = []
+
+    if os.path.isdir(DATA_DIR):
+        print("Cartella esistente")
+    else:
+        os.makedirs(DATA_DIR, exist_ok=True)
+
+    files = os.listdir(DATA_DIR)
+    print(DATA_DIR)
+
+    for file in files:
+        path = os.path.join(DATA_DIR, file)
+        filename = os.path.splitext(file)[0]
+        all_char_json.append(filename)
+
+    for char_id in current_user.character_ids:
+        user_char.append(char_id)
+
+    print(f"all_char_json: {all_char_json}")
+    print(f"user_char: {user_char}")
+
+    # scorro la lista 'all_char_json' e includo solo gli elementi che
+    # sono anche nella lista 'user_char'
+    owned_char = [c for c in all_char_json if c in user_char]
+
+    # for c in all_char_json:
+    #     if c in user_char:
+    #         owned_char.append(c)
+    print(f"owned_char: {owned_char}")
+
+    with open(path, "r", encoding="utf-8") as file:
+        obj = json.load(file)
+        print(f"obj: {obj}")
 
 
 @characters_bp.route('/create_char', methods=['GET', 'POST'])
 @login_required
 def create_char():
 
-    # provo a caricare (DESERIALIZZAZIONE) il contenuto JSON in una lista
     try:
         with open(CHAR_FILE, "r", encoding="utf-8") as file:
             # json.load legge e converte il testo JSON in oggetto (qui: lista di dizionari)

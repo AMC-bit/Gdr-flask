@@ -1,0 +1,13 @@
+{
+    "classe": "Mago",
+    "id" : "de12d1ed-770a-4659-a0d7-8907795f6533",
+    "nome" : "Jon",
+    "salute" : 100,
+    "salute_max" : 200,
+    "attacco_min" : 5,
+    "attacco_max" : 80,
+    "storico_danni_subiti" : [],
+    "livello" : 1,
+    "destrezza" : 15,
+    "npc" : false
+}

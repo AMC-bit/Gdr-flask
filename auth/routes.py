@@ -6,6 +6,7 @@ from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_user
 from . import auth_bp
 from app import db
+from characters.routes import load_char
 import os
 import re
 
@@ -70,6 +71,7 @@ def login():
 
 @auth_bp.route('/area_personale')
 def area_personale():
+    load_char()
     message = ""
     message1 = request.args.get('message', '')
     if message1:
