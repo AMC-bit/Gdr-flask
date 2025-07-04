@@ -7,7 +7,7 @@ from characters.routes import characters_bp
 from environment.routes import environment_bp
 from inventory.routes import inventory_bp
 from mission.routes import mission_bp
-# from auth.routes import auth_bp  # Importa il blueprint di autenticazione 1
+from auth.routes import auth_bp  # Importa il blueprint di autenticazione 1
 from flask_migrate import Migrate
 from auth import auth_bp  # Importa il blueprint di autenticazione 2
 from auth.models import db, User

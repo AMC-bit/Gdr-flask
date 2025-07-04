@@ -4,7 +4,7 @@ auth_bp = Blueprint('auth', __name__, template_folder='../templates')
 
 # Ho dovuto importare le routes dopo aver definito il blueprint
 # per testare il programma (senza per qualche ragione non funzionava)
-from . import routes  # noqa: E402, F401
+# from . import routes  # noqa: E402, F401
 
 # noqa = no quality assurance, per evitare errori di linting
 # E402 = importazione dopo il codice di definizione del modulo
