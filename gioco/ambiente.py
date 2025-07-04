@@ -210,7 +210,7 @@ class Palude(Ambiente):
     def __init__(self):
         super().__init__(nome="Palude", modifica_attacco=-5, modifica_cura=0.3)
 
-    def modifica_attacco_max(self, attaccante: Personaggio) -> int:
+    def modifica_attacco(self, attaccante: Personaggio) -> int:
         """
         Il metodo controlla se l'attaccante è un Guerriero o un Ladro e, in
         caso affermativo, diminuisce il suo attacco massimo di un valore

@@ -44,8 +44,10 @@ def descrizione():
     from copy import deepcopy
 
     ambiente = session.get('ambiente')
+    print(f"DEBUG - ambiente: {ambiente}")
     if isinstance(ambiente, dict):
         ambiente = Ambiente.from_dict(ambiente)
+    print(f"DEBUG - ambiente: {ambiente}")
 
     # Dati base per classi derivate da personaggio
     # (definite in maniera statica per ridurre la complessità del metodo)
