@@ -193,15 +193,11 @@ def recupera_personaggi_posseduti(owned_chars):
 @characters_bp.route('/personaggi', methods=['GET'])
 def mostra_personaggi():
     owned_chars = load_char()
-    print(f"OWNER_CHARS : {owned_chars}")
     lista_pers_utente = recupera_personaggi_posseduti(owned_chars)
-    print(f"LISTA_PERSONAGGI :{lista_pers_utente}")
     Log.scrivi_log(
         f"Richiesta lista personaggi. "
         f"Di questo utente: {len(lista_pers_utente)}"
     )
-    flash(f"{lista_pers_utente}","info")
-    
     return render_template(
         'list_char.html',
         personaggi=lista_pers_utente
