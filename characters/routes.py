@@ -55,6 +55,7 @@ def load_char():
     with open(path, "r", encoding="utf-8") as file:
         obj = json.load(file)
         print(f"obj: {obj}")
+    return owned_char
 
 
 @characters_bp.route('/create_char', methods=['GET', 'POST'])
@@ -195,36 +196,32 @@ def edit_char(id):
         pg=pg_dict,
         classi=list(classi.keys())
     )
-
+@characters_bp.route('/recupera_personaggi_posseduti')
+def recupera_personaggi_posseduti(owned_chars):
+    personaggi_posseduti = []
+    for id in owned_chars :
+        nome_file = id
+        print(f"ID: {id}")
+        #Recupero il path del file json del personaggio
+        path = os.path.join(DATA_DIR, f"{nome_file}.json")
+        
+        with open (path, "r") as file:
+            char_dict = json.load(file)
+            personaggi_posseduti.append(char_dict)
+    return personaggi_posseduti
 
 @characters_bp.route('/personaggi', methods=['GET'])
 def mostra_personaggi():
-    # check cartella esistente
-    os.makedirs(DATA_DIR, exist_ok=True)
-
-    # deserializzazione
-    try:
-        with open(CHAR_FILE, 'r', encoding='utf-8') as f:
-            lista_pers = json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        lista_pers = []
-
-    lista_pers_utente = []
-
-    # id personaggi dell'utente
-    character_ids = current_user.character_ids or []
-
-    for p in lista_pers:
-        # check se id nel dizionario è tra quelli dell'utente
-        if p.get('id') in character_ids:
-            lista_pers_utente.append(p)  # in caso positivo aggiungo
-
+    owned_chars = load_char()
+    print(f"OWNER_CHARS : {owned_chars}")
+    lista_pers_utente = recupera_personaggi_posseduti(owned_chars)
+    print(f"LISTA_PERSONAGGI :{lista_pers_utente}")
     Log.scrivi_log(
         f"Richiesta lista personaggi. "
-        f"Totale nel file: {len(lista_pers)}, "
         f"Di questo utente: {len(lista_pers_utente)}"
     )
-
+    flash(f"{lista_pers_utente}","info")
+    
     return render_template(
         'list_char.html',
         personaggi=lista_pers_utente

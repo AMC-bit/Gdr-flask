@@ -258,3 +258,75 @@
 2025-07-03 13:29:44 - x guadagna 10 attacco nel Vulcano!
 2025-07-03 13:29:44 - y perde 10 attacco nel Vulcano!
 2025-07-03 13:29:44 - Nella Vulcano, la Bomba Acida guadagna 7 danni!
+2025-07-04 09:12:01 - Creato personaggio: carolina, Classe: Mago, id: 1d10d7a4-c6b1-45fe-92a5-dbdeadee3238, Oggetto iniziale: PozioneCura
+2025-07-04 09:12:01 - Richiesta lista personaggi. Totale nel file: 1, Di questo utente: 1
+2025-07-04 09:12:16 - Creato personaggio: Franco, Classe: Guerriero, id: b69893a1-3546-4b40-bcf8-e6ec9be41df4, Oggetto iniziale: BombaAcida
+2025-07-04 09:12:16 - Richiesta lista personaggi. Totale nel file: 2, Di questo utente: 2
+2025-07-04 09:12:28 - Creato personaggio: sora, Classe: Ladro, id: cc15e673-e54b-4bb8-9852-bc12a0e8976b, Oggetto iniziale: Medaglione
+2025-07-04 09:12:28 - Richiesta lista personaggi. Totale nel file: 3, Di questo utente: 3
+2025-07-04 09:12:44 - Inventario di carolina selezionato via GET.
+2025-07-04 09:12:53 - Richiesta lista personaggi. Totale nel file: 3, Di questo utente: 3
+2025-07-04 09:12:55 - Inventario di Franco selezionato via GET.
+2025-07-04 09:12:56 - Richiesta lista personaggi. Totale nel file: 3, Di questo utente: 3
+2025-07-04 09:12:59 - Visualizzazione dettagli personaggio con ID: 1d10d7a4-c6b1-45fe-92a5-dbdeadee3238, Nome: carolina
+2025-07-04 09:13:02 - Richiesta lista personaggi. Totale nel file: 3, Di questo utente: 3
+2025-07-04 09:13:07 - Eliminato personaggio con ID: 1d10d7a4-c6b1-45fe-92a5-dbdeadee3238, Nome: carolina
+2025-07-04 09:13:07 - Richiesta lista personaggi. Totale nel file: 2, Di questo utente: 2
+2025-07-04 09:16:11 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-04 09:16:11 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-04 09:16:11 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-04 09:16:11 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-04 09:16:11 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-04 09:16:16 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-04 09:16:16 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-04 09:16:16 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-04 09:16:16 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-04 09:16:16 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-04 09:16:16 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-04 09:16:16 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-04 09:16:16 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-04 09:16:16 - DEBUG: missione_id ricevuto: '7f556c2f-b430-4151-8333-f310dc63f736'
+2025-07-04 09:16:16 - DEBUG: Confronto '7f556c2f-b430-4151-8333-f310dc63f736' con '7f556c2f-b430-4151-8333-f310dc63f736'
+2025-07-04 09:16:16 - Missione selezionata: Imboscata
+2025-07-04 09:16:16 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-04 09:16:16 - Missione mostrata: Imboscata
+2025-07-04 09:16:16 - z guadagna 5 attacco nella Foresta!
+2025-07-04 09:16:46 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-04 09:16:46 - Missione mostrata: Imboscata
+2025-07-04 09:16:46 - z guadagna 5 attacco nella Foresta!
+2025-07-04 09:18:19 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-04 09:18:19 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-04 09:18:19 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-04 09:18:19 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-04 09:18:19 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-04 09:18:19 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-04 09:18:19 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-04 09:18:19 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-04 09:18:23 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-04 09:18:23 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-04 09:18:23 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-04 09:18:23 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-04 09:18:23 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-04 09:18:23 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-04 09:18:23 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-04 09:18:23 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-04 09:18:23 - DEBUG: missione_id ricevuto: 'e9b5ebc3-080c-41b1-b6a0-d25d3f7ce3da'
+2025-07-04 09:18:23 - DEBUG: Confronto '7f556c2f-b430-4151-8333-f310dc63f736' con 'e9b5ebc3-080c-41b1-b6a0-d25d3f7ce3da'
+2025-07-04 09:18:23 - DEBUG: Confronto 'e9b5ebc3-080c-41b1-b6a0-d25d3f7ce3da' con 'e9b5ebc3-080c-41b1-b6a0-d25d3f7ce3da'
+2025-07-04 09:18:23 - Missione selezionata: Salva la principessa
+2025-07-04 09:18:23 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-04 09:18:23 - Missione mostrata: Salva la principessa
+2025-07-04 09:18:23 - y perde 5 attacco nella Palude!
+2025-07-04 09:18:23 - z perde 5 attacco nella Palude!
+2025-07-04 09:18:23 - Nella Palude, la Pozione Cura ha effetto ridotto di 9 punti!
+2025-07-04 09:18:44 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-04 10:24:05 - Richiesta lista personaggi. Totale nel file: 2, Di questo utente: 2
+2025-07-04 10:30:32 - Richiesta lista personaggi. Totale nel file: 2, Di questo utente: 2
+2025-07-04 11:22:53 - Richiesta lista personaggi. Di questo utente: 0
+2025-07-04 11:23:28 - Richiesta lista personaggi. Di questo utente: 0
+2025-07-04 11:28:07 - Richiesta lista personaggi. Di questo utente: 0
+2025-07-04 11:28:11 - Richiesta lista personaggi. Di questo utente: 0
+2025-07-04 11:29:28 - Richiesta lista personaggi. Di questo utente: 0
+2025-07-04 11:32:54 - Richiesta lista personaggi. Di questo utente: 0
+2025-07-04 11:33:52 - Richiesta lista personaggi. Di questo utente: 0
+2025-07-04 11:58:44 - Richiesta lista personaggi. Di questo utente: 2
