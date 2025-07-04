@@ -57,11 +57,20 @@ def load_char():
         print(f"obj: {obj}")
     return owned_char
 
+def CharSingleJson(pg_creato: Personaggio):
+    # Recuperare i dati dal form per singolo personaggio
+    # Creazione del file JSON con l'id del personaggio
+    pg_dict = pg_creato.to_dict()
+    name_file = f"{pg_dict['id']}.json"
+    path = os.path.join(DATA_DIR, name_file)
+    with open(path, "w", encoding="utf-8") as file:
+        json.dump(pg_dict, file, indent=4)
 
 @characters_bp.route('/create_char', methods=['GET', 'POST'])
 @login_required
 def create_char():
 
+    """
     try:
         with open(CHAR_FILE, "r", encoding="utf-8") as file:
             # json.load legge e converte il testo JSON in oggetto (qui: lista di dizionari)
@@ -73,6 +82,8 @@ def create_char():
         # serializzo lista vuota su file per inizializzarlo comunque
         with open(CHAR_FILE, "w", encoding="utf-8") as file:
             json.dump(characters, file, indent=4)
+            
+            """
 
     from app import db
     # cattura dinamica di tutte le sottoclassi di Oggetto e Personaggio
@@ -106,11 +117,8 @@ def create_char():
         pg_list.append(pg.to_dict())
         inv_list.append(inv.to_dict())
 
-        # SERIALIZZAZIONE: aggiunta del nuovo personaggio alla lista obj
-        characters.append(pg.to_dict())
-        # scrittura del file JSON con il contenuto aggiornato di obj
-        with open(CHAR_FILE, "w", encoding="utf-8") as file:
-            json.dump(characters, file, indent=4)
+        # Creazione del file JSON del singolo personaggio
+        CharSingleJson(pg)
 
         session['personaggi'] = pg_list
         session['inventari'] = inv_list

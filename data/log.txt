@@ -330,3 +330,5 @@
 2025-07-04 11:32:54 - Richiesta lista personaggi. Di questo utente: 0
 2025-07-04 11:33:52 - Richiesta lista personaggi. Di questo utente: 0
 2025-07-04 11:58:44 - Richiesta lista personaggi. Di questo utente: 2
+2025-07-04 12:34:46 - Creato personaggio: ALI, Classe: Mago, id: 7ff05fad-5be2-4684-ba56-900274482398, Oggetto iniziale: PozioneCura
+2025-07-04 12:34:46 - Richiesta lista personaggi. Di questo utente: 1
