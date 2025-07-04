@@ -57,6 +57,7 @@ def load_char():
         print(f"obj: {obj}")
     return owned_char
 
+
 def CharSingleJson(pg_creato: Personaggio):
     # Recuperare i dati dal form per singolo personaggio
     # Creazione del file JSON con l'id del personaggio
@@ -66,24 +67,10 @@ def CharSingleJson(pg_creato: Personaggio):
     with open(path, "w", encoding="utf-8") as file:
         json.dump(pg_dict, file, indent=4)
 
+
 @characters_bp.route('/create_char', methods=['GET', 'POST'])
 @login_required
 def create_char():
-
-    """
-    try:
-        with open(CHAR_FILE, "r", encoding="utf-8") as file:
-            # json.load legge e converte il testo JSON in oggetto (qui: lista di dizionari)
-            characters = json.load(file)
-    except (FileNotFoundError, json.JSONDecodeError):
-        # FileNotFoundError: file non esiste, JSONDecodeError: file vuoto/corrotto
-        characters = []  # creazione lista vuota di personaggi
-        os.makedirs(DATA_DIR, exist_ok=True)  # creazione dir se inesistente
-        # serializzo lista vuota su file per inizializzarlo comunque
-        with open(CHAR_FILE, "w", encoding="utf-8") as file:
-            json.dump(characters, file, indent=4)
-            
-            """
 
     from app import db
     # cattura dinamica di tutte le sottoclassi di Oggetto e Personaggio
@@ -141,51 +128,36 @@ def create_char():
 @characters_bp.route('/edit_char/<int:id>', methods=['GET', 'POST'])
 @login_required
 def edit_char(id):
+
     from app import db
 
     # mappa nomi-classi per poter permettere di cambiare classe
     classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
 
     # prende valore associato a chiave 'personaggi' da sessione oppure lista vuota
-    lista_pg = session.get('personaggi', [])
-
-    # deserializzazione
-    os.makedirs(DATA_DIR, exist_ok=True)  # check cartella esistente
-    try:
-        with open(CHAR_FILE, 'r', encoding='utf-8') as f:
-            characters = json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        characters = [] # se il file manca o corrotto creo lista nuova
+    lista_pg = load_char()
 
     try:
         # prova a recuperare il dizionario del pg da lista_pg tramite id
-        pg_dict = lista_pg[id]
+        pg = lista_pg[id]
     except IndexError:
         flash("Impossibile trovare il personaggio desiderato")
         return redirect(url_for('characters.mostra_personaggi'))
 
     if request.method == 'POST':
         # otteniamo i valori dal form
-        nuovo_nome    = request.form['nome'].strip()
-        nuova_classe  = request.form['classe']
+        nuovo_nome = request.form['nome'].strip()
+        nuova_classe = request.form['classe']
 
-        vecchio_nome = pg_dict['nome']  # cattura vecchio nome a fini di log
+        vecchio_nome = pg['nome']  # cattura vecchio nome a fini di log
 
         # ricreiamo istanza di personaggio con dati aggiornati
-        pg_dict['nome']   = nuovo_nome
-        pg_dict['classe'] = nuova_classe
+        pg['nome'] = nuovo_nome
+        pg['classe'] = nuova_classe
 
-        # aggiornamento lista caricata da file
-        try:
-            characters[id]['nome']   = nuovo_nome
-            characters[id]['classe'] = nuova_classe
-        except IndexError:
-            # dovrebbe essere impossibile se sessione e file erano in sync
-            pass
+        pg_obj = Personaggio.from_dict(pg)
 
-        # serializzazione
-        with open(CHAR_FILE, 'w', encoding='utf-8') as f:
-            json.dump(characters, f, indent=4)
+        CharSingleJson(pg_obj)
 
         Log.scrivi_log(
             f"Modificato personaggio id={id}: "
@@ -201,7 +173,7 @@ def edit_char(id):
     return render_template(
         'edit_char.html',
         id=id,
-        pg=pg_dict,
+        pg=pg,
         classi=list(classi.keys())
     )
 @characters_bp.route('/recupera_personaggi_posseduti')
