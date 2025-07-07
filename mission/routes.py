@@ -153,8 +153,8 @@ def descrizione():
     # (definite in maniera statica per ridurre la complessità del metodo)
     classi_data = {
         'Guerriero': {'at_min': 15, 'att_max_bonus': 20, 'cura_base': 30},
-        'Ladro': {'at_min': 5, 'att_max_bonus': 5, 'cura_base': '10-40'},
-        'Mago': {'at_min': -5, 'att_max_bonus': 10, 'cura_base': '20%'}
+        'Ladro': {'at_min': 5, 'att_max_bonus': 5, 'cura_base': 'da 10 a 40'},
+        'Mago': {'at_min': -5, 'att_max_bonus': 10, 'cura_base': '20% della salute rimanente'}
     }
 
     # Importo dinamico delle classi
