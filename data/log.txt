@@ -509,3 +509,173 @@
 2025-07-07 10:20:21 -  il NPC ha scelto una strategia equilibrata! 
 2025-07-07 10:21:13 - Attenzione! le classi da utilizzare sono le classi derivate!
 2025-07-07 10:21:13 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-07 10:26:53 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:26:53 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-07 10:32:43 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:32:43 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-07 10:34:51 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:34:51 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-07 10:34:51 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:34:51 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:34:51 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-07 10:35:02 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:35:02 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-07 10:35:02 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:35:02 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:35:02 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-07 10:35:02 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:35:02 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:35:02 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:35:02 - DEBUG: missione_id ricevuto: 'be7f7688-8944-4628-bb40-caba3f0c5030'
+2025-07-07 10:35:02 - DEBUG: Confronto 'be7f7688-8944-4628-bb40-caba3f0c5030' con 'be7f7688-8944-4628-bb40-caba3f0c5030'
+2025-07-07 10:35:02 - Missione selezionata: Imboscata
+2025-07-07 10:35:02 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:35:02 - Missione mostrata: Imboscata
+2025-07-07 10:35:02 - temp guadagna <bound method Foresta.modifica_attacco of <gioco.ambiente.Foresta object at 0x000001CFADC26B50>>attacco nella Foresta!
+2025-07-07 10:35:13 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:35:13 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-07 10:35:13 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:35:13 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:35:13 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-07 10:35:13 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:35:13 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:35:13 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:35:15 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:35:15 - Missione mostrata: Imboscata
+2025-07-07 10:35:15 - temp guadagna <bound method Foresta.modifica_attacco of <gioco.ambiente.Foresta object at 0x000001CFADCBD910>>attacco nella Foresta!
+2025-07-07 10:35:20 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:38:01 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:38:01 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:41:47 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:41:47 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:41:48 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:41:48 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:41:48 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:41:48 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:41:48 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:41:48 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:41:48 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:41:48 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:41:49 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:41:49 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:41:49 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:41:49 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:41:49 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:41:49 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:43:02 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:43:02 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:43:03 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:43:03 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:43:03 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:43:03 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:43:03 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:43:03 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:43:03 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:43:03 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:43:04 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:43:04 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:43:04 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:43:04 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:45:39 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:45:39 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:06 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:06 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:18 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:18 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:19 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:19 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:20 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:20 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:20 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:20 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:21 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:21 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:21 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:21 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:32 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:32 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-07 10:47:32 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:32 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:32 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-07 10:47:32 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:32 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:32 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:37 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:37 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-07 10:47:37 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:37 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:37 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-07 10:47:37 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:37 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:37 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:37 - DEBUG: missione_id ricevuto: 'ec5c65b5-5961-481e-b333-e75cbc52e364'
+2025-07-07 10:47:37 - DEBUG: Confronto 'be7f7688-8944-4628-bb40-caba3f0c5030' con 'ec5c65b5-5961-481e-b333-e75cbc52e364'
+2025-07-07 10:47:37 - DEBUG: Confronto 'a6254824-8b4f-4f16-81c9-c7ab2998bfba' con 'ec5c65b5-5961-481e-b333-e75cbc52e364'
+2025-07-07 10:47:37 - DEBUG: Confronto 'ec5c65b5-5961-481e-b333-e75cbc52e364' con 'ec5c65b5-5961-481e-b333-e75cbc52e364'
+2025-07-07 10:47:37 - Missione selezionata: Sgomina il culto di Graz'zt sul vulcano Gheemir
+2025-07-07 10:47:37 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:47:37 - Missione mostrata: Sgomina il culto di Graz'zt sul vulcano Gheemir
+2025-07-07 10:47:37 - temp perde <bound method Vulcano.modifica_attacco of <gioco.ambiente.Vulcano object at 0x000002CFBCDB4D70>>attacco nel Vulcano!
+2025-07-07 10:47:37 - temp guadagna <bound method Vulcano.modifica_attacco of <gioco.ambiente.Vulcano object at 0x000002CFBCDB4D70>>attacco nel Vulcano!
+2025-07-07 10:47:37 - Nella Vulcano, la Bomba Acida guadagna 9 danni!
+2025-07-07 10:47:57 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:49:06 - Creato personaggio: gigio, Classe: Guerriero, id: e96baf01-99cb-43a7-98f0-1e531136bda3, Oggetto iniziale: PozioneCura
+2025-07-07 10:49:06 - Richiesta lista personaggi. Di questo utente: 2
+2025-07-07 10:49:15 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:50:18 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:50:18 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-07 10:50:18 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:50:18 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:50:18 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-07 10:50:18 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:50:18 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:50:18 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:50:21 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:50:21 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-07 10:50:21 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:50:21 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:50:21 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-07 10:50:21 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:50:21 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:50:21 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:50:21 - DEBUG: missione_id ricevuto: 'a6254824-8b4f-4f16-81c9-c7ab2998bfba'
+2025-07-07 10:50:21 - DEBUG: Confronto 'be7f7688-8944-4628-bb40-caba3f0c5030' con 'a6254824-8b4f-4f16-81c9-c7ab2998bfba'
+2025-07-07 10:50:21 - DEBUG: Confronto 'a6254824-8b4f-4f16-81c9-c7ab2998bfba' con 'a6254824-8b4f-4f16-81c9-c7ab2998bfba'
+2025-07-07 10:50:21 - Missione selezionata: Salva la principessa
+2025-07-07 10:50:21 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:50:21 - Missione mostrata: Salva la principessa
+2025-07-07 10:50:21 - temp perde 5 attacco nella Palude!
+2025-07-07 10:50:21 - temp perde 5 attacco nella Palude!
+2025-07-07 10:50:21 - Nella Palude, la Pozione Cura ha effetto ridotto di9 punti!
+2025-07-07 10:50:27 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:50:27 - Missione mostrata: Salva la principessa
+2025-07-07 10:50:27 - temp perde 5 attacco nella Palude!
+2025-07-07 10:50:27 - temp perde 5 attacco nella Palude!
+2025-07-07 10:50:27 - Nella Palude, la Pozione Cura ha effetto ridotto di9 punti!
+2025-07-07 10:50:33 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:50:39 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:51:02 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:51:06 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:51:24 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:51:24 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-07 10:51:24 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:51:24 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:51:24 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-07 10:51:24 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:51:24 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:51:24 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:51:28 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:51:28 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-07 10:51:28 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:51:28 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:51:28 - Il NPC ha scelto una strategia aggressiva! Attaccherà con tutte le sue forze!
+2025-07-07 10:51:28 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:51:28 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:51:28 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:51:28 - DEBUG: missione_id ricevuto: 'be7f7688-8944-4628-bb40-caba3f0c5030'
+2025-07-07 10:51:28 - DEBUG: Confronto 'be7f7688-8944-4628-bb40-caba3f0c5030' con 'be7f7688-8944-4628-bb40-caba3f0c5030'
+2025-07-07 10:51:28 - Missione selezionata: Imboscata
+2025-07-07 10:51:28 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:51:28 - Missione mostrata: Imboscata
+2025-07-07 10:51:28 - temp guadagna <bound method Foresta.modifica_attacco of <gioco.ambiente.Foresta object at 0x000001C056E233B0>>attacco nella Foresta!
+2025-07-07 10:51:31 - Attenzione! le classi da utilizzare sono le classi derivate!

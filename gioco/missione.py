@@ -181,7 +181,9 @@ class Missione(Basic):
 
         nome = premio_ottenuto.get("nome")
 
-        premio_oggetto = classi_premi(nome=nome)
+        premio_cls = classi_premi[nome]
+        premio_oggetto = premio_cls()
+
         Messaggi.add_to_messaggi(f"Premio selezionato: {premio_oggetto.nome}")
         return premio_oggetto
 
@@ -305,10 +307,13 @@ class GestoreMissioni():
             nome="Salva la principessa",
             ambiente=Palude(),
             nemici=[Ladro("Megera furfante")],
-            premi=Missione.seleziona_premio().premio_oggetto,
+            # premi=Missione.seleziona_premio().premio_oggetto,
             #premi=[Medaglione()],
+            premi=[],
             strategia_nemici= StrategiaFactory.usa_strategia("difensiva")
         )
+        salva_principessa.premi = [salva_principessa.seleziona_premio()]
+        
         culto = Missione(
             nome="Sgomina il culto di Graz'zt sul vulcano Gheemir",
             ambiente=Vulcano(),
@@ -318,9 +323,11 @@ class GestoreMissioni():
                 Mago("Cultista 3")
             ],
             #premi=[PozioneCura(), Medaglione()],
-            premi=Missione.seleziona_premio().premio_oggetto,
+            premi=[],
             strategia_nemici= StrategiaFactory.usa_strategia("aggressiva")
         )
+        culto.premi = [culto.seleziona_premio()]
+        
         return [imboscata, salva_principessa, culto]
 
     def mostra(self) -> None:
