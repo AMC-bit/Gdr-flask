@@ -124,7 +124,7 @@ def create_char():
 
 
 
-@characters_bp.route('/edit_char/<string:char_id>', methods=['GET', 'POST'])
+@characters_bp.route('/edit_char/<uuid:char_id>', methods=['GET', 'POST'])
 @login_required
 def edit_char(char_id):
 
