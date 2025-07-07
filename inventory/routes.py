@@ -1,6 +1,6 @@
 from . import inventory_bp
 from flask import render_template, request, session  # , \
-# redirect, url_for, flash
+# flash, redirect, url_for, flash
 # from gioco.oggetto import BombaAcida, Medaglione, Oggetto, PozioneCura
 # from gioco.personaggio import Personaggio
 # from gioco.classi import Ladro, Mago, Guerriero
@@ -8,11 +8,11 @@ from flask import render_template, request, session  # , \
 # from utils.messaggi import Messaggi
 from utils.log import Log
 
+
 @inventory_bp.route('/inventory', methods=['GET', 'POST'])
 def inventory():
     personaggi = session.get('personaggi', [])
     inventari = session.get('inventari', [])
-
 
     nome_per_id = {p['id']: p['nome'] for p in personaggi}
 
@@ -22,19 +22,24 @@ def inventory():
     personaggio = None
     if request.method == 'GET':
         id_passato = request.args.get('personaggio_id')
-        personaggio = next((p for p in personaggi if p['id'] == id_passato), None)
+        personaggio = next(
+            (p for p in personaggi if p['id'] == id_passato), None
+        )
         if id_passato:
             for inv in inventari:
                 if inv['id_proprietario'] == id_passato:
                     inventario_selezionato = inv
                     Log.scrivi_log(
-                        f"Inventario di {nome_per_id[id_passato]} selezionato via GET."
+                        f"Inventario di {nome_per_id[id_passato]}"
+                        "selezionato via GET."
                     )
                     break
 
     if request.method == 'POST':
         id_selezionato = request.form.get('personaggio_id')
-        personaggio = next((p for p in personaggi if p['id'] == id_selezionato), None)
+        personaggio = next(
+            (p for p in personaggi if p['id'] == id_selezionato), None
+        )
         # Cerca l'inventario del personaggio selezionato
         for inv in inventari:
             if inv['id_proprietario'] == id_selezionato:
@@ -55,6 +60,7 @@ def inventory():
         personaggio=personaggio
     )
 
+
 """
 @inventory_bp.route('/test-inventory', methods=['GET', 'POST'])
 def test_inventory():
@@ -70,10 +76,13 @@ def test_inventory():
     classe_pg = main_pg_data['classe']
     pg_classi = {'Mago': Mago, 'Guerriero': Guerriero, 'Ladro': Ladro}
     pg_test = pg_classi[classe_pg](main_pg_data['nome'])
-    pg_test.__dict__.update(main_pg_data)  # importa attributi come salute, livello ecc.
+    pg_test.__dict__.update(main_pg_data)
+    # importa attributi come salute, livello ecc.
 
     # 3. Crea inventario del personaggio
-    inventario_pg_data = next((inv for inv in inventari_data if inv['proprietario'] == pg_test.id), None)
+    inventario_pg_data = next((
+        inv for inv in inventari_data if inv['proprietario'] == pg_test.id
+    ), None)
     inventario_pg = Inventario(pg_test)
     inventario_pg.oggetti = []
     for oggetto_data in inventario_pg_data['oggetti']:
@@ -104,10 +113,17 @@ def test_inventory():
             return redirect(url_for('gioco.index'))
 
         if oggetto_selezionato and bersaglio_id:
-            oggetto = next((o for o in inventario_pg.oggetti if o.nome == oggetto_selezionato), None)
+            oggetto = next((
+                o for o in inventario_pg.oggetti
+                if o.nome == oggetto_selezionato
+            ), None)
             bersaglio = bersagli_dict.get(bersaglio_id)
             if oggetto and bersaglio:
-                inventario_pg.usa_oggetto(oggetto, utilizzatore=pg_test, bersaglio=bersaglio)
+                inventario_pg.usa_oggetto(
+                    oggetto,
+                    utilizzatore=pg_test,
+                    bersaglio=bersaglio
+                )
                 messaggio = Messaggi.get_messaggi()
                 Messaggi.delete_messaggi()
             else:
