@@ -485,3 +485,27 @@
 2025-07-07 09:44:57 - Eliminato personaggio con ID: e6745075-f238-457f-83c2-04bf8a5eec9e, Nome: Zoro
 2025-07-07 09:44:57 - Richiesta lista personaggi. Di questo utente: 0
 >>>>>>> 34e7f52bfec85d267261e4916fd2b630b097aec4
+2025-07-07 10:06:14 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:06:14 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-07 10:07:11 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:07:11 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-07 10:09:45 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:09:45 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-07 10:09:46 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:09:46 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-07 10:09:47 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:09:47 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-07 10:10:30 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:10:30 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-07 10:13:15 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:13:15 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-07 10:13:55 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:13:55 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-07 10:14:15 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:14:15 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-07 10:14:22 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:14:22 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-07 10:20:21 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:20:21 -  il NPC ha scelto una strategia equilibrata! 
+2025-07-07 10:21:13 - Attenzione! le classi da utilizzare sono le classi derivate!
+2025-07-07 10:21:13 -  il NPC ha scelto una strategia equilibrata! 

@@ -204,23 +204,23 @@ def mostra_personaggi():
     )
 
 
-@characters_bp.route('/personaggi/<string:char_id>', methods=['GET'])
+@characters_bp.route('/personaggi/<uuid:char_id>', methods=['GET'])
 @login_required
 def dettaglio_personaggio(char_id):
     # check cartella esistente
     os.makedirs(DATA_DIR, exist_ok=True)
-
     # deserializzazione
     try:
-        with open(CHAR_FILE, 'r', encoding='utf-8') as f:
-            lista_pers = json.load(f)
+        owned_chars = load_char() 
+        lista_pers = recupera_personaggi_posseduti(owned_chars)
+        print("LISTA", lista_pers)
     except (FileNotFoundError, json.JSONDecodeError):
         lista_pers = []
 
     # ricerca del personaggio tramite ID
     pg_dict = None  # conterrà il dizionario del pg trovato
     for p in lista_pers:  # prendo tutti i p dentro la lista di dizionari
-        if str(p.get('id')) == char_id:  # char id viene preso da URL
+        if str(p.get('id')) == str(char_id):  # char id viene preso da URL
             pg_dict = p  # in caso di corrispondenza il diz trovato diventa pg_dict
             break  # mi basta un solo match perché i pg non sono duplicabili
 
@@ -253,7 +253,7 @@ def elimina_personaggio(id):
             os.remove(file_path)
             Log.scrivi_log(f"File JSOn eliminato: {file_path}")
         else:
-            Log.scrivi_log(f"File JSON non trovato.")
+            Log.scrivi_log("File JSON non trovato.")
 
         Log.scrivi_log(f"Eliminato personaggio con ID: {pg.get('id')}, Nome: {pg.get('nome', 'N/A')}")
 

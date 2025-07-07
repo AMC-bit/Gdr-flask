@@ -158,14 +158,17 @@ class Missione(Basic):
         Questo metodo legge il contenuto del file JSON contenente i premi della missione
         e ne sorteggia uno a caso.
         """
-        if Missione.nome == "Imboscata":
-            percorso_file = "../static/premijson/imboscata.json"
-        elif Missione.nome == "Salva la principessa":
-            percorso_file = "../static/premijson/principessa.json"
-        elif Missione.nome == "Sgomina il culto di Graz'zt sul vulcano Gheemir":
-            percorso_file = "../static/premijson/culto.json"
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        path_file = None
+        
+        if self.nome == "Imboscata":
+            path_file = os.path.join(base_dir, "..", "static", "premijson", "imboscata.json")
+        elif self.nome == "Salva la principessa":
+            path_file = os.path.join(base_dir, "..", "static", "premijson", "principessa.json")
+        elif self.nome == "Sgomina il culto di Graz'zt sul vulcano Gheemir":
+            path_file = os.path.join(base_dir, "..", "static", "premijson", "culto.json")
 
-        with open(percorso_file, "r", encoding="utf-8") as file:
+        with open(path_file, "r", encoding="utf-8") as file:
             premi_data = json.load(file)
 
         premio_ottenuto = random.choice(premi_data)
@@ -293,9 +296,11 @@ class GestoreMissioni():
             ambiente=Foresta(),
             nemici=[Guerriero("Robin Hood"), Guerriero("Little Jhon")],
             #premi=[PozioneCura(), PozioneCura(), BombaAcida()],
-            premi=Missione.seleziona_premio().premio_oggetto,
+            premi=[],
             strategia_nemici= StrategiaFactory.usa_strategia("equilibrata")
         )
+        imboscata.premi = [imboscata.seleziona_premio()]
+        
         salva_principessa = Missione(
             nome="Salva la principessa",
             ambiente=Palude(),
