@@ -209,13 +209,11 @@ def mostra_personaggi():
 def dettaglio_personaggio(char_id):
     # check cartella esistente
     os.makedirs(DATA_DIR, exist_ok=True)
-    lista_pers = []
     # deserializzazione
     try:
-        owned_chars = load_char()  # Get the list of character IDs
-        if owned_chars:  # Check if the list is not empty
-            lista_pers = recupera_personaggi_posseduti(owned_chars)
-            print("LISTA", lista_pers)
+        owned_chars = load_char() 
+        lista_pers = recupera_personaggi_posseduti(owned_chars)
+        print("LISTA", lista_pers)
     except (FileNotFoundError, json.JSONDecodeError):
         lista_pers = []
 
@@ -255,7 +253,7 @@ def elimina_personaggio(id):
             os.remove(file_path)
             Log.scrivi_log(f"File JSOn eliminato: {file_path}")
         else:
-            Log.scrivi_log(f"File JSON non trovato.")
+            Log.scrivi_log("File JSON non trovato.")
 
         Log.scrivi_log(f"Eliminato personaggio con ID: {pg.get('id')}, Nome: {pg.get('nome', 'N/A')}")
 
