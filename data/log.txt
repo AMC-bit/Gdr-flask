@@ -339,7 +339,149 @@
 =======
 2025-07-04 13:04:54 - Richiesta lista personaggi. Di questo utente: 1
 >>>>>>> Stashed changes
+<<<<<<< HEAD
 2025-07-07 09:39:47 - Creato personaggio: belin, Classe: Mago, id: ab1e8146-48a2-4f6e-8afd-c440e6bafd38, Oggetto iniziale: BombaAcida
 2025-07-07 09:39:47 - Richiesta lista personaggi. Di questo utente: 1
 2025-07-07 09:39:56 - Nessuna missione selezionata.
 2025-07-07 09:45:22 - Nessuna missione selezionata.
+=======
+2025-07-04 16:34:17 - Richiesta lista personaggi. Di questo utente: 0
+2025-07-04 16:34:24 - Creato personaggio: Luca, Classe: Mago, id: 426150d6-68c6-4303-8592-d6eeef292cd8, Oggetto iniziale: PozioneCura
+2025-07-04 16:34:24 - Richiesta lista personaggi. Di questo utente: 1
+2025-07-04 16:34:31 - Creato personaggio: Lucky luck, Classe: Mago, id: 3e43f816-9382-4940-b873-dcb24141deea, Oggetto iniziale: PozioneCura
+2025-07-04 16:34:31 - Richiesta lista personaggi. Di questo utente: 2
+2025-07-04 16:34:43 - Creato personaggio: Bertoldo, Classe: Guerriero, id: 5368b990-b1b1-4f08-a56a-8ecd9c6979a4, Oggetto iniziale: PozioneCura
+2025-07-04 16:34:43 - Richiesta lista personaggi. Di questo utente: 3
+2025-07-04 16:36:20 - Creato personaggio: Zoro-2, Classe: Mago, id: a0c5a971-487e-45da-b196-aefa32c9e34c, Oggetto iniziale: PozioneCura
+2025-07-04 16:36:20 - Richiesta lista personaggi. Di questo utente: 4
+2025-07-04 16:36:25 - Creato personaggio: Zoro, Classe: Mago, id: 4036552d-c359-4828-96db-475b978f9912, Oggetto iniziale: PozioneCura
+2025-07-04 16:36:25 - Richiesta lista personaggi. Di questo utente: 5
+2025-07-04 16:36:38 - Creato personaggio: Luca, Classe: Mago, id: 3af7fea4-4813-44b7-ae43-0467a87e199e, Oggetto iniziale: PozioneCura
+2025-07-04 16:36:38 - Richiesta lista personaggi. Di questo utente: 6
+2025-07-04 16:36:52 - Creato personaggio: Bertoldo, Classe: Guerriero, id: f2f87f58-e6dc-479b-9d09-4236a3a09466, Oggetto iniziale: PozioneCura
+2025-07-04 16:36:52 - Richiesta lista personaggi. Di questo utente: 7
+2025-07-04 16:37:07 - Creato personaggio: Zoro, Classe: Guerriero, id: 6538de11-ffbf-42bb-aa53-0a76dd2193a9, Oggetto iniziale: PozioneCura
+2025-07-04 16:37:07 - Richiesta lista personaggi. Di questo utente: 8
+2025-07-04 17:14:51 - File JSOn eliminato: C:\Users\ghisl\Documents\Gdr-flask\data\json\426150d6-68c6-4303-8592-d6eeef292cd8.json
+2025-07-04 17:14:51 - Eliminato personaggio con ID: 426150d6-68c6-4303-8592-d6eeef292cd8, Nome: Luca
+2025-07-04 17:16:53 - File JSON non trovato.
+2025-07-04 17:16:53 - Eliminato personaggio con ID: 426150d6-68c6-4303-8592-d6eeef292cd8, Nome: Luca
+2025-07-04 17:20:13 - File JSON non trovato.
+2025-07-04 17:20:13 - Eliminato personaggio con ID: 426150d6-68c6-4303-8592-d6eeef292cd8, Nome: Luca
+2025-07-04 17:22:14 - File JSON non trovato.
+2025-07-04 17:22:14 - Eliminato personaggio con ID: 426150d6-68c6-4303-8592-d6eeef292cd8, Nome: Luca
+2025-07-04 17:26:06 - File JSON non trovato.
+2025-07-04 17:26:06 - Eliminato personaggio con ID: 426150d6-68c6-4303-8592-d6eeef292cd8, Nome: Luca
+2025-07-04 17:50:01 - File JSON non trovato.
+2025-07-04 17:50:01 - Eliminato personaggio con ID: 426150d6-68c6-4303-8592-d6eeef292cd8, Nome: Luca
+2025-07-04 17:50:01 - Richiesta lista personaggi. Di questo utente: 7
+2025-07-04 17:50:07 - File JSOn eliminato: C:\Users\ghisl\Documents\Gdr-flask\data\json\3e43f816-9382-4940-b873-dcb24141deea.json
+2025-07-04 17:50:07 - Eliminato personaggio con ID: 3e43f816-9382-4940-b873-dcb24141deea, Nome: Lucky luck
+2025-07-04 17:50:07 - Richiesta lista personaggi. Di questo utente: 6
+2025-07-04 17:50:12 - File JSOn eliminato: C:\Users\ghisl\Documents\Gdr-flask\data\json\5368b990-b1b1-4f08-a56a-8ecd9c6979a4.json
+2025-07-04 17:50:12 - Eliminato personaggio con ID: 5368b990-b1b1-4f08-a56a-8ecd9c6979a4, Nome: Bertoldo
+2025-07-04 17:50:12 - Richiesta lista personaggi. Di questo utente: 5
+2025-07-04 17:50:16 - File JSOn eliminato: C:\Users\ghisl\Documents\Gdr-flask\data\json\a0c5a971-487e-45da-b196-aefa32c9e34c.json
+2025-07-04 17:50:16 - Eliminato personaggio con ID: a0c5a971-487e-45da-b196-aefa32c9e34c, Nome: Zoro-2
+2025-07-04 17:50:16 - Richiesta lista personaggi. Di questo utente: 4
+2025-07-04 17:50:20 - File JSOn eliminato: C:\Users\ghisl\Documents\Gdr-flask\data\json\4036552d-c359-4828-96db-475b978f9912.json
+2025-07-04 17:50:20 - Eliminato personaggio con ID: 4036552d-c359-4828-96db-475b978f9912, Nome: Zoro
+2025-07-04 17:50:20 - Richiesta lista personaggi. Di questo utente: 3
+2025-07-04 17:50:26 - File JSOn eliminato: C:\Users\ghisl\Documents\Gdr-flask\data\json\3af7fea4-4813-44b7-ae43-0467a87e199e.json
+2025-07-04 17:50:26 - Eliminato personaggio con ID: 3af7fea4-4813-44b7-ae43-0467a87e199e, Nome: Luca
+2025-07-04 17:50:26 - Richiesta lista personaggi. Di questo utente: 2
+2025-07-04 17:50:29 - File JSOn eliminato: C:\Users\ghisl\Documents\Gdr-flask\data\json\f2f87f58-e6dc-479b-9d09-4236a3a09466.json
+2025-07-04 17:50:29 - Eliminato personaggio con ID: f2f87f58-e6dc-479b-9d09-4236a3a09466, Nome: Bertoldo
+2025-07-04 17:50:29 - Richiesta lista personaggi. Di questo utente: 1
+2025-07-04 17:50:33 - File JSOn eliminato: C:\Users\ghisl\Documents\Gdr-flask\data\json\6538de11-ffbf-42bb-aa53-0a76dd2193a9.json
+2025-07-04 17:50:33 - Eliminato personaggio con ID: 6538de11-ffbf-42bb-aa53-0a76dd2193a9, Nome: Zoro
+2025-07-04 17:50:33 - Richiesta lista personaggi. Di questo utente: 0
+2025-07-04 17:50:42 - Creato personaggio: Luca, Classe: Mago, id: c8544007-9744-4a0c-9bb2-e2f095a4faee, Oggetto iniziale: PozioneCura
+2025-07-04 17:50:42 - Richiesta lista personaggi. Di questo utente: 1
+2025-07-04 17:50:47 - Creato personaggio: Bertold, Classe: Mago, id: acf9d2f9-35fc-4209-9e64-37f1ee8e3b75, Oggetto iniziale: PozioneCura
+2025-07-04 17:50:47 - Richiesta lista personaggi. Di questo utente: 2
+2025-07-04 17:50:54 - Creato personaggio: Luca, Classe: Ladro, id: 74a24447-7ac4-4a50-a611-87a5afb05707, Oggetto iniziale: PozioneCura
+2025-07-04 17:50:54 - Richiesta lista personaggi. Di questo utente: 3
+2025-07-04 17:51:00 - Creato personaggio: Zoro, Classe: Mago, id: 07989281-a49b-4f9e-bfa5-fb9cd6c5bc42, Oggetto iniziale: PozioneCura
+2025-07-04 17:51:00 - Richiesta lista personaggi. Di questo utente: 4
+2025-07-04 17:51:05 - Creato personaggio: Bertoldo, Classe: Mago, id: ba874626-fe82-4f5f-a568-c057a83df188, Oggetto iniziale: PozioneCura
+2025-07-04 17:51:05 - Richiesta lista personaggi. Di questo utente: 5
+2025-07-04 17:51:11 - File JSOn eliminato: C:\Users\ghisl\Documents\Gdr-flask\data\json\c8544007-9744-4a0c-9bb2-e2f095a4faee.json
+2025-07-04 17:51:11 - Eliminato personaggio con ID: c8544007-9744-4a0c-9bb2-e2f095a4faee, Nome: Luca
+2025-07-04 17:51:11 - Richiesta lista personaggi. Di questo utente: 4
+2025-07-04 17:51:14 - File JSOn eliminato: C:\Users\ghisl\Documents\Gdr-flask\data\json\acf9d2f9-35fc-4209-9e64-37f1ee8e3b75.json
+2025-07-04 17:51:14 - Eliminato personaggio con ID: acf9d2f9-35fc-4209-9e64-37f1ee8e3b75, Nome: Bertold
+2025-07-04 17:51:14 - Richiesta lista personaggi. Di questo utente: 3
+2025-07-04 17:51:17 - File JSOn eliminato: C:\Users\ghisl\Documents\Gdr-flask\data\json\74a24447-7ac4-4a50-a611-87a5afb05707.json
+2025-07-04 17:51:17 - Eliminato personaggio con ID: 74a24447-7ac4-4a50-a611-87a5afb05707, Nome: Luca
+2025-07-04 17:51:17 - Richiesta lista personaggi. Di questo utente: 2
+2025-07-04 17:51:19 - File JSOn eliminato: C:\Users\ghisl\Documents\Gdr-flask\data\json\07989281-a49b-4f9e-bfa5-fb9cd6c5bc42.json
+2025-07-04 17:51:19 - Eliminato personaggio con ID: 07989281-a49b-4f9e-bfa5-fb9cd6c5bc42, Nome: Zoro
+2025-07-04 17:51:19 - Richiesta lista personaggi. Di questo utente: 1
+2025-07-04 17:51:22 - File JSOn eliminato: C:\Users\ghisl\Documents\Gdr-flask\data\json\ba874626-fe82-4f5f-a568-c057a83df188.json
+2025-07-04 17:51:22 - Eliminato personaggio con ID: ba874626-fe82-4f5f-a568-c057a83df188, Nome: Bertoldo
+2025-07-04 17:51:22 - Richiesta lista personaggi. Di questo utente: 0
+2025-07-07 09:35:52 - Creato personaggio: Alberto, Classe: Mago, id: 67c296cd-079a-4d4f-856f-5b0616e7d476, Oggetto iniziale: PozioneCura
+2025-07-07 09:35:52 - Richiesta lista personaggi. Di questo utente: 1
+2025-07-07 09:35:59 - Creato personaggio: ANELKA, Classe: Guerriero, id: ed642f9c-60db-4324-b841-4aba8b62c35c, Oggetto iniziale: PozioneCura
+2025-07-07 09:35:59 - Richiesta lista personaggi. Di questo utente: 2
+2025-07-07 09:36:06 - Creato personaggio: Zoro, Classe: Ladro, id: 8765a4b2-40ae-42ae-8b51-7033fc687338, Oggetto iniziale: PozioneCura
+2025-07-07 09:36:06 - Richiesta lista personaggi. Di questo utente: 3
+2025-07-07 09:36:10 - File JSOn eliminato: C:\Users\python\Documents\Gdr-flask\data\json\8765a4b2-40ae-42ae-8b51-7033fc687338.json
+2025-07-07 09:36:10 - Eliminato personaggio con ID: 8765a4b2-40ae-42ae-8b51-7033fc687338, Nome: Zoro
+2025-07-07 09:36:10 - Richiesta lista personaggi. Di questo utente: 2
+2025-07-07 09:36:13 - File JSOn eliminato: C:\Users\python\Documents\Gdr-flask\data\json\ed642f9c-60db-4324-b841-4aba8b62c35c.json
+2025-07-07 09:36:13 - Eliminato personaggio con ID: ed642f9c-60db-4324-b841-4aba8b62c35c, Nome: ANELKA
+2025-07-07 09:36:13 - Richiesta lista personaggi. Di questo utente: 1
+2025-07-07 09:36:17 - File JSOn eliminato: C:\Users\python\Documents\Gdr-flask\data\json\67c296cd-079a-4d4f-856f-5b0616e7d476.json
+2025-07-07 09:36:17 - Eliminato personaggio con ID: 67c296cd-079a-4d4f-856f-5b0616e7d476, Nome: Alberto
+2025-07-07 09:36:17 - Richiesta lista personaggi. Di questo utente: 0
+2025-07-07 09:36:23 - Creato personaggio: Alberto, Classe: Mago, id: 9b61fd4d-d23f-41f6-8385-a089a2b7530d, Oggetto iniziale: PozioneCura
+2025-07-07 09:36:23 - Richiesta lista personaggi. Di questo utente: 1
+2025-07-07 09:36:29 - Creato personaggio: ANELKA, Classe: Guerriero, id: 704e467e-5578-4f7c-806f-7e5f5d28e203, Oggetto iniziale: PozioneCura
+2025-07-07 09:36:29 - Richiesta lista personaggi. Di questo utente: 2
+2025-07-07 09:36:36 - Creato personaggio: Zoro, Classe: Ladro, id: 5e33f723-f89f-4631-8642-7349d86ac3dc, Oggetto iniziale: PozioneCura
+2025-07-07 09:36:36 - Richiesta lista personaggi. Di questo utente: 3
+2025-07-07 09:38:11 - Richiesta lista personaggi. Di questo utente: 3
+2025-07-07 09:39:45 - File JSOn eliminato: C:\Users\python\Documents\Gdr-flask\data\json\9b61fd4d-d23f-41f6-8385-a089a2b7530d.json
+2025-07-07 09:39:45 - Eliminato personaggio con ID: 9b61fd4d-d23f-41f6-8385-a089a2b7530d, Nome: Alberto
+2025-07-07 09:39:45 - Richiesta lista personaggi. Di questo utente: 2
+2025-07-07 09:39:49 - File JSOn eliminato: C:\Users\python\Documents\Gdr-flask\data\json\704e467e-5578-4f7c-806f-7e5f5d28e203.json
+2025-07-07 09:39:49 - Eliminato personaggio con ID: 704e467e-5578-4f7c-806f-7e5f5d28e203, Nome: ANELKA
+2025-07-07 09:39:49 - Richiesta lista personaggi. Di questo utente: 1
+2025-07-07 09:39:53 - File JSOn eliminato: C:\Users\python\Documents\Gdr-flask\data\json\5e33f723-f89f-4631-8642-7349d86ac3dc.json
+2025-07-07 09:39:53 - Eliminato personaggio con ID: 5e33f723-f89f-4631-8642-7349d86ac3dc, Nome: Zoro
+2025-07-07 09:39:54 - Richiesta lista personaggi. Di questo utente: 0
+2025-07-07 09:40:35 - Creato personaggio: Alberto, Classe: Mago, id: 21ec219e-a275-4808-ab99-a82baee58d0b, Oggetto iniziale: PozioneCura
+2025-07-07 09:40:36 - Richiesta lista personaggi. Di questo utente: 1
+2025-07-07 09:40:55 - Creato personaggio: ANELKA, Classe: Guerriero, id: 00bab60c-91b1-483e-955d-350a8cb53683, Oggetto iniziale: PozioneCura
+2025-07-07 09:40:55 - Richiesta lista personaggi. Di questo utente: 2
+2025-07-07 09:41:02 - Creato personaggio: Zoro, Classe: Ladro, id: cff492f3-e7db-417d-9aa4-c08ccc47cd52, Oggetto iniziale: PozioneCura
+2025-07-07 09:41:02 - Richiesta lista personaggi. Di questo utente: 3
+2025-07-07 09:41:52 - Richiesta lista personaggi. Di questo utente: 3
+2025-07-07 09:41:55 - File JSOn eliminato: C:\Users\python\Documents\Gdr-flask\data\json\21ec219e-a275-4808-ab99-a82baee58d0b.json
+2025-07-07 09:41:55 - Eliminato personaggio con ID: 21ec219e-a275-4808-ab99-a82baee58d0b, Nome: Alberto
+2025-07-07 09:41:55 - Richiesta lista personaggi. Di questo utente: 2
+2025-07-07 09:41:57 - File JSOn eliminato: C:\Users\python\Documents\Gdr-flask\data\json\00bab60c-91b1-483e-955d-350a8cb53683.json
+2025-07-07 09:41:57 - Eliminato personaggio con ID: 00bab60c-91b1-483e-955d-350a8cb53683, Nome: ANELKA
+2025-07-07 09:41:57 - Richiesta lista personaggi. Di questo utente: 1
+2025-07-07 09:42:00 - File JSOn eliminato: C:\Users\python\Documents\Gdr-flask\data\json\cff492f3-e7db-417d-9aa4-c08ccc47cd52.json
+2025-07-07 09:42:00 - Eliminato personaggio con ID: cff492f3-e7db-417d-9aa4-c08ccc47cd52, Nome: Zoro
+2025-07-07 09:42:00 - Richiesta lista personaggi. Di questo utente: 0
+2025-07-07 09:42:27 - Creato personaggio: ALI, Classe: Mago, id: 4f02c674-984b-4834-bbe5-14407a2e0c63, Oggetto iniziale: PozioneCura
+2025-07-07 09:42:27 - Richiesta lista personaggi. Di questo utente: 1
+2025-07-07 09:42:33 - Creato personaggio: ANELKA, Classe: Guerriero, id: 9f329d5a-4ac8-4e5d-88c7-6bcc41aa11f8, Oggetto iniziale: PozioneCura
+2025-07-07 09:42:33 - Richiesta lista personaggi. Di questo utente: 2
+2025-07-07 09:42:38 - Creato personaggio: Zoro, Classe: Ladro, id: e6745075-f238-457f-83c2-04bf8a5eec9e, Oggetto iniziale: PozioneCura
+2025-07-07 09:42:38 - Richiesta lista personaggi. Di questo utente: 3
+2025-07-07 09:43:06 - Richiesta lista personaggi. Di questo utente: 3
+2025-07-07 09:44:52 - File JSOn eliminato: C:\Users\python\Documents\Gdr-flask\data\json\4f02c674-984b-4834-bbe5-14407a2e0c63.json
+2025-07-07 09:44:52 - Eliminato personaggio con ID: 4f02c674-984b-4834-bbe5-14407a2e0c63, Nome: ALI
+2025-07-07 09:44:52 - Richiesta lista personaggi. Di questo utente: 2
+2025-07-07 09:44:54 - File JSOn eliminato: C:\Users\python\Documents\Gdr-flask\data\json\9f329d5a-4ac8-4e5d-88c7-6bcc41aa11f8.json
+2025-07-07 09:44:54 - Eliminato personaggio con ID: 9f329d5a-4ac8-4e5d-88c7-6bcc41aa11f8, Nome: ANELKA
+2025-07-07 09:44:54 - Richiesta lista personaggi. Di questo utente: 1
+2025-07-07 09:44:57 - File JSOn eliminato: C:\Users\python\Documents\Gdr-flask\data\json\e6745075-f238-457f-83c2-04bf8a5eec9e.json
+2025-07-07 09:44:57 - Eliminato personaggio con ID: e6745075-f238-457f-83c2-04bf8a5eec9e, Nome: Zoro
+2025-07-07 09:44:57 - Richiesta lista personaggi. Di questo utente: 0
+>>>>>>> 34e7f52bfec85d267261e4916fd2b630b097aec4
