@@ -4,6 +4,4 @@ __pycache__/
 *.pyc
 /venv
 /flask_session
-*.db
 log.txt
-/instance

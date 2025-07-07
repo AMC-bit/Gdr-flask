@@ -9,25 +9,68 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 from auth.models import User
 from auth.models import db
 from auth.credits import credits_to_create, credits_to_refund
-from config import DATA_DIR, CHAR_FILE
+from config import DATA_DIR
+
+@characters_bp.route('/load_char')
+@login_required
+def load_char():
+    # DESERIALIZZAZIONE
+    # provo a leggere il contenuto della cartella json
+    # ciclo su ogni file e ne estraggo i nomi
+    # confronto i nomi dei file con i valori 'character_ids' del db
+    # aggiungo i match a una lista
+
+    all_char_json = []
+    user_char = []
+    owned_char = []
+
+    if os.path.isdir(DATA_DIR):
+        print("Cartella esistente")
+    else:
+        os.makedirs(DATA_DIR, exist_ok=True)
+
+    files = os.listdir(DATA_DIR)
+    print(DATA_DIR)
+
+    for file in files:
+        path = os.path.join(DATA_DIR, file)
+        filename = os.path.splitext(file)[0]
+        all_char_json.append(filename)
+
+    for char_id in current_user.character_ids:
+        user_char.append(char_id)
+
+    print(f"all_char_json: {all_char_json}")
+    print(f"user_char: {user_char}")
+
+    # scorro la lista 'all_char_json' e includo solo gli elementi che
+    # sono anche nella lista 'user_char'
+    owned_char = [c for c in all_char_json if c in user_char]
+
+    # for c in all_char_json:
+    #     if c in user_char:
+    #         owned_char.append(c)
+    print(f"owned_char: {owned_char}")
+
+    with open(path, "r", encoding="utf-8") as file:
+        obj = json.load(file)
+        print(f"obj: {obj}")
+    return owned_char
+
+
+def CharSingleJson(pg_creato: Personaggio):
+    # Recuperare i dati dal form per singolo personaggio
+    # Creazione del file JSON con l'id del personaggio
+    pg_dict = pg_creato.to_dict()
+    name_file = f"{pg_dict['id']}.json"
+    path = os.path.join(DATA_DIR, name_file)
+    with open(path, "w", encoding="utf-8") as file:
+        json.dump(pg_dict, file, indent=4)
 
 
 @characters_bp.route('/create_char', methods=['GET', 'POST'])
 @login_required
 def create_char():
-
-    # provo a caricare (DESERIALIZZAZIONE) il contenuto JSON in una lista
-    try:
-        with open(CHAR_FILE, "r", encoding="utf-8") as file:
-            # json.load legge e converte il testo JSON in oggetto (qui: lista di dizionari)
-            characters = json.load(file)
-    except (FileNotFoundError, json.JSONDecodeError):
-        # FileNotFoundError: file non esiste, JSONDecodeError: file vuoto/corrotto
-        characters = []  # creazione lista vuota di personaggi
-        os.makedirs(DATA_DIR, exist_ok=True)  # creazione dir se inesistente
-        # serializzo lista vuota su file per inizializzarlo comunque
-        with open(CHAR_FILE, "w", encoding="utf-8") as file:
-            json.dump(characters, file, indent=4)
 
     from app import db
     # cattura dinamica di tutte le sottoclassi di Oggetto e Personaggio
@@ -61,11 +104,8 @@ def create_char():
         pg_list.append(pg.to_dict())
         inv_list.append(inv.to_dict())
 
-        # SERIALIZZAZIONE: aggiunta del nuovo personaggio alla lista obj
-        characters.append(pg.to_dict())
-        # scrittura del file JSON con il contenuto aggiornato di obj
-        with open(CHAR_FILE, "w", encoding="utf-8") as file:
-            json.dump(characters, file, indent=4)
+        # Creazione del file JSON del singolo personaggio
+        CharSingleJson(pg)
 
         session['personaggi'] = pg_list
         session['inventari'] = inv_list
@@ -88,51 +128,36 @@ def create_char():
 @characters_bp.route('/edit_char/<int:id>', methods=['GET', 'POST'])
 @login_required
 def edit_char(id):
+
     from app import db
 
     # mappa nomi-classi per poter permettere di cambiare classe
     classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
 
     # prende valore associato a chiave 'personaggi' da sessione oppure lista vuota
-    lista_pg = session.get('personaggi', [])
-
-    # deserializzazione
-    os.makedirs(DATA_DIR, exist_ok=True)  # check cartella esistente
-    try:
-        with open(CHAR_FILE, 'r', encoding='utf-8') as f:
-            characters = json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        characters = [] # se il file manca o corrotto creo lista nuova
+    lista_pg = load_char()
 
     try:
         # prova a recuperare il dizionario del pg da lista_pg tramite id
-        pg_dict = lista_pg[id]
+        pg = lista_pg[id]
     except IndexError:
         flash("Impossibile trovare il personaggio desiderato")
         return redirect(url_for('characters.mostra_personaggi'))
 
     if request.method == 'POST':
         # otteniamo i valori dal form
-        nuovo_nome    = request.form['nome'].strip()
-        nuova_classe  = request.form['classe']
+        nuovo_nome = request.form['nome'].strip()
+        nuova_classe = request.form['classe']
 
-        vecchio_nome = pg_dict['nome']  # cattura vecchio nome a fini di log
+        vecchio_nome = pg['nome']  # cattura vecchio nome a fini di log
 
         # ricreiamo istanza di personaggio con dati aggiornati
-        pg_dict['nome']   = nuovo_nome
-        pg_dict['classe'] = nuova_classe
+        pg['nome'] = nuovo_nome
+        pg['classe'] = nuova_classe
 
-        # aggiornamento lista caricata da file
-        try:
-            characters[id]['nome']   = nuovo_nome
-            characters[id]['classe'] = nuova_classe
-        except IndexError:
-            # dovrebbe essere impossibile se sessione e file erano in sync
-            pass
+        pg_obj = Personaggio.from_dict(pg)
 
-        # serializzazione
-        with open(CHAR_FILE, 'w', encoding='utf-8') as f:
-            json.dump(characters, f, indent=4)
+        CharSingleJson(pg_obj)
 
         Log.scrivi_log(
             f"Modificato personaggio id={id}: "
@@ -148,39 +173,31 @@ def edit_char(id):
     return render_template(
         'edit_char.html',
         id=id,
-        pg=pg_dict,
+        pg=pg,
         classi=list(classi.keys())
     )
-
+@characters_bp.route('/recupera_personaggi_posseduti')
+def recupera_personaggi_posseduti(owned_chars):
+    personaggi_posseduti = []
+    for id in owned_chars :
+        nome_file = id
+        print(f"ID: {id}")
+        #Recupero il path del file json del personaggio
+        path = os.path.join(DATA_DIR, f"{nome_file}.json")
+        
+        with open (path, "r") as file:
+            char_dict = json.load(file)
+            personaggi_posseduti.append(char_dict)
+    return personaggi_posseduti
 
 @characters_bp.route('/personaggi', methods=['GET'])
 def mostra_personaggi():
-    # check cartella esistente
-    os.makedirs(DATA_DIR, exist_ok=True)
-
-    # deserializzazione
-    try:
-        with open(CHAR_FILE, 'r', encoding='utf-8') as f:
-            lista_pers = json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        lista_pers = []
-
-    lista_pers_utente = []
-
-    # id personaggi dell'utente
-    character_ids = current_user.character_ids or []
-
-    for p in lista_pers:
-        # check se id nel dizionario è tra quelli dell'utente
-        if p.get('id') in character_ids:
-            lista_pers_utente.append(p)  # in caso positivo aggiungo
-
+    owned_chars = load_char()
+    lista_pers_utente = recupera_personaggi_posseduti(owned_chars)
     Log.scrivi_log(
         f"Richiesta lista personaggi. "
-        f"Totale nel file: {len(lista_pers)}, "
         f"Di questo utente: {len(lista_pers_utente)}"
     )
-
     return render_template(
         'list_char.html',
         personaggi=lista_pers_utente
@@ -224,22 +241,19 @@ def dettaglio_personaggio(char_id):
 
 @characters_bp.route('/personaggi/<int:id>', methods=['POST'])
 def elimina_personaggio(id):
-    # CREDITI_RIMBORSATI = 20
+
     lista_pers = session.get('personaggi', [])
     try:
         pg = lista_pers.pop(id)
         session['personaggi'] = lista_pers
 
-        # caricamento JSON da file
-        with open(CHAR_FILE, 'r', encoding='utf-8') as f:
-            characters = json.load(f)
-
-        # rimozione elemento per indice
-        characters.pop(id)
-
-        # riscrittura file con lista aggiornata
-        with open(CHAR_FILE, 'w', encoding='utf-8') as f:
-            json.dump(characters, f, indent=4)
+        # Eliminiamo unicamente il file json con l'id del personaggio
+        file_path = os.path.join(DATA_DIR, f"{pg.get('id')}.json")
+        if os.path.exists(file_path):
+            os.remove(file_path)
+            Log.scrivi_log(f"File JSOn eliminato: {file_path}")
+        else:
+            Log.scrivi_log(f"File JSON non trovato.")
 
         Log.scrivi_log(f"Eliminato personaggio con ID: {pg.get('id')}, Nome: {pg.get('nome', 'N/A')}")
 
@@ -253,10 +267,16 @@ def elimina_personaggio(id):
 
         current_user.character_ids = nuova_lista  # assegno la lista filtrata
 
-        # Questo pezzo di codice è commentato perché non è chiaro se si voglia rimborsare i crediti
-        # current_user.crediti += CREDITI_RIMBORSATI
+        # Ricostruzione del personaggio per in modo a passare al metodo credits_to_refund
+        classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
+        try:
+            pg_ogg = classi.get(pg['classe'])(pg['nome'])
+        except (KeyError. AttributeError, TypeError) as e:
+            raise ValueError(f"Errore nella creazione del personaggio: {e}")
+
+        current_user.crediti += credits_to_refund(pg_ogg)
         db.session.commit()
-        # flash("Personaggio eliminato con successo!", "success")
+        flash("Personaggio eliminato con successo!", "success")
 
     except IndexError:
         Log.scrivi_log(f"Errore durante eliminazione: ID inesistente {pg.get('id')}")
