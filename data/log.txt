@@ -339,3 +339,28 @@
 =======
 2025-07-04 13:04:54 - Richiesta lista personaggi. Di questo utente: 1
 >>>>>>> Stashed changes
+2025-07-07 10:04:30 - Richiesta lista personaggi. Di questo utente: 1
+2025-07-07 10:06:04 - Richiesta lista personaggi. Di questo utente: 1
+2025-07-07 10:06:15 - Richiesta lista personaggi. Di questo utente: 1
+2025-07-07 10:07:59 - Richiesta lista personaggi. Di questo utente: 1
+2025-07-07 10:08:24 - Richiesta lista personaggi. Di questo utente: 1
+2025-07-07 10:08:25 - Richiesta lista personaggi. Di questo utente: 1
+2025-07-07 10:08:26 - Richiesta lista personaggi. Di questo utente: 1
+2025-07-07 10:08:34 - Creato personaggio: mister, Classe: Mago, id: d5425b1c-8c86-48cf-a61c-685a477f5e92, Oggetto iniziale: PozioneCura
+2025-07-07 10:08:34 - Richiesta lista personaggi. Di questo utente: 2
+2025-07-07 10:08:36 - Richiesta lista personaggi. Di questo utente: 2
+2025-07-07 10:09:08 - Richiesta lista personaggi. Di questo utente: 2
+2025-07-07 10:09:09 - Richiesta lista personaggi. Di questo utente: 2
+2025-07-07 10:09:10 - Richiesta lista personaggi. Di questo utente: 2
+2025-07-07 10:10:32 - Richiesta lista personaggi. Di questo utente: 2
+2025-07-07 10:12:18 - Richiesta lista personaggi. Di questo utente: 2
+2025-07-07 10:13:14 - Richiesta lista personaggi. Di questo utente: 2
+2025-07-07 10:13:22 - Modificato personaggio id=d5425b1c-8c86-48cf-a61c-685a477f5e92: Nome: da 'mister' a 'misterix', Nuova classe: 'Mago'
+2025-07-07 10:13:22 - Richiesta lista personaggi. Di questo utente: 2
+2025-07-07 10:13:27 - Modificato personaggio id=384df772-384b-4fdc-b659-0ce035b8033c: Nome: da 'kebab' a 'kebabo', Nuova classe: 'Mago'
+2025-07-07 10:13:27 - Richiesta lista personaggi. Di questo utente: 2
+2025-07-07 10:13:31 - Richiesta lista personaggi. Di questo utente: 2
+2025-07-07 10:33:17 - Creato personaggio: kebab, Classe: Guerriero, id: d9308b70-92f0-4577-87cb-241760535162, Oggetto iniziale: PozioneCura
+2025-07-07 10:33:17 - Richiesta lista personaggi. Di questo utente: 1
+2025-07-07 10:33:25 - Modificato personaggio id=d9308b70-92f0-4577-87cb-241760535162: Nome: da 'kebab' a 'kebabxe3x3z3', Nuova classe: 'Ladro'
+2025-07-07 10:33:25 - Richiesta lista personaggi. Di questo utente: 1

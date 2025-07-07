@@ -1,8 +1,8 @@
 {
-    "classe": "Mago",
-    "id": "384df772-384b-4fdc-b659-0ce035b8033c",
-    "nome": "kebab",
-    "salute": 80,
+    "classe": "Personaggio",
+    "id": "d9308b70-92f0-4577-87cb-241760535162",
+    "nome": "kebabxe3x3z3",
+    "salute": 120,
     "salute_max": 200,
     "attacco_min": 5,
     "attacco_max": 80,
