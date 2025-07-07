@@ -152,9 +152,9 @@ def descrizione():
     # Dati base per classi derivate da personaggio
     # (definite in maniera statica per ridurre la complessità del metodo)
     classi_data = {
-        'Guerriero': {'at_min': 15, 'att_max_bonus': 20, 'cura_base': 30},
-        'Ladro': {'at_min': 5, 'att_max_bonus': 5, 'cura_base': 'da 10 a 40'},
-        'Mago': {'at_min': -5, 'att_max_bonus': 10, 'cura_base': '20% della salute rimanente'}
+        'Guerriero': {'att_min': 15, 'att_max': 20, 'cura_base': 30},
+        'Ladro': {'att_min': 5, 'att_max': 5, 'cura_base': 'da 10 a 40'},
+        'Mago': {'att_min': -5, 'att_max': 10, 'cura_base': '20% della salute rimanente'}
     }
 
     # Importo dinamico delle classi
@@ -171,8 +171,8 @@ def descrizione():
         data = classi_data[nome]
         x[nome] = {
             'attacco': {
-                'da': classe.attacco_min + data['at_min'],
-                'a': classe.attacco_max + data['att_max_bonus']
+                'da': classe.attacco_min + data['att_min'],
+                'a': classe.attacco_max + data['att_max']
             },
             'cura': {'recupero salute': str(data['cura_base'])}
         }
@@ -217,8 +217,8 @@ def descrizione():
             var_amb['Oggetto'][obj.__class__.__name__]['valore'] += mod_obj
 
     # Debugging output
-    print(f"val_standard: {val_standard}")
-    print(f"var_amb: {var_amb}")
+    # print(f"val_standard: {val_standard}")
+    # print(f"var_amb: {var_amb}")
 
     return {'val_standard': val_standard, 'var_amb': var_amb}
 
