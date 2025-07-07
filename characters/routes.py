@@ -243,22 +243,19 @@ def dettaglio_personaggio(char_id):
 
 @characters_bp.route('/personaggi/<int:id>', methods=['POST'])
 def elimina_personaggio(id):
-    # CREDITI_RIMBORSATI = 20
+
     lista_pers = session.get('personaggi', [])
     try:
         pg = lista_pers.pop(id)
         session['personaggi'] = lista_pers
 
-        # caricamento JSON da file
-        with open(CHAR_FILE, 'r', encoding='utf-8') as f:
-            characters = json.load(f)
-
-        # rimozione elemento per indice
-        characters.pop(id)
-
-        # riscrittura file con lista aggiornata
-        with open(CHAR_FILE, 'w', encoding='utf-8') as f:
-            json.dump(characters, f, indent=4)
+        # Eliminiamo unicamente il file json con l'id del personaggio
+        file_path = os.path.join(DATA_DIR, f"{pg.get('id')}.json")
+        if os.path.exists(file_path):
+            os.remove(file_path)
+            Log.scrivi_log(f"File JSOn eliminato: {file_path}")
+        else:
+            Log.scrivi_log(f"File JSON non trovato.")
 
         Log.scrivi_log(f"Eliminato personaggio con ID: {pg.get('id')}, Nome: {pg.get('nome', 'N/A')}")
 
@@ -272,10 +269,16 @@ def elimina_personaggio(id):
 
         current_user.character_ids = nuova_lista  # assegno la lista filtrata
 
-        # Questo pezzo di codice è commentato perché non è chiaro se si voglia rimborsare i crediti
-        # current_user.crediti += CREDITI_RIMBORSATI
+        # Ricostruzione del personaggio per in modo a passare al metodo credits_to_refund
+        classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
+        try:
+            pg_ogg = classi.get(pg['classe'])(pg['nome'])
+        except (KeyError. AttributeError, TypeError) as e:
+            raise ValueError(f"Errore nella creazione del personaggio: {e}")
+
+        current_user.crediti += credits_to_refund(pg_ogg)
         db.session.commit()
-        # flash("Personaggio eliminato con successo!", "success")
+        flash("Personaggio eliminato con successo!", "success")
 
     except IndexError:
         Log.scrivi_log(f"Errore durante eliminazione: ID inesistente {pg.get('id')}")
