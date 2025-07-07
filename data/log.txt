@@ -339,3 +339,7 @@
 =======
 2025-07-04 13:04:54 - Richiesta lista personaggi. Di questo utente: 1
 >>>>>>> Stashed changes
+2025-07-07 09:39:47 - Creato personaggio: belin, Classe: Mago, id: ab1e8146-48a2-4f6e-8afd-c440e6bafd38, Oggetto iniziale: BombaAcida
+2025-07-07 09:39:47 - Richiesta lista personaggi. Di questo utente: 1
+2025-07-07 09:39:56 - Nessuna missione selezionata.
+2025-07-07 09:45:22 - Nessuna missione selezionata.
