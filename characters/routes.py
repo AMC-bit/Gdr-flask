@@ -1,8 +1,9 @@
-import os, json
+import os, json, logging
 from . import characters_bp
 from flask import render_template, request, redirect, url_for, session, abort, flash
 from gioco.personaggio import Personaggio
 from gioco.oggetto import Oggetto
+from gioco.classi import PersonaggioSchema
 from gioco.inventario import Inventario
 from utils.log import Log
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
@@ -10,6 +11,10 @@ from auth.models import User
 from auth.models import db
 from auth.credits import credits_to_create, credits_to_refund
 from config import DATA_DIR
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+schema = PersonaggioSchema()
 
 @characters_bp.route('/load_char')
 @login_required
@@ -57,10 +62,9 @@ def load_char():
     return owned_char
 
 
-def CharSingleJson(pg_creato: Personaggio):
+def CharSingleJson(pg_dict: dict):
     # Recuperare i dati dal form per singolo personaggio
     # Creazione del file JSON con l'id del personaggio
-    pg_dict = pg_creato.to_dict()
     name_file = f"{pg_dict['id']}.json"
     path = os.path.join(DATA_DIR, name_file)
     with open(path, "w", encoding="utf-8") as file:
@@ -83,7 +87,9 @@ def create_char():
         oggetto_sel = request.form['oggetto']
 
 
-        pg = classi[classe_sel](nome, npc=False)
+        pg = classi[classe_sel]()
+        pg.nome = nome
+        pg.npc = False
         ogg = oggetti[oggetto_sel]()
         inv = Inventario(id_proprietario=pg.id)
         inv.aggiungi_oggetto(ogg)
@@ -100,11 +106,13 @@ def create_char():
         pg_list = session.get('personaggi', [])
         inv_list = session.get('inventari', [])
 
-        pg_list.append(pg.to_dict())
+        pg_dict = schema.dump(pg)
+        pg_list.append(pg_dict)
+
         inv_list.append(inv.to_dict())
 
         # Creazione del file JSON del singolo personaggio
-        CharSingleJson(pg)
+        CharSingleJson(pg_dict)
 
         session['personaggi'] = pg_list
         session['inventari'] = inv_list
@@ -112,7 +120,7 @@ def create_char():
         current_user.character_ids = character_ids
 
         db.session.commit()
-        Log.scrivi_log(f"Creato personaggio: {pg.nome}, Classe: {classe_sel}, id: {pg.id}, Oggetto iniziale: {oggetto_sel}")
+        logger.info(f"Creato personaggio: {pg.nome}, Classe: {classe_sel}, id: {pg.id}, Oggetto iniziale: {oggetto_sel}")
 
         return redirect(url_for('characters.mostra_personaggi'))
 
@@ -123,7 +131,6 @@ def create_char():
     )
 
 
-
 @characters_bp.route('/edit_char/<uuid:char_id>', methods=['GET', 'POST'])
 @login_required
 def edit_char(char_id):
@@ -132,7 +139,6 @@ def edit_char(char_id):
 
     # prendo lista id personaggi posseduti
     owned_ids = load_char()
-
     # controllo che l'id del personaggio sia tra i personaggi posseduti
     if str(char_id) not in owned_ids:
         flash("Impossibile trovare il personaggio", "danger")
@@ -146,7 +152,7 @@ def edit_char(char_id):
         return redirect(url_for('characters.mostra_personaggi'))
     # andiamo a leggere il file designato
     with open(path, 'r', encoding='utf-8') as f:
-        pg = json.load(f)
+        pg_dict = json.load(f)
 
     # mappa nomi-classi per poter permettere di cambiare classe
     classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
@@ -154,19 +160,20 @@ def edit_char(char_id):
     if request.method == 'POST':
 
         # cattura vecchio nome a fini di log
-        vecchio_nome = pg['nome']
+        vecchio_nome = pg_dict['nome']
 
         # otteniamo i valori dal form
         nuovo_nome = request.form['nome'].strip()
         nuova_classe = request.form['classe']
         # ricreiamo istanza di personaggio con dati aggiornati
-        pg['nome'] = nuovo_nome
-        pg['classe'] = nuova_classe
+        pg_dict['nome'] = nuovo_nome
+        pg_dict['classe'] = nuova_classe
 
-        pg_obj = Personaggio.from_dict(pg)
-        CharSingleJson(pg_obj)
+        pg_obj = schema.load(pg_dict)
+        pg_dict = schema.dump(pg_obj)
+        CharSingleJson(pg_dict)
 
-        Log.scrivi_log(
+        logger.info(
             f"Modificato personaggio id={char_id}: "
             f"Nome: da '{vecchio_nome}' a '{nuovo_nome}', "
             f"Nuova classe: '{nuova_classe}'"
@@ -179,7 +186,7 @@ def edit_char(char_id):
     # mostra form precompilato
     return render_template(
         'edit_char.html',
-        pg=pg,
+        pg=pg_dict,
         classi=list(classi.keys())
     )
 
@@ -192,17 +199,20 @@ def recupera_personaggi_posseduti(owned_chars):
         print(f"ID: {id}")
         #Recupero il path del file json del personaggio
         path = os.path.join(DATA_DIR, f"{nome_file}.json")
-        
+
         with open (path, "r") as file:
             char_dict = json.load(file)
+            personaggio = schema.load(char_dict)  # Deserializza il personaggio
+            char_dict = schema.dump(personaggio)  # Serializza di nuovo per uniformità
             personaggi_posseduti.append(char_dict)
     return personaggi_posseduti
+
 
 @characters_bp.route('/personaggi', methods=['GET'])
 def mostra_personaggi():
     owned_chars = load_char()
     lista_pers_utente = recupera_personaggi_posseduti(owned_chars)
-    Log.scrivi_log(
+    logger.info(
         f"Richiesta lista personaggi. "
         f"Di questo utente: {len(lista_pers_utente)}"
     )
@@ -210,7 +220,7 @@ def mostra_personaggi():
         'list_char.html',
         personaggi=lista_pers_utente
     )
-
+# -----
 
 @characters_bp.route('/personaggi/<uuid:char_id>', methods=['GET'])
 @login_required
@@ -219,7 +229,7 @@ def dettaglio_personaggio(char_id):
     os.makedirs(DATA_DIR, exist_ok=True)
     # deserializzazione
     try:
-        owned_chars = load_char() 
+        owned_chars = load_char()
         lista_pers = recupera_personaggi_posseduti(owned_chars)
         print("LISTA", lista_pers)
     except (FileNotFoundError, json.JSONDecodeError):
@@ -228,15 +238,15 @@ def dettaglio_personaggio(char_id):
     # ricerca del personaggio tramite ID
     pg_dict = None  # conterrà il dizionario del pg trovato
     for p in lista_pers:  # prendo tutti i p dentro la lista di dizionari
-        if str(p.get('id')) == str(char_id):  # char id viene preso da URL
+        if str(p['id']) == str(char_id):  # char id viene preso da URL
             pg_dict = p  # in caso di corrispondenza il diz trovato diventa pg_dict
             break  # mi basta un solo match perché i pg non sono duplicabili
 
     if pg_dict is None:
-        Log.scrivi_log(f"Tentativo di accesso a personaggio inesistente con ID: {char_id}")
+        logger.warning(f"Tentativo di accesso a personaggio inesistente con ID: {char_id}")
         abort(404)
 
-    Log.scrivi_log(
+    logger.info(
         f"Visualizzazione dettagli personaggio con ID: {char_id}, Nome: {pg_dict.get('nome', 'N/A')}"
     )
     return render_template(
@@ -244,7 +254,6 @@ def dettaglio_personaggio(char_id):
         pg=pg_dict,
         id=char_id
     )
-
 
 
 @characters_bp.route('/personaggi/<int:id>', methods=['POST'])
@@ -259,11 +268,11 @@ def elimina_personaggio(id):
         file_path = os.path.join(DATA_DIR, f"{pg.get('id')}.json")
         if os.path.exists(file_path):
             os.remove(file_path)
-            Log.scrivi_log(f"File JSOn eliminato: {file_path}")
+            logger.info(f"File JSOn eliminato: {file_path}")
         else:
-            Log.scrivi_log("File JSON non trovato.")
+            logger.info("File JSON non trovato.")
 
-        Log.scrivi_log(f"Eliminato personaggio con ID: {pg.get('id')}, Nome: {pg.get('nome', 'N/A')}")
+        logger.info(f"Eliminato personaggio con ID: {pg.get('id')}, Nome: {pg.get('nome', 'N/A')}")
 
         # Rimozione esplicita dell'id da current_user.character_ids
         ids = current_user.character_ids or []  # lista id
@@ -308,8 +317,8 @@ def inizio_combattimento():
         if not pg1_dict or not pg2_dict:
             abort(400, "Personaggio non trovato.")
 
-        pg1 = Personaggio.from_dict(pg1_dict)
-        pg2 = Personaggio.from_dict(pg2_dict)
+        pg1 = schema.load(pg1_dict)
+        pg2 = schema.load(pg2_dict)
 
         log_combattimento = []
 
