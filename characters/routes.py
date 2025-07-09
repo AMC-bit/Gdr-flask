@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 from marshmallow import Schema, fields, post_load
 from . import characters_bp
 from flask import render_template, request, redirect, url_for, session, abort, flash
-from gioco.personaggio import Personaggio, PersonaggioSchema
+from gioco.personaggio import Personaggio
 from gioco.oggetto import Oggetto
 from gioco.classi import PersonaggioSchema
 from gioco.inventario import Inventario

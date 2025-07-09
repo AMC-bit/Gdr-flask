@@ -324,27 +324,3 @@ class StrategiaSchema(Schema):
     @post_load
     def make_strategia(self, data, **kwargs):
         return StrategiaFactory.usa_strategia(data['nome'])
-
-
-class AggressivaSchema(StrategiaSchema):
-    '''
-    Schema per la strategia Aggressiva.
-    Serializza e deserializza le istanze della strategia Aggressiva.
-    '''
-    nome = fields.Str(required=True, default="Aggressiva")
-
-
-class DifensivaSchema(StrategiaSchema):
-    '''
-    Schema per la strategia Difensiva.
-    Serializza e deserializza le istanze della strategia Difensiva.
-    '''
-    nome = fields.Str(required=True, default="Difensiva")
-
-
-class EquilibrataSchema(StrategiaSchema):
-    '''
-    Schema per la strategia Equilibrata.
-    Serializza e deserializza le istanze della strategia Equilibrata.
-    '''
-    nome = fields.Str(required=True, default="Equilibrata")
