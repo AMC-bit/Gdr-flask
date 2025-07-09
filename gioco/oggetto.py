@@ -1,4 +1,3 @@
-from gioco.personaggio import Personaggio
 from dataclasses import dataclass, field
 from marshmallow import Schema, fields, post_load, validate
 
@@ -90,7 +89,8 @@ class BombaAcida(Oggetto):
     Infligge danno pari al valore(Proprietà)
     """
     nome: str = "Bomba Acida"
-    def __init__(self) -> None:
+
+    def __post_init__(self) -> None:
         """
         Inizializza una bomba acida
 
@@ -121,16 +121,14 @@ class BombaAcida(Oggetto):
         return - (self.valore + mod_ambiente)
 
 
-
-    
-
 @dataclass
 class Medaglione(Oggetto):
     """
     Incrementa l'attacco_max del personaggio che lo usa
     """
     nome: str = "Medaglione"
-    def __init__(self) -> None:
+
+    def __post_init__(self) -> None:
         """
         Inizializza un medaglione
 
@@ -157,6 +155,3 @@ class Medaglione(Oggetto):
 
         self.usato = True
         return int(self.valore + mod_ambiente)
-
-
-
