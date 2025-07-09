@@ -719,3 +719,4 @@
 2025-07-07 10:51:28 - temp guadagna <bound method Foresta.modifica_attacco of <gioco.ambiente.Foresta object at 0x000001C056E233B0>>attacco nella Foresta!
 2025-07-07 10:51:31 - Attenzione! le classi da utilizzare sono le classi derivate!
 >>>>>>> b36eb8b35e2fc8ff3c9178b04fc6c809aa417d13
+2025-07-09 12:20:36 - Inventario di ciaoselezionato via GET.

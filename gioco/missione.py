@@ -1,21 +1,15 @@
 import random
 import uuid
-<<<<<<< HEAD
-=======
 import json
 import os
-
 from gioco.basic import Basic
->>>>>>> b36eb8b35e2fc8ff3c9178b04fc6c809aa417d13
 from gioco.personaggio import Personaggio
 from gioco.classi import Mago, Guerriero, Ladro
 from gioco.ambiente import Ambiente, Vulcano, Foresta, Palude
 from gioco.oggetto import Oggetto, PozioneCura, BombaAcida, Medaglione
 from gioco.inventario import Inventario
-
 from gioco.strategy import Strategia, StrategiaFactory
 from utils.messaggi import Messaggi
-# from utils.log import Log
 
 
 class Missione():

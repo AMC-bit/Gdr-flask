@@ -258,48 +258,53 @@ def dettaglio_personaggio(char_id):
     )
 
 
-@characters_bp.route('/personaggi/<int:id>', methods=['POST'])
-def elimina_personaggio(id):
+@characters_bp.route('/personaggi/<uuid:char_id>', methods=['POST'])
+@login_required
+def elimina_personaggio(char_id):
+    # lista personaggi da sessione
+    pg_list = session.get('personaggi', [])
 
-    lista_pers = session.get('personaggi', [])
-    try:
-        pg = lista_pers.pop(id)
-        session['personaggi'] = lista_pers
+    # ricerca del dizionario del personaggio da eliminare
+    pg_dict = None  # resterà none se non trovo il personaggio
+    for p in pg_list:
+        if str(p['id']) == str(char_id):
+            pg_dict = p
+            break
 
-        # Eliminiamo unicamente il file json con l'id del personaggio
-        file_path = os.path.join(DATA_DIR, f"{pg.get('id')}.json")
-        if os.path.exists(file_path):
-            os.remove(file_path)
-            logger.info(f"File JSOn eliminato: {file_path}")
-        else:
-            logger.info("File JSON non trovato.")
+    if pg_dict is None:
+        flash("Personaggio non trovato", "danger")
+        return redirect(url_for('characters.mostra_personaggi'))
 
-        logger.info(f"Eliminato personaggio con ID: {pg.get('id')}, Nome: {pg.get('nome', 'N/A')}")
+    # ricostruzione della nuova lista escludendo il personaggio
+    new_pg_list = []
+    for p in pg_list:
+        if str(p['id']) != str(char_id):
+            new_pg_list.append(p)
+    session['personaggi'] = new_pg_list
 
-        # Rimozione esplicita dell'id da current_user.character_ids
-        ids = current_user.character_ids or []  # lista id
-        nuova_lista = []
+    # eliminazione del file JSON corrispondente
+    file_path = os.path.join(DATA_DIR, f"{char_id}.json")
+    if os.path.exists(file_path):
+        os.remove(file_path)
+        logger.info(f"File JSON eliminato: {file_path}")
+    else:
+        logger.warning(f"File JSON non trovato: {file_path}")
 
-        for c_id in ids:  # controllo tutti gli id esistenti in lista
-            if c_id != pg.get('id'):  # se non è quello da rimuovere
-                nuova_lista.append(c_id)  # lo aggiungo alla nuova lista
+    # rimozione UUID dalla lista di current_user
+    new_id_list = []
+    for cid in current_user.character_ids or []:
+        if str(cid) != str(char_id):
+            new_id_list.append(cid)
+    current_user.character_ids = new_id_list
 
-        current_user.character_ids = nuova_lista  # assegno la lista filtrata
+    # ricrea oggetto personaggio
+    pg_obj = schema.load(pg_dict)
 
-        # Ricostruzione del personaggio per in modo a passare al metodo credits_to_refund
-        classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
-        try:
-            pg_ogg = classi.get(pg['classe'])(pg['nome'])
-        except (KeyError, AttributeError, TypeError) as e:
-            raise ValueError(f"Errore nella creazione del personaggio: {e}")
+    # rimborso crediti
+    current_user.crediti += credits_to_refund(pg_obj)
 
-        current_user.crediti += credits_to_refund(pg_ogg)
-        db.session.commit()
-        flash("Personaggio eliminato con successo!", "success")
-
-    except IndexError:
-        Log.scrivi_log(f"Errore durante eliminazione: ID inesistente {id}")
-        abort(404)
+    db.session.commit()
+    flash("Personaggio eliminato con successo!", "success")
     return redirect(url_for('characters.mostra_personaggi'))
 
 
