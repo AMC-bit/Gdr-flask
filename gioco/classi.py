@@ -1,15 +1,13 @@
-import random
-import uuid
-import logging
+
+import random, uuid, logging
 from typing import List
 from dataclasses import dataclass, field
 from marshmallow import Schema, fields, post_load, validate
-from gioco.personaggio import Personaggio
 
+from gioco.personaggio import Personaggio
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
-
 
 @dataclass
 class Mago(Personaggio):
@@ -19,10 +17,13 @@ class Mago(Personaggio):
     di salute personalizzato
     """
     salute_max: int = 80
+    attacco_min: int = 75
+    attacco_max: int = 90
 
     # - Il '__post_init__' nelle dataclass serve a eseguire delle
     # inizializzazioni aggiuntive
     def __post_init__(self):
+        super().__post_init__()
         self.classe = "Mago"
         self.salute = self.salute_max
 
@@ -61,25 +62,21 @@ class Mago(Personaggio):
         logger.info(f"{self.nome} medita e recupera {effettivo} HP." \
             f" Salute attuale: {self.salute}")
 
-
+@dataclass
 class Guerriero(Personaggio):
     """
     Classe che rappresenta un personaggio guerriero.
     Estende la classe Personaggio, con salute_max di 120, attacco piu potente e
     guarigione post duello fissa di 30 salute
     """
-    def __init__(self, nome: str, npc: bool = False) -> None:
-        """
-        Inizializza il personaggio Guerriero con salute 120
+    salute: int = 120
+    attacco_min: int = 95
+    attacco_max: int = 100
 
-        Args:
-            nome (str): nome del personaggio
-
-        Returns:
-            None
-        """
-        super().__init__(nome, npc)
-        self.salute = 120
+    def __post_init__(self):
+        super().__post_init__()
+        self.classe = "Guerriero"
+        self.salute = self.salute_max
 
     def attacca(self, mod_ambiente: int = 0) -> int:
         """
@@ -98,8 +95,7 @@ class Guerriero(Personaggio):
             self.attacco_max + mod_ambiente + 20
         )
         msg = f"{self.nome} colpisce con la spada infliggendo {danno} danni!"
-        Messaggi.add_to_messaggi(msg)
-        Log.scrivi_log(msg)
+        logger.info(msg)
         return danno
 
     def recupera_salute(self, mod_ambiente: int = 0) -> None:
@@ -119,47 +115,50 @@ class Guerriero(Personaggio):
         self.salute = nuova_salute
         msg = f"{self.nome} si fascia le ferite e recupera {effettivo} HP." \
             f" Salute attuale: {self.salute}"
-        Messaggi.add_to_messaggi(msg)
-        Log.scrivi_log(msg)
+        logger.info(msg)
 
 
+@dataclass
 class Ladro(Personaggio):
     """
     Estende la classe Personaggio, ha salute elevata a 140, +5 attacco_max e
     attacco_min, recupera punti salute al termine del duello
     casualmente in un range 10-40
     """
-    def __init__(self, nome: str, npc: bool = False) -> None:
+    salute_max: int = 120
+    attacco_max: int = 85
+    attacco_min: int = 10
+
+    def __post_init__(self):
         """
-        Inizializza il personaggio Ladro con salute 140
+        Metodo post-inizializzazione per il Ladro.
+        Imposta salute_max a 140 e attacco_min e attacco_max a valori specifici.
+
+        """
+        super().__post_init__()
+        self.classe = "Ladro"
+        self.salute = self.salute_max
+
+    def attacca(self, mod_ambiente: int = 0) -> int:
+        """
+        attacco del ladro valore random tra attacco_min e attacco_max
+        con un modificatore ambientale, se l'azione ha successo
 
         Args:
-            nome (str): nome del personaggio
-
-        Returns:
-            None
-        """
-        super().__init__(nome, npc)
-        self.salute = 140
-
-    def attacca(self, mod_ambiente: int = 0) -> None:
-        """
-        Il Ladro ha un attacco minimo aumentato di 5 e un attacco
-        massimo aumentato di 5
-
-        Args:
-            bersaglio (Personaggio): personaggio che subisce l'attacco
             mod_ambiente (int): modificatore ambientale di attacco (default: 0)
 
         Returns:
-            None
+            danno (int): danno inflitto all'avversario
         """
-        danno = random.randint(
-            self.attacco_min + 5, self.attacco_max + 5
-        ) + mod_ambiente
-        msg = f"{self.nome} colpisce furtivamente infliggendo {danno} danni!"
-        Messaggi.add_to_messaggi(msg)
-        Log.scrivi_log(msg)
+        danno = 0
+        if self.esegui_azione():
+            danno = random.randint(
+                self.attacco_min, self.attacco_max
+            ) + mod_ambiente
+            msg = f"{self.nome} colpisce furtivamente infliggendo {danno} danni!"
+        else:
+            msg = f"{self.nome} tenta di attaccare ma fallisce!"
+        logger.info(msg)
         return danno
 
     def recupera_salute(self, mod_ambiente: int = 0) -> None:
@@ -180,5 +179,4 @@ class Ladro(Personaggio):
         self.salute = nuova_salute
         msg = f"{self.nome} si cura rapidamente e recupera {effettivo} HP. " \
             f"Salute attuale: {self.salute}"
-        Messaggi.add_to_messaggi(msg)
-        Log.scrivi_log(msg)
+        logger.info(msg)
