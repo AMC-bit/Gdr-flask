@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block title %}Combattimento{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center flex-column py-5">
+  <form method="post" class="card shadow-sm p-4 mb-4" style="max-width: 800px; width: 100%;">
+    <h1 class="h4 text-center mb-4">Simulazione di combattimento</h1>
+  {% if personaggi %}
+   <div class="mb-3">
+      <label for="pg1" class="form-label">Primo personaggio</label>
+      <select name="pg1" id="pg1" class="form-select" required>
+        <option value="">-- Scegli il primo personaggio --</option>
+        {% for p in personaggi %}
+          <option value="{{ p.id }}">{{ p.nome }} ({{ p.classe }})</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="pg2" class="form-label">Secondo personaggio</label>
+      <select name="pg2" id="pg2" class="form-select" required>
+        <option value="">-- Scegli il secondo personaggio --</option>
+        {% for p in personaggi %}
+          <option value="{{ p.id }}">{{ p.nome }} ({{ p.classe }})</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Inizia Combattimento</button>
+  </form>
+  {% endif %}
+
+  {% if risultato %}
+  <div class="card shadow-sm p-4 mx-auto" style="max-width: 800px;">
+    <h2 class="text-center text-success mb-3">{{ risultato }}</h2>
+
+    <div class="row mb-4">
+      <div class="col-md-6 text-center">
+        <h4>{{ pg1.nome }}</h4>
+        <p>Salute finale: {{ pg1.salute }}</p>
+      </div>
+      <div class="col-md-6 text-center">
+        <h4>{{ pg2.nome }}</h4>
+        <p>Salute finale: {{ pg2.salute }}</p>
+      </div>
+    </div>
+
+    <h5>Log del combattimento:</h5>
+    <pre class="bg-light p-3 border rounded" style="max-height: 400px; overflow-y: auto;">
+{% for riga in log_combattimento %}
+{{ riga }}
+{% endfor %}
+    </pre>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{
+    "classe": "Guerriero",
+    "id": "e96baf01-99cb-43a7-98f0-1e531136bda3",
+    "nome": "gigio",
+    "salute": 120,
+    "salute_max": 200,
+    "attacco_min": 5,
+    "attacco_max": 80,
+    "storico_danni_subiti": [],
+    "livello": 1,
+    "destrezza": 15,
+    "npc": false
+}

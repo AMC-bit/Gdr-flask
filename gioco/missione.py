@@ -1,5 +1,8 @@
 import random
 import uuid
+import json
+import os
+
 from gioco.basic import Basic
 from gioco.personaggio import Personaggio
 from gioco.classi import Mago, Guerriero, Ladro
@@ -150,6 +153,41 @@ class Missione(Basic):
             # for dati in dati_da_salvare:
             #     Json.scrivi_dati("data/salvataggio.json",Json.applica_patch(dati))
 
+    def seleziona_premio(self):
+        """
+        Questo metodo legge il contenuto del file JSON contenente i premi della missione
+        e ne sorteggia uno a caso.
+        """
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        path_file = None
+        
+        if self.nome == "Imboscata":
+            path_file = os.path.join(base_dir, "..", "static", "premijson", "imboscata.json")
+        elif self.nome == "Salva la principessa":
+            path_file = os.path.join(base_dir, "..", "static", "premijson", "principessa.json")
+        elif self.nome == "Sgomina il culto di Graz'zt sul vulcano Gheemir":
+            path_file = os.path.join(base_dir, "..", "static", "premijson", "culto.json")
+
+        with open(path_file, "r", encoding="utf-8") as file:
+            premi_data = json.load(file)
+
+        premio_ottenuto = random.choice(premi_data)
+
+        classi_premi = {
+            "PozioneCura": PozioneCura,
+            "BombaAcida": BombaAcida,
+            "Medaglione": Medaglione
+        }
+
+        nome = premio_ottenuto.get("nome")
+
+        premio_cls = classi_premi[nome]
+        premio_oggetto = premio_cls()
+
+        Messaggi.add_to_messaggi(f"Premio selezionato: {premio_oggetto.nome}")
+        return premio_oggetto
+
+
     # QUESTO METODO E' PROVVISORIO
     def check_missione(self, inventari_vincitori: list[Inventario]) -> None:
         """
@@ -259,16 +297,23 @@ class GestoreMissioni():
             nome="Imboscata",
             ambiente=Foresta(),
             nemici=[Guerriero("Robin Hood"), Guerriero("Little Jhon")],
-            premi=[PozioneCura(), PozioneCura(), BombaAcida()],
+            #premi=[PozioneCura(), PozioneCura(), BombaAcida()],
+            premi=[],
             strategia_nemici= StrategiaFactory.usa_strategia("equilibrata")
         )
+        imboscata.premi = [imboscata.seleziona_premio()]
+        
         salva_principessa = Missione(
             nome="Salva la principessa",
             ambiente=Palude(),
             nemici=[Ladro("Megera furfante")],
-            premi=[Medaglione()],
+            # premi=Missione.seleziona_premio().premio_oggetto,
+            #premi=[Medaglione()],
+            premi=[],
             strategia_nemici= StrategiaFactory.usa_strategia("difensiva")
         )
+        salva_principessa.premi = [salva_principessa.seleziona_premio()]
+        
         culto = Missione(
             nome="Sgomina il culto di Graz'zt sul vulcano Gheemir",
             ambiente=Vulcano(),
@@ -277,9 +322,12 @@ class GestoreMissioni():
                 Mago("Cultista 2"),
                 Mago("Cultista 3")
             ],
-            premi=[PozioneCura(), Medaglione()],
+            #premi=[PozioneCura(), Medaglione()],
+            premi=[],
             strategia_nemici= StrategiaFactory.usa_strategia("aggressiva")
         )
+        culto.premi = [culto.seleziona_premio()]
+        
         return [imboscata, salva_principessa, culto]
 
     def mostra(self) -> None:
