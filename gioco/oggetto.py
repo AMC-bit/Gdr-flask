@@ -1,8 +1,11 @@
 from gioco.personaggio import Personaggio
 from dataclasses import dataclass, field
 from marshmallow import Schema, fields, post_load, validate
+import logging
+
 # Modulo oggetti
 # Contiene la classe base Oggetto e le classi derivate
+logger = logging.getLogger(__name__)
 @dataclass
 class Oggetto:
     """
@@ -41,19 +44,6 @@ class Oggetto:
         raise NotImplementedError("Questo oggetto non ha effetto definito.")
 
 
-    def to_dict(self) -> dict:
-        """Restituisce uno stato serializzabile per session o JSON.
-
-        Returns:
-            dict: Dizionario del materiale serializzato
-        """
-        return {
-            "classe": self.__class__.__name__,
-            "nome": self.nome,
-            "usato": self.usato,
-            "valore": self.valore,
-            "tipo_oggetto": self.tipo_oggetto
-        }
 
 
 
@@ -141,14 +131,6 @@ class BombaAcida(Oggetto):
         self.usato = True
         return - (self.valore + mod_ambiente)
 
-    def to_dict(self) -> dict:
-        """Restituisce uno stato serializzabile per session o JSON.
-
-        Returns:
-            dict: Dizionario del materiale serializzato
-        """
-        data = super().to_dict()
-        return data
 
 
     
@@ -187,12 +169,5 @@ class Medaglione(Oggetto):
         self.usato = True
         return int(self.valore + mod_ambiente)
 
-    def to_dict(self) -> dict:
-        """Restituisce uno stato serializzabile per session o JSON.
 
-        Returns:
-            dict: Dizionario del materiale serializzato
-        """
-
-        return super().to_dict()
 
