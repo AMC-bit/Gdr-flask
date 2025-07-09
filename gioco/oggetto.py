@@ -1,16 +1,10 @@
 from gioco.personaggio import Personaggio
 from dataclasses import dataclass, field
 from marshmallow import Schema, fields, post_load, validate
-import logging
 
-# Modulo oggetti
-# Contiene la classe base Oggetto e le classi derivate
-logger = logging.getLogger(__name__)
+
 @dataclass
 class Oggetto:
-    """
-    Classe padre di tutti gli oggetti contenibili nell'inventario
-    """
     """
     Inizializza un oggetto con nome e tipo
 
@@ -44,21 +38,21 @@ class Oggetto:
         raise NotImplementedError("Questo oggetto non ha effetto definito.")
 
 
-
-
-
 class OggettoSchema(Schema):
     nome = fields.Str()
     usato = fields.Bool()
     valore = fields.Int()
     tipo_oggetto = fields.Str()
     classe = fields.Str(required=True)
+
+
 @dataclass
 class PozioneCura(Oggetto):
     """
     Cura il personaggio che la usa di un certo valore
     """
     nome: str = "Pozione Rossa"
+
     def __post_init__(self) -> None:
         """
         Inizializza una pozione di cura
@@ -71,7 +65,7 @@ class PozioneCura(Oggetto):
         Returns:
             None
         """
-        
+
         self.valore = 30
         self.classe = "PozioneCura"
         self.tipo_oggetto = "Ristorativo"
@@ -89,11 +83,6 @@ class PozioneCura(Oggetto):
         self.usato = True
         return self.valore + mod_ambiente
 
-    def to_dict(self) -> dict:
-        data = super().to_dict()
-        return data
-
-    
 
 @dataclass
 class BombaAcida(Oggetto):
