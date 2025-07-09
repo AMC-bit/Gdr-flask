@@ -1,0 +1,9 @@
+{
+    "id": "f3b51819-fb5e-4ed8-9bf1-cf4e81f7456d",
+    "nome": "mister",
+    "classe": "Mago",
+    "salute": 80,
+    "livello": 1,
+    "destrezza": 15,
+    "storico_danni_subiti": []
+}

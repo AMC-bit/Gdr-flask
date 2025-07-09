@@ -2,8 +2,17 @@ import random
 import uuid
 import logging
 from dataclasses import dataclass, field
-from marshmallow import Schema, fields, post_load
+from marshmallow import Schema, fields, post_load, validate
 
+
+class PersonaggioSchema(Schema):
+    id = fields.Str(dump_only=True)
+    nome = fields.Str(required=True, validate=validate.Length(min=4))
+    classe = fields.Str(required=True)
+    salute = fields.Int(required=True, validate=validate.Range(min=-1, max=120))
+    livello = fields.Int(required=True, validate=validate.Range(min=0))
+    destrezza = fields.Int(required=True, validate=validate.Range(min=0))
+    storico_danni_subiti = fields.List(fields.Int())
 
 logger = logging.getLogger(__name__)
 # - Ogni logger del logging ha un livello di soglia ed i messaggi vengono
@@ -29,7 +38,6 @@ class Personaggio:
     Contiene le proprietà comuni a ogni classe (Mago, Ladro, Guerriero)
     """
 
-    nome: str
     # - In una @dataclass i campi possono avere un dato di default oppure
     # possono avere dei dati calcolati al momento della creazione dell'istanza,
     # tramite default_factory
@@ -41,6 +49,7 @@ class Personaggio:
     # al costruttore
     # - Evita il problema di valori mutabili di default condivisi tra
     # tutte le istanze, come succederebbe con una lista definita direttamente
+    nome: str
     id: str = field(default_factory=lambda: str(uuid.uuid4()))
     npc: bool = True
     salute: int = 100
@@ -56,6 +65,10 @@ class Personaggio:
     # propria lista vuota indipendente
     livello: int = 1
     destrezza: int = 15
+    classe: str = field(init=False)
+
+    def __post_init__(self):
+        self.classe = self.__class__.__name__
 
     def esegui_azione(self) -> bool:
         """

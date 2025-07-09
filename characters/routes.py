@@ -1,7 +1,11 @@
 import os, json
+import uuid
+import logging
+from dataclasses import dataclass, field
+from marshmallow import Schema, fields, post_load
 from . import characters_bp
 from flask import render_template, request, redirect, url_for, session, abort, flash
-from gioco.personaggio import Personaggio
+from gioco.personaggio import Personaggio, PersonaggioSchema
 from gioco.oggetto import Oggetto
 from gioco.inventario import Inventario
 from utils.log import Log
@@ -10,6 +14,10 @@ from auth.models import User
 from auth.models import db
 from auth.credits import credits_to_create, credits_to_refund
 from config import DATA_DIR
+
+
+schema = PersonaggioSchema()
+
 
 @characters_bp.route('/load_char')
 @login_required
@@ -60,7 +68,7 @@ def load_char():
 def CharSingleJson(pg_creato: Personaggio):
     # Recuperare i dati dal form per singolo personaggio
     # Creazione del file JSON con l'id del personaggio
-    pg_dict = pg_creato.to_dict()
+    pg_dict = schema.dump(pg_creato)
     name_file = f"{pg_dict['id']}.json"
     path = os.path.join(DATA_DIR, name_file)
     with open(path, "w", encoding="utf-8") as file:
@@ -82,8 +90,8 @@ def create_char():
         classe_sel = request.form['classe']
         oggetto_sel = request.form['oggetto']
 
-
-        pg = classi[classe_sel](nome, npc=False)
+        print(f"Classe: {classe_sel}")
+        pg = classi[classe_sel](nome)
         ogg = oggetti[oggetto_sel]()
         inv = Inventario(id_proprietario=pg.id)
         inv.aggiungi_oggetto(ogg)
@@ -100,7 +108,7 @@ def create_char():
         pg_list = session.get('personaggi', [])
         inv_list = session.get('inventari', [])
 
-        pg_list.append(pg.to_dict())
+        pg_list.append(schema.dump(pg))
         inv_list.append(inv.to_dict())
 
         # Creazione del file JSON del singolo personaggio
@@ -113,6 +121,13 @@ def create_char():
 
         db.session.commit()
         Log.scrivi_log(f"Creato personaggio: {pg.nome}, Classe: {classe_sel}, id: {pg.id}, Oggetto iniziale: {oggetto_sel}")
+
+        if pg.classe not in classi:
+            flash("Dati(Classe) non validi", "danger")
+            return redirect(url_for('characters.create_char'))
+        elif pg.id not in pg_list:
+            flash("Dati(ID) non validi", "danger")
+            return redirect(url_for('characters.create_char'))
 
         return redirect(url_for('characters.mostra_personaggi'))
 
@@ -163,7 +178,7 @@ def edit_char(char_id):
         pg['nome'] = nuovo_nome
         pg['classe'] = nuova_classe
 
-        pg_obj = Personaggio.from_dict(pg)
+        pg_obj = schema.load(pg)
         CharSingleJson(pg_obj)
 
         Log.scrivi_log(
@@ -279,7 +294,7 @@ def elimina_personaggio(id):
         classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
         try:
             pg_ogg = classi.get(pg['classe'])(pg['nome'])
-        except (KeyError. AttributeError, TypeError) as e:
+        except (KeyError, AttributeError, TypeError) as e:
             raise ValueError(f"Errore nella creazione del personaggio: {e}")
 
         current_user.crediti += credits_to_refund(pg_ogg)
@@ -301,15 +316,14 @@ def inizio_combattimento():
         id_1 = int(request.form['pg1'])
         id_2 = int(request.form['pg2'])
 
-
         pg1_dict = next((p for p in personaggi_utente if p['id'] == id_1), None)
         pg2_dict = next((p for p in personaggi_utente if p['id'] == id_2), None)
 
         if not pg1_dict or not pg2_dict:
             abort(400, "Personaggio non trovato.")
 
-        pg1 = Personaggio.from_dict(pg1_dict)
-        pg2 = Personaggio.from_dict(pg2_dict)
+        pg1 = schema.load(pg1_dict)
+        pg2 = schema.load(pg2_dict)
 
         log_combattimento = []
 
