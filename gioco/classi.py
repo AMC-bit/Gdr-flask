@@ -1,13 +1,12 @@
-
 import random, uuid, logging
-from typing import List
-from dataclasses import dataclass, field
-from marshmallow import Schema, fields, post_load, validate
-
 from gioco.personaggio import Personaggio
+
+from dataclasses import dataclass, field
+from marshmallow import Schema, fields, post_load
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
+
 
 @dataclass
 class Mago(Personaggio):
@@ -117,7 +116,6 @@ class Guerriero(Personaggio):
         msg = f"{self.nome} si fascia le ferite e recupera {effettivo} HP." \
             f" Salute attuale: {self.salute}"
         logger.info(msg)
-        logger.info(msg)
 
 
 @dataclass
@@ -194,40 +192,44 @@ class PersonaggioSchema(Schema):
     id = fields.UUID(load_default=lambda: uuid.uuid4())
     nome = fields.String(required=True)
     npc = fields.Boolean(load_default=True)
-    salute_max = fields.Integer(load_default=200)
-    salute = fields.Integer(load_default=100)
-    attacco_min = fields.Integer(load_default=5)
-    attacco_max = fields.Integer(load_default=80)
+    salute_max = fields.Integer()
+    salute = fields.Integer()
+    attacco_min = fields.Integer()
+    attacco_max = fields.Integer()
     livello = fields.Integer(load_default=1)
     destrezza = fields.Integer(load_default=15)
-    storico_danni_subiti = fields.List(fields.Integer(), load_default=list)    @post_load
+    storico_danni_subiti = fields.List(fields.Integer(), load_default=list)
+
+    @post_load
     def make_personaggio(self, data, **kwargs):
+        print(f"\nimport: \n{data}\n")
         classe = data.get("classe", "Personaggio")
         # Rimuovi il campo 'classe' dai dati prima di creare l'istanza
         data_clean = {k: v for k, v in data.items() if k != "classe"}
-        
+
         if classe == "Mago":
-            # Imposta i default specifici del Mago se non presenti
-            data_clean.setdefault('salute_max', 80)
-            data_clean.setdefault('salute', 80)
-            data_clean.setdefault('attacco_min', 0)
-            data_clean.setdefault('attacco_max', 90)
-            return Mago(**data_clean)
+            self.salute_max = fields.Integer(load_default=80)
+            self.salute = fields.Integer(load_default=80)
+            self.attacco_min = fields.Integer(load_default=0)
+            self.attacco_max = fields.Integer(load_default=90)
+            return Mago(**data)
         elif classe == "Guerriero":
-            # Imposta i default specifici del Guerriero se non presenti
-            data_clean.setdefault('salute_max', 120)
-            data_clean.setdefault('salute', 120)
-            data_clean.setdefault('attacco_min', 20)
-            data_clean.setdefault('attacco_max', 100)
-            return Guerriero(**data_clean)
+            self.salute_max = fields.Integer(load_default=120)
+            self.salute = fields.Integer(load_default=120)
+            self.attacco_min = fields.Integer(load_default=20)
+            self.attacco_max = fields.Integer(load_default=100)
+            return Guerriero(**data)
         elif classe == "Ladro":
-            # Imposta i default specifici del Ladro se non presenti
-            data_clean.setdefault('salute_max', 120)
-            data_clean.setdefault('salute', 120)
-            data_clean.setdefault('attacco_min', 10)
-            data_clean.setdefault('attacco_max', 85)
-            return Ladro(**data_clean)
+            self.salute_max = fields.Integer(load_default=120)
+            self.salute = fields.Integer(load_default=120)
+            self.attacco_min = fields.Integer(load_default=10)
+            self.attacco_max = fields.Integer(load_default=85)
+            return Ladro(**data)
         else:
+            self.salute_max = fields.Integer(load_default=200)
+            self.salute = fields.Integer(load_default=100)
+            self.attacco_min = fields.Integer(load_default=5)
+            self.attacco_max = fields.Integer(load_default=80)
             return Personaggio(**data_clean)
 
 
