@@ -17,10 +17,13 @@ class Mago(Personaggio):
     di salute personalizzato
     """
     salute_max: int = 80
+    attacco_min: int = 75
+    attacco_max: int = 90
 
     # - Il '__post_init__' nelle dataclass serve a eseguire delle
     # inizializzazioni aggiuntive
     def __post_init__(self):
+        super().__post_init__()
         self.classe = "Mago"
         self.salute = self.salute_max
 
@@ -59,7 +62,6 @@ class Mago(Personaggio):
         logger.info(f"{self.nome} medita e recupera {effettivo} HP." \
             f" Salute attuale: {self.salute}")
 
-
 @dataclass
 class Guerriero(Personaggio):
     """
@@ -67,18 +69,13 @@ class Guerriero(Personaggio):
     Estende la classe Personaggio, con salute_max di 120, attacco piu potente e
     guarigione post duello fissa di 30 salute
     """
-    salute_max: int = 120
+    salute: int = 120
+    attacco_min: int = 95
+    attacco_max: int = 100
 
     def __post_init__(self):
-        """
-        Inizializza il personaggio Guerriero con salute 120
-
-        Args:
-            nome (str): nome del personaggio
-
-        Returns:
-            None
-        """
+        super().__post_init__()
+        self.classe = "Guerriero"
         self.salute = self.salute_max
 
     def attacca(self, mod_ambiente: int = 0) -> int:
@@ -97,7 +94,8 @@ class Guerriero(Personaggio):
             self.attacco_min + 15,
             self.attacco_max + mod_ambiente + 20
         )
-        logger.info(f"{self.nome} colpisce con la spada infliggendo {danno} danni!")
+        msg = f"{self.nome} colpisce con la spada infliggendo {danno} danni!"
+        logger.info(msg)
         return danno
 
     def recupera_salute(self, mod_ambiente: int = 0) -> None:
@@ -112,11 +110,12 @@ class Guerriero(Personaggio):
             None
         """
         recupero = 30 + mod_ambiente
-        nuova_salute = min(self.salute + recupero, self.salute_max)
+        nuova_salute = min(self.salute + recupero, 120)
         effettivo = nuova_salute - self.salute
         self.salute = nuova_salute
-        logger.info(f"{self.nome} si fascia le ferite e recupera {effettivo} HP." \
-            f" Salute attuale: {self.salute}")
+        msg = f"{self.nome} si fascia le ferite e recupera {effettivo} HP." \
+            f" Salute attuale: {self.salute}"
+        logger.info(msg)
 
 
 @dataclass
@@ -137,9 +136,8 @@ class Ladro(Personaggio):
 
         """
         super().__post_init__()
+        self.classe = "Ladro"
         self.salute = self.salute_max
-        self.attacco_max = 85
-        self.attacco_min = 10
 
     def attacca(self, mod_ambiente: int = 0) -> int:
         """
