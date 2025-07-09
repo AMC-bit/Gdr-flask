@@ -1,7 +1,6 @@
 import random, uuid, logging
 from dataclasses import dataclass, field
-from gioco.basic import Basic
-from marshmallow import Schema, fields, post_load
+from marshmallow import Schema, fields, post_load, validate
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -70,14 +69,16 @@ class Personaggio():
             bool: True se il testo è superato, False altrimenti.
         """
         tiro = random.randint(1, 20)
-        risultato = tiro <= self.destrezza
-        if risultato:
-            msg = f"{self.nome} ha eseguito l'azione con successo! (tiro={tiro})"
+        successo = tiro <= self.destrezza
+        if successo:
+            msg = (
+                f"{self.nome} ha eseguito l'azione con successo! (tiro={tiro})"
+        )
             logger.info(msg)
         else:
             msg = f"{self.nome} ha fallito l'azione! (tiro={tiro})"
             logger.info(msg)
-        return risultato
+        return successo
 
     def attacca(self, mod_ambiente: int = 0) -> int:
         """
@@ -91,14 +92,14 @@ class Personaggio():
         Returns:
             int: danno inflitto all'avversario, 0 se l'attacco fallisce
         """
+        danno = 0
         if self.esegui_azione():
             danno = random.randint(self.attacco_min, self.attacco_max) + mod_ambiente
             msg = f"{self.nome} Attacca con successo e infligge {danno} danni!"
-            logger.info(msg)
-            return danno
-        msg = f"{self.nome} Tenta di attaccare ma fallisce!"
+        else:
+            msg = f"{self.nome} Tenta di attaccare ma fallisce!"
         logger.info(msg)
-        return 0
+        return danno
 
     def subisci_danno(self, danno: int) -> None:
         """
@@ -135,7 +136,10 @@ class Personaggio():
         nuova_salute = min(self.salute + recupero, 100)
         effettivo = nuova_salute - self.salute
         self.salute = nuova_salute
-        msg = f"\n{self.nome} recupera {effettivo} HP. Salute attuale: {self.salute}"
+        msg = (
+            f"\n{self.nome} recupera {effettivo} HP."
+            f" Salute attuale: {self.salute}"
+        )
         logger.info(msg)
 
     def migliora_statistiche(self) -> None:
@@ -149,47 +153,3 @@ class Personaggio():
         self.salute_max = int(self.salute_max + 0.01 * self.salute_max)
         msg = f"{self.nome} è salito al livello {self.livello}!"
         logger.info(msg)
-
-"""
-    def to_dict(self) -> dict:
-        "" "Restituisce uno stato serializzabile per session o JSON.
-
-        Returns:
-            dict: Dizionario del materiale serializzato
-        "" "
-        return {
-            "classe": self.__class__.__name__,
-            "id": self.id,
-            "nome": self.nome,
-            "salute": self.salute,
-            "salute_max": self.salute_max,
-            "attacco_min": self.attacco_min,
-            "attacco_max": self.attacco_max,
-            "storico_danni_subiti": self.storico_danni_subiti,
-            "livello": self.livello,
-            "destrezza": self.destrezza,
-            "npc": self.npc
-        }
-
-    @classmethod
-    def from_dict(cls, data: dict) -> "Personaggio":
-        "" "Ricostruisce l’istanza a partire da un dict serializzato.
-
-        Args:
-            data (dict): Dati serializzati
-
-        Returns:
-            Personaggio: Dati deserializzati
-        "" "
-        obj = cls(data["nome"])
-        obj.id = data.get('id')
-        obj.salute = data.get("salute", 100)
-        obj.salute_max = data.get("salute_max", 200)
-        obj.attacco_min = data.get("attacco_min", 5)
-        obj.attacco_max = data.get("attacco_max", 80)
-        obj.storico_danni_subiti = data.get("storico_danni_subiti", [])
-        obj.livello = data.get("livello", 1)
-        obj.destrezza = data.get("destrezza", 15)
-        obj.npc = data.get("npc", True)
-        return obj
- """

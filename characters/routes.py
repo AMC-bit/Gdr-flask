@@ -1,7 +1,9 @@
 import os, json, logging
+from dataclasses import dataclass, field
+from marshmallow import Schema, fields, post_load
 from . import characters_bp
 from flask import render_template, request, redirect, url_for, session, abort, flash
-from gioco.personaggio import Personaggio
+from gioco.personaggio import Personaggio, PersonaggioSchema
 from gioco.oggetto import Oggetto
 from gioco.classi import PersonaggioSchema
 from gioco.inventario import Inventario
@@ -288,7 +290,7 @@ def elimina_personaggio(id):
         classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
         try:
             pg_ogg = classi.get(pg['classe'])(pg['nome'])
-        except (KeyError. AttributeError, TypeError) as e:
+        except (KeyError, AttributeError, TypeError) as e:
             raise ValueError(f"Errore nella creazione del personaggio: {e}")
 
         current_user.crediti += credits_to_refund(pg_ogg)
@@ -310,13 +312,14 @@ def inizio_combattimento():
         id_1 = int(request.form['pg1'])
         id_2 = int(request.form['pg2'])
 
-
         pg1_dict = next((p for p in personaggi_utente if p['id'] == id_1), None)
         pg2_dict = next((p for p in personaggi_utente if p['id'] == id_2), None)
 
         if not pg1_dict or not pg2_dict:
             abort(400, "Personaggio non trovato.")
 
+        pg1 = schema.load(pg1_dict)
+        pg2 = schema.load(pg2_dict)
         pg1 = schema.load(pg1_dict)
         pg2 = schema.load(pg2_dict)
 

@@ -1,12 +1,13 @@
-import random, uuid, logging
-from gioco.personaggio import Personaggio
 
+import random, uuid, logging
+from typing import List
 from dataclasses import dataclass, field
-from marshmallow import Schema, fields, post_load
+from marshmallow import Schema, fields, post_load, validate
+
+from gioco.personaggio import Personaggio
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
-
 
 @dataclass
 class Mago(Personaggio):
@@ -115,6 +116,7 @@ class Guerriero(Personaggio):
         self.salute = nuova_salute
         msg = f"{self.nome} si fascia le ferite e recupera {effettivo} HP." \
             f" Salute attuale: {self.salute}"
+        logger.info(msg)
         logger.info(msg)
 
 
