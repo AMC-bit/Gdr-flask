@@ -1,6 +1,5 @@
 import random
 import uuid
-from gioco.basic import Basic
 from gioco.personaggio import Personaggio
 from gioco.classi import Mago, Guerriero, Ladro
 from gioco.ambiente import Ambiente, Vulcano, Foresta, Palude
@@ -12,7 +11,7 @@ from utils.messaggi import Messaggi
 # from utils.log import Log
 
 
-class Missione(Basic):
+class Missione():
     """
     Si occupa di aggregare istanze di ambiente , nemici e ricompense
     Rappresenta una missione, composta da un ambiente, nemici e premi.
@@ -41,10 +40,7 @@ class Missione(Basic):
         None
     """
         # inizializzazione attributi
-        if id is None:
-            super().__init__()
-        else:
-            self.id = id
+        self.id = id if id else uuid.uuid4()
         self.nome = nome
         self.ambiente = ambiente  # ereditato dal torneo corrente
         self.nemici = nemici  # lista dei nemici di tutti i tornei

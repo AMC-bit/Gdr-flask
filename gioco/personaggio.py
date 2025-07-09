@@ -1,59 +1,25 @@
-import random
-import uuid
-import logging
+import random, uuid, logging
 from dataclasses import dataclass, field
 from marshmallow import Schema, fields, post_load, validate
 
-
-class PersonaggioSchema(Schema):
-    id = fields.Str()
-    nome = fields.Str(required=True, validate=validate.Length(min=4))
-    classe = fields.Str(required=True)
-    salute = fields.Int(required=True, validate=validate.Range(min=-1, max=1000))
-    salute_max = fields.Int(required=True, validate=validate.Range(min=-1, max=1000))
-    attacco_min = fields.Int(required=True, validate=validate.Range(min=-1, max=1000))
-    attacco_max = fields.Int(required=True, validate=validate.Range(min=-1, max=1000))
-    livello = fields.Int(required=True, validate=validate.Range(min=0))
-    destrezza = fields.Int(required=True, validate=validate.Range(min=0))
-    storico_danni_subiti = fields.List(fields.Int())
-
-
 logger = logging.getLogger(__name__)
-# - Ogni logger del logging ha un livello di soglia ed i messaggi vengono
-# inviati solo le il livello è maggiore di quello di soglia
-# - Livelli standard in ordine: DEBUG INFO WARNING ERROR CRITICAL
-# - Quindi facendo logger.setlevel(logging.info) i messaggi di livello
-# inferiore ad info vengono ignorati
-# - In produzione si alza la soglia almeno a WARNING in modo da non intasare
-# il log con troppi messaggi
-# - Questo non verrà mai mostrato, perché è di livello DEBUG < INFO
-# logger.debug("Questo è un messaggio di debug e verrà ignorato")
-# - Questo verrà mostrato, perché è di livello INFO >= INFO
-# logger.info("Questo è un messaggio di info e verrà registrato")
-# - Si possono loggare i warning con 'import warnings' e con
-# logging.captureWarnings(True)
 logger.setLevel(logging.INFO)
+# ogni logger del logging ha un livello di soglia ed i messaggi vengono inviati
+# solo se il livello è maggiore di quello di soglia
+# i livelli standard (in ordine crescente di gravità): DEBUG, INFO, ERROR, CRITICAL
+# quindi facendo logger.setLevel(logging.INFO) i messaggi di livello inferiore
+# ad info vengono ignorati
+# in produzione si alza la soglia almeno a warning in modo da non intasare il
+# log con troppi messaggi
 
 
 @dataclass
-class Personaggio:
+class Personaggio():
     """
     Classe Padre per tutte classi
     Contiene le proprietà comuni a ogni classe (Mago, Ladro, Guerriero)
     """
-
-    # - In una @dataclass i campi possono avere un dato di default oppure
-    # possono avere dei dati calcolati al momento della creazione dell'istanza,
-    # tramite default_factory
-    # - Lambda è una funzione anonima che viene chiamata nel momento di
-    # creazione di un nuovo oggetto, in modo da generare il valore
-    # di default del campo id
-    # - Default_factory in pratica garantisce che ogni istanza
-    # abbia un proprio UUID unico, senza doverlo passare manualmente
-    # al costruttore
-    # - Evita il problema di valori mutabili di default condivisi tra
-    # tutte le istanze, come succederebbe con una lista definita direttamente
-    nome: str
+    nome: str = ""
     id: str = field(default_factory=lambda: str(uuid.uuid4()))
     npc: bool = True
     salute: int = 100
@@ -61,18 +27,39 @@ class Personaggio:
     attacco_min: int = 5
     attacco_max: int = 80
     storico_danni_subiti: list[int] = field(default_factory=list)
-    # - Se avessimo scritto storico_danni_subiti: list[int] = []
-    # questo elenco verrebbe generato una sola volta e condivisa tra
-    # tutte le istanze di Personaggio
-    # - Invece usando default_factory=list il dataclass chiama list() ogni
-    # volta che si crea un nuovo oggetto forneno a ciascuna istanza la
-    # propria lista vuota indipendente
     livello: int = 1
     destrezza: int = 15
     classe: str = field(init=False)
-
+    """
+        in una @dataclass i campi possono avere un dato di default oppure
+        possono avere dei dati calcolati al momento della creazione
+        dell'istanza, tramite default_factory
+        lambda è una funzione anonima che viene chiamata al momento della
+        creazione di un nuovo oggetto in modo da generare il valore di default
+        del campo id
+        default_factory in pratica garantisce che ogni istanza abbia un
+        proprio UUID unico, senza doverlo passare manualmente al costruttore
+        Evita il problema di valori mutabili di default condivisi tra tutte
+        le istanze (come succederebbe con una lista definita direttamente)
+    """
     def __post_init__(self):
+        """
+        Metodo chiamato automaticamente dopo la creazione dell'istanza.
+        Imposta il nome della classe come valore del campo 'classe'.
+        """
         self.classe = self.__class__.__name__
+
+    # def __init__(self, nome: str, npc: bool = True) -> None:
+        # self.id = str(uuid.uuid4())
+        # self.nome = nome
+        # self.salute = 100
+        # self.salute_max = 200
+        # self.attacco_min = 5
+        # self.attacco_max = 80
+        # self.storico_danni_subiti = []
+        # self.livello = 1
+        # self.destrezza = 15  # Caratteristica per la sistema d20
+        # self.npc = npc  # Indica se il personaggio è un NPC
 
     def esegui_azione(self) -> bool:
         """
@@ -84,9 +71,13 @@ class Personaggio:
         tiro = random.randint(1, 20)
         successo = tiro <= self.destrezza
         if successo:
-            logger.info(f"{self.nome} ha eseguito l'azione con successo! (tiro={tiro})")
+            msg = (
+                f"{self.nome} ha eseguito l'azione con successo! (tiro={tiro})"
+        )
+            logger.info(msg)
         else:
-            logger.info(f"{self.nome} ha fallito l'azione! (tiro={tiro})")
+            msg = f"{self.nome} ha fallito l'azione! (tiro={tiro})"
+            logger.info(msg)
         return successo
 
     def attacca(self, mod_ambiente: int = 0) -> int:
@@ -101,34 +92,29 @@ class Personaggio:
         Returns:
             int: danno inflitto all'avversario, 0 se l'attacco fallisce
         """
-        if not self.esegui_azione():
-            logger.info(f"{self.nome} Tenta di attaccare ma fallisce!")
-            return 0
-        danno = random.randint(self.attacco_min, self.attacco_max) + mod_ambiente
-        logger.info(f"{self.nome} Attacca con successo e infligge {danno} danni!")
+        danno = 0
+        if self.esegui_azione():
+            danno = random.randint(self.attacco_min, self.attacco_max) + mod_ambiente
+            msg = f"{self.nome} Attacca con successo e infligge {danno} danni!"
+        else:
+            msg = f"{self.nome} Tenta di attaccare ma fallisce!"
+        logger.info(msg)
         return danno
 
     def subisci_danno(self, danno: int) -> None:
         """
         Sottrae il danno (Input) alla salute del personaggio.
-
         Args:
             danno (int): danno subito dal personaggio
-
-        Returns:
-            None
         """
         self.salute = max(0, self.salute - danno)
         self.storico_danni_subiti.append(danno)
-        logger.info(f"Salute di {self.nome}: {self.salute} (danni subiti: {danno}")
+        msg = f"Salute di {self.nome}: {self.salute}\n"
+        logger.info(msg)
 
     def sconfitto(self) -> bool:
         """
         Verifica se il personaggio è sceso a zero di salute.
-
-        Args:
-            None
-
         Returns:
             bool: True se il personaggio è sconfitto, in caso contrario False
         """
@@ -141,34 +127,29 @@ class Personaggio:
 
         Args:
             mod_ambiente (int): modificatore di recupero in base all'ambiente
-
-        Returns:
-            None
         """
         if self.salute >= self.salute_max:
-            logger.info(f"{self.nome} ha già la salute piena.")
+            msg = f"{self.nome} ha già la salute piena."
+            logger.info(msg)
             return
         recupero = int(self.salute * 0.3) + mod_ambiente
         nuova_salute = min(self.salute + recupero, 100)
         effettivo = nuova_salute - self.salute
         self.salute = nuova_salute
-        logger.info(
-            f"\n{self.nome} recupera {effettivo} HP. Salute attuale: {self.salute}/{self.salute_max}"
-            )
+        msg = (
+            f"\n{self.nome} recupera {effettivo} HP."
+            f" Salute attuale: {self.salute}"
+        )
+        logger.info(msg)
 
     def migliora_statistiche(self) -> None:
         """
         Metodo per aumentare il livello del personaggio e quindi
         migliorarne le statistiche.
         Aumenta del 2% l'attacco massimo e dell'1% la salute massima.
-
-        Args:
-            None
-
-        Returns:
-            None
         """
         self.livello += 1
         self.attacco_max = int(self.attacco_max + 0.02 * self.attacco_max)
         self.salute_max = int(self.salute_max + 0.01 * self.salute_max)
-        logger.info(f"{self.nome} è salito al livello {self.livello}!")
+        msg = f"{self.nome} è salito al livello {self.livello}!"
+        logger.info(msg)
