@@ -23,9 +23,10 @@
                         <div class="col-md-4">
                             <h5><i class="fas fa-trophy"></i> Premi</h5>
                             <ul class="list-unstyled mb-0">
-                                {% regroup missione.premi by nome as premi_raggruppati %}
-                                {% for gruppo in premi_raggruppati %}
-                                    <li><small>{{ gruppo.grouper }} ({{gruppo.list|length}})</small></li>
+                                {% for premio in missione.premi %}
+                                    <li><small>{{ premio.nome }}</small></li>
+                                {% else %}
+                                    <li><small>Nessun premio disponibile</small></li>
                                 {% endfor %}
                             </ul>
                         </div>
@@ -71,8 +72,8 @@
                             <div class="col-md-4">
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-striped" 
-                                         style="width: {% widthratio personaggio_turno_corrente.salute personaggio_turno_corrente.salute_max 100 %}%">
-                                        {{personaggio_turno_corrente.salute}}/{{personaggio_turno_corrente.salute_max}} HP
+                                        style="width: {{ (personaggio_turno_corrente.salute / personaggio_turno_corrente.salute_max * 100) | round(0, 'floor') }}%;">
+                                        {{ personaggio_turno_corrente.salute }}/{{ personaggio_turno_corrente.salute_max }} HP
                                     </div>
                                 </div>
                             </div>
@@ -106,10 +107,11 @@
                                             {% if personaggio.sconfitto() %}
                                                 <span class="badge bg-danger">Sconfitto</span>
                                             {% else %}
-                                                <div class="progress" style="width: 100px; height: 20px;">
-                                                    <div class="progress-bar bg-success" 
-                                                         style="width: {% widthratio personaggio.salute personaggio.salute_max 100 %}%">
-                                                        {{personaggio.salute}}
+                                                    <div class="progress" style="width: 100px; height: 20px;">
+                                                        <div class="progress-bar bg-success"
+                                                            style="width: {{ (personaggio.salute / personaggio.salute_max * 100) | round(0, 'floor') }}%;">
+                                                            {{ personaggio.salute }}
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <small class="text-muted">{{personaggio.salute}}/{{personaggio.salute_max}}</small>
@@ -145,11 +147,12 @@
                                                 <span class="badge bg-danger">Sconfitto</span>
                                             {% else %}
                                                 <div class="progress" style="width: 100px; height: 20px;">
-                                                    <div class="progress-bar bg-warning" 
-                                                         style="width: {% widthratio personaggio.salute personaggio.salute_max 100 %}%">
-                                                        {{personaggio.salute}}
+                                                    <div class="progress-bar bg-warning"
+                                                        style="width: {{ (personaggio.salute / personaggio.salute_max * 100) | round(0, 'floor') }}%;">
+                                                        {{ personaggio.salute }}
                                                     </div>
                                                 </div>
+
                                                 <small class="text-muted">{{personaggio.salute}}/{{personaggio.salute_max}}</small>
                                             {% endif %}
                                         </div>
@@ -269,7 +272,7 @@
                         {% if messaggi %}
                             {% for messaggio in messaggi %}
                                 <div class="border-bottom pb-1 mb-1">
-                                    <small class="text-muted">{{forloop.counter}}.</small> {{messaggio}}
+                                    <small class="text-muted">{{loop.index}}.</small> {{messaggio}}
                                 </div>
                             {% endfor %}
                         {% else %}

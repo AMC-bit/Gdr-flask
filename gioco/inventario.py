@@ -1,21 +1,22 @@
 import uuid
-from gioco.basic import Basic
+from gioco.oggetto import Oggetto, OggettoSchema
 from gioco.oggetto import Oggetto
 from gioco.personaggio import Personaggio
 from gioco.ambiente import Ambiente
 from utils.log import Log
 from utils.messaggi import Messaggi
+
 # from utils.log import Log
 #  , Json
 
 
-class Inventario(Basic):
+class Inventario():
     """
     Gestisce la lista di oggetti posseduto da ogni personaggio
     Sarà la classe inventario a gestire le istanze di classe Oggetto
     """
     def __init__(self, id_proprietario : uuid.UUID = None )->None:
-        super().__init__()
+        self.id = uuid.uuid4()
         self.oggetti = []
         self.id_proprietario = id_proprietario
 
@@ -190,7 +191,7 @@ class Inventario(Basic):
         return {
             'classe': self.__class__.__name__,
             'id': str(self.id),
-            'oggetti': [oggetto.to_dict() for oggetto in self.oggetti],
+            'oggetti': [OggettoSchema().dump(oggetto) for oggetto in self.oggetti],
             'id_proprietario': str(
                 self.id_proprietario
                 ) if self.id_proprietario else None

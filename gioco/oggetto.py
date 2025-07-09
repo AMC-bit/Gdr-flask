@@ -1,32 +1,24 @@
-from gioco.personaggio import Personaggio
+from dataclasses import dataclass, field
+from marshmallow import Schema, fields, post_load, validate
 
-# Modulo oggetti
-# Contiene la classe base Oggetto e le classi derivate
 
-class Oggetto ():
+@dataclass
+class Oggetto:
     """
-    Classe padre di tutti gli oggetti contenibili nell'inventario
+    Inizializza un oggetto con nome e tipo
+
+    Args:
+        nome (str): Nome dell'oggetto
+
+    Returns:
+        None
+
     """
-    def __init__(
-        self,
-        nome: str,
-        valore: int = 0,
-        tipo_oggetto: str = ""
-        ) -> None:
-        """
-        Inizializza un oggetto con nome e tipo
-
-        Args:
-            nome (str): Nome dell'oggetto
-
-        Returns:
-            None
-
-        """
-        self.nome = nome
-        self.usato = False
-        self.valore = valore
-        self.tipo_oggetto = tipo_oggetto
+    nome: str
+    usato: bool = False
+    valore: int = 30
+    tipo_oggetto: str = ""
+    classe: str = field(init=False)
 
 
     def usa(
@@ -45,47 +37,22 @@ class Oggetto ():
         raise NotImplementedError("Questo oggetto non ha effetto definito.")
 
 
-    def to_dict(self) -> dict:
-        """Restituisce uno stato serializzabile per session o JSON.
-
-        Returns:
-            dict: Dizionario del materiale serializzato
-        """
-        return {
-            "classe": self.__class__.__name__,
-            "nome": self.nome,
-            "usato": self.usato,
-            "valore": self.valore,
-            "tipo_oggetto": self.tipo_oggetto
-        }
-
-    @classmethod
-    def from_dict(cls, data: dict) -> "Oggetto":
-        """Ricostruisce l’istanza a partire da un dict serializzato.
-
-        Args:
-            data (dict): Dati serializzati
-
-        Returns:
-            Ambiente: Dati deserializzati
-        """
-        oggetto = cls(nome=data["nome"])
-        oggetto.usato = data.get("usato", False)
-        oggetto.valore = data.get("valore", 0)
-        oggetto.tipo_oggetto = data.get("tipo_oggetto", "")
-        return oggetto
+class OggettoSchema(Schema):
+    nome = fields.Str()
+    usato = fields.Bool()
+    valore = fields.Int()
+    tipo_oggetto = fields.Str()
+    classe = fields.Str(required=True)
 
 
+@dataclass
 class PozioneCura(Oggetto):
     """
     Cura il personaggio che la usa di un certo valore
     """
-    def __init__(
-            self,
-            nome: str = "Pozione Rossa",
-            valore: int = 30,
-            tipo_oggetto: str = "Ristorativo"
-            ) -> None:
+    nome: str = "Pozione Rossa"
+
+    def __post_init__(self) -> None:
         """
         Inizializza una pozione di cura
 
@@ -97,7 +64,10 @@ class PozioneCura(Oggetto):
         Returns:
             None
         """
-        super().__init__(nome=nome, valore=valore, tipo_oggetto=tipo_oggetto)
+
+        self.valore = 30
+        self.classe = "PozioneCura"
+        self.tipo_oggetto = "Ristorativo"
 
     def usa(self, mod_ambiente: int = 0) -> int:
         """
@@ -112,37 +82,15 @@ class PozioneCura(Oggetto):
         self.usato = True
         return self.valore + mod_ambiente
 
-    def to_dict(self) -> dict:
-        data = super().to_dict()
-        return data
 
-    @classmethod
-    def from_dict(cls, data: dict) -> "PozioneCura":
-        """Ricostruisce l’istanza a partire da un dict serializzato.
-
-        Args:
-            data (dict): Dati serializzati
-
-        Returns:
-            Ambiente: Dati deserializzati
-        """
-        oggetto = cls(nome=data["nome"])
-        oggetto.usato = data.get("usato", False)
-        oggetto.valore = data.get("valore", 30)
-        oggetto.tipo_oggetto = data.get("tipo_oggetto", "Ristorativo")
-        return oggetto
-
-
+@dataclass
 class BombaAcida(Oggetto):
     """
     Infligge danno pari al valore(Proprietà)
     """
-    def __init__(
-        self,
-        nome: str = "Bomba Acida",
-        valore: int = 30,
-        tipo_oggetto: str = "Offensivo"
-        ) -> None:
+    nome: str = "Bomba Acida"
+
+    def __post_init__(self) -> None:
         """
         Inizializza una bomba acida
 
@@ -153,7 +101,9 @@ class BombaAcida(Oggetto):
         Returns:
             None
         """
-        super().__init__(nome=nome, valore=valore, tipo_oggetto=tipo_oggetto)
+        self.valore = 30
+        self.classe = "BombaAcida"
+        self.tipo_oggetto = "Offensivo"
 
     def usa(self, mod_ambiente: int = 0) -> int:
         """
@@ -170,41 +120,15 @@ class BombaAcida(Oggetto):
         self.usato = True
         return - (self.valore + mod_ambiente)
 
-    def to_dict(self) -> dict:
-        """Restituisce uno stato serializzabile per session o JSON.
 
-        Returns:
-            dict: Dizionario del materiale serializzato
-        """
-        data = super().to_dict()
-        return data
-
-
-    @classmethod
-    def from_dict(cls, data: dict) -> "BombaAcida":
-        """Ricostruisce l’istanza a partire da un dict serializzato.
-
-        Args:
-            data (dict): Dati serializzati
-
-        Returns:
-            Ambiente: Dati deserializzati
-        """
-        oggetto = cls(nome=data["nome"])
-        oggetto.usato = data.get("usato", False)
-        oggetto.valore = data.get("valore", 30)
-        oggetto.tipo_oggetto = data.get("tipo_oggetto", "Offensivo")
-        return oggetto
-
-
+@dataclass
 class Medaglione(Oggetto):
     """
     Incrementa l'attacco_max del personaggio che lo usa
     """
-    def __init__(self,
-                 nome: str = "Medaglione",
-                 valore: int = 10,
-                 tipo_oggetto: str = "Supporto") -> None:
+    nome: str = "Medaglione"
+
+    def __post_init__(self) -> None:
         """
         Inizializza un medaglione
 
@@ -214,7 +138,9 @@ class Medaglione(Oggetto):
         Returns:
             None
         """
-        super().__init__(nome=nome, valore=valore, tipo_oggetto=tipo_oggetto)
+        self.valore = 10
+        self.tipo_oggetto = "Buff"
+        self.classe = "Medaglione"
 
     def usa(self, mod_ambiente: int = 0) -> None:
         """
@@ -229,28 +155,3 @@ class Medaglione(Oggetto):
 
         self.usato = True
         return int(self.valore + mod_ambiente)
-
-    def to_dict(self) -> dict:
-        """Restituisce uno stato serializzabile per session o JSON.
-
-        Returns:
-            dict: Dizionario del materiale serializzato
-        """
-
-        return super().to_dict()
-
-    @classmethod
-    def from_dict(cls, data: dict) -> "Medaglione":
-        """Ricostruisce l’istanza a partire da un dict serializzato.
-
-        Args:
-            data (dict): Dati serializzati
-
-        Returns:
-            Ambiente: Dati deserializzati
-        """
-        oggetto = cls(nome=data["nome"])
-        oggetto.usato = data.get("usato", False)
-        oggetto.valore = data.get("valore", 10)
-        oggetto.tipo_oggetto = data.get("tipo_oggetto", "Supporto")
-        return oggetto

@@ -7,6 +7,8 @@ from gioco.oggetto import BombaAcida, Oggetto, PozioneCura
 from gioco.classi import Guerriero, Ladro, Mago
 from gioco.personaggio import Personaggio
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 @dataclass
 class Ambiente():
@@ -254,7 +256,7 @@ class AmbienteFactory:
             return Palude()
         else:
             logger.info(f"Tipo di ambiente sconosciuto: {scelta}")
-            raise ValueError(msg)
+            raise ValueError(f"Tipo di ambiente sconosciuto: {scelta}")
 
     @staticmethod
     def ambiente_random() -> Ambiente:

@@ -1,6 +1,5 @@
 from collections import defaultdict
 
-from environment import routes as environment_routes
 from . import mission_bp
 from flask import flash, render_template, request, session, \
     redirect, url_for
@@ -118,13 +117,110 @@ def show_mission():
     msg = f"Missione mostrata: {missione.nome}"
     flash(msg, 'info')
     Log.scrivi_log(msg)
-    environment_routes.descrizione()
+    descrizione_ambiente = descrizione()
     return render_template(
         'show_mission.html',
         missione=missione,
         ambiente=ambiente,
-        premi_raggruppati=premi_raggruppati
+        premi_raggruppati=premi_raggruppati,
+        descrizione_ambiente=descrizione_ambiente
     )
+
+
+@staticmethod
+def descrizione():
+    """
+    Il metodo descrive i cambiamenti
+    che l'ambiente apporta ai personaggi e agli oggetti rispetto
+    alle condizioni originali.
+
+    Returns:
+        dict: Un dizionario contenente i valori standard e le modifiche
+              apportate dall'ambiente ai personaggi e agli oggetti.
+    """
+    from gioco.ambiente import Ambiente
+    from gioco.classi import Mago, Ladro, Guerriero
+    from gioco.oggetto import PozioneCura, Medaglione, BombaAcida
+    from copy import deepcopy
+
+    ambiente = session.get('ambiente')
+    # print(f"DEBUG - ambiente: {ambiente}")
+    if isinstance(ambiente, dict):
+        ambiente = Ambiente.from_dict(ambiente)
+    # print(f"DEBUG - ambiente: {ambiente}")
+
+    # Dati base per classi derivate da personaggio
+    # (definite in maniera statica per ridurre la complessità del metodo)
+    classi_data = {
+        'Guerriero': {'att_min': 15, 'att_max': 20, 'cura_base': 30},
+        'Ladro': {'att_min': 5, 'att_max': 5, 'cura_base': 'da 10 a 40'},
+        'Mago': {'att_min': -5, 'att_max': 10, 'cura_base': '20% della salute rimanente'}
+    }
+
+    # Importo dinamico delle classi
+    classi_map = {'Mago': Mago, 'Ladro': Ladro, 'Guerriero': Guerriero}
+    classi = {nome: classi_map[nome]("temp") for nome in classi_data.keys()}
+    oggetti = [PozioneCura(), Medaglione(), BombaAcida()]
+
+    # print(f"DEBUG - classi: {classi}")
+
+    # valori standard
+    val_standard = {}
+    x ={}
+    for nome, classe in classi.items():
+        data = classi_data[nome]
+        x[nome] = {
+            'attacco': {
+                'da': classe.attacco_min + data['att_min'],
+                'a': classe.attacco_max + data['att_max']
+            },
+            'cura': {'recupero salute': str(data['cura_base'])}
+        }
+    val_standard['Chars'] = x
+
+    # Aggiungo i valori degli oggetti al dizionario
+    val_standard['Oggetto'] = {
+        obj.__class__.__name__: {
+            'valore': obj.valore,
+            'tipo_oggetto': obj.tipo_oggetto
+        } for obj in oggetti
+    }
+
+    # (la deepcopy è necessaria per non modificare val_standard)
+    var_amb = deepcopy(val_standard)
+
+    # Calcolo delle modifiche ambiente per i personaggi
+    for nome, classe in classi.items():
+        mod_att = int(ambiente.modifica_attacco(classe))
+        mod_cura = int(ambiente.modifica_cura(classe))
+
+        # print(f"DEBUG - {nome}: attacco={mod_att}, cura={mod_cura}")
+
+        if mod_att != 0:
+            if nome != 'Guerriero':
+                var_amb['Chars'][nome]['attacco']['da'] += mod_att
+            var_amb['Chars'][nome]['attacco']['a'] += mod_att
+
+        if mod_cura != 0:
+            segno = '+' if mod_cura > 0 else '-'
+            cura_str = {
+                'Mago': f"20% (salute rimanente {segno} {abs(mod_cura)})",
+                'Ladro': f"da {10 + mod_cura} a {40 + mod_cura}",
+                'Guerriero': f"{30 + mod_cura}"
+            }
+            var_amb['Chars'][nome]['cura']['recupero salute'] = cura_str[nome]
+
+    # Modifica del campo valore degli oggetti
+    for obj in oggetti:
+        mod_obj = ambiente.modifica_effetto_oggetto(obj)
+        if mod_obj != 0:
+            var_amb['Oggetto'][obj.__class__.__name__]['valore'] += mod_obj
+
+    # Debugging output
+    # print(f"val_standard: {val_standard}")
+    # print(f"var_amb: {var_amb}")
+
+    return {'val_standard': val_standard, 'var_amb': var_amb}
 
 
 @mission_bp.route('/missioni')
