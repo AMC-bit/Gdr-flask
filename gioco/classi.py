@@ -60,13 +60,17 @@ class Mago(Personaggio):
             f" Salute attuale: {self.salute}")
 
 
+@dataclass
 class Guerriero(Personaggio):
     """
     Classe che rappresenta un personaggio guerriero.
     Estende la classe Personaggio, con salute_max di 120, attacco piu potente e
     guarigione post duello fissa di 30 salute
     """
-    def __init__(self, nome: str, npc: bool = False) -> None:
+    salute_max: int = 120
+
+    # il __post_init__ nelle dataclass serve a eseguire delle inizializzazioni aggiuntive
+    def __post_init__(self):
         """
         Inizializza il personaggio Guerriero con salute 120
 
@@ -76,8 +80,7 @@ class Guerriero(Personaggio):
         Returns:
             None
         """
-        super().__init__(nome, npc)
-        self.salute = 120
+        self.salute = self.salute_max
 
     def attacca(self, mod_ambiente: int = 0) -> int:
         """
@@ -95,8 +98,7 @@ class Guerriero(Personaggio):
             self.attacco_min + 15,
             self.attacco_max + mod_ambiente + 20
         )
-        msg = f"{self.nome} colpisce con la spada infliggendo {danno} danni!"
-        logger.info(msg)
+        logger.info(f"{self.nome} colpisce con la spada infliggendo {danno} danni!")
         return danno
 
     def recupera_salute(self, mod_ambiente: int = 0) -> None:
@@ -111,12 +113,11 @@ class Guerriero(Personaggio):
             None
         """
         recupero = 30 + mod_ambiente
-        nuova_salute = min(self.salute + recupero, 120)
+        nuova_salute = min(self.salute + recupero, self.salute_max)
         effettivo = nuova_salute - self.salute
         self.salute = nuova_salute
-        msg = f"{self.nome} si fascia le ferite e recupera {effettivo} HP." \
-            f" Salute attuale: {self.salute}"
-        logger.info(msg)
+        logger.info(f"{self.nome} si fascia le ferite e recupera {effettivo} HP." \
+            f" Salute attuale: {self.salute}")
 
 
 @dataclass
