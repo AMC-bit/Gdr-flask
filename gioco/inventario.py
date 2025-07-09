@@ -1,4 +1,5 @@
 import uuid
+from gioco.basic import Basic
 from gioco.oggetto import Oggetto, OggettoSchema
 from gioco.personaggio import Personaggio
 from gioco.ambiente import Ambiente

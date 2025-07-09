@@ -1,6 +1,6 @@
 import random
 import uuid
-
+from gioco.basic import Basic
 from gioco.personaggio import Personaggio
 from gioco.classi import Mago, Guerriero, Ladro
 from gioco.ambiente import Ambiente, Vulcano, Foresta, Palude
