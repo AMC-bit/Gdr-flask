@@ -69,7 +69,6 @@ class Guerriero(Personaggio):
     """
     salute_max: int = 120
 
-    # il __post_init__ nelle dataclass serve a eseguire delle inizializzazioni aggiuntive
     def __post_init__(self):
         """
         Inizializza il personaggio Guerriero con salute 120
