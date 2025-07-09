@@ -1,53 +1,36 @@
-import random, uuid, json, os
+from dataclasses import dataclass, field
+from typing import Optional
+import random, uuid, json, os, logging
+
+from marshmallow import Schema, fields
 
 from gioco.personaggio import Personaggio
-from gioco.classi import Mago, Guerriero, Ladro
-from gioco.ambiente import Ambiente, Vulcano, Foresta, Palude
-from gioco.oggetto import Oggetto, PozioneCura, BombaAcida, Medaglione
+from gioco.classi import Mago, Guerriero, Ladro, PersonaggioSchema
+from gioco.ambiente import Ambiente, Vulcano, Foresta, Palude, AmbienteSchema
+from gioco.oggetto import Oggetto, PozioneCura, BombaAcida, Medaglione, OggettoSchema
 from gioco.inventario import Inventario
 
-from gioco.strategy import Strategia, StrategiaFactory
+from gioco.strategy import Strategia, StrategiaFactory, StrategiaSchema
 from utils.messaggi import Messaggi
 # from utils.log import Log
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
+@dataclass
 class Missione():
     """
     Si occupa di aggregare istanze di ambiente , nemici e ricompense
     Rappresenta una missione, composta da un ambiente, nemici e premi.
     """
-    def __init__(
-        self,
-        nome: str,
-        ambiente: Ambiente,
-        nemici: list[Personaggio],
-        premi: list[Oggetto],
-        strategia_nemici: Strategia = None,
-        id: uuid.UUID = None
-    ) -> None:
-        """
-    Si occupa di aggregare istanze di ambiente , nemici e ricompense
-    Rappresenta una missione, composta da un ambiente, nemici e premi.
-
-    Args:
-        nome (str): Il nome della missione
-        ambiente (Ambiente) : L'istanza di ambiente necessaria per applicare
-        gli effetti ambientali durante la missione.
-        nemici (list[Personaggio]): Lista di nemici della missione
-        premi (list[Oggetto]): Lista delle ricompense
-
-    Returns:
-        None
-    """
-        # inizializzazione attributi
-        self.id = id if id else uuid.uuid4()
-        self.nome = nome
-        self.ambiente = ambiente  # ereditato dal torneo corrente
-        self.nemici = nemici  # lista dei nemici di tutti i tornei
-        self.premi = premi  # supporta premio singolo o multiplo
-        self.completata = False  # flag per premio in inventario
-        self.attiva = False
-        self.strategia_nemici = strategia_nemici
+    nome: str = ""
+    id: str = field(default_factory=lambda: str(uuid.uuid4()))
+    ambiente: Ambiente = field(default_factory=Ambiente)
+    nemici: list[Personaggio] = field(default_factory=list)
+    premi: list[Oggetto] = field(default_factory=list)
+    strategia_nemici: Optional[Strategia] = None
+    completata: bool = False
+    attiva: bool = False
 
     def get_nemici(self) -> list[Personaggio]:
         """
@@ -73,7 +56,7 @@ class Missione():
         """
         self.nemici.remove(nemico)
         msg = f"{nemico} rimosso dalla lista nemici della missione"
-        Messaggi.add_to_messaggi(msg)
+        logger.info(msg)
         # Log.scrivi_log(msg)
         # Json.scrivi_dati("data/salvataggio.json",
         # Json.applica_patch(self.to_dict()))
@@ -112,13 +95,12 @@ class Missione():
         if len(self.nemici) == 0:
             self.completata = True
             msg = f"Missione '{self.nome}' completata"
-            Messaggi.add_to_messaggi(msg)
-            # Log.scrivi_log(msg)
+            logger.info(msg)
             return True
         return False
 
     # aggiunge premio all'inventario del giocatore se la missione è completata
-    def assegna_premio(self, inventari_giocatori: list[Inventario]) -> None:
+    def assegna_premio(self, inventari_giocatori: list[Inventario], giocatore: str) -> None:
         """
         Mette nell'inventario dei giocatori gli oggetti contenuti nella lista
         dei Premi (Proprietà di Missione) distribuendoli casualmente
@@ -133,53 +115,14 @@ class Missione():
         """
         for premio in self.premi:
             inventario = random.choice(inventari_giocatori)
-            if inventario.proprietario is None:
+            if inventario.id_proprietario is None:
                 msg = "Non è possibile assegnare un premio ad un inventario"
                 msg += "senza un personaggio"
-                Messaggi.add_to_messaggi(msg)
+                logger.warning(msg)
                 raise ValueError(msg)
             inventario._aggiungi(premio)
-            msg = f"Premio {premio.nome} aggiunto all'inventario di {inventario.proprietario.nome                } "
-            Messaggi.add_to_messaggi(msg)
-            # Log.scrivi_log(msg)
-            # dati_da_salvare = [self.to_dict(), inventario.to_dict()]
-            # for dati in dati_da_salvare:
-            #     Json.scrivi_dati("data/salvataggio.json",Json.applica_patch(dati))
-
-    def seleziona_premio(self):
-        """
-        Questo metodo legge il contenuto del file JSON contenente i premi della missione
-        e ne sorteggia uno a caso.
-        """
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        path_file = None
-        
-        if self.nome == "Imboscata":
-            path_file = os.path.join(base_dir, "..", "static", "premijson", "imboscata.json")
-        elif self.nome == "Salva la principessa":
-            path_file = os.path.join(base_dir, "..", "static", "premijson", "principessa.json")
-        elif self.nome == "Sgomina il culto di Graz'zt sul vulcano Gheemir":
-            path_file = os.path.join(base_dir, "..", "static", "premijson", "culto.json")
-
-        with open(path_file, "r", encoding="utf-8") as file:
-            premi_data = json.load(file)
-
-        premio_ottenuto = random.choice(premi_data)
-
-        classi_premi = {
-            "PozioneCura": PozioneCura,
-            "BombaAcida": BombaAcida,
-            "Medaglione": Medaglione
-        }
-
-        nome = premio_ottenuto.get("nome")
-
-        premio_cls = classi_premi[nome]
-        premio_oggetto = premio_cls()
-
-        Messaggi.add_to_messaggi(f"Premio selezionato: {premio_oggetto.nome}")
-        return premio_oggetto
-
+            msg = f"Premio {premio.nome} aggiunto all'inventario di {giocatore} "
+            logger.info(msg)
 
     # QUESTO METODO E' PROVVISORIO
     def check_missione(self, inventari_vincitori: list[Inventario]) -> None:
@@ -426,3 +369,17 @@ class GestoreMissioni():
             for missione in data.get("lista_missioni", [])
         ]
         return gestore
+
+
+class MissioniSchema(Schema):
+    id = fields.UUID(dump_only=True)
+    nome = fields.String(required=True)
+    ambiente = fields.Nested(AmbienteSchema, required=True)
+    nemici = fields.List(fields.Nested(PersonaggioSchema), required= True)
+    premi = fields.List(fields.Nested(OggettoSchema), required= True)
+    strategia = fields.Nested(StrategiaSchema, allow_none=True)
+    completata = fields.Bool()
+    attiva = fields.Bool()
+
+    @post_load
+    def make_Missioni(self, data, **)

@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+import uuid
 from marshmallow import Schema, fields, post_load, validate
 
 
@@ -14,6 +15,7 @@ class Oggetto:
         None
 
     """
+    id: str = field(default_factory=lambda: str(uuid.uuid4()))
     nome: str
     usato: bool = False
     valore: int = 30
@@ -38,11 +40,12 @@ class Oggetto:
 
 
 class OggettoSchema(Schema):
-    nome = fields.Str()
+    classe = fields.Str(required=True)
+    id = fields.UUID(required=True)
+    nome = fields.Str(required=True)
     usato = fields.Bool()
     valore = fields.Int()
     tipo_oggetto = fields.Str()
-    classe = fields.Str(required=True)
 
 
 @dataclass
@@ -51,23 +54,10 @@ class PozioneCura(Oggetto):
     Cura il personaggio che la usa di un certo valore
     """
     nome: str = "Pozione Rossa"
+    valore: int = 30
+    classe: str = "PozioneCura"
+    tipo_oggetto: str = "Ristorativo"
 
-    def __post_init__(self) -> None:
-        """
-        Inizializza una pozione di cura
-
-        Args:
-            nome (str): Nome della pozione
-            valore (int): Valore di cura della pozione
-            tipo_oggetto (str): Tipologia di oggetto
-
-        Returns:
-            None
-        """
-
-        self.valore = 30
-        self.classe = "PozioneCura"
-        self.tipo_oggetto = "Ristorativo"
 
     def usa(self, mod_ambiente: int = 0) -> int:
         """
@@ -80,7 +70,8 @@ class PozioneCura(Oggetto):
             int: Valore di cura della pozione
         """
         self.usato = True
-        return self.valore + mod_ambiente
+        cura = self.valore + mod_ambiente
+        return cura
 
 
 @dataclass
@@ -89,21 +80,9 @@ class BombaAcida(Oggetto):
     Infligge danno pari al valore(Proprietà)
     """
     nome: str = "Bomba Acida"
-
-    def __post_init__(self) -> None:
-        """
-        Inizializza una bomba acida
-
-        Args:
-            nome (str): Nome della bomba
-            danno (int): Danno inflitto dalla bomba (dafault: 30)
-
-        Returns:
-            None
-        """
-        self.valore = 30
-        self.classe = "BombaAcida"
-        self.tipo_oggetto = "Offensivo"
+    valore: int = 30
+    classe: str = "BombaAcida"
+    tipo_oggetto: str = "Offensivo"
 
     def usa(self, mod_ambiente: int = 0) -> int:
         """
@@ -118,7 +97,8 @@ class BombaAcida(Oggetto):
             int: Danno inflitto dalla bomba
         """
         self.usato = True
-        return - (self.valore + mod_ambiente)
+        danno = - (self.valore + mod_ambiente)
+        return danno
 
 
 @dataclass
@@ -127,20 +107,9 @@ class Medaglione(Oggetto):
     Incrementa l'attacco_max del personaggio che lo usa
     """
     nome: str = "Medaglione"
-
-    def __post_init__(self) -> None:
-        """
-        Inizializza un medaglione
-
-        Args:
-            None
-
-        Returns:
-            None
-        """
-        self.valore = 10
-        self.tipo_oggetto = "Buff"
-        self.classe = "Medaglione"
+    valore: int = 10
+    tipo_oggetto: str = "Buff"
+    classe:str = "Medaglione"
 
     def usa(self, mod_ambiente: int = 0) -> None:
         """
@@ -154,4 +123,5 @@ class Medaglione(Oggetto):
         """
 
         self.usato = True
-        return int(self.valore + mod_ambiente)
+        mod = int(self.valore + mod_ambiente)
+        return mod

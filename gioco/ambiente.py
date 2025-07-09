@@ -1,4 +1,5 @@
 import random
+from typing import Dict
 import uuid
 import logging
 from dataclasses import dataclass, field
@@ -38,9 +39,22 @@ class Ambiente():
         return {
             "classe": self.__class__.__name__,
             "nome": self.nome,
-            "modifica_attacco": self.modifica_attacco,
-            "modifica_cura": self.modifica_cura
+            "modifica_attacco": self.mod_attacco,
+            "modifica_cura": self.mod_cura
         }
+
+    @classmethod
+    def from_dict(cls, data:dict) -> Ambiente:
+        """ricrea il classe corretta in base al campo "classe"
+
+        Args:
+            data (dict): 
+
+        Returns:
+            Ambiente: 
+        """
+        nome = data.get("classe", "")
+        return AmbienteFactory.usa_ambiente(nome)
 
 
 @dataclass
@@ -98,7 +112,7 @@ class Foresta(Ambiente):
             int: L'aumento della cura se il soggetto è un ladro, altrimenti 0
         """
         if isinstance(soggetto, Ladro):
-            return self.mod_cura
+            return int(self.mod_cura)
         return 0
 
 @dataclass
@@ -167,7 +181,7 @@ class Vulcano(Ambiente):
             int: L'aumento della cura se il soggetto è un ladro, altrimenti 0
 
         """
-        return self.mod_cura
+        return int(self.mod_cura)
 
 @dataclass
 class Palude(Ambiente):
@@ -209,7 +223,7 @@ class Palude(Ambiente):
         """
         if isinstance(oggetto, PozioneCura):
             riduzione = int(oggetto.valore * self.mod_cura)
-            logger.info("Nella {self.nome}, la Pozione Cura ha effetto ridotto di" \
+            logger.info(f"Nella {self.nome}, la Pozione Cura ha effetto ridotto di" \
                 f"{riduzione} punti!")
             return -riduzione
         return 0
@@ -226,7 +240,7 @@ class AmbienteFactory:
     manualmente.
     """
     @staticmethod
-    def get_opzioni() -> dict[str, Ambiente]:
+    def get_opzioni() -> Dict[str, Ambiente]:
         return {
             "1": Foresta(),
             "2": Vulcano(),
@@ -247,16 +261,15 @@ class AmbienteFactory:
             ambiente: Un'istanza della sottoclasse selezionata di Ambiente, o
             Foresta come default.
         """
-        scelta = str(scelta).strip().lower()
-        if scelta == ("foresta" or "1"):
-            return Foresta()
-        elif scelta == ("vulcano" or "2"):
-            return Vulcano()
-        elif scelta == ("palude" or "3"):
-            return Palude()
-        else:
-            logger.info(f"Tipo di ambiente sconosciuto: {scelta}")
-            raise ValueError(f"Tipo di ambiente sconosciuto: {scelta}")
+        mapping = AmbienteFactory.get_opzioni()
+        scelta =scelta.strip().lower()
+        if scelta in mapping:
+            env = mapping[scelta]
+            logger.info(f"selezionato ambiente {env.nome}")
+            return env
+        # fallback
+        logger.warning(f"scelta ambiente sconosciuta: {scelta}, uso foresta")
+        return Foresta()
 
     @staticmethod
     def ambiente_random() -> Ambiente:
@@ -270,7 +283,16 @@ class AmbienteFactory:
             ambiente: Un'istanza di una sottoclasse di Ambiente scelta
             casualmente (Foresta, Vulcano o Palude).
         """
-        random_choice = random.choice(["1", "2", "3"])
-        ambiente = AmbienteFactory.usa_ambiente(random_choice)
-        logger.info(f"Ambiente Casuale Selezionato: {ambiente.nome}")
-        return ambiente
+        random_choice = random.choice(
+            list(AmbienteFactory.get_opzioni().values())
+        )
+        logger.info(f"Ambiente Casuale Selezionato: {random_choice}")
+        return random_choice
+
+
+class AmbienteSchema(Schema):
+    classe = fields.String(required=True)
+    nome = fields.String(required=True)
+    mod_attacco = fields.Integer()
+    mod_cura = fields.Float()
+    
