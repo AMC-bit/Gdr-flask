@@ -6,13 +6,17 @@ from marshmallow import Schema, fields, post_load, validate
 
 
 class PersonaggioSchema(Schema):
-    id = fields.Str(dump_only=True)
+    id = fields.Str()
     nome = fields.Str(required=True, validate=validate.Length(min=4))
     classe = fields.Str(required=True)
-    salute = fields.Int(required=True, validate=validate.Range(min=-1, max=120))
+    salute = fields.Int(required=True, validate=validate.Range(min=-1, max=1000))
+    salute_max = fields.Int(required=True, validate=validate.Range(min=-1, max=1000))
+    attacco_min = fields.Int(required=True, validate=validate.Range(min=-1, max=1000))
+    attacco_max = fields.Int(required=True, validate=validate.Range(min=-1, max=1000))
     livello = fields.Int(required=True, validate=validate.Range(min=0))
     destrezza = fields.Int(required=True, validate=validate.Range(min=0))
     storico_danni_subiti = fields.List(fields.Int())
+
 
 logger = logging.getLogger(__name__)
 # - Ogni logger del logging ha un livello di soglia ed i messaggi vengono

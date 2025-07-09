@@ -122,13 +122,6 @@ def create_char():
         db.session.commit()
         Log.scrivi_log(f"Creato personaggio: {pg.nome}, Classe: {classe_sel}, id: {pg.id}, Oggetto iniziale: {oggetto_sel}")
 
-        if pg.classe not in classi:
-            flash("Dati(Classe) non validi", "danger")
-            return redirect(url_for('characters.create_char'))
-        elif pg.id not in pg_list:
-            flash("Dati(ID) non validi", "danger")
-            return redirect(url_for('characters.create_char'))
-
         return redirect(url_for('characters.mostra_personaggi'))
 
     return render_template(
@@ -178,6 +171,7 @@ def edit_char(char_id):
         pg['nome'] = nuovo_nome
         pg['classe'] = nuova_classe
 
+        print("PERSONAGGIO: ", pg)
         pg_obj = schema.load(pg)
         CharSingleJson(pg_obj)
 
