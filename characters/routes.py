@@ -167,11 +167,11 @@ def edit_char(char_id):
         # otteniamo i valori dal form
         nuovo_nome = request.form['nome'].strip()
         nuova_classe = request.form['classe']
-        # ricreiamo istanza di personaggio con dati aggiornati
-        pg_dict['nome'] = nuovo_nome
-        pg_dict['classe'] = nuova_classe
 
-        pg_obj = schema.load(pg_dict)
+        id = pg_dict['id']
+        pg_obj = classi[nuova_classe](nome=nuovo_nome)
+        pg_obj.id = id  # Assicuriamoci che l'ID rimanga lo stesso
+
         pg_dict = schema.dump(pg_obj)
         CharSingleJson(pg_dict)
 
@@ -298,7 +298,7 @@ def elimina_personaggio(id):
         flash("Personaggio eliminato con successo!", "success")
 
     except IndexError:
-        Log.scrivi_log(f"Errore durante eliminazione: ID inesistente {pg.get('id')}")
+        Log.scrivi_log(f"Errore durante eliminazione: ID inesistente {id}")
         abort(404)
     return redirect(url_for('characters.mostra_personaggi'))
 

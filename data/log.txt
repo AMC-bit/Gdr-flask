@@ -512,3 +512,6 @@
 2025-07-07 10:54:27 - temp perde <bound method Vulcano.modifica_attacco of <gioco.ambiente.Vulcano object at 0x000002413C85A780>>attacco nel Vulcano!
 2025-07-07 10:54:27 - temp guadagna <bound method Vulcano.modifica_attacco of <gioco.ambiente.Vulcano object at 0x000002413C85A780>>attacco nel Vulcano!
 2025-07-07 10:54:27 - Nella Vulcano, la Bomba Acida guadagna 9 danni!
+2025-07-09 11:08:12 - Errore durante eliminazione: ID inesistente 1
+2025-07-09 11:24:28 - Errore durante eliminazione: ID inesistente 0
+2025-07-09 11:26:11 - Inventario di Konradselezionato via GET.

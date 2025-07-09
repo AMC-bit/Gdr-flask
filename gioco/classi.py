@@ -71,13 +71,13 @@ class Guerriero(Personaggio):
     guarigione post duello fissa di 30 salute
     """
 
-    salute_max: int = 120
+    salute_max: int = 130
     attacco_min: int = 20
     attacco_max: int = 100
 
-    def __post__init__(self):
-        super().__post_init__()
+    def __post_init__(self):
         self.salute = self.salute_max
+        self.classe = self.__class__.__name__
 
     def attacca(self, mod_ambiente: int = 0) -> int:
         """
@@ -137,7 +137,7 @@ class Ladro(Personaggio):
         Imposta salute_max a 140 e attacco_min e attacco_max a valori specifici.
 
         """
-        self.classe = "Ladro"
+        self.classe = self.__class__.__name__
         self.salute = self.salute_max
 
     def attacca(self, mod_ambiente: int = 0) -> int:
