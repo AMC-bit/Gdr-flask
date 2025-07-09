@@ -23,7 +23,6 @@ class Mago(Personaggio):
     # - Il '__post_init__' nelle dataclass serve a eseguire delle
     # inizializzazioni aggiuntive
     def __post_init__(self):
-        super().__post_init__()
         self.classe = "Mago"
         self.salute = self.salute_max
 
@@ -74,7 +73,6 @@ class Guerriero(Personaggio):
     attacco_max: int = 100
 
     def __post_init__(self):
-        super().__post_init__()
         self.classe = "Guerriero"
         self.salute = self.salute_max
 
@@ -135,7 +133,6 @@ class Ladro(Personaggio):
         Imposta salute_max a 140 e attacco_min e attacco_max a valori specifici.
 
         """
-        super().__post_init__()
         self.classe = "Ladro"
         self.salute = self.salute_max
 
