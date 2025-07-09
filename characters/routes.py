@@ -309,8 +309,8 @@ def inizio_combattimento():
     personaggi_utente = [p for p in lista_pers if p['id'] in (current_user.character_ids or [])]
 
     if request.method == 'POST':
-        id_1 = int(request.form['pg1'])
-        id_2 = int(request.form['pg2'])
+        id_1 = request.form['pg1']
+        id_2 = request.form['pg2']
 
         pg1_dict = next((p for p in personaggi_utente if p['id'] == id_1), None)
         pg2_dict = next((p for p in personaggi_utente if p['id'] == id_2), None)
@@ -324,39 +324,44 @@ def inizio_combattimento():
         pg2 = schema.load(pg2_dict)
 
         log_combattimento = []
+        turno = 1
 
         while pg1.salute > 0 and pg2.salute > 0:
             log_combattimento.append(f"Turno {turno}:")
 
-            danno1 = pg1.attacca()
-            pg2.subisci_danno(danno1)
-            log_combattimento.append(f"{pg1.nome} infligge {danno1} danni a {pg2.nome} (Salute residua: {pg2.salute})")
-
+            successo = pg1.esegui_azione()
+            if successo:
+                danno1 = pg1.attacca()
+                pg2.subisci_danno(danno1)
+                log_combattimento.append(f"{pg1.nome} infligge {danno1} danni a {pg2.nome} (Salute residua: {pg2.salute})")
+            else:
+                log_combattimento.append(f"{pg1.nome} ha fallito l'attacco!")
             if pg2.salute <= 0:
                 break
 
-            danno2 = pg2.attacca()
-            pg1.subisci_danno(danno2)
-            log_combattimento.append(f"{pg2.nome} infligge {danno2} danni a {pg1.nome} (Salute residua: {pg1.salute})")
-
+            successo = pg2.esegui_azione()
+            if successo:
+                danno2 = pg2.attacca()
+                pg1.subisci_danno(danno2)
+                log_combattimento.append(f"{pg2.nome} infligge {danno2} danni a {pg1.nome} (Salute residua: {pg1.salute})")
+            else:
+                log_combattimento.append(f"{pg2.nome} ha fallito l'attacco!")
             turno += 1
 
-        if pg1.salute > pg2.salute:
+        if 0 >= pg2.salute:
             risultato = f"Vittoria di {pg1.nome}!"
-        elif pg2.salute > pg1.salute:
+        elif 0 >= pg1.salute:
             risultato = f"Vittoria di {pg2.nome}!"
-        else:
-            risultato = "Pareggio!"
 
         log_combattimento.append(f"Risultato finale: {risultato}")
         Log.scrivi_log(f"Combattimento terminato - {risultato}")
 
         return render_template(
-            'test_battle.html',
+            'combattimento.html',
             pg1=pg1,
             pg2=pg2,
             risultato=risultato,
             log_combattimento=log_combattimento
         )
 
-    return render_template('test_battle.html', personaggi=personaggi_utente)
+    return render_template('combattimento.html', personaggi=personaggi_utente)
