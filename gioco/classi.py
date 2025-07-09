@@ -1,27 +1,30 @@
 import random
-from utils.log import Log
-from utils.messaggi import Messaggi
+import uuid
+import logging
+from typing import List
+from dataclasses import dataclass, field
+from marshmallow import Schema, fields, post_load, validate
 from gioco.personaggio import Personaggio
 
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+
+@dataclass
 class Mago(Personaggio):
     """
     Classe che rappresenta un personaggio mago.
     Estende la classe personaggio con attacco diminuito e recupero
     di salute personalizzato
     """
-    def __init__(self, nome: str, npc: bool = False) -> None:
-        """
-        Inizializza il personaggio Mago con salute 80
+    salute_max: int = 80
 
-        Args:
-            nome (str): nome del personaggio
-
-        Returns:
-            None
-        """
-        super().__init__(nome, npc)
-        self.salute = 80
+    # - Il '__post_init__' nelle dataclass serve a eseguire delle
+    # inizializzazioni aggiuntive
+    def __post_init__(self):
+        self.classe = "Mago"
+        self.salute = self.salute_max
 
     def attacca(self, mod_ambiente: int = 0) -> None:
         """
@@ -37,9 +40,7 @@ class Mago(Personaggio):
         """
         danno = random.randint(self.attacco_min - 5, self.attacco_max + 10)
         danno += mod_ambiente
-        msg = f"{self.nome} lancia un incantesimo infliggendo {danno} danni!"
-        Messaggi.add_to_messaggi(msg)
-        Log.scrivi_log(msg)
+        logger.info(f"{self.nome} lancia un incantesimo infliggendo {danno} danni!")
         return danno
 
     def recupera_salute(self, mod_ambiente: int = 0) -> None:
@@ -57,10 +58,8 @@ class Mago(Personaggio):
         nuova_salute = min(self.salute + recupero, 80)
         effettivo = nuova_salute - self.salute
         self.salute = nuova_salute
-        msg = f"{self.nome} medita e recupera {effettivo} HP." \
-            f" Salute attuale: {self.salute}"
-        Messaggi.add_to_messaggi(msg)
-        Log.scrivi_log(msg)
+        logger.info(f"{self.nome} medita e recupera {effettivo} HP." \
+            f" Salute attuale: {self.salute}")
 
 
 class Guerriero(Personaggio):

@@ -1,25 +1,22 @@
 import random
+import uuid
+import logging
+from dataclasses import dataclass, field
+from marshmallow import Schema, fields, post_load
 from gioco.oggetto import BombaAcida, Oggetto, PozioneCura
 from gioco.classi import Guerriero, Ladro, Mago
 from gioco.personaggio import Personaggio
-from utils.log import Log
-from utils.messaggi import Messaggi
 
 
+@dataclass
 class Ambiente():
     """
     E responsabile alla gestione di variabili  globali dovuti all'ambiente
     interagisce con le classi Personaggio e Oggetto
     """
-    def __init__(
-        self,
-        nome: str,
-        modifica_attacco: int = 0,
-        modifica_cura: float = 0
-    ):
-        self.nome = nome
-        self.mod_attacco = modifica_attacco
-        self.mod_cura = modifica_cura
+    nome: str
+    mod_attacco: int = 0
+    mod_cura: float = 0.0
 
     def modifica_attacco(self, attaccante: Personaggio) -> int:
         raise NotImplementedError
@@ -43,40 +40,17 @@ class Ambiente():
             "modifica_cura": self.modifica_cura
         }
 
-    @classmethod
-    def from_dict(cls, data: dict) -> "Ambiente":
-        """
-        Ricostruisce un'istanza di Ambiente o di una sua sottoclasse a partire
-        da un dizionario serializzato.
 
-        Utilizza il valore associato alla chiave "classe" per determinare
-        quale sottoclasse
-        di Ambiente istanziare. Se la classe non è riconosciuta, restituisce
-        un'istanza di Foresta come default.
-
-        Args:
-            data (dict): Dizionario contenente i dati serializzati
-            dell'ambiente.
-                Deve contenere almeno la chiave "classe" con il nome della
-                sottoclasse.
-
-        Returns:
-            Ambiente: Un'istanza della sottoclasse di Ambiente indicata nel
-            dizionario.
-        """
-        classe_nome = data.get("classe", "Foresta")
-        ambiente_cls = globals().get(classe_nome, Foresta)
-        return ambiente_cls()
-
-
+@dataclass
 class Foresta(Ambiente):
     """
     La classe Foresta eredita da Ambiente e rappresenta un ambiente specifico
     con modifiche agli attacchi dei guerrieri e alla cura a fine turno per i
     ladri.
     """
-    def __init__(self):
-        super().__init__(nome="Foresta", modifica_attacco=5, modifica_cura=5)
+    nome: str = "Foresta"
+    mod_attacco: int = 5
+    mod_cura: float = 5.0
 
     def modifica_attacco(self, attaccante: Personaggio) -> int:
         """
@@ -92,10 +66,8 @@ class Foresta(Ambiente):
             l'attaccante non è un guerriero
         """
         if isinstance(attaccante, Guerriero):
-            msg = f"{attaccante.nome} guadagna {self.modifica_attacco}" \
-                f"attacco nella Foresta!"
-            Messaggi.add_to_messaggi(msg)
-            Log.scrivi_log(msg)
+            logger.info(f"{attaccante.nome} guadagna {self.modifica_attacco}" \
+                f"attacco nella Foresta!")
             return self.mod_attacco
         return 0
 
@@ -127,15 +99,16 @@ class Foresta(Ambiente):
             return self.mod_cura
         return 0
 
-
+@dataclass
 class Vulcano(Ambiente):
     """
     La classe Vulcano eredita da Ambiente e rappresenta un ambiente specifico
     con modifiche agli attacchi dei maghi e dei ladri, un incremento random dei
     danni delle bombe acide e alla cura a fine turno per tutti.
     """
-    def __init__(self):
-        super().__init__(nome="Vulcano", modifica_attacco=10, modifica_cura=-5)
+    nome: str = "Vulcano"
+    mod_attacco: int = 10
+    mod_cura: float = -5.0
 
     def modifica_attacco(self, attaccante: Personaggio) -> int:
         """
@@ -153,16 +126,12 @@ class Vulcano(Ambiente):
         """
 
         if isinstance(attaccante, Mago):
-            msg = f"{attaccante.nome} guadagna {self.modifica_attacco}" \
-                "attacco nel Vulcano!"
-            Messaggi.add_to_messaggi(msg)
-            Log.scrivi_log(msg)
+            logger.info(f"{attaccante.nome} guadagna {self.modifica_attacco}" \
+                "attacco nel Vulcano!")
             return self.mod_attacco
         elif isinstance(attaccante, Ladro):
-            msg = f"{attaccante.nome} perde {self.modifica_attacco}" \
-                "attacco nel Vulcano!"
-            Messaggi.add_to_messaggi(msg)
-            Log.scrivi_log(msg)
+            logger.info(f"{attaccante.nome} perde {self.modifica_attacco}" \
+                "attacco nel Vulcano!")
             return -self.mod_attacco
         return 0
 
@@ -179,10 +148,8 @@ class Vulcano(Ambiente):
         """
         if isinstance(oggetto, BombaAcida):
             variazione = random.randint(0, 15)
-            msg = f"Nella {self.nome}, la Bomba Acida guadagna {variazione}" \
-                f" danni!"
-            Messaggi.add_to_messaggi(msg)
-            Log.scrivi_log(msg)
+            logger.info(f"Nella {self.nome}, la Bomba Acida guadagna {variazione}" \
+                f" danni!")
             return variazione
         return 0
 
@@ -200,15 +167,16 @@ class Vulcano(Ambiente):
         """
         return self.mod_cura
 
-
+@dataclass
 class Palude(Ambiente):
     """
     La classe Palude eredita da Ambiente e rappresenta un ambiente specifico
     con un decremento agli attacchi dei ladri e dei guerrieri, e alle cure
     delle pozioni
     """
-    def __init__(self):
-        super().__init__(nome="Palude", modifica_attacco=-5, modifica_cura=0.3)
+    nome: str = "Palude"
+    mod_attacco: int = -5
+    mod_cura: float = 0.3
 
     def modifica_attacco(self, attaccante: Personaggio) -> int:
         """
@@ -223,10 +191,8 @@ class Palude(Ambiente):
             int: La diminuzione dell'attacco massimo
         """
         if isinstance(attaccante, (Guerriero, Ladro)):
-            msg = f"{attaccante.nome} perde {-self.mod_attacco} " \
-                "attacco nella Palude!"
-            Messaggi.add_to_messaggi(msg)
-            Log.scrivi_log(msg)
+            logger.info(f"{attaccante.nome} perde {-self.mod_attacco} " \
+                "attacco nella Palude!")
             return self.mod_attacco
         return 0
 
@@ -241,10 +207,8 @@ class Palude(Ambiente):
         """
         if isinstance(oggetto, PozioneCura):
             riduzione = int(oggetto.valore * self.mod_cura)
-            msg = f"Nella {self.nome}, la Pozione Cura ha effetto ridotto di" \
-                f"{riduzione} punti!"
-            Messaggi.add_to_messaggi(msg)
-            Log.scrivi_log(msg)
+            logger.info("Nella {self.nome}, la Pozione Cura ha effetto ridotto di" \
+                f"{riduzione} punti!")
             return -riduzione
         return 0
 
@@ -289,8 +253,7 @@ class AmbienteFactory:
         elif scelta == ("palude" or "3"):
             return Palude()
         else:
-            msg = f"Tipo di ambiente sconosciuto: {scelta}"
-            Log.scrivi_log(msg)
+            logger.info(f"Tipo di ambiente sconosciuto: {scelta}")
             raise ValueError(msg)
 
     @staticmethod
@@ -307,7 +270,5 @@ class AmbienteFactory:
         """
         random_choice = random.choice(["1", "2", "3"])
         ambiente = AmbienteFactory.usa_ambiente(random_choice)
-        msg = f"Ambiente Casuale Selezionato: {ambiente.nome}"
-        Messaggi.add_to_messaggi(msg)
-        Log.scrivi_log(msg)
+        logger.info(f"Ambiente Casuale Selezionato: {ambiente.nome}")
         return ambiente

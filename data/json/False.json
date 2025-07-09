@@ -1,0 +1,9 @@
+{
+    "id": "False",
+    "nome": "maxim",
+    "classe": "Ladro",
+    "salute": 140,
+    "livello": 1,
+    "destrezza": 15,
+    "storico_danni_subiti": []
+}
