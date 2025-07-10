@@ -29,7 +29,7 @@ class Personaggio():
     storico_danni_subiti: list[int] = field(default_factory=list)
     livello: int = 1
     destrezza: int = 15
-    classe: str = field(init=False)
+    classe: str = ""
     """
         in una @dataclass i campi possono avere un dato di default oppure
         possono avere dei dati calcolati al momento della creazione
@@ -42,12 +42,6 @@ class Personaggio():
         Evita il problema di valori mutabili di default condivisi tra tutte
         le istanze (come succederebbe con una lista definita direttamente)
     """
-    def __post_init__(self):
-        """
-        Metodo chiamato automaticamente dopo la creazione dell'istanza.
-        Imposta il nome della classe come valore del campo 'classe'.
-        """
-        self.classe = self.__class__.__name__
 
     # def __init__(self, nome: str, npc: bool = True) -> None:
         # self.id = str(uuid.uuid4())

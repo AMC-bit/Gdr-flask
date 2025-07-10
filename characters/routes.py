@@ -1,11 +1,9 @@
 import os, json, logging
-from dataclasses import dataclass, field
-from marshmallow import Schema, fields, post_load
 from . import characters_bp
 from flask import render_template, request, redirect, url_for, session, abort, flash
 from gioco.personaggio import Personaggio
 from gioco.oggetto import Oggetto
-from gioco.classi import PersonaggioSchema
+from gioco.schemas.personaggio import PersonaggioSchema
 from gioco.inventario import Inventario
 from utils.log import Log
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin

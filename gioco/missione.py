@@ -9,6 +9,7 @@ from gioco.classi import Mago, Guerriero, Ladro, PersonaggioSchema
 from gioco.ambiente import Ambiente, Vulcano, Foresta, Palude, AmbienteSchema
 from gioco.oggetto import Oggetto, PozioneCura, BombaAcida, Medaglione, OggettoSchema
 from gioco.inventario import Inventario
+from gioco.schemas.personaggio import PersonaggioSchema
 
 from gioco.strategy import Strategia, StrategiaFactory, StrategiaSchema
 
@@ -34,6 +35,7 @@ class Missione():
 
     def get_nemici(self) -> list[Personaggio]:
         """
+        Il metodo deve cercare su static
         Metodo get per ottenere la lista di nemici dentro missione
 
         Args:
@@ -233,7 +235,6 @@ class GestoreMissioni():
             premi=[PozioneCura(), PozioneCura(), BombaAcida()],
             strategia_nemici= StrategiaFactory.usa_strategia("equilibrata")
         )
-        imboscata.premi = [imboscata.seleziona_premio()]
 
         salva_principessa = Missione(
             nome="Salva la principessa",
@@ -243,7 +244,6 @@ class GestoreMissioni():
 
             strategia_nemici= StrategiaFactory.usa_strategia("difensiva")
         )
-        # salva_principessa.premi = [salva_principessa.seleziona_premio()]
 
         culto = Missione(
             nome="Sgomina il culto di Graz'zt sul vulcano Gheemir",
@@ -256,7 +256,6 @@ class GestoreMissioni():
             premi=[PozioneCura(), Medaglione()],
             strategia_nemici= StrategiaFactory.usa_strategia("aggressiva")
         )
-        # culto.premi = [culto.assegna_premio()]
 
         return [imboscata, salva_principessa, culto]
 
@@ -272,11 +271,9 @@ class GestoreMissioni():
         """
         msg = ("Missioni disponibili:")
         logger.info(msg)
-        # Log.scrivi_log(msg)
         for missione in self.lista_missioni:
             msg = f"-{missione.nome}"
-            # self.messaggi.add_to_messaggi(msg)
-            # Log.scrivi_log(msg)
+            logger.info(msg)
 
     def finita(self) -> bool:
         """
@@ -298,10 +295,7 @@ class GestoreMissioni():
             if esito:
                 missione.attiva = False
                 msg = f"Missione : {missione.nome} completata"
-                Messaggi.add_to_messaggi(msg)
-                # Log.scrivi_log(msg)
-        # Json.scrivi_dati("data/salvataggio.json",
-        # Json.applica_patch(self.to_dict()))
+                logger.info(msg)
         return esito
 
     def sorteggia(self) -> Missione | None:
@@ -330,7 +324,7 @@ class GestoreMissioni():
             raise ValueError(msg)
         except ValueError as e:
             msg = f"Errore: {e}"
-            Messaggi.add_to_messaggi(msg)
+            logger(msg)
             # Log.scrivi_log(msg)
             return None
 
