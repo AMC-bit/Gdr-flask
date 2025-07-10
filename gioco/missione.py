@@ -1,7 +1,7 @@
 import random
 import uuid
 import json
-import os 
+import os
 from gioco.basic import Basic
 from gioco.personaggio import Personaggio
 from gioco.classi import Mago, Guerriero, Ladro
