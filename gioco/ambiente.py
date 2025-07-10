@@ -115,6 +115,7 @@ class Foresta(Ambiente):
             return int(self.mod_cura)
         return 0
 
+
 @dataclass
 class Vulcano(Ambiente):
     """
@@ -182,6 +183,8 @@ class Vulcano(Ambiente):
 
         """
         return int(self.mod_cura)
+
+
 
 @dataclass
 class Palude(Ambiente):

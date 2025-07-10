@@ -6,7 +6,7 @@ from marshmallow import Schema, fields, post_load
 
 from gioco.personaggio import Personaggio
 from gioco.classi import Mago, Guerriero, Ladro, PersonaggioSchema
-from gioco.ambiente import Ambiente, Vulcano, Foresta, Palude, AmbienteSchema
+from gioco.ambiente import Ambiente, AmbienteFactory, Vulcano, Foresta, Palude, AmbienteSchema
 from gioco.oggetto import Oggetto, PozioneCura, BombaAcida, Medaglione, OggettoSchema
 from gioco.inventario import Inventario
 from gioco.schemas.personaggio import PersonaggioSchema
@@ -220,44 +220,62 @@ class GestoreMissioni():
         """
         Istanzio le Missioni da fornire al GestoreMissioni,
         viene chiamato nel costruttore di GestoreMissioni
-
+        cerca dentro alla cartella static le missioni
+        e le istanzia in una lista di oggetti Missione
         Args:
             None
 
         Returns:
             list[Missione]: Ritorna una lista di istanze di classe Missione
         """
+
         # Istanzio le missioni
-        imboscata = Missione(
-            nome="Imboscata",
-            ambiente=Foresta(),
-            nemici=[Guerriero("Robin Hood"), Guerriero("Little Jhon")],
-            premi=[PozioneCura(), PozioneCura(), BombaAcida()],
-            strategia_nemici= StrategiaFactory.usa_strategia("equilibrata")
-        )
+        # cerco dentro a static/mission ogni file json avrà lo stesso nome della missione,
+        # il nome della sottoclasse di ambiente, il nome della sottoclasse della strategia
+        # e la lista dei nemici e dei premi
+        lista =[]
+        routes = "static\mission\Imboscata"
+        for files in os.listdir(routes):
+            if files.endswith(".json"):
+                with open(os.path.join(routes, files), 'r') as file:
+                    data = json.load(file)
+                    missione = Missione()
+                    missione.nome = data["nome"]
+                    missione.ambiente = AmbienteFactory.usa_ambiente(data["ambiente"])
+                    missione.nemici =[]
+                    for nemico in data["nemici"]:
+                        # Uso PersonaggioSchema per caricare i nemici
+                        # e creare le istanze corrette
+                        if "classe" in nemico:
+                            nemico = PersonaggioSchema().load(nemico)
+                            missione.nemici.append(nemico)
+                    missione.premi = [PozioneCura(), PozioneCura(), Medaglione()]
+                    lista.append(missione)
+        return lista
 
-        salva_principessa = Missione(
-            nome="Salva la principessa",
-            ambiente=Palude(),
-            nemici=[Ladro("Megera furfante")],
-            premi=[Medaglione()],
+        # salva_principessa = Missione(
+        #     nome="Salva la principessa",
+        #     ambiente=Palude(),
+        #     nemici=[Ladro("Megera furfante")],
+        #     premi=[Medaglione()],
 
-            strategia_nemici= StrategiaFactory.usa_strategia("difensiva")
-        )
+        #     strategia_nemici= StrategiaFactory.usa_strategia("difensiva")
+        # )
+        # print (f"{salva_principessa.to_dict}")
 
-        culto = Missione(
-            nome="Sgomina il culto di Graz'zt sul vulcano Gheemir",
-            ambiente=Vulcano(),
-            nemici=[
-                Mago("Cultista 1"),
-                Mago("Cultista 2"),
-                Mago("Cultista 3")
-            ],
-            premi=[PozioneCura(), Medaglione()],
-            strategia_nemici= StrategiaFactory.usa_strategia("aggressiva")
-        )
+        # culto = Missione(
+        #     nome="Sgomina il culto di Graz'zt sul vulcano Gheemir",
+        #     ambiente=Vulcano(),
+        #     nemici=[
+        #         Mago("Cultista 1"),
+        #         Mago("Cultista 2"),
+        #         Mago("Cultista 3")
+        #     ],
+        #     premi=[PozioneCura(), Medaglione()],
+        #     strategia_nemici= StrategiaFactory.usa_strategia("aggressiva")
+        # )
 
-        return [imboscata, salva_principessa, culto]
+        # return [imboscata, salva_principessa, culto]
 
     def mostra(self) -> None:
         """

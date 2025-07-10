@@ -1,4 +1,3 @@
-
 from marshmallow import Schema, fields, post_load
 import uuid
 
@@ -12,6 +11,7 @@ def get_all_subclasses(cls):
         # subclasses.update(get_all_subclasses(subclass))
         # nel caso di sottoclassi indirette
     return subclasses
+
 
 
 class PersonaggioSchema(Schema):
@@ -41,7 +41,6 @@ class PersonaggioSchema(Schema):
         }
         classe_nome = data.get("classe")
         personaggio_cls = classe_map.get(classe_nome, Personaggio)
-        personaggio_cls.classe = classe_nome
         return personaggio_cls(**data)
 
 
@@ -58,6 +57,7 @@ class LadroSchema(PersonaggioSchema):
     Estende PersonaggioSchema e aggiunge il campo 'destrezza'.
     """
     pass
+
 
 class GuerrieroSchema(PersonaggioSchema):
     """
