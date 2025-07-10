@@ -16,14 +16,10 @@ class Mago(Personaggio):
     di salute personalizzato
     """
     salute_max: int = 80
-
+    salute: int = salute_max
     attacco_min: int = 0
     attacco_max: int = 90
 
-    def __post_init__(self):
-
-        super().__post_init__()
-        self.salute = self.salute_max
 
     def attacca(self, mod_ambiente: int = 0) -> None:
         """
@@ -72,12 +68,9 @@ class Guerriero(Personaggio):
     """
 
     salute_max: int = 130
+    salute: int = salute_max
     attacco_min: int = 20
     attacco_max: int = 100
-
-    def __post_init__(self):
-        self.salute = self.salute_max
-        self.classe = self.__class__.__name__
 
     def attacca(self, mod_ambiente: int = 0) -> int:
         """
@@ -128,17 +121,10 @@ class Ladro(Personaggio):
     casualmente in un range 10-40
     """
     salute_max: int = 120
+    salute: int = salute_max
     attacco_max: int = 85
     attacco_min: int = 10
 
-    def __post_init__(self):
-        """
-        Metodo post-inizializzazione per il Ladro.
-        Imposta salute_max a 140 e attacco_min e attacco_max a valori specifici.
-
-        """
-        self.classe = self.__class__.__name__
-        self.salute = self.salute_max
 
     def attacca(self, mod_ambiente: int = 0) -> int:
         """
@@ -190,14 +176,7 @@ class PersonaggioSchema(Schema):
     """
     classe = fields.String(required=True)
     id = fields.UUID(load_default=lambda: uuid.uuid4())
-    nome = fields.String(required=True)
-    npc = fields.Boolean(load_default=True)
-    salute_max = fields.Integer()
-    salute = fields.Integer()
-    attacco_min = fields.Integer()
-    attacco_max = fields.Integer()
-    livello = fields.Integer(load_default=1)
-    destrezza = fields.Integer(load_default=15)
+
     storico_danni_subiti = fields.List(fields.Integer(), load_default=list)
 
     def _set_default_if_empty(self, data, key, default):
@@ -249,74 +228,3 @@ class PersonaggioSchema(Schema):
             self._set_default_if_empty(data_clean, "attacco_max", 80)
             return Personaggio(**data_clean)
 
-
-class MagoSchema(PersonaggioSchema):
-    """
-    Schema per la serializzazione/deserializzazione dei personaggi Mago.
-    Utilizza Marshmallow per definire i campi e le loro proprietà.
-    """
-    salute_max = fields.Integer(load_default=80)
-    salute = fields.Integer(load_default=80)
-    attacco_min = fields.Integer(load_default=0)
-    attacco_max = fields.Integer(load_default=90)
-
-    @post_load
-    def make_mago(self, data, **kwargs):
-        # Rimuovi il campo 'classe' dai dati prima di creare l'istanza
-        data_clean = {k: v for k, v in data.items() if k != "classe"}
-
-        # Applica i default specifici del Mago se i campi sono assenti o vuoti
-        self._set_default_if_empty(data_clean, "salute_max", 80)
-        self._set_default_if_empty(data_clean, "salute", 80)
-        self._set_default_if_empty(data_clean, "attacco_min", 0)
-        self._set_default_if_empty(data_clean, "attacco_max", 90)
-
-        return Mago(**data_clean)
-
-
-class GuerrieroSchema(PersonaggioSchema):
-    """
-    Schema per la serializzazione/deserializzazione dei personaggi Guerriero.
-    Utilizza Marshmallow per definire i campi e le loro proprietà.
-    """
-    salute_max = fields.Integer(load_default=120)
-    salute = fields.Integer(load_default=120)
-    attacco_min = fields.Integer(load_default=20)
-    attacco_max = fields.Integer(load_default=100)
-
-    @post_load
-    def make_guerriero(self, data, **kwargs):
-        # Rimuovi il campo 'classe' dai dati prima di creare l'istanza
-        data_clean = {k: v for k, v in data.items() if k != "classe"}
-
-        # Applica i default specifici del Guerriero se i campi sono assenti o vuoti
-        self._set_default_if_empty(data_clean, "salute_max", 120)
-        self._set_default_if_empty(data_clean, "salute", 120)
-        self._set_default_if_empty(data_clean, "attacco_min", 20)
-        self._set_default_if_empty(data_clean, "attacco_max", 100)
-
-        return Guerriero(**data_clean)
-
-
-class LadroSchema(PersonaggioSchema):
-    """
-    Schema per la serializzazione/deserializzazione dei personaggi Ladro.
-    Utilizza Marshmallow per definire i campi e le loro proprietà.
-    """
-    salute_max = fields.Integer(load_default=120)
-    salute = fields.Integer(load_default=120)
-    attacco_min = fields.Integer(load_default=10)
-    attacco_max = fields.Integer(load_default=85)
-
-    @post_load
-    def make_ladro(self, data, **kwargs):
-        # Rimuovi il campo 'classe' dai dati prima di creare l'istanza
-        data_clean = {k: v for k, v in data.items() if k != "classe"}
-
-        # Applica i default specifici del Ladro se i campi sono assenti o vuoti
-        self._set_default_if_empty(data_clean, "salute_max", 100)
-        self._set_default_if_empty(data_clean, "salute", 100)
-        self._set_default_if_empty(data_clean, "attacco_min", 10)
-        self._set_default_if_empty(data_clean, "attacco_max", 85)
-
-        return Ladro(**data_clean)

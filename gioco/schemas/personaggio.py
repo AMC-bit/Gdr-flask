@@ -5,6 +5,14 @@ import uuid
 from gioco.personaggio import Personaggio
 
 
+def get_all_subclasses(cls):
+    subclasses = set()
+    for subclass in cls.__subclasses__():
+        subclasses.add(subclass)
+        # subclasses.update(get_all_subclasses(subclass))
+        # nel caso di sottoclassi indirette
+    return subclasses
+
 
 class PersonaggioSchema(Schema):
     """
@@ -12,7 +20,7 @@ class PersonaggioSchema(Schema):
     Utilizza Marshmallow per definire i campi e le loro proprietà.
     """
     classe = fields.String(required=True)
-    id = fields.UUID(dump_only=True)
+    id = fields.UUID(load_default=lambda: uuid.uuid4())
     nome = fields.String(required=True)
     npc = fields.Boolean(load_default=True)
     salute_max = fields.Integer()
@@ -23,11 +31,19 @@ class PersonaggioSchema(Schema):
     destrezza = fields.Integer(load_default=15)
     storico_danni_subiti = fields.List(fields.Integer(), load_default=list)
 
-
     @post_load
-    def make_personaggio(self, data, **kwargs):
+    def make_personaggio(self, data, **_kwargs):
         print(f"\nimport: \n{data}\n")
-        return Personaggio(**data)
+        # Crea la mappa dinamica: nome classe -> classe Python
+        classe_map = {
+            subcls.__name__: subcls
+            for subcls in get_all_subclasses(Personaggio)
+        }
+        classe_nome = data.get("classe")
+        personaggio_cls = classe_map.get(classe_nome, Personaggio)
+        personaggio_cls.classe = classe_nome
+        return personaggio_cls(**data)
+
 
 class MagoSchema(PersonaggioSchema):
     """
