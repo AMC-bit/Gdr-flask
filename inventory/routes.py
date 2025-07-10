@@ -60,7 +60,7 @@ def inventory():
         personaggio=personaggio
     )
 
-
+ 
 """
 @inventory_bp.route('/test-inventory', methods=['GET', 'POST'])
 def test_inventory():
