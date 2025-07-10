@@ -15,13 +15,12 @@ class Oggetto:
         None
 
     """
-    id: str = field(default_factory=lambda: str(uuid.uuid4()))
     nome: str
     usato: bool = False
     valore: int = 30
     tipo_oggetto: str = ""
+    id: str = field(default_factory=lambda: str(uuid.uuid4()))
     classe: str = field(init=False)
-
 
     def usa(
             self,

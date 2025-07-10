@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from typing import Optional
 import random, uuid, json, os, logging
 
-from marshmallow import Schema, fields
+from marshmallow import Schema, fields, post_load
 
 from gioco.personaggio import Personaggio
 from gioco.classi import Mago, Guerriero, Ladro, PersonaggioSchema
@@ -11,8 +11,7 @@ from gioco.oggetto import Oggetto, PozioneCura, BombaAcida, Medaglione, OggettoS
 from gioco.inventario import Inventario
 
 from gioco.strategy import Strategia, StrategiaFactory, StrategiaSchema
-from utils.messaggi import Messaggi
-# from utils.log import Log
+
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -23,11 +22,12 @@ class Missione():
     Si occupa di aggregare istanze di ambiente , nemici e ricompense
     Rappresenta una missione, composta da un ambiente, nemici e premi.
     """
-    nome: str = ""
+
     id: str = field(default_factory=lambda: str(uuid.uuid4()))
     ambiente: Ambiente = field(default_factory=Ambiente)
     nemici: list[Personaggio] = field(default_factory=list)
     premi: list[Oggetto] = field(default_factory=list)
+    nome: str = ""
     strategia_nemici: Optional[Strategia] = None
     completata: bool = False
     attiva: bool = False
@@ -57,9 +57,6 @@ class Missione():
         self.nemici.remove(nemico)
         msg = f"{nemico} rimosso dalla lista nemici della missione"
         logger.info(msg)
-        # Log.scrivi_log(msg)
-        # Json.scrivi_dati("data/salvataggio.json",
-        # Json.applica_patch(self.to_dict()))
 
     def rimuovi_nemici_sconfitti(self) -> None:
         """
@@ -233,23 +230,21 @@ class GestoreMissioni():
             nome="Imboscata",
             ambiente=Foresta(),
             nemici=[Guerriero("Robin Hood"), Guerriero("Little Jhon")],
-            #premi=[PozioneCura(), PozioneCura(), BombaAcida()],
-            premi=[],
+            premi=[PozioneCura(), PozioneCura(), BombaAcida()],
             strategia_nemici= StrategiaFactory.usa_strategia("equilibrata")
         )
         imboscata.premi = [imboscata.seleziona_premio()]
-        
+
         salva_principessa = Missione(
             nome="Salva la principessa",
             ambiente=Palude(),
             nemici=[Ladro("Megera furfante")],
-            # premi=Missione.seleziona_premio().premio_oggetto,
-            #premi=[Medaglione()],
-            premi=[],
+            premi=[Medaglione()],
+
             strategia_nemici= StrategiaFactory.usa_strategia("difensiva")
         )
-        salva_principessa.premi = [salva_principessa.seleziona_premio()]
-        
+        # salva_principessa.premi = [salva_principessa.seleziona_premio()]
+
         culto = Missione(
             nome="Sgomina il culto di Graz'zt sul vulcano Gheemir",
             ambiente=Vulcano(),
@@ -258,12 +253,11 @@ class GestoreMissioni():
                 Mago("Cultista 2"),
                 Mago("Cultista 3")
             ],
-            #premi=[PozioneCura(), Medaglione()],
-            premi=[],
+            premi=[PozioneCura(), Medaglione()],
             strategia_nemici= StrategiaFactory.usa_strategia("aggressiva")
         )
-        culto.premi = [culto.seleziona_premio()]
-        
+        # culto.premi = [culto.assegna_premio()]
+
         return [imboscata, salva_principessa, culto]
 
     def mostra(self) -> None:
@@ -277,7 +271,7 @@ class GestoreMissioni():
             None
         """
         msg = ("Missioni disponibili:")
-        Messaggi.add_to_messaggi(msg)
+        logger.info(msg)
         # Log.scrivi_log(msg)
         for missione in self.lista_missioni:
             msg = f"-{missione.nome}"
@@ -382,4 +376,5 @@ class MissioniSchema(Schema):
     attiva = fields.Bool()
 
     @post_load
-    def make_Missioni(self, data, **)
+    def make_Missioni(self, data, **kwargs):
+        return Missione(**data)

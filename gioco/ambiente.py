@@ -44,14 +44,14 @@ class Ambiente():
         }
 
     @classmethod
-    def from_dict(cls, data:dict) -> Ambiente:
+    def from_dict(cls, data:dict) -> 'Ambiente':
         """ricrea il classe corretta in base al campo "classe"
 
         Args:
-            data (dict): 
+            data (dict):
 
         Returns:
-            Ambiente: 
+            Ambiente:
         """
         nome = data.get("classe", "")
         return AmbienteFactory.usa_ambiente(nome)
@@ -295,4 +295,3 @@ class AmbienteSchema(Schema):
     nome = fields.String(required=True)
     mod_attacco = fields.Integer()
     mod_cura = fields.Float()
-    
