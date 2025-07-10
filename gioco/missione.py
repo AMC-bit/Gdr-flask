@@ -25,7 +25,7 @@ class Missione():
     """
 
     id: str = field(default_factory=lambda: str(uuid.uuid4()))
-    ambiente: Ambiente = field(default_factory=Ambiente)
+    ambiente: Ambiente = field(default_factory=lambda: AmbienteFactory.usa_ambiente("Palude"))
     nemici: list[Personaggio] = field(default_factory=list)
     premi: list[Oggetto] = field(default_factory=list)
     nome: str = ""
@@ -143,30 +143,30 @@ class Missione():
         if self.verifica_completamento():
             self.assegna_premio(inventari_vincitori)
 
-    def to_dict(self) -> dict:
-        """
-        Restituisce uno stato serializzabile per session o JSON.
+    # def to_dict(self) -> dict:
+    #     """
+    #     Restituisce uno stato serializzabile per session o JSON.
 
-        Returns:
-            dict: Dizionario del materiale serializzato
-        """
-        return {
-            "id": str(self.id) if self.id else None,
-            "classe": self.__class__.__name__,
-            "nome": self.nome,
-            "ambiente": Ambiente.to_dict(self.ambiente),
-            "nemici": [Personaggio.to_dict(nemico) for nemico in self.nemici],
-            "premi": [Oggetto.to_dict(premio) for premio in self.premi],
-            "strategia_nemici": (
-                Strategia.to_dict(self.strategia_nemici)
-                if self.strategia_nemici else None
-            ),
-            "completata": self.completata,
-            "attiva": self.attiva
-        }
+    #     Returns:
+    #         dict: Dizionario del materiale serializzato
+    #     """
+    #     return {
+    #         "id": str(self.id) if self.id else None,
+    #         "classe": self.__class__.__name__,
+    #         "nome": self.nome,
+    #         "ambiente": Ambiente.to_dict(self.ambiente),
+    #         "nemici": [Personaggio.to_dict(nemico) for nemico in self.nemici],
+    #         "premi": [Oggetto.to_dict(premio) for premio in self.premi],
+    #         "strategia_nemici": (
+    #             Strategia.to_dict(self.strategia_nemici)
+    #             if self.strategia_nemici else None
+    #         ),
+    #         "completata": self.completata,
+    #         "attiva": self.attiva
+    #     }
 
-    @classmethod
-    def from_dict(cls, data: dict) -> "Missione":
+    # @classmethod
+    # def from_dict(cls, data: dict) -> "Missione":
         """Ricostruisce l’istanza a partire da un dict serializzato.
 
         Args:
@@ -346,35 +346,35 @@ class GestoreMissioni():
             # Log.scrivi_log(msg)
             return None
 
-    def to_dict(self) -> dict:
-        """Restituisce uno stato serializzabile per session o JSON.
+    # def to_dict(self) -> dict:
+    #     """Restituisce uno stato serializzabile per session o JSON.
 
-        Returns:
-            dict: Dizionario del materiale serializzato
-        """
-        return {
-            "classe": self.__class__.__name__,
-            "lista_missioni": [
-                missione.to_dict() for missione in self.lista_missioni
-            ]
-        }
+    #     Returns:
+    #         dict: Dizionario del materiale serializzato
+    #     """
+    #     return {
+    #         "classe": self.__class__.__name__,
+    #         "lista_missioni": [
+    #             missione.to_dict() for missione in self.lista_missioni
+    #         ]
+    #     }
 
-    @classmethod
-    def from_dict(cls, data: dict) -> "GestoreMissioni":
-        """Ricostruisce l’istanza a partire da un dict serializzato.
+    # @classmethod
+    # def from_dict(cls, data: dict) -> "GestoreMissioni":
+    #     """Ricostruisce l’istanza a partire da un dict serializzato.
 
-        Args:
-            data (dict): Dati serializzati
+    #     Args:
+    #         data (dict): Dati serializzati
 
-        Returns:
-            Ambiente: Dati deserializzati.
-        """
-        gestore = cls()
-        gestore.lista_missioni = [
-            Missione.from_dict(missione)
-            for missione in data.get("lista_missioni", [])
-        ]
-        return gestore
+    #     Returns:
+    #         Ambiente: Dati deserializzati.
+    #     """
+    #     gestore = cls()
+    #     gestore.lista_missioni = [
+    #         Missione.from_dict(missione)
+    #         for missione in data.get("lista_missioni", [])
+    #     ]
+    #     return gestore
 
 
 class MissioniSchema(Schema):

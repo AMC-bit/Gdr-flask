@@ -3,7 +3,7 @@ from collections import defaultdict
 from . import mission_bp
 from flask import flash, render_template, request, session, \
     redirect, url_for
-from gioco.missione import GestoreMissioni, Missione
+from gioco.missione import  GestoreMissioni, Missione # , GestoreMissioni
 from utils.messaggi import Messaggi
 from utils.log import Log
 
@@ -32,16 +32,8 @@ def select_mission():
     if request.method == 'POST':
         missione_id = request.form.get('missione_id')
 
-        # Recupera il gestore dalla sessione
-        gestore_data = session.get('gestore_missioni')
-        if not gestore_data:
-            msg = 'Errore: gestore missioni non trovato in sessione.'
-            flash(msg, 'error')
-            Log.scrivi_log(msg)
-            return redirect(url_for('mission.select_mission'))
-
         # Ricostruisce il gestore dalla sessione
-        gestore = GestoreMissioni.from_dict(gestore_data)
+        gestore = GestoreMissioni()
 
         # Debug: stampa il missione_id ricevuto
         msg = f"DEBUG: missione_id ricevuto: '{missione_id}'"

@@ -90,6 +90,7 @@ def create_char():
         pg = classi[classe_sel]()
         pg.nome = nome
         pg.npc = False
+        pg.classe = classe_sel
         ogg = oggetti[oggetto_sel]()
         inv = Inventario(id_proprietario=pg.id)
         inv.aggiungi_oggetto(ogg)

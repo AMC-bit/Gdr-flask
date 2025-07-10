@@ -35,12 +35,13 @@ class PersonaggioSchema(Schema):
     def make_personaggio(self, data, **_kwargs):
         print(f"\nimport: \n{data}\n")
         # Crea la mappa dinamica: nome classe -> classe Python
+        classe_nome = data.get("classe")
         classe_map = {
             subcls.__name__: subcls
             for subcls in get_all_subclasses(Personaggio)
         }
-        classe_nome = data.get("classe")
-        personaggio_cls = classe_map.get(classe_nome, Personaggio)
+
+        personaggio_cls = classe_map[classe_nome]
         return personaggio_cls(**data)
 
 
