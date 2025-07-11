@@ -117,7 +117,7 @@ def show_mission():
     msg = f"Missione mostrata: {missione.nome}"
     flash(msg, 'info')
     Log.scrivi_log(msg)
-    descrizione_ambiente = descrizione()
+    descrizione_ambiente = description()
     return render_template(
         'show_mission.html',
         missione=missione,
@@ -128,7 +128,7 @@ def show_mission():
 
 
 @staticmethod
-def descrizione():
+def description():
     """
     Il metodo descrive i cambiamenti
     che l'ambiente apporta ai personaggi e agli oggetti rispetto
@@ -154,7 +154,8 @@ def descrizione():
     classi_data = {
         'Guerriero': {'att_min': 15, 'att_max': 20, 'cura_base': 30},
         'Ladro': {'att_min': 5, 'att_max': 5, 'cura_base': 'da 10 a 40'},
-        'Mago': {'att_min': -5, 'att_max': 10, 'cura_base': '20% della salute rimanente'}
+        'Mago': {'att_min': -5, 'att_max': 10, 
+                 'cura_base': '20% della salute rimanente'}
     }
 
     # Importo dinamico delle classi
@@ -230,7 +231,7 @@ def mostra_missioni():
 
 
 @mission_bp.route('/missione/attiva')
-def missione_attiva():
+def active_mission():
     gestore = GestoreMissioni()
     if 'missione' in session:
         missione_data = session['missione']
@@ -248,7 +249,7 @@ def missione_attiva():
 
 
 @mission_bp.route('/missioni/stato')
-def stato_missioni():
+def state_mission():
     gestore = GestoreMissioni()
     complete = gestore.finita()
     if complete:
