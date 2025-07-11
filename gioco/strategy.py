@@ -2,7 +2,6 @@ import random, logging
 from gioco.ambiente import Ambiente
 from gioco.inventario import Inventario
 from dataclasses import dataclass, field
-from marshmallow import Schema, fields, post_load
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -311,16 +310,4 @@ class StrategiaFactory:
             raise ValueError(f"Tipo di strategia sconosciuto: {tipo}")
 
 
-# ----------------------------------------------------------------------------
 
-class StrategiaSchema(Schema):
-    '''
-    Classe per la serializzazione e deserializzazione delle strategie.
-    Utilizza Marshmallow per convertire le istanze di Strategia in formato JSON
-    e viceversa.
-    '''
-    nome = fields.Str(required=True)
-
-    @post_load
-    def make_strategia(self, data, **kwargs):
-        return StrategiaFactory.usa_strategia(data['nome'])

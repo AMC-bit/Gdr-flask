@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from marshmallow import Schema, fields, post_load, validate
+from gioco.schemas.oggetto import OggettoSchema
 
 
 @dataclass
@@ -37,12 +37,7 @@ class Oggetto:
         raise NotImplementedError("Questo oggetto non ha effetto definito.")
 
 
-class OggettoSchema(Schema):
-    nome = fields.Str()
-    usato = fields.Bool()
-    valore = fields.Int()
-    tipo_oggetto = fields.Str()
-    classe = fields.Str(required=True)
+
 
 
 @dataclass
