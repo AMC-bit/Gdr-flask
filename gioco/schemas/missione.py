@@ -1,8 +1,9 @@
 
+import json, os
 from marshmallow import Schema, fields, post_load
 
 from gioco.ambiente import AmbienteSchema
-from gioco.missione import Missione
+from gioco.missione import GestoreMissioni, Missione
 from gioco.oggetto import OggettoSchema
 from gioco.schemas.personaggio import PersonaggioSchema
 from gioco.strategy import StrategiaSchema
@@ -25,8 +26,20 @@ class MissioniSchema(Schema):
 class GestoreMissioniSchema(Schema):
     lista_missioni = fields.List(fields.Nested(MissioniSchema), required=True)
 
-    
     @post_load
     def make_GestoreMissioni(self, data, **kwargs):
-        from gioco.missione import GestoreMissioni
         return GestoreMissioni(**data)
+
+    def crea_GestoreMissioni_Statico(self):
+        lista =[]
+        schema = MissioniSchema()
+        routes = r"static\mission"
+        for files in os.listdir(routes):
+            if files.endswith(".json"):
+                with open(os.path.join(routes, files), 'r') as file:
+                    data = json.load(file)
+                    missione = schema.load(data)
+                    lista.append(missione)
+        nuovo = GestoreMissioni()
+        nuovo.lista_missioni = lista
+        return nuovo

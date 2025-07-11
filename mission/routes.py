@@ -1,6 +1,9 @@
 from collections import defaultdict
-
-from gioco.schemas.missione import MissioniSchema
+from copy import deepcopy
+from gioco.oggetto import Oggetto
+from gioco.personaggio import Personaggio
+from gioco.ambiente import AmbienteSchema
+from gioco.schemas.missione import GestoreMissioniSchema, MissioniSchema
 
 from . import mission_bp
 from flask import flash, render_template, request, session, \
@@ -37,7 +40,11 @@ def select_mission():
         missione_id = request.form.get('missione_id')
 
         # Ricostruisce il gestore dalla sessione
-        gestore = GestoreMissioni()
+        getore_missioni_data = session.get('gestore_missioni')
+        if getore_missioni_data:
+            gestore = GestoreMissioniSchema().load(getore_missioni_data)
+        else:
+            gestore = GestoreMissioni()
 
         # Debug: stampa il missione_id ricevuto
         msg = f"DEBUG: missione_id ricevuto: '{missione_id}'"
@@ -75,7 +82,7 @@ def select_mission():
         session['gestore_missioni'] = gestore.to_dict()
     else:
         # Ricostruisce il gestore dalla sessione
-        gestore = GestoreMissioni.from_dict(session['gestore_missioni'])
+        gestore = GestoreMissioniSchema().load(getore_missioni_data)
     missioni = {
         str(missione.id): missione for missione in gestore.lista_missioni
     }
@@ -100,11 +107,13 @@ def show_mission():
         return redirect(url_for('mission.select_mission'))
 
     # Ricostruisce gli oggetti dai dati in sessione
-    from gioco.missione import Missione
-    from gioco.ambiente import Ambiente
 
-    missione = Missione.from_dict(missione_data)
-    ambiente = Ambiente.from_dict(ambiente_data)
+    missione = MissioniSchema().load(missione_data)
+    if not isinstance(missione, Missione):
+        msg = 'Dati della missione non validi.'
+        logger.error(msg)
+        return redirect(url_for('mission.select_mission'))
+    ambiente = missione.ambiente
     premi = missione.premi
     premi_raggruppati = defaultdict(list)
     for premio in premi:
@@ -123,6 +132,14 @@ def show_mission():
     )
 
 
+def get_all_subclasses(cls):
+    all_subclasses = []
+    for subclass in cls.__subclasses__():
+        all_subclasses.append(subclass)
+        all_subclasses.extend(get_all_subclasses(subclass))
+    return all_subclasses
+
+
 @staticmethod
 def descrizione():
     """
@@ -134,29 +151,28 @@ def descrizione():
         dict: Un dizionario contenente i valori standard e le modifiche
               apportate dall'ambiente ai personaggi e agli oggetti.
     """
-    from gioco.ambiente import Ambiente
-    from gioco.classi import Mago, Ladro, Guerriero
-    from gioco.oggetto import PozioneCura, Medaglione, BombaAcida
-    from copy import deepcopy
 
     ambiente = session.get('ambiente')
-    # print(f"DEBUG - ambiente: {ambiente}")
     if isinstance(ambiente, dict):
-        ambiente = Ambiente.from_dict(ambiente)
-    # print(f"DEBUG - ambiente: {ambiente}")
+        ambiente = AmbienteSchema().load(ambiente)
 
     # Dati base per classi derivate da personaggio
-    # (definite in maniera statica per ridurre la complessità del metodo)
+    # (definite in maniera statica per ridurre la complessità del metodo
+    # a causa del sistema di cura_base)
     classi_data = {
-        'Guerriero': {'att_min': 15, 'att_max': 20, 'cura_base': 30},
-        'Ladro': {'att_min': 5, 'att_max': 5, 'cura_base': 'da 10 a 40'},
-        'Mago': {'att_min': -5, 'att_max': 10, 'cura_base': '20% della salute rimanente'}
+        'Guerriero': {'cura_base': 30},
+        'Ladro': {'cura_base': 'da 10 a 40'},
+        'Mago': {'cura_base': '20% della salute rimanente'}
     }
 
     # Importo dinamico delle classi
-    classi_map = {'Mago': Mago, 'Ladro': Ladro, 'Guerriero': Guerriero}
+    # Ottieni dinamicamente tutte le sottoclassi di Personaggio
+
+
+    # Crea il mapping dinamico delle classi
+    classi_map = {cls.__name__: cls for cls in get_all_subclasses(Personaggio)}
     classi = {nome: classi_map[nome]("temp") for nome in classi_data.keys()}
-    oggetti = [PozioneCura(), Medaglione(), BombaAcida()]
+    oggetti = [cls for cls in get_all_subclasses(Oggetto)]
 
     # print(f"DEBUG - classi: {classi}")
 
@@ -167,8 +183,8 @@ def descrizione():
         data = classi_data[nome]
         x[nome] = {
             'attacco': {
-                'da': classe.attacco_min + data['att_min'],
-                'a': classe.attacco_max + data['att_max']
+                'da': classe.attacco_min,
+                'a': classe.attacco_max
             },
             'cura': {'recupero salute': str(data['cura_base'])}
         }

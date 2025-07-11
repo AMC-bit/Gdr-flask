@@ -148,11 +148,7 @@ class GestoreMissioni():
     È un gestore di istanze della classe Missione, e le gestisce con diversi
     metodi
     """
-
-    def __init__(self) -> None:
-        # La proprietà principale di GestoreMissioni sarà una lista
-        # di oggetti Missione
-        self.lista_missioni = self.setup()
+    lista_missioni: list[Missione] = field(default_factory=list)
 
     def setup(self) -> list[Missione]:
         from gioco.schemas.missione import MissioniSchema
