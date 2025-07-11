@@ -3,13 +3,11 @@ from dataclasses import dataclass, field
 from typing import Optional
 import random, uuid, json, os, logging
 from gioco.personaggio import Personaggio
-from gioco.classi import PersonaggioSchema
-from gioco.ambiente import Ambiente, AmbienteFactory, AmbienteSchema
-from gioco.oggetto import Oggetto, OggettoSchema
+from gioco.ambiente import Ambiente, AmbienteFactory
+from gioco.oggetto import Oggetto
 from gioco.inventario import Inventario
-from gioco.schemas.personaggio import PersonaggioSchema
 from gioco.schemas.missione_schema import MissioniSchema
-from gioco.strategy import Strategia, StrategiaFactory, StrategiaSchema
+from gioco.strategy import Strategia, StrategiaFactory
 
 
 logger = logging.getLogger(__name__)
@@ -141,66 +139,6 @@ class Missione():
         if self.verifica_completamento():
             self.assegna_premio(inventari_vincitori)
 
-    # def to_dict(self) -> dict:
-    #     """
-    #     Restituisce uno stato serializzabile per session o JSON.
-
-    #     Returns:
-    #         dict: Dizionario del materiale serializzato
-    #     """
-    #     return {
-    #         "id": str(self.id) if self.id else None,
-    #         "classe": self.__class__.__name__,
-    #         "nome": self.nome,
-    #         "ambiente": Ambiente.to_dict(self.ambiente),
-    #         "nemici": [Personaggio.to_dict(nemico) for nemico in self.nemici],
-    #         "premi": [Oggetto.to_dict(premio) for premio in self.premi],
-    #         "strategia_nemici": (
-    #             Strategia.to_dict(self.strategia_nemici)
-    #             if self.strategia_nemici else None
-    #         ),
-    #         "completata": self.completata,
-    #         "attiva": self.attiva
-    #     }
-
-    # @classmethod
-    # def from_dict(cls, data: dict) -> "Missione":
-        """Ricostruisce l’istanza a partire da un dict serializzato.
-
-        Args:
-            data (dict): Dati serializzati
-
-        Returns:
-            Ambiente: Dati deserializzati
-        """
-        classi = {clss.__name__: clss for clss in Personaggio.__subclasses__()}
-
-        ambiente_cls = Ambiente.from_dict(data["ambiente"])
-        nemici = []
-        for nemico in data.get("nemici", []):
-            clss = classi.get(nemico.get("classe"))
-            if clss:
-                nemico = clss.from_dict(nemico)
-
-                nemici.append(nemico)
-        premi = [Oggetto.from_dict(premio) for premio in data.get("premi", [])]
-        strategia_nemici = (
-            Strategia.from_dict(data["strategia_nemici"])
-            if data.get("strategia_nemici") else None
-        )
-        missione = cls(
-            id=uuid.UUID(data["id"]) if data.get("id") else uuid.uuid4(),
-            nome=data["nome"],
-            ambiente=ambiente_cls,
-            nemici=nemici,
-            strategia_nemici=strategia_nemici,
-            premi=premi
-        )
-        missione.completata = data.get("completata", False)
-        missione.attiva = data.get("attiva", False)
-        return missione
-
-
 # Lista delle missioni
 
 class GestoreMissioni():
@@ -232,22 +170,13 @@ class GestoreMissioni():
         # il nome della sottoclasse di ambiente, il nome della sottoclasse della strategia
         # e la lista dei nemici e dei premi
         lista =[]
+        schema = MissioniSchema()
         routes = "static\mission\Imboscata"
         for files in os.listdir(routes):
             if files.endswith(".json"):
                 with open(os.path.join(routes, files), 'r') as file:
                     data = json.load(file)
-                    missione = Missione()
-                    missione.nome = data["nome"]
-                    missione.ambiente = AmbienteFactory.usa_ambiente(data["ambiente"])
-                    missione.nemici =[]
-                    for nemico in data["nemici"]:
-                        # Uso PersonaggioSchema per caricare i nemici
-                        # e creare le istanze corrette
-                        if "classe" in nemico:
-                            nemico = PersonaggioSchema().load(nemico)
-                            missione.nemici.append(nemico)
-                    missione.premi = [PozioneCura(), PozioneCura(), Medaglione()]
+                    missione = schema.load(data)
                     lista.append(missione)
         return lista
 
@@ -341,6 +270,5 @@ class GestoreMissioni():
         except ValueError as e:
             msg = f"Errore: {e}"
             logger(msg)
-            # Log.scrivi_log(msg)
             return None
 
