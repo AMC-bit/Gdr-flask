@@ -1,11 +1,78 @@
 from collections import defaultdict
 
+# richiedere a utente: nome, tipo ambiente, lista nemici, lista premi, strategia.
+
 from . import mission_bp
-from flask import flash, render_template, request, session, \
-    redirect, url_for
+from flask import flash, render_template, request, session, redirect, url_for
 from gioco.missione import GestoreMissioni, Missione
 from utils.messaggi import Messaggi
 from utils.log import Log
+import json
+import os
+from gioco.missione import Missione
+from gioco.ambiente import Ambiente
+from gioco.personaggio import Personaggio
+from gioco.oggetto import Oggetto
+import os
+
+path_missioni = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'missioni_custom.json')
+
+@mission_bp.route('/create_mission', methods=['GET', 'POST'])
+def create_mission():
+    if request.method == 'POST':
+        nome = request.form.get('nome')
+        tipo_ambiente = request.form.get('ambiente')
+        strategia = request.form.get('strategia_nemici')
+
+        nemici_input = request.form.get('nemici', '')
+        premi_input = request.form.get('premi', '')
+
+        lista_nemici = []
+        for riga in nemici_input.strip().split('\n'):
+            try:
+                nome, salute, salute_max, attacco_min, attacco_max, destrezza= riga.strip().split(':')
+                nemico = Personaggio(nome.strip(), int(salute), 
+                                    int(salute_max),int(destrezza),
+                                    int(attacco_min), int(attacco_max))
+                lista_nemici.append(nemico)
+            except ValueError:
+                flash(f"Errore nella riga nemico: {riga}", 'error')
+
+        lista_premi = []
+        for riga in premi_input.strip().split('\n'):
+            try:
+                nome, valore, classe, tipo_oggetto = riga.strip().split(':')
+                premio = Oggetto(nome.strip(), classe.strip(), int(valore), tipo_oggetto.strip())
+                lista_premi.append(premio)
+            except ValueError:
+                flash(f"Errore nella riga premio: {riga}", 'error')
+
+        ambiente = Ambiente(nome=tipo_ambiente)
+        missione = Missione(
+            nome=nome,
+            ambiente=ambiente,
+            nemici=lista_nemici,
+            premi=lista_premi,
+            strategia_nemici=strategia
+        )
+
+        missioni = []
+        if os.path.exists(path_missioni):
+            with open(path_missioni, 'r') as f:
+                missioni = json.load(f)
+
+        missioni.append(missione.to_dict())
+
+        with open(path_missioni, 'w') as f:
+            json.dump(missioni, f, indent=4)
+
+        flash(f"Missione '{nome}' salvata con successo!", 'success')
+        Log.scrivi_log(f"Missione personalizzata creata: {nome}")
+        return redirect(url_for('mission.select_mission'))
+
+    return render_template('create_mission.html')
+
+
 
 
 @mission_bp.route('/select_mission', methods=['GET', 'POST'])
