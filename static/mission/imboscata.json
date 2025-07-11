@@ -1,6 +1,10 @@
 {
     "nome": "Imboscata",
-    "ambiente": "Foresta",
+    "ambiente": {
+            "nome": "Foresta",
+            "mod_attacco": 5,
+            "mod_cura": 5.5
+    },
     "nemici": [
         {
             "classe": "Guerriero",
@@ -30,7 +34,26 @@
         }
     ],
     "premi": [
-        "PozioneCura", "PozioneCura", "BombaAcida"
+        {
+            "nome": "Pozione Rossa",
+            "valore": 30,
+            "classe": "PozioneCura",
+            "tipo_oggetto": "Ristorativo"
+        },
+        {
+            "nome": "Pozione Rossa",
+            "valore": 30,
+            "classe": "PozioneCura",
+            "tipo_oggetto": "Ristorativo"
+        },
+        {
+            "nome": "Bomba Acida",
+            "valore": 30,
+            "classe": "BombaAcida",
+            "tipo_oggetto": "Offensivo"
+        }
     ],
-    "strategia_nemici": "equilibrata"
+    "strategia_nemici": {
+        "nome": "equilibrata"
+    }
 }

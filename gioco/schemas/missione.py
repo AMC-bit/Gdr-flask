@@ -21,3 +21,12 @@ class MissioniSchema(Schema):
     @post_load
     def make_Missioni(self, data, **kwargs):
         return Missione(**data)
+
+class GestoreMissioniSchema(Schema):
+    lista_missioni = fields.List(fields.Nested(MissioniSchema), required=True)
+
+    
+    @post_load
+    def make_GestoreMissioni(self, data, **kwargs):
+        from gioco.missione import GestoreMissioni
+        return GestoreMissioni(**data)

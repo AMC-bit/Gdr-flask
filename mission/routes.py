@@ -1,12 +1,15 @@
 from collections import defaultdict
 
+from gioco.schemas.missione import MissioniSchema
+
 from . import mission_bp
 from flask import flash, render_template, request, session, \
     redirect, url_for
 from gioco.missione import  GestoreMissioni, Missione # , GestoreMissioni
-from utils.messaggi import Messaggi
-from utils.log import Log
+import logging
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 @mission_bp.route('/select_mission', methods=['GET', 'POST'])
 def select_mission():
@@ -29,6 +32,7 @@ def select_mission():
         Se una missione è stata selezionata, reindirizza alla pagina di
         visualizzazione della missione.
     """
+    schema = MissioniSchema()
     if request.method == 'POST':
         missione_id = request.form.get('missione_id')
 
@@ -38,31 +42,31 @@ def select_mission():
         # Debug: stampa il missione_id ricevuto
         msg = f"DEBUG: missione_id ricevuto: '{missione_id}'"
         flash(msg, 'info')
-        Log.scrivi_log(msg)
+        logger.info(msg)
 
         # Trova la missione con l'ID specificato
         missione_selezionata = None
         for missione in gestore.lista_missioni:
             msg = f"DEBUG: Confronto '{str(missione.id)}' con '{missione_id}'"
             flash(msg, 'info')
-            Log.scrivi_log(msg)
+            logger.debug(msg)
             if str(missione.id) == missione_id:
                 missione_selezionata = missione
                 break
 
         if missione_selezionata:
             # Salva missione e ambiente in sessione
-            session['missione'] = missione_selezionata.to_dict()
-            session['ambiente'] = missione_selezionata.ambiente.to_dict()
+            session['missione'] = schema.dump(missione_selezionata)
+            session['ambiente'] = schema.dump(missione_selezionata.ambiente)
 
             msg = f"Missione selezionata: {missione_selezionata.nome}"
             flash(msg, 'success')
-            Log.scrivi_log(msg)
+            logger.info(msg)
             return redirect(url_for('mission.show_mission'))
         else:
             msg = 'Missione non trovata.'
             flash(msg, 'error')
-            Log.scrivi_log(msg)
+            logger.info(msg)
 
     # GET: mostra il form di selezione
     if 'gestore_missioni' not in session:
@@ -92,7 +96,7 @@ def show_mission():
     if not missione_data or not ambiente_data:
         msg = 'Nessuna missione selezionata.'
         flash(msg, 'error')
-        Log.scrivi_log(msg)
+        logger.error(msg)
         return redirect(url_for('mission.select_mission'))
 
     # Ricostruisce gli oggetti dai dati in sessione
@@ -108,7 +112,7 @@ def show_mission():
 
     msg = f"Missione mostrata: {missione.nome}"
     flash(msg, 'info')
-    Log.scrivi_log(msg)
+    logger.info(msg)
     descrizione_ambiente = descrizione()
     return render_template(
         'show_mission.html',
@@ -232,9 +236,9 @@ def missione_attiva():
     missione = gestore.sorteggia()
     if missione and missione.attiva:
         msg = f"Missione attiva: {missione.nome}, ID: {missione.id}"
-        Log.scrivi_log(msg)
+        logger.info(msg)
         return render_template('missione_attiva.html', missione=missione)
-    Log.scrivi_log("Nessuna missione attiva al momento.")
+    logger.info("Nessuna missione attiva al momento.")
     flash("Non ci sono missioni attive o disponibili.", 'warning')
     return redirect(url_for('mission.select_mission'))
 
@@ -245,9 +249,7 @@ def stato_missioni():
     complete = gestore.finita()
     if complete:
         msg = "Tutte le missioni sono state completate."
-        Log.scrivi_log(msg)
-        Messaggi.add_to_messaggi(msg)
+        logger.info(msg)
     else:
         msg = "Ci sono missioni ancora da completare."
-        Log.scrivi_log(msg)
-        Messaggi.add_to_messaggi(msg)
+        logger.info(msg)

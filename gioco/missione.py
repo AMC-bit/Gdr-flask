@@ -6,9 +6,7 @@ from gioco.personaggio import Personaggio
 from gioco.ambiente import Ambiente, AmbienteFactory
 from gioco.oggetto import Oggetto
 from gioco.inventario import Inventario
-from gioco.schemas.missione_schema import MissioniSchema
 from gioco.strategy import Strategia, StrategiaFactory
-
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -21,11 +19,15 @@ class Missione():
     """
 
     id: str = field(default_factory=lambda: str(uuid.uuid4()))
-    ambiente: Ambiente = field(default_factory=lambda: AmbienteFactory.usa_ambiente("Palude"))
+    ambiente: Ambiente = field(
+        default_factory=lambda: AmbienteFactory.usa_ambiente("Palude")
+    )
     nemici: list[Personaggio] = field(default_factory=list)
     premi: list[Oggetto] = field(default_factory=list)
     nome: str = ""
-    strategia_nemici: Optional[Strategia] = None
+    strategia_nemici: Strategia = field(
+        default_factory=lambda: StrategiaFactory.usa_strategia("Equilibrata")
+    )
     completata: bool = False
     attiva: bool = False
 
@@ -153,6 +155,7 @@ class GestoreMissioni():
         self.lista_missioni = self.setup()
 
     def setup(self) -> list[Missione]:
+        from gioco.schemas.missione_schema import MissioniSchema
         """
         Istanzio le Missioni da fornire al GestoreMissioni,
         viene chiamato nel costruttore di GestoreMissioni
