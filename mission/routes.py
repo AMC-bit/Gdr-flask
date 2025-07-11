@@ -70,7 +70,7 @@ def create_mission():
         Log.scrivi_log(f"Missione personalizzata creata: {nome}")
         return redirect(url_for('mission.select_mission'))
 
-    return render_template('crea_missione.html')
+    return render_template('create_mission.html')
 
 
 
