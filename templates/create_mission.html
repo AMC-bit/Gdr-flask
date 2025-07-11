@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Crea Missione</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stile.css') }}">
+</head>
+<body>
+    <h1>Crea una Nuova Missione</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="flash-messages">
+          {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        <label for="nome">Nome Missione:</label><br>
+        <input type="text" name="nome" required><br><br>
+
+        <label for="ambiente">Tipo Ambiente:</label><br>
+        <select name="ambiente" required>
+            <option value="foresta">Foresta</option>
+            <option value="deserto">Deserto</option>
+            <option value="montagna">Montagna</option>
+            <option value="palude">Palude</option>
+        </select><br><br>
+
+        <label for="strategia_nemici">Strategia dei Nemici:</label><br>
+        <input type="text" name="strategia_nemici" placeholder="Es. attacco diretto"><br><br>
+
+        <label for="nemici">Lista Nemici (uno per riga):<br>
+            <small>Formato: nome:salute:salute_max:att_min:att_max:destrezza</small>
+        </label><br>
+        <textarea name="nemici" rows="5" cols="60" placeholder="Orco:50:70:10:15:5"></textarea><br><br>
+
+        <label for="premi">Lista Premi (uno per riga):<br>
+            <small>Formato: nome:valore:classe:tipo_oggetto</small>
+        </label><br>
+        <textarea name="premi" rows="5" cols="60" placeholder="Spada Sacra:100:Guerriero:arma"></textarea><br><br>
+
+        <input type="submit" value="Crea Missione">
+        <a href="{{ url_for('mission.select_mission') }}">Annulla</a>
+    </form>
+</body>
+</html>
