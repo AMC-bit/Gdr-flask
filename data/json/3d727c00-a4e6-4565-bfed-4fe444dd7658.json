@@ -1,0 +1,13 @@
+{
+    "classe": "Mago",
+    "id": "3d727c00-a4e6-4565-bfed-4fe444dd7658",
+    "nome": "Lucky luck",
+    "npc": false,
+    "salute_max": 80,
+    "salute": 80,
+    "attacco_min": 0,
+    "attacco_max": 90,
+    "livello": 1,
+    "destrezza": 15,
+    "storico_danni_subiti": []
+}

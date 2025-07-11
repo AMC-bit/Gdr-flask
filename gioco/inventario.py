@@ -1,24 +1,41 @@
 import uuid
 from gioco.oggetto import Oggetto, OggettoSchema
-from gioco.oggetto import Oggetto
 from gioco.personaggio import Personaggio
 from gioco.ambiente import Ambiente
-from utils.log import Log
-from utils.messaggi import Messaggi
-
-# from utils.log import Log
 #  , Json
+from typing import List, Optional, Union
+from dataclasses import dataclass, field
+from marshmallow import Schema, fields, post_load, EXCLUDE
+import logging
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
-class Inventario():
+class InventarioSchema(Schema):
+    """
+    Schema per la serializzazione/deserializzazione degli inventari.
+    Utilizza Marshmallow per definire i campi e le loro proprietà.
+    """
+    class Meta:
+        unknown = EXCLUDE
+
+    id = fields.UUID(required=True)
+    id_proprietario = fields.UUID(allow_none=True)
+    oggetti = fields.List(fields.Nested(OggettoSchema), load_default=list)
+
+    @post_load
+    def make_inventario(self, data, **kwargs):
+        return Inventario(**data)
+
+@dataclass
+class Inventario:
     """
     Gestisce la lista di oggetti posseduto da ogni personaggio
     Sarà la classe inventario a gestire le istanze di classe Oggetto
     """
-    def __init__(self, id_proprietario : uuid.UUID = None )->None:
-        self.id = uuid.uuid4()
-        self.oggetti = []
-        self.id_proprietario = id_proprietario
+    id_proprietario: Optional[uuid.UUID] = None
+    oggetti: List[Oggetto] = field(default_factory=list)
+    id: uuid.UUID = field(default_factory=uuid.uuid4)
 
     def aggiungi_oggetto(self, oggetto: Oggetto)->None:
         """
@@ -33,8 +50,7 @@ class Inventario():
 
         """
         self._aggiungi(oggetto)
-        msg = f"Aggiunto l'oggetto '{oggetto.nome}' all inventario. "
-        Messaggi.add_to_messaggi(msg)
+        logger.info(f"Aggiunto l'oggetto '{oggetto.nome}' all inventario. ")
 
     def _aggiungi(self, oggetto: Oggetto)-> None:
         """
@@ -52,7 +68,7 @@ class Inventario():
         """
         self.oggetti.append(oggetto)
 
-    def cerca_oggetto(self, oggetto: Oggetto)-> bool | None:
+    def cerca_oggetto(self, oggetto: Oggetto) -> Union[bool, None]:
         """
         cerca un oggetto specifico nell'inventario
         ritorna true se è presente o false se non c'è
@@ -69,7 +85,6 @@ class Inventario():
 
             None.
         """
-        msg =""
         try:
             found = False
             for obj in self.oggetti:
@@ -78,8 +93,8 @@ class Inventario():
                     break
             return found
         except Exception as e:
-            msg = f"Errore generico: {e}"
-            Messaggi.add_to_messaggi(msg)
+            logger.error(f"Errore durante la ricerca dell'oggetto: {e}")
+            return None
 
     def mostra_inventario(self)->None:
         """
@@ -93,16 +108,15 @@ class Inventario():
             None.
 
         """
-        msg = ""
         if len(self.oggetti) == 0:
             msg = "L'inventario è vuoto."
         else:
             msg = "Inventario :\n"
             for oggetto in self.oggetti :
                 msg +=f"-{oggetto.nome}\n"
-        Messaggi.add_to_messaggi(msg)
+        logger.info(msg)
 
-    def mostra_lista_inventario(self)-> list[Oggetto] | str:
+    def mostra_lista_inventario(self)-> Union[list[Oggetto], str, None]:
         """
         metodo che ritorna la lista degli oggetti presenti nell'inventario
         o invia una stringa a Messaggi per avvisare che l'inventario è vuoto:
@@ -112,13 +126,13 @@ class Inventario():
 
         Return:
             list[Oggetto]: lista degli oggetti nell'inventario
-            None: in questo caso viene utilizzarto il metodo statico add_to_messaggi
-            della classe Messaggi per inviare l'invformazione che l'inventario è vuoto.
-
+            str: messaggio di inventario vuoto
+            None: solo se si verificano problemi
         """
         if len(self.oggetti) == 0:
             msg = "L'inventario è vuoto."
-            Messaggi.add_to_messaggi(msg)
+            logger.info(msg)
+            return msg
         else:
             return self.oggetti
 
@@ -140,9 +154,9 @@ class Inventario():
             None: se l'oggetto non è stato trovato nell'inventario.
         """
         result = None
-        if self.cerca_oggetto(oggetto):
+        if not self.cerca_oggetto(oggetto):
             msg = "l'oggetto non è stato trovato nell'inventario"
-            Messaggi.add_to_messaggi(msg)
+            logger.info(msg)
         else:
             mod_ambiente = (
                 ambiente.modifica_effetto_oggetto(oggetto)
@@ -172,14 +186,12 @@ class Inventario():
         if len(da_inventario.oggetti) != 0 :
             msg = "Inseriti nell'inventario : "
             for oggetto in da_inventario.oggetti :
-                msg= f"\n - {oggetto.nome}"
-                # Log.scrivi_log(f"{oggetto.nome} trasferito nell'inventario. ")
+                msg += f"\n - {oggetto.nome}"
                 self._aggiungi(oggetto)
             da_inventario.oggetti.clear()
         else:
             msg = "l'inventario è vuoto."
-        Log.scrivi_log(msg)
-        Messaggi.add_to_messaggi(msg)
+        logger.info(msg)
 
     def to_dict(self) -> dict:
         """
