@@ -64,7 +64,7 @@ def inventory():
 
 @inventory_bp.route('/add_object', methods=['GET', 'POST'])
 @login_required
-def aggiungi_oggetto():
+def add_object():
     oggetti_classes = {cls.__name__: cls for cls in Oggetto.__subclasses__()}
     inventario_schema = InventarioSchema()
 
