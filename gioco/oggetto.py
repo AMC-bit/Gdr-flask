@@ -46,6 +46,21 @@ class OggettoSchema(Schema):
     valore = fields.Int()
     tipo_oggetto = fields.Str()
 
+    @post_load
+    def make_oggetto(self, data, **kwargs):
+        # Ricostruisce la sottoclasse corretta in base al campo 'classe'
+        if data.get('classe') == 'PozioneCura':
+            from gioco.oggetto import PozioneCura
+            return PozioneCura(**data)
+        elif data.get('classe') == 'BombaAcida':
+            from gioco.oggetto import BombaAcida
+            return BombaAcida(**data)
+        elif data.get('classe') == 'Medaglione':
+            from gioco.oggetto import Medaglione
+            return Medaglione(**data)
+        else:
+            return Oggetto(**data)
+
 
 @dataclass
 class PozioneCura(Oggetto):

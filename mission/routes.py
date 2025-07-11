@@ -64,7 +64,9 @@ def select_mission():
         if missione_selezionata:
             # Salva missione e ambiente in sessione
             session['missione'] = schema.dump(missione_selezionata)
-            session['ambiente'] = schema.dump(missione_selezionata.ambiente)
+            session['ambiente'] = AmbienteSchema().dump(
+                missione_selezionata.ambiente
+            )
 
             msg = f"Missione selezionata: {missione_selezionata.nome}"
             flash(msg, 'success')
@@ -82,7 +84,7 @@ def select_mission():
         session['gestore_missioni'] = GestoreMissioniSchema().dump(gestore)
     else:
         # Ricostruisce il gestore dalla sessione
-        gestore = GestoreMissioniSchema().load(getore_missioni_data)
+        gestore = GestoreMissioniSchema().load(session['gestore_missioni'])
     missioni = {
         str(missione.id): missione for missione in gestore.lista_missioni
     }
@@ -132,11 +134,13 @@ def show_mission():
     )
 
 
-def get_all_subclasses(cls):
+# metodo per la ricerca dinamica delle sottoclassi di una classe specifica
+def get_all_subclasses(cls, ricorsiva: bool = True):
     all_subclasses = []
     for subclass in cls.__subclasses__():
         all_subclasses.append(subclass)
-        all_subclasses.extend(get_all_subclasses(subclass))
+        if ricorsiva:
+            all_subclasses.extend(get_all_subclasses(subclass))
     return all_subclasses
 
 
@@ -151,10 +155,10 @@ def descrizione():
         dict: Un dizionario contenente i valori standard e le modifiche
               apportate dall'ambiente ai personaggi e agli oggetti.
     """
-
-    ambiente = session.get('ambiente')
-    if isinstance(ambiente, dict):
-        ambiente = AmbienteSchema().load(ambiente)
+    ambiente = None
+    s_ambiente = session.get('ambiente')
+    if isinstance(s_ambiente, dict):
+        ambiente = AmbienteSchema().load(s_ambiente)
 
     # Dati base per classi derivate da personaggio
     # (definite in maniera statica per ridurre la complessità del metodo

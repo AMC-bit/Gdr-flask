@@ -297,3 +297,16 @@ class AmbienteSchema(Schema):
     nome = fields.String(required=True)
     mod_attacco = fields.Integer()
     mod_cura = fields.Float()
+
+    @post_load
+    def make_oggetto(self, data, **kwargs):
+        #rimuovo classe dai dati per evitare conflitti
+        data_clean = {k: v for k, v in data.items() if k != 'classe'}
+        if data.get('classe') == 'Foresta':
+            return Foresta(**data_clean)
+        elif data.get('classe') == 'Vulcano':
+            return Vulcano(**data_clean)
+        elif data.get('classe') == 'Palude':
+            return Palude(**data_clean)
+        else:
+            return Ambiente(**data_clean)

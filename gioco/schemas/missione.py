@@ -27,7 +27,9 @@ class GestoreMissioniSchema(Schema):
 
     @post_load
     def make_GestoreMissioni(self, data, **kwargs):
-        return GestoreMissioni(**data)
+        gm = GestoreMissioni()
+        gm.lista_missioni = data['lista_missioni']
+        return gm
 
     def crea_GestoreMissioni_Statico(self):
         lista =[]
