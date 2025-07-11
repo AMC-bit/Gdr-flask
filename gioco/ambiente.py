@@ -2,7 +2,6 @@ import random
 import uuid
 import logging
 from dataclasses import dataclass, field
-from marshmallow import Schema, fields, post_load
 from gioco.oggetto import BombaAcida, Oggetto, PozioneCura
 from gioco.classi import Guerriero, Ladro, Mago
 from gioco.personaggio import Personaggio
