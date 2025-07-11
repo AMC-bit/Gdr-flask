@@ -7,16 +7,15 @@ from flask_login import login_user
 from . import auth_bp
 from app import db
 from characters.routes import load_char
-import os
 import re
 
 
-def controllo_email(email):
+def email_check(email):
     pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
     return re.match(pattern, email)
 
 
-def psw_proteggi_hash(psw):
+def protect_psw_hash(psw):
     return generate_password_hash(psw)
 
 
@@ -27,27 +26,34 @@ def sign_in():
         email = request.form['email'].strip()
         psw = request.form['psw']
         re_psw = request.form['re_psw']
-        if not  name :
+        if not name:
             raise ValueError('Name field cant be empty')
         else:
             if not email:
                 raise ValueError('Email cant be empty')
             else:
-                if not controllo_email(email):
+                if not email_check(email):
                     raise ValueError('Email does not match an email pattern')
                 else:
-                    if not ( psw and re_psw and psw == re_psw) :
-                        raise ValueError('Password and repeat Password field must match')
+                    if not (psw and re_psw and psw == re_psw):
+                        raise ValueError(
+                            'Password and repeat Password field must match')
                     else:
-                        #Registra il nuovo utente
-                        hash_psw = psw_proteggi_hash(psw)
-                        utente_exist = User.query.filter((User.email == email)and((User.nome == name ))).first()
+                        # Registra il nuovo utente
+                        hash_psw = protect_psw_hash(psw)
+                        utente_exist = User.query.filter((User.email == email) and ((User.nome == name ))).first()
                         if utente_exist:
                             raise ValueError('Utente già presente')
                         else:
-                                nuovo_utente = User(nome= name, email= email, password_hash= hash_psw, crediti= 100, character_ids=[])
-                                db.session.add(nuovo_utente)
-                                db.session.commit()
+                            nuovo_utente = User(
+                                nome=name,
+                                email=email,
+                                password_hash=hash_psw,
+                                crediti=100,
+                                character_ids=[])
+
+                            db.session.add(nuovo_utente)
+                            db.session.commit()
                         return redirect(url_for('auth.login'))
     return render_template('sign_in.html')
 
@@ -57,26 +63,30 @@ def login():
     if request.method == 'POST':
         email = request.form['email'].strip()
         password = request.form['password']
-
         user = User.query.filter_by(email=email).first()
 
         if user and check_password_hash(user.password_hash, password):
             login_user(user)
-            return redirect(url_for('auth.area_personale'))
+            return redirect(url_for('auth.personal_area'))
         else:
-            return render_template('login.html', error='Credenziali non valide.')
+            return render_template(
+                'login.html',
+                error='Credenziali non valide.')
 
     return render_template('login.html')
 
 
-@auth_bp.route('/area_personale')
-def area_personale():
+@auth_bp.route('/personal_area')
+def personal_area():
     load_char()
     message = ""
     message1 = request.args.get('message', '')
     if message1:
         message = message1
-    return render_template("area_personale.html", user=current_user, message=message)
+    return render_template(
+        "personal_area.html",
+        user=current_user,
+        message=message)
 
 
 @auth_bp.route('/edit_user', methods=['GET', 'POST'])
@@ -85,10 +95,12 @@ def edit_user():
     user = current_user
     if user:
         if request.method == 'POST':
-            #Catturo i dati inseriti nel form per la modifica dell'utente e li uso per
-            #modificare i dati dell'utente sul db, invine redirige alla pagina login
-            
-            #Perchè non mostra il flash e perchè non prende i value precedenti nel form ?
+            # Catturo i dati inseriti nel form per la modifica dell'utente 
+            # e li uso per modificare i dati dell'utente sul db,
+            # infine redirige alla pagina login
+
+            # ? Perchè non mostra il flash e perchè non prende
+            # ? i value precedenti nel form ?
             new_name = request.form['new_username']
             new_email = request.form['new_email']
             new_psw = request.form['new_password']
@@ -97,16 +109,17 @@ def edit_user():
                 db_user = User.query.get_or_404(id)
                 db_user.nome = new_name
                 db_user.email = new_email
-                if not controllo_email(new_email):
-                        flash("Email does not match an email pattern","error")
+                if not email_check(new_email):
+                    flash("Email does not match an email pattern", "error")
                 else:
-                    db_user.password_hash = psw_proteggi_hash(new_psw)
+                    db_user.password_hash = protect_psw_hash(new_psw)
                     db.session.commit()
                     message = "Utente modificato con successo!"
-                    return redirect(url_for('auth.area_personale', message=message))
-            
-    return render_template("edit_user.html", utente = user )
+                    return redirect(url_for(
+                        'auth.personal_area',
+                        message=message))
 
+    return render_template("edit_user.html", utente = user )
 
 
 @auth_bp.route('/delete_user/<int:id>')
@@ -117,6 +130,7 @@ def delete_user(id):
     db.session.commit()
     return redirect(url_for('auth.sign_in'))
 
+
 @auth_bp.route('/credit_refill', methods=['GET', 'POST'])
 @login_required
 def credit_refill():
@@ -124,8 +138,10 @@ def credit_refill():
 
     if request.method == 'POST':
         try:
-            amount = int(request.form['amount'])  # controllo per vedere se inserimento è int
-        except (KeyError, ValueError):  # se non è int verrà sollevata un'eccezione
+            # controllo per vedere se inserimento è int
+            amount = int(request.form['amount'])
+        # se non è int verrà sollevata un'eccezione
+        except (KeyError, ValueError):
             message = "Inserisci un numero valido."
             return redirect(url_for('auth.credit_refill', message=message))
 
@@ -135,10 +151,12 @@ def credit_refill():
         else:
             current_user.crediti += amount  # aggiunta dei crediti
             db.session.commit()  # salvataggio in database
-            message = f"Ricaricati {amount} crediti. Totale attuale: {int(current_user.crediti)}."
+            message = (
+                f"Ricaricati {amount} crediti."
+                f"Totale attuale: {int(current_user.crediti)}.")
             return redirect(url_for('auth.credit_refill', message=message))
 
-    message = request.args.get('message')  # estrae il parametro message dall'URL
+    message = request.args.get('message')  # estrae il parametro message da URL
     return render_template('credit_refill.html', message=message)
 
 @auth_bp.route('/logout')
