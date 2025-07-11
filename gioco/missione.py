@@ -155,7 +155,7 @@ class GestoreMissioni():
         self.lista_missioni = self.setup()
 
     def setup(self) -> list[Missione]:
-        from gioco.schemas.missione_schema import MissioniSchema
+        from gioco.schemas.missione import MissioniSchema
         """
         Istanzio le Missioni da fornire al GestoreMissioni,
         viene chiamato nel costruttore di GestoreMissioni
@@ -174,7 +174,7 @@ class GestoreMissioni():
         # e la lista dei nemici e dei premi
         lista =[]
         schema = MissioniSchema()
-        routes = "static\mission\Imboscata"
+        routes = r"static\mission"
         for files in os.listdir(routes):
             if files.endswith(".json"):
                 with open(os.path.join(routes, files), 'r') as file:
@@ -183,29 +183,6 @@ class GestoreMissioni():
                     lista.append(missione)
         return lista
 
-        # salva_principessa = Missione(
-        #     nome="Salva la principessa",
-        #     ambiente=Palude(),
-        #     nemici=[Ladro("Megera furfante")],
-        #     premi=[Medaglione()],
-
-        #     strategia_nemici= StrategiaFactory.usa_strategia("difensiva")
-        # )
-        # print (f"{salva_principessa.to_dict}")
-
-        # culto = Missione(
-        #     nome="Sgomina il culto di Graz'zt sul vulcano Gheemir",
-        #     ambiente=Vulcano(),
-        #     nemici=[
-        #         Mago("Cultista 1"),
-        #         Mago("Cultista 2"),
-        #         Mago("Cultista 3")
-        #     ],
-        #     premi=[PozioneCura(), Medaglione()],
-        #     strategia_nemici= StrategiaFactory.usa_strategia("aggressiva")
-        # )
-
-        # return [imboscata, salva_principessa, culto]
 
     def mostra(self) -> None:
         """
