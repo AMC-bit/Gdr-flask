@@ -1,50 +1,39 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <title>Crea Missione</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='stile.css') }}">
-</head>
-<body>
-    <h1>Crea una Nuova Missione</h1>
+{% extends "layout.html" %}
+{% block title %}Crea Missione{% endblock %}
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <ul class="flash-messages">
-          {% for category, message in messages %}
-            <li class="{{ category }}">{{ message }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
+{% block content %}
+<div class="d-flex justify-content-center align-items-center flex-column py-5">
+  <form method="post" class="card shadow-sm p-4 mb-4" style="max-width: 800px; width: 100%;">
+    <h1 class="h4 text-center mb-4">Crea una nuova missione</h1>
 
-    <form method="POST">
-        <label for="nome">Nome Missione:</label><br>
-        <input type="text" name="nome" required><br><br>
+    <div class="mb-3">
+      <label for="nome" class="form-label">Nome Missione</label>
+      <input type="text" name="nome" id="nome" class="form-control" required>
+    </div>
 
-        <label for="ambiente">Tipo Ambiente:</label><br>
-        <select name="ambiente" required>
-            <option value="foresta">Foresta</option>
-            <option value="deserto">Deserto</option>
-            <option value="montagna">Montagna</option>
-            <option value="palude">Palude</option>
-        </select><br><br>
+    <div class="mb-3">
+      <label for="ambiente" class="form-label">Tipo di Ambiente</label>
+      <input type="text" name="ambiente" id="ambiente" class="form-control" placeholder="es. Deserto, Foresta, Dungeon" required>
+    </div>
 
-        <label for="strategia_nemici">Strategia dei Nemici:</label><br>
-        <input type="text" name="strategia_nemici" placeholder="Es. attacco diretto"><br><br>
+    <div class="mb-3">
+      <label for="strategia_nemici" class="form-label">Strategia dei Nemici</label>
+      <input type="text" name="strategia_nemici" id="strategia_nemici" class="form-control" placeholder="es. Aggressiva, Difensiva, Randomica" required>
+    </div>
 
-        <label for="nemici">Lista Nemici (uno per riga):<br>
-            <small>Formato: nome:salute:salute_max:att_min:att_max:destrezza</small>
-        </label><br>
-        <textarea name="nemici" rows="5" cols="60" placeholder="Orco:50:70:10:15:5"></textarea><br><br>
+    <div class="mb-3">
+      <label for="nemici" class="form-label">Nemici (uno per riga, formato: nome:salute:salute_max:att_min:att_max:destrezza)</label>
+      <textarea name="nemici" id="nemici" class="form-control" rows="4" placeholder="es. Goblin:30:40:5:10:8" required></textarea>
+    </div>
 
-        <label for="premi">Lista Premi (uno per riga):<br>
-            <small>Formato: nome:valore:classe:tipo_oggetto</small>
-        </label><br>
-        <textarea name="premi" rows="5" cols="60" placeholder="Spada Sacra:100:Guerriero:arma"></textarea><br><br>
+    <div class="mb-3">
+      <label for="premi" class="form-label">Premi (uno per riga, formato: nome:valore:classe:tipo_oggetto)</label>
+      <textarea name="premi" id="premi" class="form-control" rows="4" placeholder="es. Spada Sacra:100:Guerriero:arma" required></textarea>
+    </div>
 
-        <input type="submit" value="Crea Missione">
-        <a href="{{ url_for('mission.select_mission') }}">Annulla</a>
-    </form>
-</body>
-</html>
+    <button type="submit" class="btn btn-outline-primary w-100">Salva Missione</button>
+  </form>
+
+  <a href="{{ url_for('mission.select_mission') }}" class="btn btn-outline-secondary mt-3">← Torna alla selezione missione</a>
+</div>
+{% endblock %}

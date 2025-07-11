@@ -22,7 +22,7 @@ def create_mission():
     if request.method == 'POST':
         nome = request.form.get('nome')
         tipo_ambiente = request.form.get('ambiente')
-        strategia_nemici = request.form.get('strategia_nemici')
+        strategia = request.form.get('strategia_nemici')
 
         nemici_input = request.form.get('nemici', '')
         premi_input = request.form.get('premi', '')
@@ -47,13 +47,13 @@ def create_mission():
             except ValueError:
                 flash(f"Errore nella riga premio: {riga}", 'error')
 
-        ambiente = Ambiente(tipo=tipo_ambiente)
+        ambiente = Ambiente(nome=tipo_ambiente)
         missione = Missione(
             nome=nome,
             ambiente=ambiente,
             nemici=lista_nemici,
             premi=lista_premi,
-            strategia=strategia_nemici
+            strategia_nemici=strategia
         )
 
         missioni = []
