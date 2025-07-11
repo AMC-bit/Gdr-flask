@@ -3,8 +3,8 @@ from flask import render_template, request, session, flash, redirect, url_for
 from gioco.oggetto import Oggetto, OggettoSchema
 from gioco.personaggio import Personaggio
 from gioco.classi import Ladro, Mago, Guerriero
-from gioco.inventario import Inventario, InventarioSchema
-# from utils.messaggi import Messaggi
+from gioco.inventario import Inventario
+from gioco.schemas.inventorio import InventarioSchema
 from utils.log import Log
 from flask_login import login_required
 from marshmallow import ValidationError
@@ -33,7 +33,7 @@ def inventory():
             for inv in inventari:
                 if inv['id_proprietario'] == id_passato:
                     inventario_selezionato = inv
-                    Log.scrivi_log(
+                    logger.info(
                         f"Inventario di {nome_per_id[id_passato]}"
                         "selezionato via GET."
                     )
@@ -48,9 +48,7 @@ def inventory():
         for inv in inventari:
             if inv['id_proprietario'] == id_selezionato:
                 inventario_selezionato = inv
-                Log.scrivi_log(
-                    f"Inventario di {nome_per_id[id_selezionato]} selezionato."
-                )
+                logger.info(f"Inventario di {nome_per_id[id_selezionato]} selezionato.")
 
                 break
 
@@ -125,6 +123,7 @@ def aggiungi_oggetto():
         personaggio=personaggio,
         personaggio_id=personaggio_id
     )
+
 """
 @inventory_bp.route('/elimina-oggetto/<int:oggetto_id>', methods=['POST'])
 def elimina_oggetto(oggetto_id):
