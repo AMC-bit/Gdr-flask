@@ -29,7 +29,7 @@
             </form>
 
             <!-- Pulsante per eliminare -->
-            <form method="post" action="{{ url_for('characters.elimina_personaggio', id=loop.index0) }}">
+            <form method="post" action="{{ url_for('characters.elimina_personaggio', char_id=pg.id) }}">
               <button type="submit" class="btn btn-outline-danger btn-sm"
                       onclick="return confirm('Eliminare {{ pg["nome"] }}?')">Elimina</button>
             </form>

@@ -7,7 +7,6 @@ from marshmallow import Schema, fields, post_load
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-
 @dataclass
 class Mago(Personaggio):
     """

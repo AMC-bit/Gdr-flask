@@ -1,13 +1,17 @@
 from . import inventory_bp
-from flask import render_template, request, session  # , \
-# flash, redirect, url_for, flash
-# from gioco.oggetto import BombaAcida, Medaglione, Oggetto, PozioneCura
-# from gioco.personaggio import Personaggio
-# from gioco.classi import Ladro, Mago, Guerriero
-# from gioco.inventario import Inventario
+from flask import render_template, request, session, flash, redirect, url_for
+from gioco.oggetto import Oggetto, OggettoSchema
+from gioco.personaggio import Personaggio
+from gioco.classi import Ladro, Mago, Guerriero
+from gioco.inventario import Inventario, InventarioSchema
 # from utils.messaggi import Messaggi
 from utils.log import Log
+from flask_login import login_required
+from marshmallow import ValidationError
+import logging
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 @inventory_bp.route('/inventory', methods=['GET', 'POST'])
 def inventory():
@@ -59,6 +63,73 @@ def inventory():
         inventario=inventario_selezionato,
         personaggio=personaggio
     )
+
+@inventory_bp.route('/add_object', methods=['GET', 'POST'])
+@login_required
+def aggiungi_oggetto():
+    oggetti_classes = {cls.__name__: cls for cls in Oggetto.__subclasses__()}
+    inventario_schema = InventarioSchema()
+
+    # Recuperiamo l'ID del personaggio selezionato
+    personaggio_id = request.args.get('personaggio_id') or request.form.get('personaggio_id')
+    if not personaggio_id:
+        flash("ID personaggio mancante", "danger")
+        return redirect(url_for('inventory.inventory'))
+
+    personaggi = session.get('personaggi', [])
+    inventari = session.get('inventari', [])
+
+    # Ricostruiamo il personaggio e il suo inventario
+    personaggio = next((p for p in personaggi if p['id'] == personaggio_id), None)
+    inventario_pg = next((inv for inv in inventari if inv['id_proprietario'] == personaggio_id), None)
+
+    if not personaggio or not inventario_pg:
+        flash("Personaggio o inventario non trovato", "danger")
+        return redirect(url_for('inventory.inventory'))
+
+    # Gestiamo la request 
+    if request.method == 'POST':
+        oggetto_sel = request.form.get('oggetto')
+
+        if oggetto_sel not in oggetti_classes:
+            logger.warning(f"Oggetto selezionato non valido: {oggetto_sel}")
+            flash("Oggetto non valido", "danger")
+            return redirect(url_for('inventory.aggiungi_oggetto', personaggio_id=personaggio_id))
+
+        nuovo_oggetto = oggetti_classes[oggetto_sel]()
+        # Questo print è stato aggiunto solo per controllare la struttura di inventario_pg
+        print(f"inventario_pg -----------------------------------> {inventario_pg}")
+
+        try:
+            inventario_obj = inventario_schema.load(inventario_pg)
+        except ValidationError as err:
+            logger.error(f"Errore deserializzazione inventario: {err}")
+            flash("Errore nel caricamento dell'inventario", "danger")
+            return redirect(url_for('inventory.inventory'))
+
+        inventario_obj.aggiungi_oggetto(nuovo_oggetto)
+        inventario_aggiornato = inventario_schema.dump(inventario_obj)
+
+        session['inventari'] = [
+            inv if inv['id_proprietario'] != personaggio_id else inventario_aggiornato
+            for inv in inventari
+        ]
+
+        logger.info(f"Aggiunto oggetto '{nuovo_oggetto.nome}' a {personaggio['nome']}")
+        flash(f"Oggetto '{nuovo_oggetto.nome}' aggiunto a {personaggio['nome']}", "success")
+        return redirect(url_for('inventory.inventory', personaggio_id=personaggio_id))
+
+    return render_template(
+        'edit_object.html',
+        oggetti=list(oggetti_classes.keys()),
+        personaggio=personaggio,
+        personaggio_id=personaggio_id
+    )
+"""
+@inventory_bp.route('/elimina-oggetto/<int:oggetto_id>', methods=['POST'])
+def elimina_oggetto(oggetto_id):
+    # logica per eliminare l’oggetto
+    return redirect(url_for())"""
 
 
 """

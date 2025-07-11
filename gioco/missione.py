@@ -1,16 +1,14 @@
+
 from dataclasses import dataclass, field
 from typing import Optional
 import random, uuid, json, os, logging
-
-from marshmallow import Schema, fields, post_load
-
 from gioco.personaggio import Personaggio
-from gioco.classi import Mago, Guerriero, Ladro, PersonaggioSchema
-from gioco.ambiente import Ambiente, AmbienteFactory, Vulcano, Foresta, Palude, AmbienteSchema
-from gioco.oggetto import Oggetto, PozioneCura, BombaAcida, Medaglione, OggettoSchema
+from gioco.classi import PersonaggioSchema
+from gioco.ambiente import Ambiente, AmbienteFactory, AmbienteSchema
+from gioco.oggetto import Oggetto, OggettoSchema
 from gioco.inventario import Inventario
 from gioco.schemas.personaggio import PersonaggioSchema
-
+from gioco.schemas.missione_schema import MissioniSchema
 from gioco.strategy import Strategia, StrategiaFactory, StrategiaSchema
 
 
@@ -346,47 +344,3 @@ class GestoreMissioni():
             # Log.scrivi_log(msg)
             return None
 
-    # def to_dict(self) -> dict:
-    #     """Restituisce uno stato serializzabile per session o JSON.
-
-    #     Returns:
-    #         dict: Dizionario del materiale serializzato
-    #     """
-    #     return {
-    #         "classe": self.__class__.__name__,
-    #         "lista_missioni": [
-    #             missione.to_dict() for missione in self.lista_missioni
-    #         ]
-    #     }
-
-    # @classmethod
-    # def from_dict(cls, data: dict) -> "GestoreMissioni":
-    #     """Ricostruisce l’istanza a partire da un dict serializzato.
-
-    #     Args:
-    #         data (dict): Dati serializzati
-
-    #     Returns:
-    #         Ambiente: Dati deserializzati.
-    #     """
-    #     gestore = cls()
-    #     gestore.lista_missioni = [
-    #         Missione.from_dict(missione)
-    #         for missione in data.get("lista_missioni", [])
-    #     ]
-    #     return gestore
-
-
-class MissioniSchema(Schema):
-    id = fields.UUID(dump_only=True)
-    nome = fields.String(required=True)
-    ambiente = fields.Nested(AmbienteSchema, required=True)
-    nemici = fields.List(fields.Nested(PersonaggioSchema), required= True)
-    premi = fields.List(fields.Nested(OggettoSchema), required= True)
-    strategia = fields.Nested(StrategiaSchema, allow_none=True)
-    completata = fields.Bool()
-    attiva = fields.Bool()
-
-    @post_load
-    def make_Missioni(self, data, **kwargs):
-        return Missione(**data)
