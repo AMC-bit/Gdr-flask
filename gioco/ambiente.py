@@ -1,6 +1,5 @@
 import random
 from typing import Dict
-import uuid
 import logging
 from dataclasses import dataclass, field
 from marshmallow import Schema, fields, post_load

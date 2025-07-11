@@ -40,7 +40,7 @@ class Oggetto:
 
 class OggettoSchema(Schema):
     classe = fields.Str(required=True)
-    id = fields.UUID(required=True)
+    id = fields.UUID(load_default=lambda: uuid.uuid4())
     nome = fields.Str(required=True)
     usato = fields.Bool()
     valore = fields.Int()

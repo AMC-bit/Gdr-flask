@@ -77,9 +77,9 @@ def select_mission():
 
     # GET: mostra il form di selezione
     if 'gestore_missioni' not in session:
-        gestore = GestoreMissioni()
+        gestore = GestoreMissioniSchema().crea_GestoreMissioni_Statico()
         # Salva il gestore in sessione per mantenerlo coerente
-        session['gestore_missioni'] = gestore.to_dict()
+        session['gestore_missioni'] = GestoreMissioniSchema().dump(gestore)
     else:
         # Ricostruisce il gestore dalla sessione
         gestore = GestoreMissioniSchema().load(getore_missioni_data)
