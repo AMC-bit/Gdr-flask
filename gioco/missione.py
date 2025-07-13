@@ -4,7 +4,6 @@ import json
 import os
 import logging
 from dataclasses import dataclass, field
-from typing import Optional
 from gioco.personaggio import Personaggio
 from gioco.ambiente import Ambiente, AmbienteFactory
 from gioco.oggetto import Oggetto
@@ -13,6 +12,7 @@ from gioco.strategy import Strategia, StrategiaFactory
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
+
 
 @dataclass
 class Missione():
@@ -100,7 +100,11 @@ class Missione():
         return False
 
     # aggiunge premio all'inventario del giocatore se la missione è completata
-    def assegna_premio(self, inventari_giocatori: list[Inventario], giocatore: str) -> None:
+    def assegna_premio(
+        self,
+        inventari_giocatori: list[Inventario],
+        giocatore: str
+    ) -> None:
         """
         Mette nell'inventario dei giocatori gli oggetti contenuti nella lista
         dei Premi (Proprietà di Missione) distribuendoli casualmente
@@ -121,7 +125,9 @@ class Missione():
                 logger.warning(msg)
                 raise ValueError(msg)
             inventario._aggiungi(premio)
-            msg = f"Premio {premio.nome} aggiunto all'inventario di {giocatore} "
+            msg = (
+                f"Premio {premio.nome} aggiunto all'inventario di {giocatore} "
+            )
             logger.info(msg)
 
     # QUESTO METODO E' PROVVISORIO
@@ -146,6 +152,7 @@ class Missione():
 
 # Lista delle missioni
 
+
 class GestoreMissioni():
     """
     È un gestore di istanze della classe Missione, e le gestisce con diversi
@@ -168,10 +175,10 @@ class GestoreMissioni():
         """
 
         # Istanzio le missioni
-        # cerco dentro a static/mission ogni file json avrà lo stesso nome della missione,
-        # il nome della sottoclasse di ambiente, il nome della sottoclasse della strategia
-        # e la lista dei nemici e dei premi
-        lista =[]
+        # cerco dentro a static/mission ogni file json avrà lo stesso nome
+        # della missione, il nome della sottoclasse di ambiente, il nome
+        # della sottoclasse della strategia  e la lista dei nemici e dei premi
+        lista = []
         schema = MissioniSchema()
         routes = r"static\mission"
         for files in os.listdir(routes):
@@ -181,7 +188,6 @@ class GestoreMissioni():
                     missione = schema.load(data)
                     lista.append(missione)
         return lista
-
 
     def mostra(self) -> None:
         """
@@ -250,4 +256,3 @@ class GestoreMissioni():
             msg = f"Errore: {e}"
             logger(msg)
             return None
-

@@ -1,6 +1,5 @@
 from dataclasses import dataclass, field
 import uuid
-from gioco.schemas.oggetto import OggettoSchema
 
 
 @dataclass
@@ -30,15 +29,13 @@ class Oggetto:
         Metodo da implementare in ogni oggetto
 
         Args:
-            mod_ambiente (int): variabile dell'Ambiente in cui si trova l'oggetto
+            mod_ambiente (int): variabile dell'Ambiente in cui si trova
+            l'oggetto
 
         Returns:
             int: Valore dell'oggetto usato
         """
         raise NotImplementedError("Questo oggetto non ha effetto definito.")
-
-
-
 
 
 @dataclass
@@ -51,13 +48,13 @@ class PozioneCura(Oggetto):
     classe: str = "PozioneCura"
     tipo_oggetto: str = "Ristorativo"
 
-
     def usa(self, mod_ambiente: int = 0) -> int:
         """
         Cura il personaggio che la usa di un certo valore
 
         Args:
-            mod_ambiente (int): variabile dell'Ambiente in cui si trova l'oggetto
+            mod_ambiente (int): variabile dell'Ambiente in cui si trova
+            l'oggetto
 
         Returns:
             int: Valore di cura della pozione
@@ -84,7 +81,8 @@ class BombaAcida(Oggetto):
         Il valore viene passato come un valore negativo!
 
         Args:
-            mod_ambiente (int): variabile dell'Ambiente in cui si trova l'oggetto
+            mod_ambiente (int): variabile dell'Ambiente in cui si trova
+            l'oggetto
 
         Returns:
             int: Danno inflitto dalla bomba
@@ -102,14 +100,15 @@ class Medaglione(Oggetto):
     nome: str = "Medaglione"
     valore: int = 10
     tipo_oggetto: str = "Buff"
-    classe:str = "Medaglione"
+    classe: str = "Medaglione"
 
     def usa(self, mod_ambiente: int = 0) -> None:
         """
         Incrementa l'attacco_max del personaggio che lo usa
 
         Args:
-            mod_ambiente (int): variabile dell'Ambiente in cui si trova l'oggetto
+            mod_ambiente (int): variabile dell'Ambiente in cui si trova
+            l'oggetto
 
         Returns:
             None
