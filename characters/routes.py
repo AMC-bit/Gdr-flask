@@ -136,7 +136,7 @@ def create_char():
 @login_required
 def edit_char(char_id):
 
-    from app import db
+    #from app import db
 
     # prendo lista id personaggi posseduti
     owned_ids = load_char()
@@ -168,8 +168,11 @@ def edit_char(char_id):
         nuova_classe = request.form['classe']
 
         id = pg_dict['id']
-        pg_obj = classi[nuova_classe](nome=nuovo_nome)
-        pg_obj.id = id  # Assicuriamoci che l'ID rimanga lo stesso
+        pg_obj = classi[nuova_classe](
+            nome=nuovo_nome,
+            id=id,
+            classe=nuova_classe
+        )
 
         pg_dict = schema.dump(pg_obj)
         CharSingleJson(pg_dict)

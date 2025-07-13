@@ -123,12 +123,14 @@ def select_mission():
     if request.method == 'POST':
         missione_id = request.form.get('missione_id')
 
-        # Ricostruisce il gestore dalla sessione
-        getore_missioni_data = session.get('gestore_missioni')
-        if getore_missioni_data:
-            gestore = GestoreMissioniSchema().load(getore_missioni_data)
+        # Ricostruisce il gestore dalla sessione (stesso usato per GET)
+        gestore_data = session.get('gestore_missioni')
+        if gestore_data:
+            gestore = GestoreMissioniSchema().load(gestore_data)
         else:
-            gestore = GestoreMissioni()
+            # Fallback se la sessione è vuota
+            gestore = GestoreMissioniSchema().crea_GestoreMissioni_Statico()
+            session['gestore_missioni'] = GestoreMissioniSchema().dump(gestore)
 
         # Debug: stampa il missione_id ricevuto
         msg = f"DEBUG: missione_id ricevuto: '{missione_id}'"
@@ -169,6 +171,7 @@ def select_mission():
     else:
         # Ricostruisce il gestore dalla sessione
         gestore = GestoreMissioniSchema().load(session['gestore_missioni'])
+
     missioni = {
         str(missione.id): missione for missione in gestore.lista_missioni
     }
@@ -331,15 +334,11 @@ def mostra_missioni():
 
 
 @mission_bp.route('/missione/attiva')
-def active_mission():
-    gestore = GestoreMissioni()
-    if 'missione' in session:
-        missione_data = session['missione']
-        missione = Missione.from_dict(missione_data)
-        if missione.attiva:
-            return render_template('missione_attiva.html', missione=missione)
-    missione = gestore.sorteggia()
-    if missione and missione.attiva:
+def missione_attiva():
+    missione = GestoreMissioni.sorteggia()
+    if missione:
+        missione.attiva = True
+        session['missione'] = MissioniSchema().dump(missione)
         msg = f"Missione attiva: {missione.nome}, ID: {missione.id}"
         logger.info(msg)
         return render_template('missione_attiva.html', missione=missione)

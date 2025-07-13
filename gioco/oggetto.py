@@ -21,6 +21,13 @@ class Oggetto:
     id: str = field(default_factory=lambda: str(uuid.uuid4()))
     classe: str = field(init=False)
 
+    def __post_init__(self):
+        """
+        Imposta automaticamente il nome della classe se non è già impostato
+        """
+        if not hasattr(self, 'classe') or not self.classe:
+            self.classe = self.__class__.__name__
+
     def usa(
             self,
             mod_ambiente: int = 0

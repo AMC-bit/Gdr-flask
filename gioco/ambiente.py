@@ -1,13 +1,16 @@
 import random
-from typing import Dict
 import logging
-from dataclasses import dataclass, field
+from typing import Dict
+from dataclasses import dataclass
+
+from marshmallow import Schema, fields, post_load
 from gioco.oggetto import BombaAcida, Oggetto, PozioneCura
 from gioco.classi import Guerriero, Ladro, Mago
 from gioco.personaggio import Personaggio
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
+
 
 @dataclass
 class Ambiente():
@@ -42,7 +45,7 @@ class Ambiente():
         }
 
     @classmethod
-    def from_dict(cls, data:dict) -> 'Ambiente':
+    def from_dict(cls, data: dict) -> 'Ambiente':
         """ricrea il classe corretta in base al campo "classe"
 
         Args:
@@ -80,8 +83,10 @@ class Foresta(Ambiente):
             l'attaccante non è un guerriero
         """
         if isinstance(attaccante, Guerriero):
-            logger.info(f"{attaccante.nome} guadagna {self.modifica_attacco}" \
-                f"attacco nella Foresta!")
+            logger.info(
+                f"{attaccante.nome} guadagna {self.modifica_attacco}"
+                f"attacco nella Foresta!"
+            )
             return self.mod_attacco
         return 0
 
@@ -141,12 +146,16 @@ class Vulcano(Ambiente):
         """
 
         if isinstance(attaccante, Mago):
-            logger.info(f"{attaccante.nome} guadagna {self.modifica_attacco}" \
-                "attacco nel Vulcano!")
+            logger.info(
+                f"{attaccante.nome} guadagna {self.modifica_attacco}"
+                "attacco nel Vulcano!"
+            )
             return self.mod_attacco
         elif isinstance(attaccante, Ladro):
-            logger.info(f"{attaccante.nome} perde {self.modifica_attacco}" \
-                "attacco nel Vulcano!")
+            logger.info(
+                f"{attaccante.nome} perde {self.modifica_attacco}"
+                "attacco nel Vulcano!"
+            )
             return -self.mod_attacco
         return 0
 
@@ -163,8 +172,10 @@ class Vulcano(Ambiente):
         """
         if isinstance(oggetto, BombaAcida):
             variazione = random.randint(0, 15)
-            logger.info(f"Nella {self.nome}, la Bomba Acida guadagna {variazione}" \
-                f" danni!")
+            logger.info(
+                f"Nella {self.nome}, la Bomba Acida guadagna {variazione}"
+                f" danni!"
+            )
             return variazione
         return 0
 
@@ -181,7 +192,6 @@ class Vulcano(Ambiente):
 
         """
         return int(self.mod_cura)
-
 
 
 @dataclass
@@ -208,7 +218,8 @@ class Palude(Ambiente):
             int: La diminuzione dell'attacco massimo
         """
         if isinstance(attaccante, (Guerriero, Ladro)):
-            logger.info(f"{attaccante.nome} perde {-self.mod_attacco} " \
+            logger.info(
+                f"{attaccante.nome} perde {-self.mod_attacco} "
                 "attacco nella Palude!")
             return self.mod_attacco
         return 0
@@ -224,8 +235,10 @@ class Palude(Ambiente):
         """
         if isinstance(oggetto, PozioneCura):
             riduzione = int(oggetto.valore * self.mod_cura)
-            logger.info(f"Nella {self.nome}, la Pozione Cura ha effetto ridotto di" \
-                f"{riduzione} punti!")
+            logger.info(
+                f"Nella {self.nome}, la Pozione Cura ha effetto ridotto di"
+                f"{riduzione} punti!"
+                )
             return -riduzione
         return 0
 
@@ -263,7 +276,7 @@ class AmbienteFactory:
             Foresta come default.
         """
         mapping = AmbienteFactory.get_opzioni()
-        scelta =scelta.strip().lower()
+        scelta = scelta.strip().lower()
         if scelta in mapping:
             env = mapping[scelta]
             logger.info(f"selezionato ambiente {env.nome}")
@@ -291,6 +304,25 @@ class AmbienteFactory:
         return random_choice
 
 
+def get_all_subclasses(cls):
+    """
+    Ottiene tutte le sottoclassi di una classe base, utilizzata per
+    la deserializzazione dinamica tramite Marshmallow.
+
+    Args:
+        cls: La classe base di cui ottenere le sottoclassi
+
+    Returns:
+        set: Un set contenente tutte le sottoclassi
+    """
+    subclasses = set()
+    for subclass in cls.__subclasses__():
+        subclasses.add(subclass)
+        # subclasses.update(get_all_subclasses(subclass))
+        # nel caso di sottoclassi indirette
+    return subclasses
+
+
 class AmbienteSchema(Schema):
     classe = fields.String(required=True)
     nome = fields.String(required=True)
@@ -298,14 +330,40 @@ class AmbienteSchema(Schema):
     mod_cura = fields.Float()
 
     @post_load
-    def make_oggetto(self, data, **kwargs):
-        #rimuovo classe dai dati per evitare conflitti
+    def make_obj(self, data, **kwargs):
+        # Crea la mappa dinamica: nome classe -> classe Python
+        classe_nome = data.get("classe")
+        ambienti_map = {
+            subcls.__name__: subcls
+            for subcls in get_all_subclasses(Ambiente)
+        }
+
+        # rimuovo classe dai dati per evitare conflitti
         data_clean = {k: v for k, v in data.items() if k != 'classe'}
-        if data.get('classe') == 'Foresta':
-            return Foresta(**data_clean)
-        elif data.get('classe') == 'Vulcano':
-            return Vulcano(**data_clean)
-        elif data.get('classe') == 'Palude':
-            return Palude(**data_clean)
+
+        if classe_nome in ambienti_map:
+            ambiente_cls = ambienti_map[classe_nome]
+            return ambiente_cls(**data_clean)
         else:
+            # Fallback alla classe base Ambiente
             return Ambiente(**data_clean)
+
+    def dump(self, obj, *, many=None, **kwargs):
+        """
+        Override del metodo dump per aggiungere automaticamente il campo classe
+        """
+        # Ottieni i dati base dall'oggetto usando il metodo parent
+        data = super().dump(obj, many=many, **kwargs)
+
+        if many:
+            # Se stiamo serializzando una lista di oggetti
+            if isinstance(obj, (list, tuple)) and isinstance(data, list):
+                for i, item_data in enumerate(data):
+                    if i < len(obj) and hasattr(obj[i], '__class__'):
+                        item_data['classe'] = obj[i].__class__.__name__
+        else:
+            # Se stiamo serializzando un singolo oggetto
+            if isinstance(data, dict) and hasattr(obj, '__class__'):
+                data['classe'] = obj.__class__.__name__
+
+        return data

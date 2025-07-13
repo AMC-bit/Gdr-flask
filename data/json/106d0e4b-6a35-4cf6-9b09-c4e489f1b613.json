@@ -1,0 +1,13 @@
+{
+    "classe": "Guerriero",
+    "id": "106d0e4b-6a35-4cf6-9b09-c4e489f1b613",
+    "nome": "Antonella",
+    "npc": false,
+    "salute_max": 130,
+    "salute": 130,
+    "attacco_min": 20,
+    "attacco_max": 100,
+    "livello": 1,
+    "destrezza": 15,
+    "storico_danni_subiti": []
+}

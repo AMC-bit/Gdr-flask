@@ -13,7 +13,6 @@ def get_all_subclasses(cls):
     return subclasses
 
 
-
 class PersonaggioSchema(Schema):
     """
     Schema per la serializzazione/deserializzazione dei personaggi.
@@ -58,6 +57,7 @@ class LadroSchema(PersonaggioSchema):
     Estende PersonaggioSchema e aggiunge il campo 'destrezza'.
     """
     pass
+
 
 class GuerrieroSchema(PersonaggioSchema):
     """
