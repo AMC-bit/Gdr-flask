@@ -22,7 +22,7 @@ def get_all_subclasses(cls):
 
 
 class OggettoSchema(Schema):
-    id = fields.Str(load_default=lambda: str(uuid.uuid4()))
+    id = fields.UUID(load_default=lambda: uuid.uuid4())
     nome = fields.Str()
     usato = fields.Bool()
     valore = fields.Int()

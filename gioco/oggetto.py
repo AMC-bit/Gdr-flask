@@ -18,7 +18,7 @@ class Oggetto:
     usato: bool = False
     valore: int = 30
     tipo_oggetto: str = ""
-    id: str = field(default_factory=lambda: str(uuid.uuid4()))
+    id: uuid.UUID = field(default_factory=uuid.uuid4)
     classe: str = field(init=False)
 
     def __post_init__(self):

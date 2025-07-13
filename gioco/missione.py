@@ -21,7 +21,7 @@ class Missione():
     Rappresenta una missione, composta da un ambiente, nemici e premi.
     """
 
-    id: str = field(default_factory=lambda: str(uuid.uuid4()))
+    id: uuid.UUID = field(default_factory=uuid.uuid4)
     ambiente: Ambiente = field(
         default_factory=lambda: AmbienteFactory.usa_ambiente("Palude")
     )

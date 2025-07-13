@@ -20,7 +20,7 @@ class Personaggio():
     Contiene le proprietà comuni a ogni classe (Mago, Ladro, Guerriero)
     """
     nome: str = ""
-    id: str = field(default_factory=lambda: str(uuid.uuid4()))
+    id: uuid.UUID = field(default_factory=uuid.uuid4)
     npc: bool = True
     salute: int = 100
     salute_max: int = 200

@@ -11,7 +11,7 @@ from gioco.schemas.strategy import StrategiaSchema
 
 
 class MissioniSchema(Schema):
-    id = fields.String(load_default=lambda: str(uuid.uuid4()))
+    id = fields.UUID(load_default=lambda: uuid.uuid4())
     nome = fields.String(required=True)
     ambiente = fields.Nested(AmbienteSchema, required=True)
     nemici = fields.List(fields.Nested(PersonaggioSchema), required=True)
