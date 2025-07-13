@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 import uuid
-from marshmallow import Schema, fields, post_load, validate
+from gioco.schemas.oggetto import OggettoSchema
 
 
 @dataclass
@@ -38,28 +38,7 @@ class Oggetto:
         raise NotImplementedError("Questo oggetto non ha effetto definito.")
 
 
-class OggettoSchema(Schema):
-    classe = fields.Str(required=True)
-    id = fields.UUID(load_default=lambda: uuid.uuid4())
-    nome = fields.Str(required=True)
-    usato = fields.Bool()
-    valore = fields.Int()
-    tipo_oggetto = fields.Str()
 
-    @post_load
-    def make_oggetto(self, data, **kwargs):
-        # Ricostruisce la sottoclasse corretta in base al campo 'classe'
-        if data.get('classe') == 'PozioneCura':
-            from gioco.oggetto import PozioneCura
-            return PozioneCura(**data)
-        elif data.get('classe') == 'BombaAcida':
-            from gioco.oggetto import BombaAcida
-            return BombaAcida(**data)
-        elif data.get('classe') == 'Medaglione':
-            from gioco.oggetto import Medaglione
-            return Medaglione(**data)
-        else:
-            return Oggetto(**data)
 
 
 @dataclass

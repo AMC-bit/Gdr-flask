@@ -1,18 +1,102 @@
-from collections import defaultdict
+import logging
+import json
+import os
 from copy import deepcopy
-from gioco.oggetto import Oggetto
-from gioco.personaggio import Personaggio
-from gioco.ambiente import AmbienteSchema
-from gioco.schemas.missione import GestoreMissioniSchema, MissioniSchema
+from collections import defaultdict
 
 from . import mission_bp
+
+from gioco.oggetto import Oggetto
+from gioco.personaggio import Personaggio
+from gioco.ambiente import AmbienteSchema, Ambiente
+from gioco.missione import GestoreMissioni, Missione
+from gioco.schemas.missione import GestoreMissioniSchema, MissioniSchema
 from flask import flash, render_template, request, session, \
     redirect, url_for
-from gioco.missione import  GestoreMissioni, Missione # , GestoreMissioni
-import logging
+
+# richiedere a utente: nome, tipo ambiente, lista nemici, lista premi,
+# strategia.
+
+path_missioni = os.path.join(
+    os.path.dirname(os.path.dirname(__file__)), 'data', 'missioni_custom.json'
+)
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
+
+
+@mission_bp.route('/create_mission', methods=['GET', 'POST'])
+def create_mission():
+    if request.method == 'POST':
+        nome = request.form.get('nome')
+        tipo_ambiente = request.form.get('ambiente')
+        strategia = request.form.get('strategia_nemici')
+
+        nemici_input = request.form.get('nemici', '')
+        premi_input = request.form.get('premi', '')
+
+        lista_nemici = []
+        for riga in nemici_input.strip().split('\n'):
+            try:
+                (
+                    nome,
+                    salute,
+                    salute_max,
+                    attacco_min,
+                    attacco_max,
+                    destrezza
+                ) = riga.strip().split(':')
+                nemico = Personaggio(
+                    nome.strip(),
+                    int(salute),
+                    int(salute_max),
+                    int(destrezza),
+                    int(attacco_min),
+                    int(attacco_max)
+                )
+                lista_nemici.append(nemico)
+            except ValueError:
+                flash(f"Errore nella riga nemico: {riga}", 'error')
+
+        lista_premi = []
+        for riga in premi_input.strip().split('\n'):
+            try:
+                nome, valore, classe, tipo_oggetto = riga.strip().split(':')
+                premio = Oggetto(
+                    nome.strip(),
+                    classe.strip(),
+                    int(valore),
+                    tipo_oggetto.strip()
+                )
+                lista_premi.append(premio)
+            except ValueError:
+                flash(f"Errore nella riga premio: {riga}", 'error')
+
+        ambiente = Ambiente(nome=tipo_ambiente)
+        missione = Missione(
+            nome=nome,
+            ambiente=ambiente,
+            nemici=lista_nemici,
+            premi=lista_premi,
+            strategia_nemici=strategia
+        )
+
+        missioni = []
+        if os.path.exists(path_missioni):
+            with open(path_missioni, 'r') as f:
+                missioni = json.load(f)
+
+        missioni.append(missione.to_dict())
+
+        with open(path_missioni, 'w') as f:
+            json.dump(missioni, f, indent=4)
+
+        flash(f"Missione '{nome}' salvata con successo!", 'success')
+        logger.info(f"Missione personalizzata creata: {nome}")
+        return redirect(url_for('mission.select_mission'))
+
+    return render_template('create_mission.html')
+
 
 @mission_bp.route('/select_mission', methods=['GET', 'POST'])
 def select_mission():
@@ -123,8 +207,10 @@ def show_mission():
 
     msg = f"Missione mostrata: {missione.nome}"
     flash(msg, 'info')
+
     logger.info(msg)
-    descrizione_ambiente = descrizione()
+    descrizione_ambiente = description()
+
     return render_template(
         'show_mission.html',
         missione=missione,
@@ -145,7 +231,7 @@ def get_all_subclasses(cls, ricorsiva: bool = True):
 
 
 @staticmethod
-def descrizione():
+def description():
     """
     Il metodo descrive i cambiamenti
     che l'ambiente apporta ai personaggi e agli oggetti rispetto
@@ -153,7 +239,7 @@ def descrizione():
 
     Returns:
         dict: Un dizionario contenente i valori standard e le modifiche
-              apportate dall'ambiente ai personaggi e agli oggetti.
+        apportate dall'ambiente ai personaggi e agli oggetti.
     """
     ambiente = None
     s_ambiente = session.get('ambiente')
@@ -172,7 +258,6 @@ def descrizione():
     # Importo dinamico delle classi
     # Ottieni dinamicamente tutte le sottoclassi di Personaggio
 
-
     # Crea il mapping dinamico delle classi
     classi_map = {cls.__name__: cls for cls in get_all_subclasses(Personaggio)}
     classi = {nome: classi_map[nome]("temp") for nome in classi_data.keys()}
@@ -182,7 +267,7 @@ def descrizione():
 
     # valori standard
     val_standard = {}
-    x ={}
+    x = {}
     for nome, classe in classi.items():
         data = classi_data[nome]
         x[nome] = {
@@ -246,7 +331,7 @@ def mostra_missioni():
 
 
 @mission_bp.route('/missione/attiva')
-def missione_attiva():
+def active_mission():
     gestore = GestoreMissioni()
     if 'missione' in session:
         missione_data = session['missione']
@@ -264,7 +349,7 @@ def missione_attiva():
 
 
 @mission_bp.route('/missioni/stato')
-def stato_missioni():
+def state_mission():
     gestore = GestoreMissioni()
     complete = gestore.finita()
     if complete:

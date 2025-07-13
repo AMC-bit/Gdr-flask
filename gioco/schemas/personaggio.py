@@ -59,7 +59,6 @@ class LadroSchema(PersonaggioSchema):
     """
     pass
 
-
 class GuerrieroSchema(PersonaggioSchema):
     """
     Schema specifico per la classe Guerriero.

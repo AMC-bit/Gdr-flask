@@ -15,7 +15,7 @@
           <strong>Crediti:</strong> {{ current_user.crediti|int }}
           <img src="{{ url_for('static', filename='img/bitcoin4.png') }}" alt="coin" style="height: 1.5em;">
         </div>
-        <a class="btn btn-primary" href="{{ url_for('auth.area_personale') }}">Area Personale</a>
+        <a class="btn btn-primary" href="{{ url_for('auth.personal_area') }}">Area Personale</a>
         <a class="btn btn-outline-danger" href="{{ url_for('auth.logout') }}">Logout</a>
       </div>
       {% endif %}

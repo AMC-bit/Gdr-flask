@@ -52,7 +52,7 @@
 
           <!-- Pulsante per aggiungere un oggetto -->
           <li class="mb-3 text-center">
-            <a href="{{ url_for('inventory.aggiungi_oggetto', personaggio_id=personaggio.id) }}" class="text-decoration-none">
+            <a href="{{ url_for('inventory.add_object', personaggio_id=personaggio.id) }}" class="text-decoration-none">
               <div class="d-flex justify-content-center align-items-center border rounded p-3"
                   style="height: 60px; font-size: 2rem; color: #6c757d; font-weight: 300;">
                 +
@@ -62,7 +62,6 @@
         </ul>
 
     {% endif %}
-
-    <a href="{{ url_for('characters.mostra_personaggi') }}" class="btn btn-outline-primary">← Torna alla lista</a>
+    <a href="{{ url_for('characters.show_chars') }}" class="btn btn-outline-primary">← Torna alla lista</a>
   </div>
 {% endblock %}

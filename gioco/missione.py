@@ -1,7 +1,10 @@
-
+import random
+import uuid
+import json
+import os
+import logging
 from dataclasses import dataclass, field
 from typing import Optional
-import random, uuid, json, os, logging
 from gioco.personaggio import Personaggio
 from gioco.ambiente import Ambiente, AmbienteFactory
 from gioco.oggetto import Oggetto
