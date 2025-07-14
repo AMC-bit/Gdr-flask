@@ -8,3 +8,6 @@ DATA_DIR_PGS = os.path.join(BASE_DIR, 'data', 'json', 'personaggi')
 
 # directory file JSON degli inventari
 DATA_DIR_INV = os.path.join(BASE_DIR, 'data', 'json', 'inventari_pg')
+
+# directory file JSON delle missioni
+DATA_DIR_MIS = os.path.join(BASE_DIR, 'static', 'json', 'missions')

@@ -5,7 +5,7 @@ from copy import deepcopy
 from collections import defaultdict
 
 from . import mission_bp
-
+import config
 from gioco.oggetto import Oggetto
 from gioco.personaggio import Personaggio
 from gioco.ambiente import AmbienteSchema, Ambiente
@@ -106,7 +106,7 @@ def prendi_Missione_Da_Json():
     """
     lista = []
     schema = MissioniSchema()
-    routes = r"static\json\missions"
+    routes = config.DATA_DIR_MIS
     for files in os.listdir(routes):
         if files.endswith(".json"):
             with open(os.path.join(routes, files), 'r') as file:
