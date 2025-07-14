@@ -178,6 +178,26 @@ class Inventario:
             msg = "l'inventario è vuoto."
         logger.info(msg)
 
+    def rimuovi_oggetto(self, oggetto_id: Union[str, uuid.UUID]) -> Optional[Oggetto]:
+        """
+        Rimuove un oggetto dall'inventario dato il suo ID.
+
+        Args:
+            oggetto_id (str | UUID): L'ID dell'oggetto da rimuovere.
+
+        Returns:
+            Oggetto: L'oggetto rimosso se trovato.
+            None: Se nessun oggetto con quell'ID è stato trovato.
+        """
+        oggetto_id = str(oggetto_id)  # Normalizziamo a stringa per confronto sicuro
+        for oggetto in self.oggetti:
+            if str(oggetto.id) == oggetto_id:
+                self.oggetti.remove(oggetto)
+                logger.info(f"Oggetto '{oggetto.nome}' rimosso dall'inventario.")
+                return oggetto
+        logger.warning(f"Nessun oggetto con ID {oggetto_id} trovato nell'inventario.")
+        return None
+
     def to_dict(self) -> dict:
         """
         Serializza l'inventario in un dizionario.

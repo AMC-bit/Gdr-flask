@@ -1,0 +1,13 @@
+{
+    "classe": "Ladro",
+    "id": "3b167284-a94d-46f7-a2f9-e02aa2046111",
+    "nome": "shadow",
+    "npc": false,
+    "salute_max": 120,
+    "salute": 120,
+    "attacco_min": 10,
+    "attacco_max": 85,
+    "livello": 1,
+    "destrezza": 15,
+    "storico_danni_subiti": []
+}
