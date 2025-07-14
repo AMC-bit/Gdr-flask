@@ -137,8 +137,6 @@ def create_char():
 @login_required
 def edit_char(char_id):
 
-    #from app import db
-
     # prendo lista id personaggi posseduti
     owned_ids = load_char()
     # controllo che l'id del personaggio sia tra i personaggi posseduti
@@ -266,29 +264,23 @@ def char_details(char_id):
 @characters_bp.route('/characters/<uuid:char_id>', methods=['POST'])
 @login_required
 def char_delete(char_id):
-    # lista personaggi da sessione
-    pg_list = session.get('personaggi', [])
 
-    # ricerca del dizionario del personaggio da eliminare
-    pg_dict = None  # resterà none se non trovo il personaggio
-    for p in pg_list:
-        if str(p['id']) == str(char_id):
-            pg_dict = p
-            break
+    # ricostruzione percorso file json del personaggio designato
+    file_path = os.path.join(DATA_DIR, f"{char_id}.json")
 
-    if pg_dict is None:
-        flash("Personaggio non trovato", "danger")
+    # in caso di file JSON non trovato
+    if not os.path.isfile(file_path):
+        flash("Personaggio non raggiungibile")
         return redirect(url_for('characters.show_chars'))
 
-    # ricostruzione della nuova lista escludendo il personaggio
-    new_pg_list = []
-    for p in pg_list:
-        if str(p['id']) != str(char_id):
-            new_pg_list.append(p)
-    session['personaggi'] = new_pg_list
+    # andiamo a leggere il file designato
+    with open(file_path, 'r', encoding='utf-8') as f:
+        pg_dict = json.load(f)
+
+    # ricrea oggetto personaggio
+    pg_obj = schema.load(pg_dict)
 
     # eliminazione del file JSON corrispondente
-    file_path = os.path.join(DATA_DIR, f"{char_id}.json")
     if os.path.exists(file_path):
         os.remove(file_path)
         logger.info(f"File JSON eliminato: {file_path}")
@@ -301,9 +293,6 @@ def char_delete(char_id):
         if str(cid) != str(char_id):
             new_id_list.append(cid)
     current_user.character_ids = new_id_list
-
-    # ricrea oggetto personaggio
-    pg_obj = schema.load(pg_dict)
 
     # rimborso crediti
     current_user.crediti += credits_to_refund(pg_obj)
