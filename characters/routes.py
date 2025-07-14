@@ -10,7 +10,7 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 from auth.models import User
 from auth.models import db
 from auth.credits import credits_to_create, credits_to_refund
-from config import DATA_DIR
+from config import DATA_DIR_PGS
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -29,13 +29,13 @@ def load_char():
     user_char = []
     owned_char = []
 
-    if os.path.isdir(DATA_DIR):
+    if os.path.isdir(DATA_DIR_PGS):
         print("Cartella esistente")
     else:
-        os.makedirs(DATA_DIR, exist_ok=True)
+        os.makedirs(DATA_DIR_PGS, exist_ok=True)
 
-    files = os.listdir(DATA_DIR)
-    print(DATA_DIR)
+    files = os.listdir(DATA_DIR_PGS)
+    print(DATA_DIR_PGS)
 
     for file in files:
         filename = os.path.splitext(file)[0]
@@ -66,7 +66,7 @@ def CharSingleJson(pg_dict: dict):
     # Recuperare i dati dal form per singolo personaggio
     # Creazione del file JSON con l'id del personaggio
     name_file = f"{pg_dict['id']}.json"
-    path = os.path.join(DATA_DIR, name_file)
+    path = os.path.join(DATA_DIR_PGS, name_file)
     with open(path, "w", encoding="utf-8") as file:
         json.dump(pg_dict, file, indent=4)
 
@@ -145,7 +145,7 @@ def edit_char(char_id):
         return redirect(url_for("characters.show_chars"))
 
     # costruzione percorso file JSON
-    path = os.path.join(DATA_DIR, f"{char_id}.json")
+    path = os.path.join(DATA_DIR_PGS, f"{char_id}.json")
     # in caso di file JSON non trovato
     if not os.path.isfile(path):
         flash("Personaggio non raggiungibile")
@@ -201,7 +201,7 @@ def get_owned_chars(owned_chars):
         nome_file = id
         print(f"ID: {id}")
         #Recupero il path del file json del personaggio
-        path = os.path.join(DATA_DIR, f"{nome_file}.json")
+        path = os.path.join(DATA_DIR_PGS, f"{nome_file}.json")
 
         with open(path, "r") as file:
             char_dict = json.load(file)
@@ -231,7 +231,7 @@ def show_chars():
 @login_required
 def char_details(char_id):
     # check cartella esistente
-    os.makedirs(DATA_DIR, exist_ok=True)
+    os.makedirs(DATA_DIR_PGS, exist_ok=True)
     # deserializzazione
     try:
         owned_chars = load_char()
@@ -266,7 +266,7 @@ def char_details(char_id):
 def char_delete(char_id):
 
     # ricostruzione percorso file json del personaggio designato
-    file_path = os.path.join(DATA_DIR, f"{char_id}.json")
+    file_path = os.path.join(DATA_DIR_PGS, f"{char_id}.json")
 
     # in caso di file JSON non trovato
     if not os.path.isfile(file_path):
