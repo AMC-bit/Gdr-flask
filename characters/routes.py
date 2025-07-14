@@ -10,7 +10,7 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 from auth.models import User
 from auth.models import db
 from auth.credits import credits_to_create, credits_to_refund
-from config import DATA_DIR_PGS, DATA_DIR_INV
+from config import DATA_DIR_PGS, DATA_DIR_INV, CreateDirs
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
