@@ -10,11 +10,12 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 from auth.models import User
 from auth.models import db
 from auth.credits import credits_to_create, credits_to_refund
-from config import DATA_DIR_PGS
+from config import DATA_DIR_PGS, DATA_DIR_INV
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 schema = PersonaggioSchema()
+
 
 @characters_bp.route('/load_char')
 @login_required
@@ -75,9 +76,25 @@ def CharSingleJson(pg_dict: dict):
         json.dump(pg_dict, file, indent=4)
 
 
+def CreateDirs():
+    """
+    Crea directory per i file JSON per i personaggi e gli inventari
+    se non sono esistenti
+    """
+    for d in (DATA_DIR_PGS, DATA_DIR_INV):
+        os.makedirs(d, exist_ok=True)
+
+        # crea file gitkeep se non esiste
+        gitkeep = os.path.join(d, '.gitkeep')
+        if not os.path.exists(gitkeep):
+            open(gitkeep, 'a').close()
+
+
 @characters_bp.route('/create_char', methods=['GET', 'POST'])
 @login_required
 def create_char():
+
+    CreateDirs()  # check cartelle esistenti
 
     from app import db
     # cattura dinamica di tutte le sottoclassi di Oggetto e Personaggio
@@ -89,7 +106,6 @@ def create_char():
         nome = request.form['nome'].strip()
         classe_sel = request.form['classe']
         oggetto_sel = request.form['oggetto']
-
 
         pg = classi[classe_sel]()
         pg.nome = nome
@@ -108,19 +124,11 @@ def create_char():
         else:
             current_user.crediti -= costo_pg
 
-        pg_list = session.get('personaggi', [])
-        inv_list = session.get('inventari', [])
-
         pg_dict = schema.dump(pg)
-        pg_list.append(pg_dict)
-
-        inv_list.append(inv.to_dict())
 
         # Creazione del file JSON del singolo personaggio
         CharSingleJson(pg_dict)
 
-        session['personaggi'] = pg_list
-        session['inventari'] = inv_list
         # Assicura che tutti gli id siano stringhe
         character_ids = (current_user.character_ids or []) + [str(pg.id)]
         current_user.character_ids = [str(cid) for cid in character_ids]
