@@ -33,6 +33,10 @@ def load_char():
         print("Cartella esistente")
     else:
         os.makedirs(DATA_DIR_PGS, exist_ok=True)
+        # crea un file .gitkeep
+        gitkeep_path = os.path.join(DATA_DIR_PGS, ".gitkeep")
+        with open(gitkeep_path, "a", encoding="utf-8"):
+            pass
 
     files = os.listdir(DATA_DIR_PGS)
     print(DATA_DIR_PGS)
