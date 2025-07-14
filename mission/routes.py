@@ -121,7 +121,7 @@ def select_mission():
     """
     schema = MissioniSchema()
     if request.method == 'POST':
-        missione_id = request.form.get('missione_id')
+        missione_id = request.form.get('missione_id') 
 
         # Ricostruisce il gestore dalla sessione (stesso usato per GET)
         gestore_data = session.get('gestore_missioni')
