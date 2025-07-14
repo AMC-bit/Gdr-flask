@@ -9,7 +9,7 @@ from . import mission_bp
 from gioco.oggetto import Oggetto
 from gioco.personaggio import Personaggio
 from gioco.ambiente import AmbienteSchema, Ambiente
-from gioco.missione import GestoreMissioni, Missione
+from gioco.missione import Missione
 from gioco.schemas.missione import GestoreMissioniSchema, MissioniSchema
 from flask import flash, render_template, request, session, \
     redirect, url_for
@@ -129,8 +129,11 @@ def select_mission():
             gestore = GestoreMissioniSchema().load(gestore_data)
         else:
             # Fallback se la sessione è vuota
-            gestore = GestoreMissioniSchema().prendi_Missione_Da_Json()
-            session['gestore_missioni'] = GestoreMissioniSchema().dump(gestore)
+
+            gestore = GestoreMissioniSchema().crea_GestoreMissioni_Statico()
+            gestore_dict = GestoreMissioniSchema().dump(gestore)
+            session['missioni'] = gestore_dict['lista_missioni']
+            session['gestore_missioni'] = gestore_dict
 
         # Debug: stampa il missione_id ricevuto
         msg = f"DEBUG: missione_id ricevuto: '{missione_id}'"
@@ -321,36 +324,54 @@ def description():
             var_amb['Oggetto'][obj.__class__.__name__]['valore'] += mod_obj
 
     # Debugging output
-    # print(f"val_standard: {val_standard}")
-    # print(f"var_amb: {var_amb}")
+    # print(f"val_standard: {val_standard}"
+    # f"\nvar_amb: {var_amb}")
 
     return {'val_standard': val_standard, 'var_amb': var_amb}
 
 
 @mission_bp.route('/missioni')
 def mostra_missioni():
-    missioni = GestoreMissioni.lista_missioni
+    missioni = session.get('missioni', [])
     return render_template('missioni.html', missioni=missioni)
 
 
 @mission_bp.route('/missione/attiva')
 def missione_attiva():
-    missione = GestoreMissioni.sorteggia()
-    if missione:
-        missione.attiva = True
-        session['missione'] = MissioniSchema().dump(missione)
-        msg = f"Missione attiva: {missione.nome}, ID: {missione.id}"
-        logger.info(msg)
-        return render_template('missione_attiva.html', missione=missione)
-    logger.info("Nessuna missione attiva al momento.")
-    flash("Non ci sono missioni attive o disponibili.", 'warning')
+        # Controlla se esiste già una missione attiva in sessione
+    missione_sessione = session.get('missione')
+    if missione_sessione:
+        return render_template('missione_attiva.html', missione=missione_sessione)
+
+    missioni = session.get('missioni', [])
+
+    # Cerca una missione attiva
+    for missione in missioni:
+        if missione.get('attiva') and not missione.get('completata'):
+            session['missione'] = missione
+            return render_template('missione_attiva.html', missione=missione)
+
+    # Se non ci sono missioni attive, reindirizza alla selezione
+    msg = "Nessuna missione attiva disponibile."
+    logger.info(msg)
+    flash(msg, 'warning')
     return redirect(url_for('mission.select_mission'))
 
 
 @mission_bp.route('/missioni/stato')
 def state_mission():
-    gestore = GestoreMissioni()
-    complete = gestore.finita()
+    # recupero tutte le missioni presenti nella sessione (il gestore viene rimosso quindi si cercano solo le missioni presenti in sessione nella lista 'missioni')
+    missioni = session.get('missioni', [])
+    if not missioni:
+        flash("Nessuna missione disponibile.", 'warning')
+        return redirect(url_for('mission.select_mission'))
+    complete = True
+    for missione in missioni:
+        missione_obj = MissioniSchema().make_Missioni(missione)
+        if not missione_obj.verifica_completamento():
+            complete = False
+            break
+
     if complete:
         msg = "Tutte le missioni sono state completate."
         logger.info(msg)

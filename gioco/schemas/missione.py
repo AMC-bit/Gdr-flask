@@ -21,7 +21,7 @@ class MissioniSchema(Schema):
     attiva = fields.Bool()
 
     @post_load
-    def make_Missioni(self, data, **kwargs):
+    def make_Missioni(self, data, **kwargs) -> Missione:
         return Missione(**data)
 
 

@@ -92,6 +92,7 @@ class Missione():
         Returns:
             bool: True se la missione è completata, altrimenti False
         """
+        self.rimuovi_nemici_sconfitti()
         if len(self.nemici) == 0:
             self.completata = True
             msg = f"Missione '{self.nome}' completata"
@@ -160,7 +161,7 @@ class GestoreMissioni():
     """
     lista_missioni: list[Missione] = field(default_factory=list)
 
-    def setup(self) -> list[Missione]:
+    def setup(self) -> None:
         from gioco.schemas.missione import MissioniSchema
         """
         Istanzio le Missioni da fornire al GestoreMissioni,
@@ -171,7 +172,7 @@ class GestoreMissioni():
             None
 
         Returns:
-            list[Missione]: Ritorna una lista di istanze di classe Missione
+            None
         """
 
         # Istanzio le missioni
@@ -187,7 +188,7 @@ class GestoreMissioni():
                     data = json.load(file)
                     missione = schema.load(data)
                     lista.append(missione)
-        return lista
+        self.lista_missioni = lista
 
     def mostra(self) -> None:
         """
