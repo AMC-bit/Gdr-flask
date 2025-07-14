@@ -4,7 +4,7 @@ from gioco.oggetto import Oggetto
 from gioco.personaggio import Personaggio
 from gioco.inventario import Inventario
 from gioco.schemas.oggetto import OggettoSchema
-from gioco.schemas.inventorio import InventarioSchema
+from gioco.schemas.inventario import InventarioSchema
 from flask_login import login_required
 from marshmallow import ValidationError
 import logging
