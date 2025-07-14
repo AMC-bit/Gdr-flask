@@ -123,11 +123,57 @@ def add_object():
         personaggio_id=personaggio_id
     )
 
-"""
-@inventory_bp.route('/elimina-oggetto/<int:oggetto_id>', methods=['POST'])
-def elimina_oggetto(oggetto_id):
-    # logica per eliminare l’oggetto
-    return redirect(url_for())"""
+@inventory_bp.route('/delete-object/<string:oggetto_id>', methods=['POST'])
+@login_required
+def delete_object(oggetto_id):
+    # Recupera ID del personaggio dal form nascosto (html)
+    personaggio_id = request.form.get('personaggio_id')
+
+    if not personaggio_id:
+        flash("ID personaggio mancante", "danger")
+        return redirect(url_for('inventory.inventory'))
+
+    # Recupera dalla sessione la lista di personaggi e inventari
+    personaggi = session.get('personaggi', [])
+    inventari = session.get('inventari', [])
+
+    # Ricostruiamo il personaggio e il suo inventario
+    personaggio = next((p for p in personaggi if p['id'] == personaggio_id), None)
+    inventario_pg = next((inv for inv in inventari if inv['id_proprietario'] == personaggio_id), None)
+
+    if not personaggio or not inventario_pg:
+        flash("Personaggio o inventario non trovato", "danger")
+        return redirect(url_for('inventory.inventory'))
+
+    # Creiamo uno schema per deserializzare l'inventario da dizionario a oggetto
+    inventario_schema = InventarioSchema()
+    try:
+        # Converte il dizionario in un oggetto Inventario
+        inventario_obj = inventario_schema.load(inventario_pg)
+    except ValidationError as err:
+        # Se c'è un errore nella deserializzazione, lo registriamo e mostriamo un errore
+        logger.error(f"Errore deserializzazione inventario: {err}")
+        flash("Errore nel caricamento dell'inventario", "danger")
+        return redirect(url_for('inventory.inventory'))
+
+    oggetto_rimosso = inventario_obj.rimuovi_oggetto(oggetto_id)
+
+    if not oggetto_rimosso:
+        flash("Oggetto non trovato nell'inventario", "warning")
+        return redirect(url_for('inventory.inventory', personaggio_id=personaggio_id))
+
+    inventario_aggiornato = inventario_schema.dump(inventario_obj)
+
+    # Sostituiamo l'inventario vecchio con quello aggiornato nella sessione
+    session['inventari'] = [
+        inv if inv['id_proprietario'] != personaggio_id else inventario_aggiornato
+        for inv in inventari
+    ]
+
+    logger.info(f"Oggetto con ID {oggetto_id} rimosso da {personaggio['nome']}")
+    flash(f"Oggetto rimosso correttamente da {personaggio['nome']}", "success")
+
+    return redirect(url_for('inventory.inventory', personaggio_id=personaggio_id))
 
 
 """

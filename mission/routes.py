@@ -12,7 +12,6 @@ from gioco.ambiente import AmbienteSchema, Ambiente
 from gioco.missione import GestoreMissioni, Missione
 from gioco.schemas.missione import GestoreMissioniSchema, MissioniSchema
 from flask import flash, render_template, request, session, redirect, url_for
-from config import DATA_DIR
 
 # richiedere a utente: nome, tipo ambiente, lista nemici, lista premi,
 # strategia.
@@ -24,11 +23,6 @@ path_missioni = os.path.join(
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-def CharSingleJson(pg_dict: dict):
-    name_file = f"{pg_dict['id']}.json"
-    path = os.path.join(DATA_DIR, name_file)
-    with open(path, "w", encoding="utf-8") as file:
-        json.dump(pg_dict, file, indent=4)
 
 @mission_bp.route('/create_mission', methods=['GET', 'POST'])
 def create_mission():
@@ -135,7 +129,7 @@ def select_mission():
     """
     schema = MissioniSchema()
     if request.method == 'POST':
-        missione_id = request.form.get('missione_id')
+        missione_id = request.form.get('missione_id') 
 
         # Ricostruisce il gestore dalla sessione (stesso usato per GET)
         gestore_data = session.get('gestore_missioni')
