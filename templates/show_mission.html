@@ -4,8 +4,70 @@
 <p>Nome: {{ missione.nome }}</p>
 <h2>Ambiente della missione:</h2>
 <p>Nome: {{ ambiente.nome }}</p>
-<p>Modifica Attacco: {{ ambiente.mod_attacco }}</p>
-<p>Modifica Cura: {{ (ambiente.mod_cura * 100)|int }}%</p>
+
+<!-- Tabella di confronto temporanea -->
+<div class="row">
+    <div class="col-12">
+        <h4>Effetti dell'ambiente {{ambiente.nome}} sui personaggi e oggetti</h4>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Classe/Oggetto</th>
+                    <th>Tipo</th>
+                    <th>Valori Standard</th>
+                    <th>Valori con l'ambiente attivo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Personaggi -->
+                {% for classe, standard in descrizione_ambiente.val_standard.Chars.items() %}
+                    {% set ambiente_mod = descrizione_ambiente.var_amb.Chars[classe] %}
+                    <tr>  <!-- Riga Attacco -->
+                        <td rowspan="2"><strong>{{ classe }}<strong></td>
+                        <td> Attacco </td>
+                        <td>da {{ standard.attacco.da }} a {{ standard.attacco.a }}</td>
+                        <td>
+                            {% if standard.attacco.da != ambiente_mod.attacco.da or standard.attacco.a != ambiente_mod.attacco.a %}
+                                <span>da {{ ambiente_mod.attacco.da }} a {{ ambiente_mod.attacco.a }}</span>
+                            {% else %}
+                                <span class="text-muted">Nessuna modifica</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>  <!-- Riga Cura -->
+                        <td> Cura </td>
+                        <td>{{ standard.cura['recupero salute'] }}</td>
+                        <td>
+                            {% if standard.cura['recupero salute'] != ambiente_mod.cura['recupero salute'] %}
+                                <span>{{ ambiente_mod.cura['recupero salute'] }}</span>
+                            {% else %}
+                                <span class="text-muted">Nessuna modifica</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                <!-- Oggetti -->
+                {% for nome_obj, obj_standard in descrizione_ambiente.val_standard.Oggetto.items() %}
+                    {% set obj_ambiente = descrizione_ambiente.var_amb.Oggetto[nome_obj] %}
+                    <tr>
+                        <td><strong>{{ nome_obj }}<strong></td>
+                        <td>{{obj_standard.tipo_oggetto}}</td>
+                        <td>{{ obj_standard.valore }}</td>
+                        <td>
+                            {% if obj_standard.valore != obj_ambiente.valore %}
+                                <span>{{ obj_ambiente.valore }}</span>
+                            {% else %}
+                                <span class="text-muted">Nessuna modifica</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
 <br>
 <p>Nemici:</p>
 <ul>

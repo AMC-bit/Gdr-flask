@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}Crea oggetto{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
+  <form method="POST" class="card shadow-sm p-4 w-100" style="max-width: 800px;">
+    <h1 class="h4 text-center mb-4">Aggiungi un oggetto a <strong>{{ personaggio.nome }}</strong></h1>
+
+    <input type="hidden" name="personaggio_id" value="{{ personaggio_id }}">
+
+    <div class="mb-4">
+      <label for="oggetto" class="form-label">Oggetto</label>
+      <select id="oggetto" name="oggetto" class="form-select" required>
+        {% for o in oggetti %}
+          <option value="{{ o }}">{{ o }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-outline-primary btn-lg w-100">
+      <i class="bi bi-plus-circle me-2"></i>Aggiungi
+    </button>
+  </form>
+</div>
+{% endblock %}

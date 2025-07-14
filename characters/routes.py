@@ -1,15 +1,21 @@
-import os, json
+import os, json, logging
 from . import characters_bp
 from flask import render_template, request, redirect, url_for, session, abort, flash
 from gioco.personaggio import Personaggio
 from gioco.oggetto import Oggetto
+from gioco.schemas.personaggio import PersonaggioSchema
 from gioco.inventario import Inventario
 from utils.log import Log
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
 from auth.models import User
 from auth.models import db
 from auth.credits import credits_to_create, credits_to_refund
-from config import DATA_DIR
+from config import DATA_DIR_PGS, DATA_DIR_INV
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+schema = PersonaggioSchema()
+
 
 @characters_bp.route('/load_char')
 @login_required
@@ -24,16 +30,10 @@ def load_char():
     user_char = []
     owned_char = []
 
-    if os.path.isdir(DATA_DIR):
-        print("Cartella esistente")
-    else:
-        os.makedirs(DATA_DIR, exist_ok=True)
-
-    files = os.listdir(DATA_DIR)
-    print(DATA_DIR)
+    files = os.listdir(DATA_DIR_PGS)
+    print(DATA_DIR_PGS)
 
     for file in files:
-        path = os.path.join(DATA_DIR, file)
         filename = os.path.splitext(file)[0]
         all_char_json.append(filename)
 
@@ -43,27 +43,26 @@ def load_char():
     print(f"all_char_json: {all_char_json}")
     print(f"user_char: {user_char}")
 
-    # scorro la lista 'all_char_json' e includo solo gli elementi che
-    # sono anche nella lista 'user_char'
+    # scorro la lista 'all_char_json' e includo solo gli elementi che sono anche nella lista 'user_char'
     owned_char = [c for c in all_char_json if c in user_char]
+
+    # caso in cui l'utente non abbia id posseduti
+    if not owned_char:
+        return []
 
     # for c in all_char_json:
     #     if c in user_char:
     #         owned_char.append(c)
     print(f"owned_char: {owned_char}")
 
-    with open(path, "r", encoding="utf-8") as file:
-        obj = json.load(file)
-        print(f"obj: {obj}")
     return owned_char
 
 
-def CharSingleJson(pg_creato: Personaggio):
+def CharSingleJson(pg_dict: dict):
     # Recuperare i dati dal form per singolo personaggio
     # Creazione del file JSON con l'id del personaggio
-    pg_dict = pg_creato.to_dict()
     name_file = f"{pg_dict['id']}.json"
-    path = os.path.join(DATA_DIR, name_file)
+    path = os.path.join(DATA_DIR_PGS, name_file)
     with open(path, "w", encoding="utf-8") as file:
         json.dump(pg_dict, file, indent=4)
 
@@ -71,6 +70,8 @@ def CharSingleJson(pg_creato: Personaggio):
 @characters_bp.route('/create_char', methods=['GET', 'POST'])
 @login_required
 def create_char():
+
+    CreateDirs()  # check cartelle esistenti
 
     from app import db
     # cattura dinamica di tutte le sottoclassi di Oggetto e Personaggio
@@ -83,8 +84,10 @@ def create_char():
         classe_sel = request.form['classe']
         oggetto_sel = request.form['oggetto']
 
-
-        pg = classi[classe_sel](nome, npc=False)
+        pg = classi[classe_sel]()
+        pg.nome = nome
+        pg.npc = False
+        pg.classe = classe_sel
         ogg = oggetti[oggetto_sel]()
         inv = Inventario(id_proprietario=pg.id)
         inv.aggiungi_oggetto(ogg)
@@ -94,28 +97,23 @@ def create_char():
         if current_user.crediti < costo_pg:
             msg = f"Non hai abbastanza crediti per creare un personaggio (minimo richiesto: {costo_pg})."
             flash(msg, "danger")
-            return redirect(url_for('auth.area_personale'))
+            return redirect(url_for('auth.personal_area'))
         else:
             current_user.crediti -= costo_pg
 
-        pg_list = session.get('personaggi', [])
-        inv_list = session.get('inventari', [])
-
-        pg_list.append(pg.to_dict())
-        inv_list.append(inv.to_dict())
+        pg_dict = schema.dump(pg)
 
         # Creazione del file JSON del singolo personaggio
-        CharSingleJson(pg)
+        CharSingleJson(pg_dict)
 
-        session['personaggi'] = pg_list
-        session['inventari'] = inv_list
-        character_ids = (current_user.character_ids or []) + [pg.id]
-        current_user.character_ids = character_ids
+        # Assicura che tutti gli id siano stringhe
+        character_ids = (current_user.character_ids or []) + [str(pg.id)]
+        current_user.character_ids = [str(cid) for cid in character_ids]
 
         db.session.commit()
-        Log.scrivi_log(f"Creato personaggio: {pg.nome}, Classe: {classe_sel}, id: {pg.id}, Oggetto iniziale: {oggetto_sel}")
+        logger.info(f"Creato personaggio: {pg.nome}, Classe: {classe_sel}, id: {pg.id}, Oggetto iniziale: {oggetto_sel}")
 
-        return redirect(url_for('characters.mostra_personaggi'))
+        return redirect(url_for('characters.show_chars'))
 
     return render_template(
         'create_char.html',
@@ -124,77 +122,91 @@ def create_char():
     )
 
 
-
-@characters_bp.route('/edit_char/<int:id>', methods=['GET', 'POST'])
+@characters_bp.route('/edit_char/<uuid:char_id>', methods=['GET', 'POST'])
 @login_required
-def edit_char(id):
+def edit_char(char_id):
 
-    from app import db
+    # prendo lista id personaggi posseduti
+    owned_ids = load_char()
+    # controllo che l'id del personaggio sia tra i personaggi posseduti
+    if str(char_id) not in owned_ids:
+        flash("Impossibile trovare il personaggio", "danger")
+        return redirect(url_for("characters.show_chars"))
+
+    # costruzione percorso file JSON
+    path = os.path.join(DATA_DIR_PGS, f"{char_id}.json")
+    # in caso di file JSON non trovato
+    if not os.path.isfile(path):
+        flash("Personaggio non raggiungibile")
+        return redirect(url_for('characters.show_chars'))
+    # andiamo a leggere il file designato
+    with open(path, 'r', encoding='utf-8') as f:
+        pg_dict = json.load(f)
 
     # mappa nomi-classi per poter permettere di cambiare classe
     classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
 
-    # prende valore associato a chiave 'personaggi' da sessione oppure lista vuota
-    lista_pg = load_char()
-
-    try:
-        # prova a recuperare il dizionario del pg da lista_pg tramite id
-        pg = lista_pg[id]
-    except IndexError:
-        flash("Impossibile trovare il personaggio desiderato")
-        return redirect(url_for('characters.mostra_personaggi'))
-
     if request.method == 'POST':
+
+        # cattura vecchio nome a fini di log
+        vecchio_nome = pg_dict['nome']
+
         # otteniamo i valori dal form
         nuovo_nome = request.form['nome'].strip()
         nuova_classe = request.form['classe']
 
-        vecchio_nome = pg['nome']  # cattura vecchio nome a fini di log
+        id = pg_dict['id']
+        pg_obj = classi[nuova_classe](
+            nome=nuovo_nome,
+            id=id,
+            classe=nuova_classe
+        )
 
-        # ricreiamo istanza di personaggio con dati aggiornati
-        pg['nome'] = nuovo_nome
-        pg['classe'] = nuova_classe
+        pg_dict = schema.dump(pg_obj)
+        CharSingleJson(pg_dict)
 
-        pg_obj = Personaggio.from_dict(pg)
-
-        CharSingleJson(pg_obj)
-
-        Log.scrivi_log(
-            f"Modificato personaggio id={id}: "
+        logger.info(
+            f"Modificato personaggio id={char_id}: "
             f"Nome: da '{vecchio_nome}' a '{nuovo_nome}', "
             f"Nuova classe: '{nuova_classe}'"
         )
 
-        session['personaggi'] = lista_pg  # salvataggio in sessione
-
-        return redirect(url_for('characters.mostra_personaggi'))
+        # conferma di avvenuto aggiornamento
+        flash("Personaggio aggiornato con successo", "success")
+        return redirect(url_for('characters.show_chars'))
 
     # mostra form precompilato
     return render_template(
         'edit_char.html',
-        id=id,
-        pg=pg,
+        pg=pg_dict,
         classi=list(classi.keys())
     )
-@characters_bp.route('/recupera_personaggi_posseduti')
-def recupera_personaggi_posseduti(owned_chars):
+
+
+@characters_bp.route('/get_owned_chars')
+def get_owned_chars(owned_chars):
     personaggi_posseduti = []
-    for id in owned_chars :
+    for id in owned_chars:
         nome_file = id
         print(f"ID: {id}")
         #Recupero il path del file json del personaggio
-        path = os.path.join(DATA_DIR, f"{nome_file}.json")
-        
-        with open (path, "r") as file:
+        path = os.path.join(DATA_DIR_PGS, f"{nome_file}.json")
+
+        with open(path, "r") as file:
             char_dict = json.load(file)
+            # deserializza il personaggio
+            personaggio = schema.load(char_dict)
+            # serializza di nuovo per uniformità
+            char_dict = schema.dump(personaggio)
             personaggi_posseduti.append(char_dict)
     return personaggi_posseduti
 
-@characters_bp.route('/personaggi', methods=['GET'])
-def mostra_personaggi():
+
+@characters_bp.route('/characters', methods=['GET'])
+def show_chars():
     owned_chars = load_char()
-    lista_pers_utente = recupera_personaggi_posseduti(owned_chars)
-    Log.scrivi_log(
+    lista_pers_utente = get_owned_chars(owned_chars)
+    logger.info(
         f"Richiesta lista personaggi. "
         f"Di questo utente: {len(lista_pers_utente)}"
     )
@@ -202,97 +214,91 @@ def mostra_personaggi():
         'list_char.html',
         personaggi=lista_pers_utente
     )
+# -----
 
-
-@characters_bp.route('/personaggi/<string:char_id>', methods=['GET'])
+@characters_bp.route('/characters/<uuid:char_id>', methods=['GET'])
 @login_required
-def dettaglio_personaggio(char_id):
+def char_details(char_id):
     # check cartella esistente
-    os.makedirs(DATA_DIR, exist_ok=True)
-
+    os.makedirs(DATA_DIR_PGS, exist_ok=True)
     # deserializzazione
     try:
-        with open(CHAR_FILE, 'r', encoding='utf-8') as f:
-            lista_pers = json.load(f)
+        owned_chars = load_char()
+        lista_pers = get_owned_chars(owned_chars)
+        print("LISTA", lista_pers)
     except (FileNotFoundError, json.JSONDecodeError):
         lista_pers = []
 
     # ricerca del personaggio tramite ID
     pg_dict = None  # conterrà il dizionario del pg trovato
     for p in lista_pers:  # prendo tutti i p dentro la lista di dizionari
-        if str(p.get('id')) == char_id:  # char id viene preso da URL
+        if str(p['id']) == str(char_id):  # char id viene preso da URL
             pg_dict = p  # in caso di corrispondenza il diz trovato diventa pg_dict
             break  # mi basta un solo match perché i pg non sono duplicabili
 
     if pg_dict is None:
-        Log.scrivi_log(f"Tentativo di accesso a personaggio inesistente con ID: {char_id}")
+        logger.warning(f"Tentativo di accesso a personaggio inesistente con ID: {char_id}")
         abort(404)
 
-    Log.scrivi_log(
+    logger.info(
         f"Visualizzazione dettagli personaggio con ID: {char_id}, Nome: {pg_dict.get('nome', 'N/A')}"
     )
     return render_template(
-        'details_char.html',
+        'char_details.html',
         pg=pg_dict,
         id=char_id
     )
 
 
+@characters_bp.route('/characters/<uuid:char_id>', methods=['POST'])
+@login_required
+def char_delete(char_id):
 
-@characters_bp.route('/personaggi/<int:id>', methods=['POST'])
-def elimina_personaggio(id):
+    # ricostruzione percorso file json del personaggio designato
+    file_path = os.path.join(DATA_DIR_PGS, f"{char_id}.json")
 
-    lista_pers = session.get('personaggi', [])
-    try:
-        pg = lista_pers.pop(id)
-        session['personaggi'] = lista_pers
+    # in caso di file JSON non trovato
+    if not os.path.isfile(file_path):
+        flash("Personaggio non raggiungibile")
+        return redirect(url_for('characters.show_chars'))
 
-        # Eliminiamo unicamente il file json con l'id del personaggio
-        file_path = os.path.join(DATA_DIR, f"{pg.get('id')}.json")
-        if os.path.exists(file_path):
-            os.remove(file_path)
-            Log.scrivi_log(f"File JSOn eliminato: {file_path}")
-        else:
-            Log.scrivi_log(f"File JSON non trovato.")
+    # andiamo a leggere il file designato
+    with open(file_path, 'r', encoding='utf-8') as f:
+        pg_dict = json.load(f)
 
-        Log.scrivi_log(f"Eliminato personaggio con ID: {pg.get('id')}, Nome: {pg.get('nome', 'N/A')}")
+    # ricrea oggetto personaggio
+    pg_obj = schema.load(pg_dict)
 
-        # Rimozione esplicita dell'id da current_user.character_ids
-        ids = current_user.character_ids or []  # lista id
-        nuova_lista = []
+    # eliminazione del file JSON corrispondente
+    if os.path.exists(file_path):
+        os.remove(file_path)
+        logger.info(f"File JSON eliminato: {file_path}")
+    else:
+        logger.warning(f"File JSON non trovato: {file_path}")
 
-        for c_id in ids:  # controllo tutti gli id esistenti in lista
-            if c_id != pg.get('id'):  # se non è quello da rimuovere
-                nuova_lista.append(c_id)  # lo aggiungo alla nuova lista
+    # rimozione UUID dalla lista di current_user
+    new_id_list = []
+    for cid in current_user.character_ids or []:
+        if str(cid) != str(char_id):
+            new_id_list.append(cid)
+    current_user.character_ids = new_id_list
 
-        current_user.character_ids = nuova_lista  # assegno la lista filtrata
+    # rimborso crediti
+    current_user.crediti += credits_to_refund(pg_obj)
 
-        # Ricostruzione del personaggio per in modo a passare al metodo credits_to_refund
-        classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
-        try:
-            pg_ogg = classi.get(pg['classe'])(pg['nome'])
-        except (KeyError. AttributeError, TypeError) as e:
-            raise ValueError(f"Errore nella creazione del personaggio: {e}")
-
-        current_user.crediti += credits_to_refund(pg_ogg)
-        db.session.commit()
-        flash("Personaggio eliminato con successo!", "success")
-
-    except IndexError:
-        Log.scrivi_log(f"Errore durante eliminazione: ID inesistente {pg.get('id')}")
-        abort(404)
-    return redirect(url_for('characters.mostra_personaggi'))
+    db.session.commit()
+    flash("Personaggio eliminato con successo!", "success")
+    return redirect(url_for('characters.show_chars'))
 
 
 @characters_bp.route('/combattimento', methods=['GET', 'POST'])
-def inizio_combattimento():
+def begin_combat():
     lista_pers = session.get('personaggi', [])
     personaggi_utente = [p for p in lista_pers if p['id'] in (current_user.character_ids or [])]
 
     if request.method == 'POST':
-        id_1 = int(request.form['pg1'])
-        id_2 = int(request.form['pg2'])
-
+        id_1 = request.form['pg1']
+        id_2 = request.form['pg2']
 
         pg1_dict = next((p for p in personaggi_utente if p['id'] == id_1), None)
         pg2_dict = next((p for p in personaggi_utente if p['id'] == id_2), None)
@@ -300,43 +306,50 @@ def inizio_combattimento():
         if not pg1_dict or not pg2_dict:
             abort(400, "Personaggio non trovato.")
 
-        pg1 = Personaggio.from_dict(pg1_dict)
-        pg2 = Personaggio.from_dict(pg2_dict)
+        pg1 = schema.load(pg1_dict)
+        pg2 = schema.load(pg2_dict)
+        pg1 = schema.load(pg1_dict)
+        pg2 = schema.load(pg2_dict)
 
         log_combattimento = []
+        turno = 1
 
         while pg1.salute > 0 and pg2.salute > 0:
             log_combattimento.append(f"Turno {turno}:")
 
-            danno1 = pg1.attacca()
-            pg2.subisci_danno(danno1)
-            log_combattimento.append(f"{pg1.nome} infligge {danno1} danni a {pg2.nome} (Salute residua: {pg2.salute})")
-
+            successo = pg1.esegui_azione()
+            if successo:
+                danno1 = pg1.attacca()
+                pg2.subisci_danno(danno1)
+                log_combattimento.append(f"{pg1.nome} infligge {danno1} danni a {pg2.nome} (Salute residua: {pg2.salute})")
+            else:
+                log_combattimento.append(f"{pg1.nome} ha fallito l'attacco!")
             if pg2.salute <= 0:
                 break
 
-            danno2 = pg2.attacca()
-            pg1.subisci_danno(danno2)
-            log_combattimento.append(f"{pg2.nome} infligge {danno2} danni a {pg1.nome} (Salute residua: {pg1.salute})")
-
+            successo = pg2.esegui_azione()
+            if successo:
+                danno2 = pg2.attacca()
+                pg1.subisci_danno(danno2)
+                log_combattimento.append(f"{pg2.nome} infligge {danno2} danni a {pg1.nome} (Salute residua: {pg1.salute})")
+            else:
+                log_combattimento.append(f"{pg2.nome} ha fallito l'attacco!")
             turno += 1
 
-        if pg1.salute > pg2.salute:
+        if 0 >= pg2.salute:
             risultato = f"Vittoria di {pg1.nome}!"
-        elif pg2.salute > pg1.salute:
+        elif 0 >= pg1.salute:
             risultato = f"Vittoria di {pg2.nome}!"
-        else:
-            risultato = "Pareggio!"
 
         log_combattimento.append(f"Risultato finale: {risultato}")
         Log.scrivi_log(f"Combattimento terminato - {risultato}")
 
         return render_template(
-            'test_battle.html',
+            'combat.html',
             pg1=pg1,
             pg2=pg2,
             risultato=risultato,
             log_combattimento=log_combattimento
         )
 
-    return render_template('test_battle.html', personaggi=personaggi_utente)
+    return render_template('combat.html', personaggi=personaggi_utente)

@@ -26,22 +26,42 @@
       <div class="card shadow-sm p-4 mb-4" style="max-width: 800px; width: 100%;">
         <h1 class="h4 text-center mb-4">Inventario di {{ personaggio.nome }}</h1>
         <p class="text-center">Classe: {{ personaggio.classe }}</p>
-        <ul class="list-group">
+        <ul class="list-unstyled">
           {% for oggetto in inventario.oggetti %}
-            <li class="list-group-item d-flex justify-content-between align-items-start">
-              <div>
-                <strong>{{ oggetto.nome }}</strong> ({{ oggetto.classe }})
-                <br>
-                <small class="text-muted">
-                  {% if oggetto.tipo_oggetto %}Tipo: {{ oggetto.tipo_oggetto }}{% endif %}
-                  {% if oggetto.usato %} - Usato{% else %} - Non usato{% endif %}
-                </small>
+            <li class="mb-3">
+              <div class="d-flex justify-content-between align-items-start border rounded p-3">
+                <div>
+                  <strong>{{ oggetto.nome }}</strong> ({{ oggetto.classe }})
+                  <br>
+                  <small class="text-muted">
+                    {% if oggetto.tipo_oggetto %}Tipo: {{ oggetto.tipo_oggetto }}{% endif %}
+                    {% if oggetto.usato %} - Usato{% else %} - Non usato{% endif %}
+                  </small>
+                </div>
+
+            <!-- Pulsante elimina : Questa parte è da completare scivendo la route che serve per eliminare-->
+                <form method="post" action="{{ url_for('inventory.delete_object', oggetto_id=oggetto['id']) }}">
+                  <input type="hidden" name="personaggio_id" value="{{ personaggio.id }}">
+                        <button type="submit" class="btn btn-outline-danger btn-sm"
+                            onclick="return confirm('Eliminare {{ oggetto.nome }}?')">Elimina
+                        </button>
+                {#</form>#}
               </div>
             </li>
           {% endfor %}
+
+          <!-- Pulsante per aggiungere un oggetto -->
+          <li class="mb-3 text-center">
+            <a href="{{ url_for('inventory.add_object', personaggio_id=personaggio.id) }}" class="text-decoration-none">
+              <div class="d-flex justify-content-center align-items-center border rounded p-3"
+                  style="height: 60px; font-size: 2rem; color: #6c757d; font-weight: 300;">
+                +
+              </div>
+            </a>
+          </li>
         </ul>
-      </div>
+
     {% endif %}
-    <a href="{{ url_for('characters.mostra_personaggi') }}" class="btn btn-outline-primary">← Torna alla lista</a>
+    <a href="{{ url_for('characters.show_chars') }}" class="btn btn-outline-primary">← Torna alla lista</a>
   </div>
 {% endblock %}

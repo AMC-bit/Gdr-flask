@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block title %}Crea Missione{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center flex-column py-5">
+  <form method="post" class="card shadow-sm p-4 mb-4" style="max-width: 800px; width: 100%;">
+    <h1 class="h4 text-center mb-4">Crea una nuova missione</h1>
+
+    <div class="mb-3">
+      <label for="nome" class="form-label">Nome Missione</label>
+      <input type="text" name="nome" id="nome" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="ambiente" class="form-label">Tipo di Ambiente</label>
+      <input type="text" name="ambiente" id="ambiente" class="form-control" placeholder="es. Deserto, Foresta, Dungeon" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="strategia_nemici" class="form-label">Strategia dei Nemici</label>
+      <input type="text" name="strategia_nemici" id="strategia_nemici" class="form-control" placeholder="es. Aggressiva, Difensiva, Randomica" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="nemici" class="form-label">Nemici (uno per riga, formato: nome:salute:salute_max:att_min:att_max:destrezza)</label>
+      <textarea name="nemici" id="nemici" class="form-control" rows="4" placeholder="es. Goblin:30:40:5:10:8" required></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="premi" class="form-label">Premi</label>
+      <select id="oggetto" name="oggetto" class="form-select" required>
+        {% for o in oggetti %}
+          <option value="{{ o }}">{{ o }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-outline-primary w-100">Salva Missione</button>
+  </form>
+
+  <a href="{{ url_for('mission.select_mission') }}" class="btn btn-outline-secondary mt-3">← Torna alla selezione missione</a>
+</div>
+{% endblock %}
