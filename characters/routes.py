@@ -10,11 +10,12 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 from auth.models import User
 from auth.models import db
 from auth.credits import credits_to_create, credits_to_refund
-from config import DATA_DIR_PGS
+from config import DATA_DIR_PGS, DATA_DIR_INV
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 schema = PersonaggioSchema()
+
 
 @characters_bp.route('/load_char')
 @login_required
@@ -28,15 +29,6 @@ def load_char():
     all_char_json = []
     user_char = []
     owned_char = []
-
-    if os.path.isdir(DATA_DIR_PGS):
-        print("Cartella esistente")
-    else:
-        os.makedirs(DATA_DIR_PGS, exist_ok=True)
-        # crea un file .gitkeep
-        gitkeep_path = os.path.join(DATA_DIR_PGS, ".gitkeep")
-        with open(gitkeep_path, "a", encoding="utf-8"):
-            pass
 
     files = os.listdir(DATA_DIR_PGS)
     print(DATA_DIR_PGS)
@@ -79,6 +71,8 @@ def CharSingleJson(pg_dict: dict):
 @login_required
 def create_char():
 
+    CreateDirs()  # check cartelle esistenti
+
     from app import db
     # cattura dinamica di tutte le sottoclassi di Oggetto e Personaggio
     classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
@@ -89,7 +83,6 @@ def create_char():
         nome = request.form['nome'].strip()
         classe_sel = request.form['classe']
         oggetto_sel = request.form['oggetto']
-
 
         pg = classi[classe_sel]()
         pg.nome = nome
@@ -108,19 +101,11 @@ def create_char():
         else:
             current_user.crediti -= costo_pg
 
-        pg_list = session.get('personaggi', [])
-        inv_list = session.get('inventari', [])
-
         pg_dict = schema.dump(pg)
-        pg_list.append(pg_dict)
-
-        inv_list.append(inv.to_dict())
 
         # Creazione del file JSON del singolo personaggio
         CharSingleJson(pg_dict)
 
-        session['personaggi'] = pg_list
-        session['inventari'] = inv_list
         # Assicura che tutti gli id siano stringhe
         character_ids = (current_user.character_ids or []) + [str(pg.id)]
         current_user.character_ids = [str(cid) for cid in character_ids]
