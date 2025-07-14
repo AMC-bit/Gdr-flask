@@ -1,0 +1,13 @@
+{
+    "classe": "Mago",
+    "id": "c3091927-a973-4933-8a8c-15a6b524e170",
+    "nome": "ANELKA",
+    "npc": false,
+    "salute_max": 80,
+    "salute": 80,
+    "attacco_min": 0,
+    "attacco_max": 90,
+    "livello": 1,
+    "destrezza": 15,
+    "storico_danni_subiti": []
+}

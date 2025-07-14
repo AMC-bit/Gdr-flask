@@ -11,6 +11,7 @@ from auth.models import User
 from auth.models import db
 from auth.credits import credits_to_create, credits_to_refund
 from config import DATA_DIR_PGS, DATA_DIR_INV
+from inventory.routes import salva_inventario_su_json
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -65,7 +66,6 @@ def load_char():
     print(f"owned_char: {owned_char}")
 
     return owned_char
-
 
 def CharSingleJson(pg_dict: dict):
     # Recuperare i dati dal form per singolo personaggio
@@ -128,6 +128,9 @@ def create_char():
 
         # Creazione del file JSON del singolo personaggio
         CharSingleJson(pg_dict)
+
+        # Salvataggio dell'inventario su JSON
+        salva_inventario_su_json(inv)
 
         # Assicura che tutti gli id siano stringhe
         character_ids = (current_user.character_ids or []) + [str(pg.id)]

@@ -1,0 +1,15 @@
+{
+    "classe": "Inventario",
+    "id": "b983d83f-ecf3-4801-bcd2-21be34e70ddf",
+    "oggetti": [
+        {
+            "id": "5cf5555d-cd33-4f12-8e62-58305290272d",
+            "nome": "Medaglione",
+            "usato": false,
+            "valore": 10,
+            "tipo_oggetto": "Buff",
+            "classe": "Medaglione"
+        }
+    ],
+    "id_proprietario": "e744efc5-91b9-4f08-abd1-fa030e775aab"
+}

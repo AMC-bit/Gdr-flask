@@ -8,9 +8,47 @@ from gioco.schemas.inventorio import InventarioSchema
 from flask_login import login_required
 from marshmallow import ValidationError
 import logging
+from config import DATA_DIR_INV
+import os, json
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
+
+def salva_inventario_su_json(inventario: Inventario):
+    """_summary_
+
+    Args:
+        inventario (Inventario): _description_
+    """
+
+    file_name = (
+        f"{inventario.id_proprietario}.json"
+        if inventario.id_proprietario else
+        f"{inventario.id}.json"
+    )
+    file_path = os.path.join(DATA_DIR_INV, file_name)
+
+    with open(file_path, "w", encoding="utf-8") as f:
+        json.dump(inventario.to_dict(), f, indent=4)
+
+    logger.info(f"Inventario salvato in {file_name}")
+
+def carica_inventario_da_json(personaggio_id):
+    """Carica un inventario JSON direttamente dal file <id_proprietario>.json o fallback su id generico."""
+    inventario_schema = InventarioSchema()
+
+    # Prova file col nome dell'id_proprietario (comportamento principale)
+    file_name = os.path.join(DATA_DIR_INV, f"{personaggio_id}.json")
+    if os.path.exists(file_name):
+        try:
+            with open(file_name, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                return inventario_schema.dump(
+                    inventario_schema.load(data)
+                )
+        except (json.JSONDecodeError, ValidationError) as e:
+            logger.error(f"Errore nel caricamento del file {file_name}: {e}")
+            return None
 
 @inventory_bp.route('/inventory', methods=['GET', 'POST'])
 def inventory():
