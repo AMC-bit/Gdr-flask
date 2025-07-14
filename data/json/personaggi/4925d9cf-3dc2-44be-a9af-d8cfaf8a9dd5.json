@@ -1,0 +1,13 @@
+{
+    "classe": "Ladro",
+    "id": "4925d9cf-3dc2-44be-a9af-d8cfaf8a9dd5",
+    "nome": "Mirconiglio",
+    "npc": false,
+    "salute_max": 120,
+    "salute": 120,
+    "attacco_min": 10,
+    "attacco_max": 85,
+    "livello": 1,
+    "destrezza": 15,
+    "storico_danni_subiti": []
+}
