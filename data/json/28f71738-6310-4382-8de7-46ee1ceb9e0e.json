@@ -1,0 +1,13 @@
+{
+    "classe": "Guerriero",
+    "id": "28f71738-6310-4382-8de7-46ee1ceb9e0e",
+    "nome": "delta",
+    "npc": true,
+    "salute_max": 130,
+    "salute": 130,
+    "attacco_min": 20,
+    "attacco_max": 100,
+    "livello": 1,
+    "destrezza": 15,
+    "storico_danni_subiti": []
+}

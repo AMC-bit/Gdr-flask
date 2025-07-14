@@ -117,8 +117,9 @@ def create_char():
 
         session['personaggi'] = pg_list
         session['inventari'] = inv_list
-        character_ids = (current_user.character_ids or []) + [pg.id]
-        current_user.character_ids = character_ids
+        # Assicura che tutti gli id siano stringhe
+        character_ids = (current_user.character_ids or []) + [str(pg.id)]
+        current_user.character_ids = [str(cid) for cid in character_ids]
 
         db.session.commit()
         logger.info(f"Creato personaggio: {pg.nome}, Classe: {classe_sel}, id: {pg.id}, Oggetto iniziale: {oggetto_sel}")
