@@ -34,10 +34,10 @@ class GestoreMissioniSchema(Schema):
         gm.lista_missioni = data['lista_missioni']
         return gm
 
-    def crea_GestoreMissioni_Statico(self):
+    def prendi_Missione_Da_Json(self):
         lista = []
         schema = MissioniSchema()
-        routes = r"static\mission"
+        routes = r"static\json\missions"
         for files in os.listdir(routes):
             if files.endswith(".json"):
                 with open(os.path.join(routes, files), 'r') as file:

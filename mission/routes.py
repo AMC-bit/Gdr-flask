@@ -137,7 +137,7 @@ def select_mission():
             gestore = GestoreMissioniSchema().load(gestore_data)
         else:
             # Fallback se la sessione è vuota
-            gestore = GestoreMissioniSchema().crea_GestoreMissioni_Statico()
+            gestore = GestoreMissioniSchema().prendi_Missione_Da_Json()
             session['gestore_missioni'] = GestoreMissioniSchema().dump(gestore)
 
         # Debug: stampa il missione_id ricevuto
@@ -173,7 +173,7 @@ def select_mission():
 
     # GET: mostra il form di selezione
     if 'gestore_missioni' not in session:
-        gestore = GestoreMissioniSchema().crea_GestoreMissioni_Statico()
+        gestore = GestoreMissioniSchema().prendi_Missione_Da_Json()
         # Salva il gestore in sessione per mantenerlo coerente
         session['gestore_missioni'] = GestoreMissioniSchema().dump(gestore)
     else:

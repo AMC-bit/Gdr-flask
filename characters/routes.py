@@ -10,7 +10,7 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 from auth.models import User
 from auth.models import db
 from auth.credits import credits_to_create, credits_to_refund
-from config import DATA_DIR
+from config import DATA_DIR_PGS
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -29,13 +29,17 @@ def load_char():
     user_char = []
     owned_char = []
 
-    if os.path.isdir(DATA_DIR):
+    if os.path.isdir(DATA_DIR_PGS):
         print("Cartella esistente")
     else:
-        os.makedirs(DATA_DIR, exist_ok=True)
+        os.makedirs(DATA_DIR_PGS, exist_ok=True)
+        # crea un file .gitkeep
+        gitkeep_path = os.path.join(DATA_DIR_PGS, ".gitkeep")
+        with open(gitkeep_path, "a", encoding="utf-8"):
+            pass
 
-    files = os.listdir(DATA_DIR)
-    print(DATA_DIR)
+    files = os.listdir(DATA_DIR_PGS)
+    print(DATA_DIR_PGS)
 
     for file in files:
         filename = os.path.splitext(file)[0]
@@ -66,7 +70,7 @@ def CharSingleJson(pg_dict: dict):
     # Recuperare i dati dal form per singolo personaggio
     # Creazione del file JSON con l'id del personaggio
     name_file = f"{pg_dict['id']}.json"
-    path = os.path.join(DATA_DIR, name_file)
+    path = os.path.join(DATA_DIR_PGS, name_file)
     with open(path, "w", encoding="utf-8") as file:
         json.dump(pg_dict, file, indent=4)
 
@@ -137,8 +141,6 @@ def create_char():
 @login_required
 def edit_char(char_id):
 
-    #from app import db
-
     # prendo lista id personaggi posseduti
     owned_ids = load_char()
     # controllo che l'id del personaggio sia tra i personaggi posseduti
@@ -147,7 +149,7 @@ def edit_char(char_id):
         return redirect(url_for("characters.show_chars"))
 
     # costruzione percorso file JSON
-    path = os.path.join(DATA_DIR, f"{char_id}.json")
+    path = os.path.join(DATA_DIR_PGS, f"{char_id}.json")
     # in caso di file JSON non trovato
     if not os.path.isfile(path):
         flash("Personaggio non raggiungibile")
@@ -203,7 +205,7 @@ def get_owned_chars(owned_chars):
         nome_file = id
         print(f"ID: {id}")
         #Recupero il path del file json del personaggio
-        path = os.path.join(DATA_DIR, f"{nome_file}.json")
+        path = os.path.join(DATA_DIR_PGS, f"{nome_file}.json")
 
         with open(path, "r") as file:
             char_dict = json.load(file)
@@ -233,7 +235,7 @@ def show_chars():
 @login_required
 def char_details(char_id):
     # check cartella esistente
-    os.makedirs(DATA_DIR, exist_ok=True)
+    os.makedirs(DATA_DIR_PGS, exist_ok=True)
     # deserializzazione
     try:
         owned_chars = load_char()
@@ -266,29 +268,23 @@ def char_details(char_id):
 @characters_bp.route('/characters/<uuid:char_id>', methods=['POST'])
 @login_required
 def char_delete(char_id):
-    # lista personaggi da sessione
-    pg_list = session.get('personaggi', [])
 
-    # ricerca del dizionario del personaggio da eliminare
-    pg_dict = None  # resterà none se non trovo il personaggio
-    for p in pg_list:
-        if str(p['id']) == str(char_id):
-            pg_dict = p
-            break
+    # ricostruzione percorso file json del personaggio designato
+    file_path = os.path.join(DATA_DIR_PGS, f"{char_id}.json")
 
-    if pg_dict is None:
-        flash("Personaggio non trovato", "danger")
+    # in caso di file JSON non trovato
+    if not os.path.isfile(file_path):
+        flash("Personaggio non raggiungibile")
         return redirect(url_for('characters.show_chars'))
 
-    # ricostruzione della nuova lista escludendo il personaggio
-    new_pg_list = []
-    for p in pg_list:
-        if str(p['id']) != str(char_id):
-            new_pg_list.append(p)
-    session['personaggi'] = new_pg_list
+    # andiamo a leggere il file designato
+    with open(file_path, 'r', encoding='utf-8') as f:
+        pg_dict = json.load(f)
+
+    # ricrea oggetto personaggio
+    pg_obj = schema.load(pg_dict)
 
     # eliminazione del file JSON corrispondente
-    file_path = os.path.join(DATA_DIR, f"{char_id}.json")
     if os.path.exists(file_path):
         os.remove(file_path)
         logger.info(f"File JSON eliminato: {file_path}")
@@ -301,9 +297,6 @@ def char_delete(char_id):
         if str(cid) != str(char_id):
             new_id_list.append(cid)
     current_user.character_ids = new_id_list
-
-    # ricrea oggetto personaggio
-    pg_obj = schema.load(pg_dict)
 
     # rimborso crediti
     current_user.crediti += credits_to_refund(pg_obj)
