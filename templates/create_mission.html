@@ -27,8 +27,12 @@
     </div>
 
     <div class="mb-3">
-      <label for="premi" class="form-label">Premi (uno per riga, formato: nome:valore:classe:tipo_oggetto)</label>
-      <textarea name="premi" id="premi" class="form-control" rows="4" placeholder="es. Spada Sacra:100:Guerriero:arma" required></textarea>
+      <label for="premi" class="form-label">Premi</label>
+      <select id="oggetto" name="oggetto" class="form-select" required>
+        {% for o in oggetti %}
+          <option value="{{ o }}">{{ o }}</option>
+        {% endfor %}
+      </select>
     </div>
 
     <button type="submit" class="btn btn-outline-primary w-100">Salva Missione</button>
