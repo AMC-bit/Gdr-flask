@@ -12,11 +12,15 @@ from flask_migrate import Migrate
 from auth import auth_bp  # Importa il blueprint di autenticazione 2
 from auth.models import db, User
 from flask_login import LoginManager
+from config import CreateDirs
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 
 
 def create_app():
+
+    CreateDirs()  # crea directory necessarie per i file JSON
+
     app = Flask(__name__)
     app.config['SECRET_KEY'] = os.environ.get(
         'SECRET_KEY',

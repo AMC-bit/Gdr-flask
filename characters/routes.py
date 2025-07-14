@@ -30,15 +30,6 @@ def load_char():
     user_char = []
     owned_char = []
 
-    if os.path.isdir(DATA_DIR_PGS):
-        print("Cartella esistente")
-    else:
-        os.makedirs(DATA_DIR_PGS, exist_ok=True)
-        # crea un file .gitkeep
-        gitkeep_path = os.path.join(DATA_DIR_PGS, ".gitkeep")
-        with open(gitkeep_path, "a", encoding="utf-8"):
-            pass
-
     files = os.listdir(DATA_DIR_PGS)
     print(DATA_DIR_PGS)
 
@@ -74,20 +65,6 @@ def CharSingleJson(pg_dict: dict):
     path = os.path.join(DATA_DIR_PGS, name_file)
     with open(path, "w", encoding="utf-8") as file:
         json.dump(pg_dict, file, indent=4)
-
-
-def CreateDirs():
-    """
-    Crea directory per i file JSON per i personaggi e gli inventari
-    se non sono esistenti
-    """
-    for d in (DATA_DIR_PGS, DATA_DIR_INV):
-        os.makedirs(d, exist_ok=True)
-
-        # crea file gitkeep se non esiste
-        gitkeep = os.path.join(d, '.gitkeep')
-        if not os.path.exists(gitkeep):
-            open(gitkeep, 'a').close()
 
 
 @characters_bp.route('/create_char', methods=['GET', 'POST'])
