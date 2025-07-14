@@ -11,8 +11,7 @@ from gioco.personaggio import Personaggio
 from gioco.ambiente import AmbienteSchema, Ambiente
 from gioco.missione import GestoreMissioni, Missione
 from gioco.schemas.missione import GestoreMissioniSchema, MissioniSchema
-from flask import flash, render_template, request, session, \
-    redirect, url_for
+from flask import flash, render_template, request, session, redirect, url_for
 
 # richiedere a utente: nome, tipo ambiente, lista nemici, lista premi,
 # strategia.
@@ -27,10 +26,18 @@ logger.setLevel(logging.INFO)
 
 @mission_bp.route('/create_mission', methods=['GET', 'POST'])
 def create_mission():
+    from app import db
+    # cattura dinamica di tutte le sottoclassi di Oggetto e Personaggio
+    oggetti = {cls.__name__: cls for cls in Oggetto.__subclasses__()}
+    
     if request.method == 'POST':
-        nome = request.form.get('nome')
-        tipo_ambiente = request.form.get('ambiente')
-        strategia = request.form.get('strategia_nemici')
+        nome = request.form['nome'].strip()
+        oggetto_sel = request.form['oggetto']
+        tipo_ambiente = request.form['ambiente']
+        strategia = request.form['strategia_nemici']
+        
+        oggetto_sel = request.form['oggetto']
+        ogg = oggetti[oggetto_sel]()
 
         nemici_input = request.form.get('nemici', '')
         premi_input = request.form.get('premi', '')
@@ -86,7 +93,7 @@ def create_mission():
             with open(path_missioni, 'r') as f:
                 missioni = json.load(f)
 
-        missioni.append(missione.to_dict())
+        missioni.append(missione)
 
         with open(path_missioni, 'w') as f:
             json.dump(missioni, f, indent=4)
@@ -95,7 +102,8 @@ def create_mission():
         logger.info(f"Missione personalizzata creata: {nome}")
         return redirect(url_for('mission.select_mission'))
 
-    return render_template('create_mission.html')
+    return render_template('create_mission.html',
+        oggetti=list(oggetti.keys()))
 
 
 @mission_bp.route('/select_mission', methods=['GET', 'POST'])
