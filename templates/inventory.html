@@ -40,8 +40,8 @@
                 </div>
 
             <!-- Pulsante elimina : Questa parte è da completare scivendo la route che serve per eliminare-->
-            <!-- Scommentare le righe 44 e 47 e prima di testaer la route-->
-                {#<form method="post" action="{{ url_for('inventory.elimina_oggetto', oggetto_id=oggetto['id']) }}">#}
+                <form method="post" action="{{ url_for('inventory.delete_object', oggetto_id=oggetto['id']) }}">
+                  <input type="hidden" name="personaggio_id" value="{{ personaggio.id }}">
                         <button type="submit" class="btn btn-outline-danger btn-sm"
                             onclick="return confirm('Eliminare {{ oggetto.nome }}?')">Elimina
                         </button>
