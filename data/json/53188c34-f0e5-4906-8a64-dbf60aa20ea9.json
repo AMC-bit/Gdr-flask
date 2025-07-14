@@ -1,0 +1,13 @@
+{
+    "classe": "Mago",
+    "id": "53188c34-f0e5-4906-8a64-dbf60aa20ea9",
+    "nome": "ALI",
+    "npc": false,
+    "salute_max": 80,
+    "salute": 80,
+    "attacco_min": 0,
+    "attacco_max": 90,
+    "livello": 1,
+    "destrezza": 15,
+    "storico_danni_subiti": []
+}
