@@ -114,10 +114,9 @@ def edit_user():
                 else:
                     db_user.password_hash = protect_psw_hash(new_psw)
                     db.session.commit()
-                    message = "Utente modificato con successo!"
+                    flash("Utente modificato con successo!", "success")
                     return redirect(url_for(
-                        'auth.personal_area',
-                        message=message))
+                        'auth.personal_area'))
 
     return render_template("edit_user.html", utente = user )
 
