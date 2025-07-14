@@ -60,6 +60,8 @@ def sign_in():
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
+    # messaggio flash se il login è errato
+    
     if request.method == 'POST':
         email = request.form['email'].strip()
         password = request.form['password']
@@ -69,9 +71,9 @@ def login():
             login_user(user)
             return redirect(url_for('auth.personal_area'))
         else:
+            flash('Email o password non corretti.', 'danger') 
             return render_template(
-                'login.html',
-                error='Credenziali non valide.')
+                'login.html')
 
     return render_template('login.html')
 
