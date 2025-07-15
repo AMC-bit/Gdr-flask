@@ -1,11 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
 <h2>Seleziona Missione</h2>
+{%if "missione" in session %}
+  {%set missione_corrente = session['missione']%}
+  <p>Missione corrente : {{missione_corrente['nome']}}</p>
+{%endif%}
 <form method="post">
   <select name="missione_id" class="form-select" required>
     <option disabled selected>-- scegli missione --</option>
-    {% for id, m in missioni.items() %}
-      <option value="{{ id }}">
+    {% for m in missioni %}
+      <option value="{{ m.id }}">
         {{ m.nome }} -
         {% if m.completata %}
           Completata

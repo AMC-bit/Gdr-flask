@@ -5,11 +5,11 @@ from copy import deepcopy
 from collections import defaultdict
 
 from . import mission_bp
-
+import config
 from gioco.oggetto import Oggetto
 from gioco.personaggio import Personaggio
 from gioco.ambiente import AmbienteSchema, Ambiente
-from gioco.missione import GestoreMissioni, Missione
+from gioco.missione import Missione
 from gioco.schemas.missione import GestoreMissioniSchema, MissioniSchema
 from flask import flash, render_template, request, session, redirect, url_for
 
@@ -105,6 +105,23 @@ def create_mission():
     return render_template('create_mission.html',
         oggetti=list(oggetti.keys()))
 
+def prendi_Missione_Da_Json():
+    """Scansiona la dir missions, legge i file json all'interno, usa lo schema 
+    si missioni, e ritorna la lista di missioni presenti.
+
+    Returns:
+        list: lista di dizionari, ogni dizionario è una missione serializzata
+    """
+    lista = []
+    schema = MissioniSchema()
+    routes = config.DATA_DIR_MIS
+    for files in os.listdir(routes):
+        if files.endswith(".json"):
+            with open(os.path.join(routes, files), 'r') as file:
+                data = json.load(file)
+                missione = schema.load(data)
+                lista.append(missione)
+    return lista
 
 @mission_bp.route('/select_mission', methods=['GET', 'POST'])
 def select_mission():
@@ -127,7 +144,12 @@ def select_mission():
         Se una missione è stata selezionata, reindirizza alla pagina di
         visualizzazione della missione.
     """
-    schema = MissioniSchema()
+    #Recupero dal json Static\json\missions tutte le missioni
+    missioni = prendi_Missione_Da_Json()
+    #Se c'è già una missione in sessione, la passo all'Html per presettare il form
+    if 'missione' in session:
+        flash(f"MISSIONE CORRENTE IN SESSIONE :{session['missione']}","info")
+    #Recupero dal form post l'id della missione selezionata
     if request.method == 'POST':
         missione_id = request.form.get('missione_id') 
 
@@ -137,19 +159,20 @@ def select_mission():
             gestore = GestoreMissioniSchema().load(gestore_data)
         else:
             # Fallback se la sessione è vuota
-            gestore = GestoreMissioniSchema().prendi_Missione_Da_Json()
-            session['gestore_missioni'] = GestoreMissioniSchema().dump(gestore)
+
+            gestore = GestoreMissioniSchema().crea_GestoreMissioni_Statico()
+            gestore_dict = GestoreMissioniSchema().dump(gestore)
+            session['missioni'] = gestore_dict['lista_missioni']
+            session['gestore_missioni'] = gestore_dict
 
         # Debug: stampa il missione_id ricevuto
-        msg = f"DEBUG: missione_id ricevuto: '{missione_id}'"
-        flash(msg, 'info')
+        msg = f"DEBUG: missione_id ricevuto: {missione_id}"
         logger.info(msg)
 
-        # Trova la missione con l'ID specificato
+        # Trova la missione con l'ID selezionato nel form
         missione_selezionata = None
-        for missione in gestore.lista_missioni:
-            msg = f"DEBUG: Confronto '{str(missione.id)}' con '{missione_id}'"
-            flash(msg, 'info')
+        for missione in missioni:
+            msg = f"DEBUG: Confronto {missione.id} Tipo: {type(missione.id)} con {missione_id} Tipo: {type(missione_id)}"
             logger.debug(msg)
             if str(missione.id) == missione_id:
                 missione_selezionata = missione
@@ -157,33 +180,20 @@ def select_mission():
 
         if missione_selezionata:
             # Salva missione e ambiente in sessione
-            session['missione'] = schema.dump(missione_selezionata)
-            session['ambiente'] = AmbienteSchema().dump(
-                missione_selezionata.ambiente
-            )
+            if  not missione_selezionata.completata:
+                #Qua non ci sarebbe da porre la missione come attiva ?
+                session['missione'] = MissioniSchema().dump(missione_selezionata)
+                session['ambiente'] = AmbienteSchema().dump(missione_selezionata.ambiente)
 
             msg = f"Missione selezionata: {missione_selezionata.nome}"
-            flash(msg, 'success')
             logger.info(msg)
             return redirect(url_for('mission.show_mission'))
         else:
             msg = 'Missione non trovata.'
             flash(msg, 'error')
             logger.info(msg)
+    return render_template('select_mission.html', missioni = missioni )
 
-    # GET: mostra il form di selezione
-    if 'gestore_missioni' not in session:
-        gestore = GestoreMissioniSchema().prendi_Missione_Da_Json()
-        # Salva il gestore in sessione per mantenerlo coerente
-        session['gestore_missioni'] = GestoreMissioniSchema().dump(gestore)
-    else:
-        # Ricostruisce il gestore dalla sessione
-        gestore = GestoreMissioniSchema().load(session['gestore_missioni'])
-
-    missioni = {
-        str(missione.id): missione for missione in gestore.lista_missioni
-    }
-    return render_template('select_mission.html', missioni=missioni)
 
 
 @mission_bp.route('/show_mission')
@@ -329,36 +339,54 @@ def description():
             var_amb['Oggetto'][obj.__class__.__name__]['valore'] += mod_obj
 
     # Debugging output
-    # print(f"val_standard: {val_standard}")
-    # print(f"var_amb: {var_amb}")
+    # print(f"val_standard: {val_standard}"
+    # f"\nvar_amb: {var_amb}")
 
     return {'val_standard': val_standard, 'var_amb': var_amb}
 
 
 @mission_bp.route('/missioni')
 def mostra_missioni():
-    missioni = GestoreMissioni.lista_missioni
+    missioni = session.get('missioni', [])
     return render_template('missioni.html', missioni=missioni)
 
 
 @mission_bp.route('/missione/attiva')
 def missione_attiva():
-    missione = GestoreMissioni.sorteggia()
-    if missione:
-        missione.attiva = True
-        session['missione'] = MissioniSchema().dump(missione)
-        msg = f"Missione attiva: {missione.nome}, ID: {missione.id}"
-        logger.info(msg)
-        return render_template('missione_attiva.html', missione=missione)
-    logger.info("Nessuna missione attiva al momento.")
-    flash("Non ci sono missioni attive o disponibili.", 'warning')
+        # Controlla se esiste già una missione attiva in sessione
+    missione_sessione = session.get('missione')
+    if missione_sessione:
+        return render_template('missione_attiva.html', missione=missione_sessione)
+
+    missioni = session.get('missioni', [])
+
+    # Cerca una missione attiva
+    for missione in missioni:
+        if missione.get('attiva') and not missione.get('completata'):
+            session['missione'] = missione
+            return render_template('missione_attiva.html', missione=missione)
+
+    # Se non ci sono missioni attive, reindirizza alla selezione
+    msg = "Nessuna missione attiva disponibile."
+    logger.info(msg)
+    flash(msg, 'warning')
     return redirect(url_for('mission.select_mission'))
 
 
 @mission_bp.route('/missioni/stato')
 def state_mission():
-    gestore = GestoreMissioni()
-    complete = gestore.finita()
+    # recupero tutte le missioni presenti nella sessione (il gestore viene rimosso quindi si cercano solo le missioni presenti in sessione nella lista 'missioni')
+    missioni = session.get('missioni', [])
+    if not missioni:
+        flash("Nessuna missione disponibile.", 'warning')
+        return redirect(url_for('mission.select_mission'))
+    complete = True
+    for missione in missioni:
+        missione_obj = MissioniSchema().make_Missioni(missione)
+        if not missione_obj.verifica_completamento():
+            complete = False
+            break
+
     if complete:
         msg = "Tutte le missioni sono state completate."
         logger.info(msg)

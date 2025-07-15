@@ -21,7 +21,7 @@ class MissioniSchema(Schema):
     attiva = fields.Bool()
 
     @post_load
-    def make_Missioni(self, data, **kwargs):
+    def make_Missioni(self, data, **kwargs) -> Missione:
         return Missione(**data)
 
 
@@ -33,17 +33,3 @@ class GestoreMissioniSchema(Schema):
         gm = GestoreMissioni()
         gm.lista_missioni = data['lista_missioni']
         return gm
-
-    def prendi_Missione_Da_Json(self):
-        lista = []
-        schema = MissioniSchema()
-        routes = r"static\json\missions"
-        for files in os.listdir(routes):
-            if files.endswith(".json"):
-                with open(os.path.join(routes, files), 'r') as file:
-                    data = json.load(file)
-                    missione = schema.load(data)
-                    lista.append(missione)
-        nuovo = GestoreMissioni()
-        nuovo.lista_missioni = lista
-        return nuovo
