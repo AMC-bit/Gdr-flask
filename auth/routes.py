@@ -8,7 +8,8 @@ from . import auth_bp
 from app import db
 from characters.routes import load_char
 import re
-
+import os
+import json
 
 def email_check(email):
     pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
@@ -127,9 +128,33 @@ def edit_user():
 @login_required
 def delete_user(id):
     utente = User.query.get(id)
+    elimina_personaggi_utente(utente.character_ids)  # Elimina i personaggi dell'utente
     db.session.delete(utente)
     db.session.commit()
     return redirect(url_for('auth.sign_in'))
+
+# Funzione per eliminare tutti i personaggi di un utente
+def elimina_personaggi_utente(character_ids):
+    cartella = os.path.join("data", "json", "personaggi")
+    if not os.path.exists(cartella):
+        return
+
+    for filename in os.listdir(cartella):
+        if filename.endswith(".json"):
+            path_file = os.path.join(cartella, filename)
+            try:
+                with open(path_file, 'r') as f:
+                    dati = json.load(f)
+                # Cancella se id_utente corrisponde
+                for id in character_ids:
+                    if dati.get("id") == id:
+                        os.remove(path_file)
+                        print(f"Eliminato personaggio: {filename}")
+                if dati.get("id") == current_user.character_ids:
+                    os.remove(path_file)
+                    print(f"Eliminato personaggio: {filename}")
+            except Exception as e:
+                print(f"Errore durante la verifica o cancellazione di {filename}: {e}")
 
 
 @auth_bp.route('/credit_refill', methods=['GET', 'POST'])
