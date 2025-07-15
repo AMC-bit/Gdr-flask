@@ -1,28 +1,45 @@
 {% extends "layout.html" %}
 {% block content %}
-<h2>Seleziona Missione</h2>
-{%if "missione" in session %}
-  {%set missione_corrente = session['missione']%}
-  <p>Missione corrente : {{missione_corrente['nome']}}</p>
-{%endif%}
-<form method="post">
-  <select name="missione_id" class="form-select" required>
-    <option disabled selected>-- scegli missione --</option>
-    {% for m in missioni %}
-      <option value="{{ m.id }}">
-        {{ m.nome }} -
-        {% if m.completata %}
-          Completata
-        {% elif m.attiva %}
-          Attiva
-        {% else %}
-          Disponibile
+<div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
+
+    <form method="post" class="card shadow-sm p-4" style="max-width: 800px; width: 100%;">
+        <h1 class="h4 text-center mb-4">Seleziona Missione</h1>
+
+        {% if "missione" in session %}
+            {% set missione_corrente = session['missione'] %}
+            <p class="text-center"><strong>Missione corrente:</strong> {{ missione_corrente['nome'] }}</p>
         {% endif %}
-        - Avversari: {{ m.nemici|length }}
-        - Ambiente: {{ m.ambiente.nome }}
-      </option>
-    {% endfor %}
-  </select>
-  <button class="btn btn-primary mt-2">Vai</button>
-</form>
+
+        <div class="mb-3">
+            <label for="missione_id" class="form-label">Missione</label>
+            <select name="missione_id" id="missione_id" class="form-select" required>
+                <option disabled selected>-- scegli missione --</option>
+                {% for m in missioni %}
+                    <option value="{{ m.id }}">
+                        {{ m.nome }} -
+                        {% if m.completata %}
+                            Completata
+                        {% elif m.attiva %}
+                            Attiva
+                        {% else %}
+                            Disponibile
+                        {% endif %}
+                        - Avversari: {{ m.nemici|length }}
+                        - Ambiente: {{ m.ambiente.nome }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-outline-primary btn-lg w-100">
+            Seleziona
+        </button>
+
+        <a href="{{ url_for('gioco.index') }}"
+           class="btn btn-outline-secondary btn-sm mt-3 w-50 d-block mx-auto rounded">
+            Annulla
+        </a>
+    </form>
+
+</div>
 {% endblock %}
