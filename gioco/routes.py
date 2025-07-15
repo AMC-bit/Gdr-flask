@@ -32,7 +32,7 @@ def index():
         if has_missioni:
             print(has_personaggi)
         can_select_char = has_personaggi and has_missioni #and has_missione
-        return render_template('menu.html', can_select_char=can_select_char)
+        return render_template('menu.html', can_select_char=can_select_char, has_missioni=has_missioni)
     return render_template('menu.html')
 
 # Mostra i log dello scontro, permette di attaccare e usare l'inventario

@@ -8,7 +8,11 @@
 
     {% if current_user.is_authenticated %}
         <a href="{{ url_for('mission.select_mission') }}" class="btn btn-primary btn-lg">Seleziona Missione</a>
-        <a href="{{ url_for('mission.show_mission') }}" class="btn btn-primary btn-lg">Mostra Missione</a>
+        {% if has_missioni %}
+            <a href="{{ url_for('mission.show_mission') }}" class="btn btn-primary btn-lg">Mostra Missione</a>
+        {% else %}
+            <button class="btn btn-primary btn-lg" disabled>Mostra Missione (Missione non selezionata)</button>
+        {% endif %}
 
         {#
         <a href="{{ url_for('environment.select_environment') }}" class="btn btn-danger btn-lg">Seleziona Ambiente</a>
@@ -16,9 +20,9 @@
         #}
 
         {% if can_select_char %}
-            <a href="{{ url_for('battle.select_char') }}" class="btn btn-dark btn-lg">Seleziona Personaggio</a>
+            <a href="{{ url_for('battle.select_char') }}" class="btn btn-dark btn-lg">Inizia Battaglia</a>
         {% else %}
-            <button class="btn btn-dark btn-lg" disabled>Seleziona Personaggio</button>
+            <button class="btn btn-primary btn-lg btn-lg" disabled>Inizia Battaglia</button>
             <p class="text-muted text-center small">
                 ⚠️ Crea almeno un personaggio e seleziona una missione per procedere
             </p>
