@@ -286,6 +286,14 @@ def char_delete(char_id):
             new_id_list.append(cid)
     current_user.character_ids = new_id_list
 
+    # Eliminazione dell'inventario associato
+    inv_path = os.path.join(DATA_DIR_INV, f"{pg_obj.id}.json")
+    if os.path.exists(inv_path):
+        os.remove(inv_path)
+        logger.info(f"Inventario eliminato: {inv_path}")
+    else:
+        logger.warning(f"Inventario non trovato: {inv_path}")
+
     # rimborso crediti
     current_user.crediti += credits_to_refund(pg_obj)
 
