@@ -4,7 +4,7 @@ import uuid
 from marshmallow import Schema, fields, post_load
 
 from gioco.ambiente import AmbienteSchema
-from gioco.missione import GestoreMissioni, Missione
+from gioco.missione import Missione
 from gioco.schemas.oggetto import OggettoSchema
 from gioco.schemas.personaggio import PersonaggioSchema
 from gioco.schemas.strategy import StrategiaSchema
@@ -23,13 +23,3 @@ class MissioniSchema(Schema):
     @post_load
     def make_Missioni(self, data, **kwargs) -> Missione:
         return Missione(**data)
-
-
-class GestoreMissioniSchema(Schema):
-    lista_missioni = fields.List(fields.Nested(MissioniSchema), required=True)
-
-    @post_load
-    def make_GestoreMissioni(self, data, **kwargs):
-        gm = GestoreMissioni()
-        gm.lista_missioni = data['lista_missioni']
-        return gm
