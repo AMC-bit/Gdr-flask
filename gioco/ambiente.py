@@ -3,7 +3,6 @@ import logging
 from typing import Dict
 from dataclasses import dataclass
 
-from marshmallow import Schema, fields, post_load
 from gioco.oggetto import BombaAcida, Oggetto, PozioneCura
 from gioco.classi import Guerriero, Ladro, Mago
 from gioco.personaggio import Personaggio

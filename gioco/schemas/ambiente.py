@@ -1,4 +1,4 @@
-from marshmallow import Schema, fields, post_load
+from marshmallow import fields, Schema, post_load
 from gioco.ambiente import Ambiente
 
 def get_all_subclasses(cls):
@@ -19,7 +19,6 @@ def get_all_subclasses(cls):
         # nel caso di sottoclassi indirette
     return subclasses
 
-
 class AmbienteSchema(Schema):
     classe = fields.String(required=True)
     nome = fields.String(required=True)
@@ -27,7 +26,7 @@ class AmbienteSchema(Schema):
     mod_cura = fields.Float()
 
     @post_load
-    def make_Ambiente(self, data, **kwargs):
+    def make_obj(self, data, **kwargs):
         # Crea la mappa dinamica: nome classe -> classe Python
         classe_nome = data.get("classe")
         ambienti_map = {
