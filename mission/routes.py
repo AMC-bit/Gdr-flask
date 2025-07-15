@@ -151,7 +151,6 @@ def select_mission():
         flash(f"MISSIONE CORRENTE IN SESSIONE :{session['missione']}","info")
     #Recupero dal form post l'id della missione selezionata
     if request.method == 'POST':
-<<<<<<< HEAD
         missione_id = request.form.get('missione_id') 
 
         # Ricostruisce il gestore dalla sessione (stesso usato per GET)
@@ -166,9 +165,6 @@ def select_mission():
             session['missioni'] = gestore_dict['lista_missioni']
             session['gestore_missioni'] = gestore_dict
 
-=======
-        missione_id = request.form.get('missione_id')
->>>>>>> refactoring_selettore_missioni
         # Debug: stampa il missione_id ricevuto
         msg = f"DEBUG: missione_id ricevuto: {missione_id}"
         logger.info(msg)
