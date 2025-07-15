@@ -3,15 +3,16 @@ import json
 import os
 from copy import deepcopy
 from collections import defaultdict
+from flask import flash, render_template, request, session, redirect, url_for
 
 from . import mission_bp
 import config
 from gioco.oggetto import Oggetto
 from gioco.personaggio import Personaggio
-from gioco.ambiente import AmbienteSchema, Ambiente
+from gioco.ambiente import  Ambiente
 from gioco.missione import Missione
 from gioco.schemas.missione import MissioniSchema
-from flask import flash, render_template, request, session, redirect, url_for
+from gioco.schemas.ambiente import AmbienteSchema
 
 # richiedere a utente: nome, tipo ambiente, lista nemici, lista premi,
 # strategia.
