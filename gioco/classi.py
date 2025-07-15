@@ -1,4 +1,4 @@
-import random, uuid, logging
+import random, logging
 from gioco.personaggio import Personaggio
 
 from dataclasses import dataclass, field

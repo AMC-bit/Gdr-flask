@@ -9,12 +9,8 @@ from . import mission_bp
 import config
 from gioco.oggetto import Oggetto
 from gioco.personaggio import Personaggio
-<<<<<<< HEAD
 from gioco.ambiente import Ambiente
 from gioco.schemas.ambiente import AmbienteSchema
-=======
-from gioco.ambiente import  Ambiente
->>>>>>> 698f242ed601e82b05fa0a90b516a9428282e5bf
 from gioco.missione import Missione
 from gioco.schemas.missione import MissioniSchema
 from gioco.schemas.ambiente import AmbienteSchema
