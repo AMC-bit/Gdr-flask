@@ -5,7 +5,7 @@ from copy import deepcopy
 from collections import defaultdict
 
 from . import mission_bp
-
+import config
 from gioco.oggetto import Oggetto
 from gioco.personaggio import Personaggio
 from gioco.ambiente import AmbienteSchema, Ambiente
@@ -105,6 +105,23 @@ def create_mission():
     return render_template('create_mission.html',
         oggetti=list(oggetti.keys()))
 
+def prendi_Missione_Da_Json():
+    """Scansiona la dir missions, legge i file json all'interno, usa lo schema 
+    si missioni, e ritorna la lista di missioni presenti.
+
+    Returns:
+        list: lista di dizionari, ogni dizionario è una missione serializzata
+    """
+    lista = []
+    schema = MissioniSchema()
+    routes = config.DATA_DIR_MIS
+    for files in os.listdir(routes):
+        if files.endswith(".json"):
+            with open(os.path.join(routes, files), 'r') as file:
+                data = json.load(file)
+                missione = schema.load(data)
+                lista.append(missione)
+    return lista
 
 @mission_bp.route('/select_mission', methods=['GET', 'POST'])
 def select_mission():
@@ -127,8 +144,14 @@ def select_mission():
         Se una missione è stata selezionata, reindirizza alla pagina di
         visualizzazione della missione.
     """
-    schema = MissioniSchema()
+    #Recupero dal json Static\json\missions tutte le missioni
+    missioni = prendi_Missione_Da_Json()
+    #Se c'è già una missione in sessione, la passo all'Html per presettare il form
+    if 'missione' in session:
+        flash(f"MISSIONE CORRENTE IN SESSIONE :{session['missione']}","info")
+    #Recupero dal form post l'id della missione selezionata
     if request.method == 'POST':
+<<<<<<< HEAD
         missione_id = request.form.get('missione_id') 
 
         # Ricostruisce il gestore dalla sessione (stesso usato per GET)
@@ -143,16 +166,17 @@ def select_mission():
             session['missioni'] = gestore_dict['lista_missioni']
             session['gestore_missioni'] = gestore_dict
 
+=======
+        missione_id = request.form.get('missione_id')
+>>>>>>> refactoring_selettore_missioni
         # Debug: stampa il missione_id ricevuto
-        msg = f"DEBUG: missione_id ricevuto: '{missione_id}'"
-        flash(msg, 'info')
+        msg = f"DEBUG: missione_id ricevuto: {missione_id}"
         logger.info(msg)
 
-        # Trova la missione con l'ID specificato
+        # Trova la missione con l'ID selezionato nel form
         missione_selezionata = None
-        for missione in gestore.lista_missioni:
-            msg = f"DEBUG: Confronto '{str(missione.id)}' con '{missione_id}'"
-            flash(msg, 'info')
+        for missione in missioni:
+            msg = f"DEBUG: Confronto {missione.id} Tipo: {type(missione.id)} con {missione_id} Tipo: {type(missione_id)}"
             logger.debug(msg)
             if str(missione.id) == missione_id:
                 missione_selezionata = missione
@@ -160,33 +184,20 @@ def select_mission():
 
         if missione_selezionata:
             # Salva missione e ambiente in sessione
-            session['missione'] = schema.dump(missione_selezionata)
-            session['ambiente'] = AmbienteSchema().dump(
-                missione_selezionata.ambiente
-            )
+            if  not missione_selezionata.completata:
+                #Qua non ci sarebbe da porre la missione come attiva ?
+                session['missione'] = MissioniSchema().dump(missione_selezionata)
+                session['ambiente'] = AmbienteSchema().dump(missione_selezionata.ambiente)
 
             msg = f"Missione selezionata: {missione_selezionata.nome}"
-            flash(msg, 'success')
             logger.info(msg)
             return redirect(url_for('mission.show_mission'))
         else:
             msg = 'Missione non trovata.'
             flash(msg, 'error')
             logger.info(msg)
+    return render_template('select_mission.html', missioni = missioni )
 
-    # GET: mostra il form di selezione
-    if 'gestore_missioni' not in session:
-        gestore = GestoreMissioniSchema().prendi_Missione_Da_Json()
-        # Salva il gestore in sessione per mantenerlo coerente
-        session['gestore_missioni'] = GestoreMissioniSchema().dump(gestore)
-    else:
-        # Ricostruisce il gestore dalla sessione
-        gestore = GestoreMissioniSchema().load(session['gestore_missioni'])
-
-    missioni = {
-        str(missione.id): missione for missione in gestore.lista_missioni
-    }
-    return render_template('select_mission.html', missioni=missioni)
 
 
 @mission_bp.route('/show_mission')

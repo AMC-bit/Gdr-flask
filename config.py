@@ -22,3 +22,7 @@ def CreateDirs():
         gitkeep = os.path.join(d, '.gitkeep')
         if not os.path.exists(gitkeep):
             open(gitkeep, 'a').close()
+DATA_DIR_INV = os.path.join(BASE_DIR, 'data', 'json', 'inventari_pg')
+
+# directory file JSON delle missioni
+DATA_DIR_MIS = os.path.join(BASE_DIR, 'static', 'json', 'missions')
