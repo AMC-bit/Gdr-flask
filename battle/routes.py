@@ -81,7 +81,6 @@ def select_char():
     missione_corrente = session['missione']
     pg_id_list = load_char()
     pg_list = get_owned_chars(pg_id_list)
-    print("TEST",pg_list)
     if request.method == 'POST':
         # Request.form.getlist restituisce una lista di stringhe
         indici_selezionati = request.form.getlist('selected_chars')
@@ -93,26 +92,19 @@ def select_char():
                 for pgs in pg_list:
                     if idx == pgs['id']:
                         pg = schema.dump(pgs)
-                print("PROVA", type(pg).__name__)
                 personaggi_selezionati.append(pg)
             except (ValueError, IndexError):
                 continue
-        # serializzo le liste nella sessione
+        # inserisco l'id nella sessione
         session['personaggi_selezionati'] = [
-            schema.dump(pg) for pg in personaggi_selezionati]
+            pg['id'] for pg in personaggi_selezionati]
+        print("Personaggi selezionati", session['personaggi_selezionati'])
         # reindirizzo verso la pagina di destinazione
         return redirect(url_for('battle.begin_battle'))
-    # eventualmente carico selezione precedente per avere vaolri di default
-    selezionati_pg = []
-    if 'personaggi_selezionati' in session:
-        for sec in session['personaggi_selezionati']:
-            selezionati_pg.append(schema.load(sec))
-
     return render_template(
         'select_char.html',
         personaggi=pg_list,
-        missione_corrente=missione_corrente,
-        selezionati_pg=selezionati_pg)
+        missione_corrente=missione_corrente)
 
 
 @battle_bp.route('/test_battle', methods=['GET', 'POST'])
