@@ -3,15 +3,16 @@ import json
 import os
 from copy import deepcopy
 from collections import defaultdict
+from flask import flash, render_template, request, session, redirect, url_for
 
 from . import mission_bp
 import config
 from gioco.oggetto import Oggetto
 from gioco.personaggio import Personaggio
-from gioco.ambiente import AmbienteSchema, Ambiente
+from gioco.ambiente import  Ambiente
 from gioco.missione import Missione
-from gioco.schemas.missione import GestoreMissioniSchema, MissioniSchema
-from flask import flash, render_template, request, session, redirect, url_for
+from gioco.schemas.missione import MissioniSchema
+from gioco.schemas.ambiente import AmbienteSchema
 
 # richiedere a utente: nome, tipo ambiente, lista nemici, lista premi,
 # strategia.
@@ -29,13 +30,13 @@ def create_mission():
     from app import db
     # cattura dinamica di tutte le sottoclassi di Oggetto e Personaggio
     oggetti = {cls.__name__: cls for cls in Oggetto.__subclasses__()}
-    
+
     if request.method == 'POST':
         nome = request.form['nome'].strip()
         oggetto_sel = request.form['oggetto']
         tipo_ambiente = request.form['ambiente']
         strategia = request.form['strategia_nemici']
-        
+
         oggetto_sel = request.form['oggetto']
         ogg = oggetti[oggetto_sel]()
 
@@ -151,19 +152,7 @@ def select_mission():
         flash(f"MISSIONE CORRENTE IN SESSIONE :{session['missione']}","info")
     #Recupero dal form post l'id della missione selezionata
     if request.method == 'POST':
-        missione_id = request.form.get('missione_id') 
-
-        # Ricostruisce il gestore dalla sessione (stesso usato per GET)
-        gestore_data = session.get('gestore_missioni')
-        if gestore_data:
-            gestore = GestoreMissioniSchema().load(gestore_data)
-        else:
-            # Fallback se la sessione è vuota
-
-            gestore = GestoreMissioniSchema().crea_GestoreMissioni_Statico()
-            gestore_dict = GestoreMissioniSchema().dump(gestore)
-            session['missioni'] = gestore_dict['lista_missioni']
-            session['gestore_missioni'] = gestore_dict
+        missione_id = request.form.get('missione_id')
 
         # Debug: stampa il missione_id ricevuto
         msg = f"DEBUG: missione_id ricevuto: {missione_id}"
@@ -172,7 +161,11 @@ def select_mission():
         # Trova la missione con l'ID selezionato nel form
         missione_selezionata = None
         for missione in missioni:
-            msg = f"DEBUG: Confronto {missione.id} Tipo: {type(missione.id)} con {missione_id} Tipo: {type(missione_id)}"
+            msg = (
+                f"DEBUG: Confronto {missione.id} "
+                f"Tipo: {type(missione.id)} con {missione_id} "
+                f"Tipo: {type(missione_id)}"
+            )
             logger.debug(msg)
             if str(missione.id) == missione_id:
                 missione_selezionata = missione
@@ -182,8 +175,12 @@ def select_mission():
             # Salva missione e ambiente in sessione
             if  not missione_selezionata.completata:
                 #Qua non ci sarebbe da porre la missione come attiva ?
-                session['missione'] = MissioniSchema().dump(missione_selezionata)
-                session['ambiente'] = AmbienteSchema().dump(missione_selezionata.ambiente)
+                session['missione'] = MissioniSchema().dump(
+                    missione_selezionata
+                    )
+                session['ambiente'] = AmbienteSchema().dump(
+                    missione_selezionata.ambiente
+                    )
 
             msg = f"Missione selezionata: {missione_selezionata.nome}"
             logger.info(msg)
@@ -282,7 +279,7 @@ def description():
     # Crea il mapping dinamico delle classi
     classi_map = {cls.__name__: cls for cls in get_all_subclasses(Personaggio)}
     classi = {nome: classi_map[nome]("temp") for nome in classi_data.keys()}
-    oggetti = [cls for cls in get_all_subclasses(Oggetto)]
+    oggetti = [cls() for cls in get_all_subclasses(Oggetto)]
 
     # print(f"DEBUG - classi: {classi}")
 
@@ -301,6 +298,7 @@ def description():
     val_standard['Chars'] = x
 
     # Aggiungo i valori degli oggetti al dizionario
+
     val_standard['Oggetto'] = {
         obj.__class__.__name__: {
             'valore': obj.valore,

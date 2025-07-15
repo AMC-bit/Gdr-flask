@@ -32,24 +32,8 @@ def index():
         if has_missioni:
             print(has_personaggi)
         can_select_char = has_personaggi and has_missioni #and has_missione
-        return render_template('menu.html', can_select_char=can_select_char)
+        return render_template('menu.html', can_select_char=can_select_char, has_missioni=has_missioni)
     return render_template('menu.html')
-
-# Mostra i log dello scontro, permette di attaccare e usare l'inventario
-@gioco.route('/battle', methods=['GET', 'POST'])
-def battle():
-    # DA RECUPERARE
-    # È il personaggio che sta attualmente giocando il suo turno
-    personaggio_attivo =""
-    nome_personaggio_attivo = "Genoveffo"
-
-    # Questa variabile booleana disabilita i pulsanti attacca e usa inventario,
-    # è da switchare quando è il turno del personaggio
-    # DA RECUPERARE
-    buttons_diasable = True
-
-    return render_template('battle.html', nome_personaggio_attivo = nome_personaggio_attivo)
-
 
 @gioco.route('/clear')
 def clear():

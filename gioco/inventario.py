@@ -6,7 +6,6 @@ from gioco.ambiente import Ambiente
 #  , Json
 from typing import List, Optional, Union
 from dataclasses import dataclass, field
-from marshmallow import Schema, fields, post_load
 import logging
 
 logger = logging.getLogger(__name__)
