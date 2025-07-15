@@ -11,6 +11,7 @@ from auth.models import User
 from auth.models import db
 from auth.credits import credits_to_create, credits_to_refund
 from config import DATA_DIR_PGS, DATA_DIR_INV, CreateDirs
+from inventory.routes import salva_inventario_su_json
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -56,7 +57,6 @@ def load_char():
     print(f"owned_char: {owned_char}")
 
     return owned_char
-
 
 def CharSingleJson(pg_dict: dict):
     # Recuperare i dati dal form per singolo personaggio
@@ -105,6 +105,9 @@ def create_char():
 
         # Creazione del file JSON del singolo personaggio
         CharSingleJson(pg_dict)
+
+        # Salvataggio dell'inventario su JSON
+        salva_inventario_su_json(inv)
 
         # Assicura che tutti gli id siano stringhe
         character_ids = (current_user.character_ids or []) + [str(pg.id)]
@@ -282,6 +285,14 @@ def char_delete(char_id):
         if str(cid) != str(char_id):
             new_id_list.append(cid)
     current_user.character_ids = new_id_list
+
+    # Eliminazione dell'inventario associato
+    inv_path = os.path.join(DATA_DIR_INV, f"{pg_obj.id}.json")
+    if os.path.exists(inv_path):
+        os.remove(inv_path)
+        logger.info(f"Inventario eliminato: {inv_path}")
+    else:
+        logger.warning(f"Inventario non trovato: {inv_path}")
 
     # rimborso crediti
     current_user.crediti += credits_to_refund(pg_obj)
