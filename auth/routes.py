@@ -145,7 +145,7 @@ def elimina_personaggi_utente(character_ids):
             try:
                 with open(path_file, 'r') as f:
                     dati = json.load(f)
-                # Cancella se id_utente corrisponde
+                # Cancella se character_ids corrisponde
                 for id in character_ids:
                     if dati.get("id") == id:
                         os.remove(path_file)
