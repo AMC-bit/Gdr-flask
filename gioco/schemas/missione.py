@@ -8,7 +8,7 @@ from gioco.missione import Missione
 from gioco.schemas.oggetto import OggettoSchema
 from gioco.schemas.personaggio import PersonaggioSchema
 from gioco.schemas.strategy import StrategiaSchema
-
+from gioco.schemas.ambiente import AmbienteSchema
 
 class MissioniSchema(Schema):
     id = fields.UUID(load_default=lambda: uuid.uuid4())
