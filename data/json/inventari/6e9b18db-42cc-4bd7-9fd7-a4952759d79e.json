@@ -1,9 +1,9 @@
 {
     "classe": "Inventario",
-    "id": "b983d83f-ecf3-4801-bcd2-21be34e70ddf",
+    "id": "cf3577b1-6ac0-4b4f-af87-6f325f43ba6a",
     "oggetti": [
         {
-            "id": "5cf5555d-cd33-4f12-8e62-58305290272d",
+            "id": "42da8737-74d9-4a25-a236-1a80f7396f72",
             "nome": "Medaglione",
             "usato": false,
             "valore": 10,
@@ -11,5 +11,5 @@
             "classe": "Medaglione"
         }
     ],
-    "id_proprietario": "e744efc5-91b9-4f08-abd1-fa030e775aab"
+    "id_proprietario": "6e9b18db-42cc-4bd7-9fd7-a4952759d79e"
 }
