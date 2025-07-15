@@ -177,9 +177,7 @@ def credit_refill():
         else:
             current_user.crediti += amount  # aggiunta dei crediti
             db.session.commit()  # salvataggio in database
-            message = (
-                f"Ricaricati {amount} crediti."
-                f"Totale attuale: {int(current_user.crediti)}.")
+            message = (f"Ricaricati {amount} crediti. ")
             return redirect(url_for('auth.credit_refill', message=message))
 
     message = request.args.get('message')  # estrae il parametro message da URL
