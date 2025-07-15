@@ -10,7 +10,7 @@ from gioco.oggetto import Oggetto
 from gioco.personaggio import Personaggio
 from gioco.ambiente import AmbienteSchema, Ambiente
 from gioco.missione import Missione
-from gioco.schemas.missione import GestoreMissioniSchema, MissioniSchema
+from gioco.schemas.missione import MissioniSchema
 from flask import flash, render_template, request, session, redirect, url_for
 
 # richiedere a utente: nome, tipo ambiente, lista nemici, lista premi,
@@ -29,13 +29,13 @@ def create_mission():
     from app import db
     # cattura dinamica di tutte le sottoclassi di Oggetto e Personaggio
     oggetti = {cls.__name__: cls for cls in Oggetto.__subclasses__()}
-    
+
     if request.method == 'POST':
         nome = request.form['nome'].strip()
         oggetto_sel = request.form['oggetto']
         tipo_ambiente = request.form['ambiente']
         strategia = request.form['strategia_nemici']
-        
+
         oggetto_sel = request.form['oggetto']
         ogg = oggetti[oggetto_sel]()
 
@@ -160,7 +160,11 @@ def select_mission():
         # Trova la missione con l'ID selezionato nel form
         missione_selezionata = None
         for missione in missioni:
-            msg = f"DEBUG: Confronto {missione.id} Tipo: {type(missione.id)} con {missione_id} Tipo: {type(missione_id)}"
+            msg = (
+                f"DEBUG: Confronto {missione.id} "
+                f"Tipo: {type(missione.id)} con {missione_id} "
+                f"Tipo: {type(missione_id)}"
+            )
             logger.debug(msg)
             if str(missione.id) == missione_id:
                 missione_selezionata = missione
@@ -170,8 +174,12 @@ def select_mission():
             # Salva missione e ambiente in sessione
             if  not missione_selezionata.completata:
                 #Qua non ci sarebbe da porre la missione come attiva ?
-                session['missione'] = MissioniSchema().dump(missione_selezionata)
-                session['ambiente'] = AmbienteSchema().dump(missione_selezionata.ambiente)
+                session['missione'] = MissioniSchema().dump(
+                    missione_selezionata
+                    )
+                session['ambiente'] = AmbienteSchema().dump(
+                    missione_selezionata.ambiente
+                    )
 
             msg = f"Missione selezionata: {missione_selezionata.nome}"
             logger.info(msg)
