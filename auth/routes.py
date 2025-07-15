@@ -135,15 +135,6 @@ def delete_user(id):
 
 # Funzione per eliminare tutti i personaggi di un utente
 def elimina_personaggi_utente(character_ids):
-    """
-    Elimina tutti i file JSON dei personaggi che appartengono all'utente.
-
-    Args:
-        id_utente (str): ID dell'utente.
-
-    Return:
-        None
-    """
     cartella = os.path.join("data", "json", "personaggi")
     if not os.path.exists(cartella):
         return
