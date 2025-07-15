@@ -278,7 +278,7 @@ def description():
     # Crea il mapping dinamico delle classi
     classi_map = {cls.__name__: cls for cls in get_all_subclasses(Personaggio)}
     classi = {nome: classi_map[nome]("temp") for nome in classi_data.keys()}
-    oggetti = [cls for cls in get_all_subclasses(Oggetto)]
+    oggetti = [cls() for cls in get_all_subclasses(Oggetto)]
 
     # print(f"DEBUG - classi: {classi}")
 
@@ -297,6 +297,7 @@ def description():
     val_standard['Chars'] = x
 
     # Aggiungo i valori degli oggetti al dizionario
+
     val_standard['Oggetto'] = {
         obj.__class__.__name__: {
             'valore': obj.valore,
