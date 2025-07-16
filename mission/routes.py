@@ -110,7 +110,7 @@ def create_mission():
         oggetti=list(oggetti.keys()))
 
 def prendi_Missione_Da_Json():
-    """Scansiona la dir missions, legge i file json all'interno, usa lo schema 
+    """Scansiona la dir missions, legge i file json all'interno, usa lo schema
     si missioni, e ritorna la lista di missioni presenti.
 
     Returns:
@@ -190,7 +190,6 @@ def select_mission():
     return render_template('select_mission.html', missioni = missioni )
 
 
-
 @mission_bp.route('/show_mission')
 def show_mission():
     """
@@ -199,10 +198,10 @@ def show_mission():
 
 
     """
-    missione_data = session.get('missione')
-    ambiente_data = session.get('ambiente')
+    data = Json.carica_dati(path_save)
+    missione_data = data.get('missione')
 
-    if not missione_data or not ambiente_data:
+    if not missione_data:
         msg = 'Nessuna missione selezionata.'
         flash(msg, 'error')
         logger.error(msg)
