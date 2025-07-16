@@ -69,15 +69,13 @@ def login():
         password = request.form['password']
         user = User.query.filter_by(email=email).first()
 
-        print(f"Sessione: {session}")
-
         if user and check_password_hash(user.password_hash, password):
             login_user(user)
 
-            # inserimento dati in sessione
-            session['user_id'] = user.id
+            # inserimento dato in sessione
             session['user_name'] = user.nome
-            session['session_id'] = uuid.uuid4()
+
+            print(f"Sessione: {session}")
 
             return redirect(url_for('auth.personal_area'))
         else:
