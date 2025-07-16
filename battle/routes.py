@@ -11,6 +11,7 @@ from characters.routes import load_char, get_owned_chars
 from gioco.schemas.personaggio import PersonaggioSchema
 from gioco.schemas.inventario import InventarioSchema
 from inventory.routes import carica_inventario_da_json
+from utils.salvataggio import Json
 import random
 import json
 from config import DATA_DIR_SAVE
@@ -131,6 +132,16 @@ def select_char():
 def test_battle():
     # --- SETUP DATI ---
     # Recupera o crea la lista unica di personaggi (giocatori + npc)
+    missione = Json.carica_dati(path_save)['missione']
+    personaggi_selezionati = Json.carica_dati(path_save)['personaggi_selezionati']
+    nemici = missione['nemici']
+    ambiente = missione['ambiente']
+    #TODO continua da qui 
+    
+    personaggi_selezionati_obj = PersonaggioSchema(many= True).load(personaggi_selezionati)
+    nemici_obj = PersonaggioSchema(many= True).load(nemici)
+    flash(f"{personaggi_selezionati_obj} TIPO:{type(personaggi_selezionati_obj)}","info")
+    """
     if 'tutti_personaggi' not in session:
         tutti_personaggi = []
         if 'personaggi_selezionati' in session:
@@ -249,11 +260,11 @@ def test_battle():
 
     # --- INVENTARIO DEL TURNO CORRENTE ---
     inventario_corrente = next((inv for inv in inventari if inv.id_proprietario == personaggio_turno_corrente.id), None)
-
+"""
     return render_template(
         'test_battle.html',
-        tutti_personaggi=tutti_personaggi,
-        ambiente=ambiente,
+        tutti_personaggi=[],
+        ambiente=,
         missione=missione,
         personaggio_turno_corrente=personaggio_turno_corrente,
         inventario_corrente=inventario_corrente,
