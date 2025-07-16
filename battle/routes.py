@@ -1,15 +1,23 @@
 from flask import redirect, render_template, session, url_for, request, flash, jsonify
 from . import battle_bp
+import os
+import logging
 from gioco.personaggio import Personaggio
 from gioco.inventario import Inventario
 from gioco.ambiente import Ambiente
 from gioco.missione import Missione
+from utils.salvataggio import Json
 from characters.routes import load_char, get_owned_chars
 from gioco.schemas.personaggio import PersonaggioSchema
 from gioco.schemas.inventario import InventarioSchema
 from inventory.routes import carica_inventario_da_json
 import random
 import json
+from config import DATA_DIR_SAVE
+
+path_save = os.path.join(
+    DATA_DIR_SAVE, "salvataggio.json"
+)
 
 classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
 schema = PersonaggioSchema()
@@ -78,7 +86,9 @@ def begin_battle():
 def select_char():
     # if request.method == 'POST':
     # prendo i dati da sessione:
-    missione_corrente = session['missione']
+    
+    missione_corrente = Json.carica_dati(path_save)['missione']
+    
     pg_id_list = load_char()
     pg_list = get_owned_chars(pg_id_list)
     if request.method == 'POST':
@@ -95,6 +105,15 @@ def select_char():
                 personaggi_selezionati.append(pg)
             except (ValueError, IndexError):
                 continue
+            
+        data_load = Json.carica_dati(path_save)
+        if isinstance(data_load, dict):
+            data_load['personaggi_selezionati'] = personaggi_selezionati
+        else:
+            msg = 'Dati non in formato corretto'
+            flash(msg, 'error')
+        Json.scrivi_dati(path_save, data_load)
+
         # inserisco l'id nella sessione
         session['personaggi_selezionati'] = [
             pg['id'] for pg in personaggi_selezionati]
@@ -104,7 +123,8 @@ def select_char():
     return render_template(
         'select_char.html',
         personaggi=pg_list,
-        missione_corrente=missione_corrente)
+        missione_corrente=missione_corrente
+        )
 
 
 @battle_bp.route('/test_battle', methods=['GET', 'POST'])
