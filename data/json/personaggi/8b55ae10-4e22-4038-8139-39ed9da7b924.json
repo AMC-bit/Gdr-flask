@@ -1,0 +1,13 @@
+{
+    "classe": "Mago",
+    "id": "8b55ae10-4e22-4038-8139-39ed9da7b924",
+    "nome": "Konrad",
+    "npc": false,
+    "salute_max": 80,
+    "salute": 80,
+    "attacco_min": 0,
+    "attacco_max": 90,
+    "livello": 1,
+    "destrezza": 15,
+    "storico_danni_subiti": []
+}

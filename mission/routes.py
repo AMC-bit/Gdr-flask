@@ -224,7 +224,7 @@ def show_mission():
     flash(msg, 'info')
 
     logger.info(msg)
-    descrizione_ambiente = description()
+    descrizione_ambiente = description(ambiente)
 
     return render_template(
         'show_mission.html',
@@ -246,7 +246,7 @@ def get_all_subclasses(cls, ricorsiva: bool = True):
 
 
 @staticmethod
-def description():
+def description(ambiente: Ambiente = None):
     """
     Il metodo descrive i cambiamenti
     che l'ambiente apporta ai personaggi e agli oggetti rispetto
@@ -256,10 +256,6 @@ def description():
         dict: Un dizionario contenente i valori standard e le modifiche
         apportate dall'ambiente ai personaggi e agli oggetti.
     """
-    ambiente = None
-    s_ambiente = session.get('ambiente')
-    if isinstance(s_ambiente, dict):
-        ambiente = AmbienteSchema().load(s_ambiente)
 
     # Dati base per classi derivate da personaggio
     # (definite in maniera statica per ridurre la complessità del metodo
