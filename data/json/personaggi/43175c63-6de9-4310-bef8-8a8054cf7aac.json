@@ -1,0 +1,13 @@
+{
+    "classe": "Mago",
+    "id": "43175c63-6de9-4310-bef8-8a8054cf7aac",
+    "nome": "kebab",
+    "npc": false,
+    "salute_max": 80,
+    "salute": 80,
+    "attacco_min": 0,
+    "attacco_max": 90,
+    "livello": 1,
+    "destrezza": 15,
+    "storico_danni_subiti": []
+}

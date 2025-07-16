@@ -68,14 +68,17 @@ def login():
         email = request.form['email'].strip()
         password = request.form['password']
         user = User.query.filter_by(email=email).first()
-        session['user_id'] = user.id
-        session['user_name'] = user.nome
-        session['session_id'] = uuid.uuid4()
 
         print(f"Sessione: {session}")
 
         if user and check_password_hash(user.password_hash, password):
             login_user(user)
+
+            # inserimento dati in sessione
+            session['user_id'] = user.id
+            session['user_name'] = user.nome
+            session['session_id'] = uuid.uuid4()
+
             return redirect(url_for('auth.personal_area'))
         else:
             flash('Email o password non corretti.', 'danger') 
