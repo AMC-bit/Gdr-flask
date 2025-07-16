@@ -1,9 +1,7 @@
 from . import inventory_bp
-from flask import render_template, request, session, flash, redirect, url_for
+from flask import render_template, request, flash, redirect, url_for
 from gioco.oggetto import Oggetto
-from gioco.personaggio import Personaggio
 from gioco.inventario import Inventario
-from gioco.schemas.oggetto import OggettoSchema
 from gioco.schemas.inventario import InventarioSchema
 from flask_login import login_required
 from marshmallow import ValidationError

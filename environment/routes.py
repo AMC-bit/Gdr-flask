@@ -1,7 +1,10 @@
 from flask import request, render_template, redirect, url_for, flash, session
 from . import environment_bp
 from gioco.ambiente import AmbienteFactory, Ambiente
-from utils.log import Log
+import logging
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 
 @environment_bp.route('/select-environment', methods=['GET', 'POST'])
@@ -13,7 +16,7 @@ def select_environment():
         # Salva l'ambiente in sessione
         msg = f"Ambiente selezionato: {ambiente.nome} (id: {ambiente_id})"
         flash(msg, 'success')
-        Log.scrivi_log(msg)
+        logger.info(msg)
         return redirect(url_for('environment.show_environment'))
 
     ambienti = AmbienteFactory.get_opzioni()
@@ -26,12 +29,12 @@ def show_environment():
     if not ambiente_data:
         msg = 'Nessun ambiente selezionato.'
         flash(msg, 'error')
-        Log.scrivi_log(msg)
+        logger.info(msg)
         # return redirect(url_for('environment.select_environment'))
         return redirect(url_for('mission.select_mission'))
 
     ambiente = Ambiente.from_dict(ambiente_data)
     msg = f"Ambiente mostrato: {ambiente.nome}"
     flash(msg, 'info')
-    Log.scrivi_log(msg)
+    logger.info(msg)
     return render_template('show_environment.html', ambiente=ambiente)
