@@ -11,6 +11,11 @@ DATA_DIR_INV = os.path.join(BASE_DIR, 'data', 'json', 'inventari')
 
 # directory file JSON del salvataggio della battaglia
 DATA_DIR_SAVE = os.path.join(BASE_DIR, 'data', 'json', 'save')
+
+# directory file JSON delle missioni
+DATA_DIR_MIS = os.path.join(BASE_DIR, 'static', 'json', 'missions')
+
+
 def CreateDirs():
     """
     Crea directory per i file JSON per i personaggi e gli inventari
@@ -24,5 +29,4 @@ def CreateDirs():
         if not os.path.exists(gitkeep):
             open(gitkeep, 'a').close()
 
-# directory file JSON delle missioni
-DATA_DIR_MIS = os.path.join(BASE_DIR, 'static', 'json', 'missions')
+
