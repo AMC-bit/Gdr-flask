@@ -177,7 +177,7 @@ def select_mission():
             # Salva missione e ambiente in sessione
             if  not missione_selezionata.completata:
                 #Qua non ci sarebbe da porre la missione come attiva ?
-                missione = MissioniSchema().dump(missione_selezionata)
+                missione = {"missione": MissioniSchema().dump(missione_selezionata)}
                 Json.scrivi_dati(path_save, missione)
 
             msg = f"Missione selezionata: {missione_selezionata.nome}"
