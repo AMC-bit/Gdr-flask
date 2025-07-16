@@ -10,7 +10,7 @@ DATA_DIR_PGS = os.path.join(BASE_DIR, 'data', 'json', 'personaggi')
 DATA_DIR_INV = os.path.join(BASE_DIR, 'data', 'json', 'inventari')
 
 # directory file JSON del salvataggio della battaglia
-DATA_DIR_INV = os.path.join(BASE_DIR, 'data', 'json', 'save')
+DATA_DIR_SAVE = os.path.join(BASE_DIR, 'data', 'json', 'save')
 def CreateDirs():
     """
     Crea directory per i file JSON per i personaggi e gli inventari

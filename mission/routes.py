@@ -4,7 +4,7 @@ import os
 from copy import deepcopy
 from collections import defaultdict
 from flask import flash, render_template, request, session, redirect, url_for
-
+from utils.salvataggio import Json
 from . import mission_bp
 import config
 from gioco.oggetto import Oggetto
@@ -14,7 +14,7 @@ from gioco.schemas.ambiente import AmbienteSchema
 from gioco.missione import Missione
 from gioco.schemas.missione import MissioniSchema
 from gioco.schemas.ambiente import AmbienteSchema
-
+from config import DATA_DIR_SAVE
 # richiedere a utente: nome, tipo ambiente, lista nemici, lista premi,
 # strategia.
 
@@ -25,7 +25,9 @@ path_missioni = os.path.join(
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-
+path_save = os.path.join(
+    DATA_DIR_SAVE, "salvataggio.json"
+)
 @mission_bp.route('/create_mission', methods=['GET', 'POST'])
 def create_mission():
     from app import db
@@ -149,8 +151,7 @@ def select_mission():
     #Recupero dal json Static\json\missions tutte le missioni
     missioni = prendi_Missione_Da_Json()
     #Se c'è già una missione in sessione, la passo all'Html per presettare il form
-    if 'missione' in session:
-        flash(f"MISSIONE CORRENTE IN SESSIONE :{session['missione']}","info")
+    
     #Recupero dal form post l'id della missione selezionata
     if request.method == 'POST':
         missione_id = request.form.get('missione_id')
@@ -176,12 +177,8 @@ def select_mission():
             # Salva missione e ambiente in sessione
             if  not missione_selezionata.completata:
                 #Qua non ci sarebbe da porre la missione come attiva ?
-                session['missione'] = MissioniSchema().dump(
-                    missione_selezionata
-                    )
-                session['ambiente'] = AmbienteSchema().dump(
-                    missione_selezionata.ambiente
-                    )
+                missione = MissioniSchema().dump(missione_selezionata)
+                Json.scrivi_dati(path_save, missione)
 
             msg = f"Missione selezionata: {missione_selezionata.nome}"
             logger.info(msg)
