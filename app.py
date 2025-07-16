@@ -13,6 +13,9 @@ from auth import auth_bp  # Importa il blueprint di autenticazione 2
 from auth.models import db, User
 from flask_login import LoginManager
 from config import CreateDirs
+from datetime import timedelta
+
+
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 
@@ -34,6 +37,10 @@ def create_app():
     migrate = Migrate(app, db)  # Assegnata non utilizzata
     login_manager.init_app(app)
     Session(app)
+
+    # imposta la durata della sessione a 30 minuti
+    app.permanent_session_lifetime = timedelta(minutes=30)
+
     app.register_blueprint(gioco)
     app.register_blueprint(battle_bp)
     app.register_blueprint(characters_bp)

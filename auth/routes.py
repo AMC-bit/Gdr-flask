@@ -10,6 +10,7 @@ from characters.routes import load_char
 import re
 import os
 import json
+import uuid
 
 def email_check(email):
     pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
@@ -62,11 +63,16 @@ def sign_in():
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     # messaggio flash se il login è errato
-    
+
     if request.method == 'POST':
         email = request.form['email'].strip()
         password = request.form['password']
         user = User.query.filter_by(email=email).first()
+        session['user_id'] = user.id
+        session['user_name'] = user.nome
+        session['session_id'] = uuid.uuid4()
+
+        print(f"Sessione: {session}")
 
         if user and check_password_hash(user.password_hash, password):
             login_user(user)
