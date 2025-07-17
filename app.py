@@ -55,7 +55,6 @@ def create_app():
 
 # Inizializza il supporto alle sessioni sul filesystem
 
-
 # Registra il blueprint che contiene tutte le route di gioco
 
 

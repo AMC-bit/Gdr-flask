@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, request, session, redirect, url_for, Flask
+from flask import render_template, request, session, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
+from flask_login import login_user, logout_user, login_required, current_user
 from auth.models import User
 from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_user
@@ -10,7 +10,7 @@ from characters.routes import load_char
 import re
 import os
 import json
-import uuid
+
 
 def email_check(email):
     pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
@@ -62,7 +62,6 @@ def sign_in():
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
-    # messaggio flash se il login è errato
 
     if request.method == 'POST':
         email = request.form['email'].strip()
@@ -79,7 +78,7 @@ def login():
 
             return redirect(url_for('auth.personal_area'))
         else:
-            flash('Email o password non corretti.', 'danger') 
+            flash('Email o password non corretti.', 'danger')
             return render_template(
                 'login.html')
 
@@ -105,7 +104,7 @@ def edit_user():
     user = current_user
     if user:
         if request.method == 'POST':
-            # Catturo i dati inseriti nel form per la modifica dell'utente 
+            # Catturo i dati inseriti nel form per la modifica dell'utente
             # e li uso per modificare i dati dell'utente sul db,
             # infine redirige alla pagina login
 
@@ -128,19 +127,23 @@ def edit_user():
                     return redirect(url_for(
                         'auth.personal_area'))
 
-    return render_template("edit_user.html", utente = user )
+    return render_template("edit_user.html", utente=user )
 
 
 @auth_bp.route('/delete_user/<int:id>')
 @login_required
 def delete_user(id):
     utente = User.query.get(id)
-    elimina_personaggi_utente(utente.character_ids)  # Elimina i personaggi dell'utente
+
+    # elimina i personaggi dell'utente
+    elimina_personaggi_utente(utente.character_ids)
+
     db.session.delete(utente)
     db.session.commit()
     return redirect(url_for('auth.sign_in'))
 
-# Funzione per eliminare tutti i personaggi di un utente
+
+# funzione per eliminare tutti i personaggi di un utente
 def elimina_personaggi_utente(character_ids):
     cartella = os.path.join("data", "json", "personaggi")
     if not os.path.exists(cartella):
@@ -190,10 +193,11 @@ def credit_refill():
     message = request.args.get('message')  # estrae il parametro message da URL
     return render_template('credit_refill.html', message=message)
 
+
 @auth_bp.route('/logout')
 @login_required
 def logout():
     logout_user()
     session.clear()
-    flash("Logout effettuato con successo", "info")
+    flash("Logout effettuato con successo", "success")
     return render_template('menu.html')

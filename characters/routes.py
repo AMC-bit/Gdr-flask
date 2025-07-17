@@ -6,9 +6,7 @@ from gioco.oggetto import Oggetto
 from gioco.schemas.personaggio import PersonaggioSchema
 from gioco.schemas.inventario import InventarioSchema
 from gioco.inventario import Inventario
-from utils.log import Log
-from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
-from auth.models import User
+from flask_login import login_required, current_user
 from auth.models import db
 from auth.credits import credits_to_create, credits_to_refund
 from config import DATA_DIR_PGS, DATA_DIR_INV, CreateDirs
@@ -361,7 +359,6 @@ def begin_combat():
             risultato = f"Vittoria di {pg2.nome}!"
 
         log_combattimento.append(f"Risultato finale: {risultato}")
-        Log.scrivi_log(f"Combattimento terminato - {risultato}")
 
         return render_template(
             'combat.html',

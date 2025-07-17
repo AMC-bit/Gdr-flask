@@ -10,13 +10,10 @@ import config
 from gioco.oggetto import Oggetto
 from gioco.personaggio import Personaggio
 from gioco.ambiente import Ambiente
-from gioco.schemas.ambiente import AmbienteSchema
 from gioco.missione import Missione
 from gioco.schemas.missione import MissioniSchema
-from gioco.schemas.ambiente import AmbienteSchema
 from config import DATA_DIR_SAVE
-# richiedere a utente: nome, tipo ambiente, lista nemici, lista premi,
-# strategia.
+
 
 path_missioni = os.path.join(
     os.path.dirname(os.path.dirname(__file__)), 'data', 'missioni_custom.json'
@@ -28,86 +25,7 @@ logger.setLevel(logging.INFO)
 path_save = os.path.join(
     DATA_DIR_SAVE, "salvataggio.json"
 )
-@mission_bp.route('/create_mission', methods=['GET', 'POST'])
-def create_mission():
-    from app import db
-    # cattura dinamica di tutte le sottoclassi di Oggetto e Personaggio
-    oggetti = {cls.__name__: cls for cls in Oggetto.__subclasses__()}
 
-    if request.method == 'POST':
-        nome = request.form['nome'].strip()
-        oggetto_sel = request.form['oggetto']
-        tipo_ambiente = request.form['ambiente']
-        strategia = request.form['strategia_nemici']
-
-        oggetto_sel = request.form['oggetto']
-        ogg = oggetti[oggetto_sel]()
-
-        nemici_input = request.form.get('nemici', '')
-        premi_input = request.form.get('premi', '')
-
-        lista_nemici = []
-        for riga in nemici_input.strip().split('\n'):
-            try:
-                (
-                    nome,
-                    salute,
-                    salute_max,
-                    attacco_min,
-                    attacco_max,
-                    destrezza
-                ) = riga.strip().split(':')
-                nemico = Personaggio(
-                    nome.strip(),
-                    int(salute),
-                    int(salute_max),
-                    int(destrezza),
-                    int(attacco_min),
-                    int(attacco_max)
-                )
-                lista_nemici.append(nemico)
-            except ValueError:
-                flash(f"Errore nella riga nemico: {riga}", 'error')
-
-        lista_premi = []
-        for riga in premi_input.strip().split('\n'):
-            try:
-                nome, valore, classe, tipo_oggetto = riga.strip().split(':')
-                premio = Oggetto(
-                    nome.strip(),
-                    classe.strip(),
-                    int(valore),
-                    tipo_oggetto.strip()
-                )
-                lista_premi.append(premio)
-            except ValueError:
-                flash(f"Errore nella riga premio: {riga}", 'error')
-
-        ambiente = Ambiente(nome=tipo_ambiente)
-        missione = Missione(
-            nome=nome,
-            ambiente=ambiente,
-            nemici=lista_nemici,
-            premi=lista_premi,
-            strategia_nemici=strategia
-        )
-
-        missioni = []
-        if os.path.exists(path_missioni):
-            with open(path_missioni, 'r') as f:
-                missioni = json.load(f)
-
-        missioni.append(missione)
-
-        with open(path_missioni, 'w') as f:
-            json.dump(missioni, f, indent=4)
-
-        flash(f"Missione '{nome}' salvata con successo!", 'success')
-        logger.info(f"Missione personalizzata creata: {nome}")
-        return redirect(url_for('mission.select_mission'))
-
-    return render_template('create_mission.html',
-        oggetti=list(oggetti.keys()))
 
 def prendi_Missione_Da_Json():
     """Scansiona la dir missions, legge i file json all'interno, usa lo schema
@@ -126,6 +44,7 @@ def prendi_Missione_Da_Json():
                 missione = schema.load(data)
                 lista.append(missione)
     return lista
+
 
 @mission_bp.route('/select_mission', methods=['GET', 'POST'])
 def select_mission():
@@ -148,11 +67,11 @@ def select_mission():
         Se una missione è stata selezionata, reindirizza alla pagina di
         visualizzazione della missione.
     """
-    #Recupero dal json Static\json\missions tutte le missioni
+    # Recupero dal json Static\json\missions tutte le missioni
     missioni = prendi_Missione_Da_Json()
-    #Se c'è già una missione in sessione, la passo all'Html per presettare il form
-    
-    #Recupero dal form post l'id della missione selezionata
+    # Se c'è già una missione in sessione, la passo all'Html per presettare il form
+
+    # Recupero dal form post l'id della missione selezionata
     if request.method == 'POST':
         missione_id = request.form.get('missione_id')
 
@@ -195,8 +114,6 @@ def show_mission():
     """
     Mostra i dettagli della missione selezionata.
     Se non è stata selezionata alcuna missione, mostra un messaggio di errore.
-
-
     """
     data = Json.carica_dati(path_save)
     missione_data = data.get('missione')
@@ -274,8 +191,6 @@ def description(ambiente: Ambiente = None):
     classi = {nome: classi_map[nome]("temp") for nome in classi_data.keys()}
     oggetti = [cls() for cls in get_all_subclasses(Oggetto)]
 
-    # print(f"DEBUG - classi: {classi}")
-
     # valori standard
     val_standard = {}
     x = {}
@@ -334,12 +249,6 @@ def description(ambiente: Ambiente = None):
     # f"\nvar_amb: {var_amb}")
 
     return {'val_standard': val_standard, 'var_amb': var_amb}
-
-
-@mission_bp.route('/missioni')
-def mostra_missioni():
-    missioni = session.get('missioni', [])
-    return render_template('missioni.html', missioni=missioni)
 
 
 @mission_bp.route('/missione/attiva')

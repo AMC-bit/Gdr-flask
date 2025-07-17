@@ -1,5 +1,5 @@
 from gioco.personaggio import Personaggio
-from gioco.classi import Mago, Guerriero, Ladro
+
 
 @staticmethod
 def credits_to_create(personaggio: Personaggio) -> int:
