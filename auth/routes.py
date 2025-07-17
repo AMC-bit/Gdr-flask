@@ -1,9 +1,7 @@
-from flask import render_template, request, session, redirect, url_for
+from flask import render_template, request, session, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
 from auth.models import User
-from flask import render_template, request, redirect, url_for, flash
-from flask_login import login_user
 from . import auth_bp
 from app import db
 from characters.routes import load_char
@@ -28,35 +26,39 @@ def sign_in():
         email = request.form['email'].strip()
         psw = request.form['psw']
         re_psw = request.form['re_psw']
-        if not name:
-            raise ValueError('Name field cant be empty')
-        else:
-            if not email:
-                raise ValueError('Email cant be empty')
-            else:
-                if not email_check(email):
-                    raise ValueError('Email does not match an email pattern')
-                else:
-                    if not (psw and re_psw and psw == re_psw):
-                        raise ValueError(
-                            'Password and repeat Password field must match')
-                    else:
-                        # Registra il nuovo utente
-                        hash_psw = protect_psw_hash(psw)
-                        utente_exist = User.query.filter((User.email == email) and ((User.nome == name ))).first()
-                        if utente_exist:
-                            raise ValueError('Utente già presente')
-                        else:
-                            nuovo_utente = User(
-                                nome=name,
-                                email=email,
-                                password_hash=hash_psw,
-                                crediti=100,
-                                character_ids=[])
 
-                            db.session.add(nuovo_utente)
-                            db.session.commit()
-                        return redirect(url_for('auth.login'))
+        if not name:
+            raise ValueError("Name field can't be empty")
+        if not email:
+            raise ValueError("Email can't be empty")
+        if not email_check(email):
+            raise ValueError('Email does not match an email pattern')
+        if not (psw and re_psw and psw == re_psw):
+            raise ValueError(
+                'Password and repeat Password fields must match'
+            )
+
+        hash_psw = protect_psw_hash(psw)
+        utente_exist = (
+            User.query
+            .filter(User.email == email)
+            .first()
+        )
+        if utente_exist:
+            raise ValueError('Email già registrata')
+
+        nuovo_utente = User(
+            nome=name,
+            email=email,
+            password_hash=hash_psw,
+            crediti=100,
+            character_ids=[],
+        )
+        db.session.add(nuovo_utente)
+        db.session.commit()
+
+        return redirect(url_for('auth.login'))
+
     return render_template('sign_in.html')
 
 
@@ -127,7 +129,7 @@ def edit_user():
                     return redirect(url_for(
                         'auth.personal_area'))
 
-    return render_template("edit_user.html", utente=user )
+    return render_template("edit_user.html", utente=user)
 
 
 @auth_bp.route('/delete_user/<int:id>')
