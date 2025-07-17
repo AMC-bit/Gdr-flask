@@ -69,8 +69,7 @@ def CharSingleJson(pg_dict: dict):
     # Creazione del file JSON con l'id del personaggio
     name_file = f"{pg_dict['id']}.json"
     path = os.path.join(DATA_DIR_PGS, name_file)
-    with open(path, "w", encoding="utf-8") as file:
-        json.dump(pg_dict, file, indent=4)
+    Json.scrivi_dati(path, pg_dict)
 
 
 @characters_bp.route('/create_char', methods=['GET', 'POST'])
@@ -211,13 +210,12 @@ def get_owned_chars(owned_chars):
         # recupero il path del file json del personaggio
         path = os.path.join(DATA_DIR_PGS, f"{nome_file}.json")
 
-        with open(path, "r", encoding="utf-8") as file:
-            char_dict = json.load(file)
-            # deserializza il personaggio
-            personaggio = schema.load(char_dict)
-            # serializza di nuovo per uniformità
-            char_dict = schema.dump(personaggio)
-            personaggi_posseduti.append(char_dict)
+        char_dict = Json.carica_dati(path)
+        # deserializza il personaggio
+        personaggio = schema.load(char_dict)
+        # serializza di nuovo per uniformità
+        char_dict = schema.dump(personaggio)
+        personaggi_posseduti.append(char_dict)
     return personaggi_posseduti
 
 
@@ -285,8 +283,7 @@ def char_delete(char_id):
         return redirect(url_for('characters.show_chars'))
 
     # andiamo a leggere il file designato
-    with open(file_path, 'r', encoding='utf-8') as f:
-        pg_dict = json.load(f)
+    pg_dict = Json.carica_dati(file_path)
 
     # ricrea oggetto personaggio
     pg_obj = schema.load(pg_dict)
@@ -334,12 +331,8 @@ def begin_combat():
         id_1 = request.form['pg1']
         id_2 = request.form['pg2']
 
-        pg1_dict = next(
-            (p for p in personaggi_utente if p['id'] == id_1), None
-        )
-        pg2_dict = next(
-            (p for p in personaggi_utente if p['id'] == id_2), None
-        )
+        pg1_dict = (p for p in personaggi_utente if p['id'] == id_1)
+        pg2_dict = (p for p in personaggi_utente if p['id'] == id_2)
 
         if not pg1_dict or not pg2_dict:
             abort(400, "Personaggio non trovato.")
