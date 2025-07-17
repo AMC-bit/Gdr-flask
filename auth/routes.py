@@ -106,30 +106,31 @@ def personal_area():
 @login_required
 def edit_user():
     user = current_user
-    if user:
-        if request.method == 'POST':
-            # Catturo i dati inseriti nel form per la modifica dell'utente
-            # e li uso per modificare i dati dell'utente sul db,
-            # infine redirige alla pagina login
 
-            # ? Perchè non mostra il flash e perchè non prende
-            # ? i value precedenti nel form ?
-            new_name = request.form['new_username']
-            new_email = request.form['new_email']
-            new_psw = request.form['new_password']
-            if user:
-                id = user.id
-                db_user = User.query.get_or_404(id)
-                db_user.nome = new_name
-                db_user.email = new_email
-                if not email_check(new_email):
-                    flash("Email does not match an email pattern", "error")
-                else:
-                    db_user.password_hash = protect_psw_hash(new_psw)
-                    db.session.commit()
-                    flash("Utente modificato con successo!", "success")
-                    return redirect(url_for(
-                        'auth.personal_area'))
+    if request.method == 'POST':
+        # catturo i dati inseriti nel form per la modifica dell'utente
+        new_name = request.form['new_username']
+        new_email = request.form['new_email']
+        new_psw = request.form['new_password']
+
+        if not email_check(new_email):
+            flash("Email does not match an email pattern", "error")
+            return render_template(
+                'edit_user.html',
+                utente=user,
+                new_name=new_name,
+                new_email=new_email
+            )
+
+        # modifico i dati dell'utente
+        user.nome = new_name
+        user.email = new_email
+        user.password_hash = protect_psw_hash(new_psw)
+        db.session.commit()  # salvataggio su db
+
+        flash("Utente modificato con successo!", "success")
+        # ritorno all'area personale
+        return redirect(url_for('auth.personal_area'))
 
     return render_template("edit_user.html", utente=user)
 
