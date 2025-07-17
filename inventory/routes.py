@@ -3,6 +3,7 @@ from flask import render_template, request, flash, redirect, url_for
 from gioco.oggetto import Oggetto
 from gioco.inventario import Inventario
 from gioco.schemas.inventario import InventarioSchema
+from characters.routes import load_char, get_owned_chars
 from flask_login import login_required
 from marshmallow import ValidationError
 import logging
@@ -11,26 +12,6 @@ import os, json
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
-
-
-def salva_inventario_su_json(inventario: Inventario):
-    """_
-
-    Args:
-        inventario (Inventario): _description_
-    """
-
-    file_name = (
-        f"{inventario.id_proprietario}.json"
-        if inventario.id_proprietario else
-        f"{inventario.id}.json"
-    )
-    file_path = os.path.join(DATA_DIR_INV, file_name)
-
-    with open(file_path, "w", encoding="utf-8") as f:
-        json.dump(inventario.to_dict(), f, indent=4)
-
-    logger.info(f"Inventario salvato in {file_name}")
 
 
 def carica_inventario_da_json(personaggio_id):
@@ -71,7 +52,7 @@ def carica_inventario_da_json(personaggio_id):
 
 @inventory_bp.route('/inventory', methods=['GET', 'POST'])
 def inventory():
-    from characters.routes import load_char, get_owned_chars
+    
 
     owned_ids = load_char()
     personaggi = get_owned_chars(owned_ids)
