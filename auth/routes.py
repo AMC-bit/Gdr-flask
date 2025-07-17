@@ -72,21 +72,19 @@ def login():
     if request.method == 'POST':
         email = request.form['email'].strip()
         password = request.form['password']
+
         user = User.query.filter_by(email=email).first()
 
-        if user and check_password_hash(user.password_hash, password):
-            login_user(user)
+        # login non riuscito
+        if not user or not check_password_hash(user.password_hash, password):
+            flash('Email o password non corretti', 'danger')
+            return render_template('login.html', email=email)
 
-            # inserimento dato in sessione
-            session['user_name'] = user.nome
+        # login riuscito
+        login_user(user)
+        session['user_name'] = user.nome
 
-            print(f"Sessione: {session}")
-
-            return redirect(url_for('auth.personal_area'))
-        else:
-            flash('Email o password non corretti.', 'danger')
-            return render_template(
-                'login.html')
+        return redirect(url_for('auth.personal_area'))
 
     return render_template('login.html')
 
