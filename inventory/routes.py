@@ -1,24 +1,25 @@
 from . import inventory_bp
 from flask import render_template, request, flash, redirect, url_for
 from gioco.oggetto import Oggetto
-from gioco.inventario import Inventario
 from gioco.schemas.inventario import InventarioSchema
 from characters.routes import load_char, get_owned_chars
 from flask_login import login_required
 from marshmallow import ValidationError
 import logging
 from config import DATA_DIR_INV
-import os, json
+import os
+import json
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 
 def carica_inventario_da_json(personaggio_id):
-    """Carica un inventario JSON direttamente dal file <id_proprietario>.json o fallback su id generico."""
+    """Carica un inventario JSON direttamente dal
+    file <id_proprietario>.json o fallback su id generico."""
     inventario_schema = InventarioSchema()
 
-    # Prova file col nome dell'id_proprietario (comportamento principale)
+    # prova file col nome dell'id_proprietario (comportamento principale)
     file_name = os.path.join(DATA_DIR_INV, f"{personaggio_id}.json")
     if os.path.exists(file_name):
         try:
@@ -31,7 +32,8 @@ def carica_inventario_da_json(personaggio_id):
             logger.error(f"Errore nel caricamento del file {file_name}: {e}")
             return None
 
-    # Questa parte è opzionale, nel caso in cui non si trovasse il file si andrà a cerca in tutti i file
+    # questa parte è opzionale, nel caso in cui non si trovasse
+    # il file si andrà a cercare in tutti i file
     # un inventario con id_proprietario == personaggio_id
     for file in os.listdir(DATA_DIR_INV):
         if file.endswith('.json'):
@@ -46,27 +48,38 @@ def carica_inventario_da_json(personaggio_id):
             except (json.JSONDecodeError, ValidationError) as e:
                 logger.error(f"Errore nel caricamento fallback da {file}: {e}")
 
-    logger.warning(f"Inventario non trovato per il personaggio {personaggio_id}")
+    logger.warning(f"Inventario non trovato per personaggio {personaggio_id}")
     return None
 
 
 @inventory_bp.route('/inventory', methods=['GET', 'POST'])
 def inventory():
-    
-
     owned_ids = load_char()
     personaggi = get_owned_chars(owned_ids)
     nome_per_id = {p['id']: p['nome'] for p in personaggi}
 
-    id_personaggio = request.args.get('personaggio_id') if request.method == 'GET' else request.form.get('personaggio_id')
+    id_personaggio = (
+        request.args.get('personaggio_id')
+        if request.method == 'GET'
+        else request.form.get('personaggio_id')
+    )
 
-    personaggio = next((p for p in personaggi if p['id'] == id_personaggio), None)
+    personaggio = None
+    for p in personaggi:
+        if p['id'] == id_personaggio:
+            personaggio = p
+            break
+
     inventario_selezionato = None
 
     if id_personaggio:
         inventario_selezionato = carica_inventario_da_json(id_personaggio)
         if inventario_selezionato:
-            logger.info(f"Inventario di {nome_per_id.get(id_personaggio, 'sconosciuto')} caricato da JSON.")
+            logger.info(
+                f"Inventario di "
+                f"{nome_per_id.get(id_personaggio, 'sconosciuto')} "
+                f"caricato da JSON."
+                )
         else:
             flash("Inventario non trovato o errore nel file.", "warning")
 
@@ -87,7 +100,11 @@ def add_object():
     oggetti_classes = {cls.__name__: cls for cls in Oggetto.__subclasses__()}
     inventario_schema = InventarioSchema()
 
-    personaggio_id = request.args.get('personaggio_id') or request.form.get('personaggio_id')
+    personaggio_id = (
+        request.args.get('personaggio_id')
+        or request.form.get('personaggio_id')
+    )
+
     if not personaggio_id:
         flash("ID personaggio mancante", "danger")
         return redirect(url_for('inventory.inventory'))
@@ -96,7 +113,12 @@ def add_object():
 
     owned_ids = load_char()
     personaggi = get_owned_chars(owned_ids)
-    personaggio = next((p for p in personaggi if p['id'] == personaggio_id), None)
+
+    personaggio = None
+    for p in personaggi:
+        if p['id'] == personaggio_id:
+            personaggio = p
+            break
 
     if not personaggio:
         flash("Personaggio non trovato", "danger")
@@ -113,7 +135,10 @@ def add_object():
         if oggetto_sel not in oggetti_classes:
             logger.warning(f"Oggetto selezionato non valido: {oggetto_sel}")
             flash("Oggetto non valido", "danger")
-            return redirect(url_for('inventory.add_object', personaggio_id=personaggio_id))
+            return redirect(url_for(
+                'inventory.add_object',
+                personaggio_id=personaggio_id
+                ))
 
         nuovo_oggetto = oggetti_classes[oggetto_sel]()
 
@@ -127,9 +152,16 @@ def add_object():
         inventario_obj.aggiungi_oggetto(nuovo_oggetto)
         salva_inventario_su_json(inventario_obj)
 
-        logger.info(f"Aggiunto oggetto '{nuovo_oggetto.nome}' a {personaggio['nome']}")
-        flash(f"Oggetto '{nuovo_oggetto.nome}' aggiunto a {personaggio['nome']}", "success")
-        return redirect(url_for('inventory.inventory', personaggio_id=personaggio_id))
+        logger.info(
+            f"Aggiunto oggetto '{nuovo_oggetto.nome}' a {personaggio['nome']}"
+            )
+        flash(
+            f"Oggetto '{nuovo_oggetto.nome}' aggiunto a {personaggio['nome']}",
+            "success")
+        return redirect(url_for(
+            'inventory.inventory',
+            personaggio_id=personaggio_id
+            ))
 
     return render_template(
         'edit_object.html',
@@ -155,7 +187,12 @@ def delete_object(oggetto_id):
     personaggi = get_owned_chars(owned_ids)
 
     # Trova il personaggio selezionato tra quelli posseduti
-    personaggio = next((p for p in personaggi if p['id'] == personaggio_id), None)
+    personaggio = None
+    for p in personaggi:
+        if p['id'] == personaggio_id:
+            personaggio = p
+            break
+
     if not personaggio:
         flash("Personaggio non trovato", "danger")
         return redirect(url_for('inventory.inventory'))
@@ -175,19 +212,30 @@ def delete_object(oggetto_id):
         # Gestione errori di validazione del JSON
         logger.error(f"Errore deserializzazione inventario: {err}")
         flash("Errore nel caricamento dell'inventario", "danger")
-        return redirect(url_for('inventory.inventory', personaggio_id=personaggio_id))
+        return redirect(url_for(
+            'inventory.inventory',
+            personaggio_id=personaggio_id
+            ))
 
     # Prova a rimuovere l'oggetto specificato tramite ID
     oggetto_rimosso = inventario_obj.rimuovi_oggetto(oggetto_id)
 
     if not oggetto_rimosso:
         flash("Oggetto non trovato nell'inventario", "warning")
-        return redirect(url_for('inventory.inventory', personaggio_id=personaggio_id))
+        return redirect(url_for(
+            'inventory.inventory',
+            personaggio_id=personaggio_id
+            ))
 
     # Salva l'inventario aggiornato su file JSON
     salva_inventario_su_json(inventario_obj)
 
-    logger.info(f"Oggetto con ID {oggetto_id} rimosso da {personaggio['nome']}")
+    logger.info(
+        f"Oggetto con ID {oggetto_id} rimosso da {personaggio['nome']}"
+        )
     flash(f"Oggetto rimosso correttamente da {personaggio['nome']}", "success")
 
-    return redirect(url_for('inventory.inventory', personaggio_id=personaggio_id))
+    return redirect(url_for(
+        'inventory.inventory',
+        personaggio_id=personaggio_id
+        ))
