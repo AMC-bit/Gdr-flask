@@ -4,6 +4,7 @@ from flask import render_template, request, redirect, url_for, session, abort, f
 from gioco.personaggio import Personaggio
 from gioco.oggetto import Oggetto
 from gioco.schemas.personaggio import PersonaggioSchema
+from gioco.schemas.inventario import InventarioSchema
 from gioco.inventario import Inventario
 from utils.log import Log
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user, UserMixin
@@ -11,12 +12,13 @@ from auth.models import User
 from auth.models import db
 from auth.credits import credits_to_create, credits_to_refund
 from config import DATA_DIR_PGS, DATA_DIR_INV, CreateDirs
-from inventory.routes import salva_inventario_su_json
+from utils.salvataggio import Json
+
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 schema = PersonaggioSchema()
-
+schema_inv = InventarioSchema()
 
 @characters_bp.route('/load_char')
 @login_required
@@ -73,7 +75,7 @@ def create_char():
 
     CreateDirs()  # check cartelle esistenti
 
-    from app import db
+    
     # cattura dinamica di tutte le sottoclassi di Oggetto e Personaggio
     classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
     oggetti = {cls.__name__: cls for cls in Oggetto.__subclasses__()}
@@ -107,7 +109,13 @@ def create_char():
         CharSingleJson(pg_dict)
 
         # Salvataggio dell'inventario su JSON
-        salva_inventario_su_json(inv)
+        file_name = (
+        f"{inv.id_proprietario}.json"
+        if inv.id_proprietario else
+        f"{inv.id}.json"
+        )
+        file_path = os.path.join(DATA_DIR_INV, file_name)
+        Json.scrivi_dati(file_path, schema_inv.dump(inv))
 
         # Assicura che tutti gli id siano stringhe
         character_ids = (current_user.character_ids or []) + [str(pg.id)]
