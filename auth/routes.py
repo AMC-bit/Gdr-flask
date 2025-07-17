@@ -1,9 +1,7 @@
-from flask import render_template, request, session, redirect, url_for
+from flask import render_template, request, session, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
 from auth.models import User
-from flask import render_template, request, redirect, url_for, flash
-from flask_login import login_user
 from . import auth_bp
 from app import db
 from characters.routes import load_char
@@ -28,59 +26,65 @@ def sign_in():
         email = request.form['email'].strip()
         psw = request.form['psw']
         re_psw = request.form['re_psw']
-        if not name:
-            raise ValueError('Name field cant be empty')
-        else:
-            if not email:
-                raise ValueError('Email cant be empty')
-            else:
-                if not email_check(email):
-                    raise ValueError('Email does not match an email pattern')
-                else:
-                    if not (psw and re_psw and psw == re_psw):
-                        raise ValueError(
-                            'Password and repeat Password field must match')
-                    else:
-                        # Registra il nuovo utente
-                        hash_psw = protect_psw_hash(psw)
-                        utente_exist = User.query.filter((User.email == email) and ((User.nome == name ))).first()
-                        if utente_exist:
-                            raise ValueError('Utente già presente')
-                        else:
-                            nuovo_utente = User(
-                                nome=name,
-                                email=email,
-                                password_hash=hash_psw,
-                                crediti=100,
-                                character_ids=[])
 
-                            db.session.add(nuovo_utente)
-                            db.session.commit()
-                        return redirect(url_for('auth.login'))
+        if not name:
+            flash("Il nome è necessario", 'error')
+            return render_template('sign_in.html', email=email)
+        if not email:
+            flash("La email è necessaria", 'error')
+            return render_template('sign_in.html', name=name)
+        if not email_check(email):
+            flash('Inserisci una mail corretta', 'warning')
+            return render_template('sign_in.html', name=name)
+        if not (psw and re_psw and psw == re_psw):
+            flash('Password e conferma password non combaciano', 'warning')
+            return render_template('sign_in.html', name=name, email=email)
+
+        hash_psw = protect_psw_hash(psw)
+
+        utente_exist = (
+            User.query
+            .filter(User.email == email)
+            .first()
+        )
+        if utente_exist:
+            flash('Email già registrata', 'error')
+            return render_template('sign_in.html', name=name, email=email)
+
+        nuovo_utente = User(
+            nome=name,
+            email=email,
+            password_hash=hash_psw,
+            crediti=100,
+            character_ids=[],
+        )
+        db.session.add(nuovo_utente)
+        db.session.commit()
+
+        flash("Sei registrato. Ora effettua il login", "success")
+        return redirect(url_for('auth.login'))
+
     return render_template('sign_in.html')
 
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
-
     if request.method == 'POST':
         email = request.form['email'].strip()
         password = request.form['password']
+
         user = User.query.filter_by(email=email).first()
 
-        if user and check_password_hash(user.password_hash, password):
-            login_user(user)
+        # login non riuscito
+        if not user or not check_password_hash(user.password_hash, password):
+            flash('Email o password non corretti', 'danger')
+            return render_template('login.html', email=email)
 
-            # inserimento dato in sessione
-            session['user_name'] = user.nome
+        # login riuscito
+        login_user(user)
+        session['user_name'] = user.nome
 
-            print(f"Sessione: {session}")
-
-            return redirect(url_for('auth.personal_area'))
-        else:
-            flash('Email o password non corretti.', 'danger')
-            return render_template(
-                'login.html')
+        return redirect(url_for('auth.personal_area'))
 
     return render_template('login.html')
 
@@ -102,32 +106,33 @@ def personal_area():
 @login_required
 def edit_user():
     user = current_user
-    if user:
-        if request.method == 'POST':
-            # Catturo i dati inseriti nel form per la modifica dell'utente
-            # e li uso per modificare i dati dell'utente sul db,
-            # infine redirige alla pagina login
 
-            # ? Perchè non mostra il flash e perchè non prende
-            # ? i value precedenti nel form ?
-            new_name = request.form['new_username']
-            new_email = request.form['new_email']
-            new_psw = request.form['new_password']
-            if user:
-                id = user.id
-                db_user = User.query.get_or_404(id)
-                db_user.nome = new_name
-                db_user.email = new_email
-                if not email_check(new_email):
-                    flash("Email does not match an email pattern", "error")
-                else:
-                    db_user.password_hash = protect_psw_hash(new_psw)
-                    db.session.commit()
-                    flash("Utente modificato con successo!", "success")
-                    return redirect(url_for(
-                        'auth.personal_area'))
+    if request.method == 'POST':
+        # catturo i dati inseriti nel form per la modifica dell'utente
+        new_name = request.form['new_username']
+        new_email = request.form['new_email']
+        new_psw = request.form['new_password']
 
-    return render_template("edit_user.html", utente=user )
+        if not email_check(new_email):
+            flash("Email does not match an email pattern", "error")
+            return render_template(
+                'edit_user.html',
+                utente=user,
+                new_name=new_name,
+                new_email=new_email
+            )
+
+        # modifico i dati dell'utente
+        user.nome = new_name
+        user.email = new_email
+        user.password_hash = protect_psw_hash(new_psw)
+        db.session.commit()  # salvataggio su db
+
+        flash("Utente modificato con successo!", "success")
+        # ritorno all'area personale
+        return redirect(url_for('auth.personal_area'))
+
+    return render_template("edit_user.html", utente=user)
 
 
 @auth_bp.route('/delete_user/<int:id>')
