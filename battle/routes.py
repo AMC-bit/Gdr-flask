@@ -49,46 +49,6 @@ def show_inventory():
         personaggio_turno_corrente=personaggio_turno_corrente,
         inventario=inventario)
 
-<<<<<<< HEAD
-=======
-
-@battle_bp.route('/begin_battle')
-def begin_battle():
-    # liste degli oggetti deserializzati
-    print(session['missione'])
-    personaggi_battle = []
-    inventari_battle = []
-    ambiente = Ambiente.from_dict(session['ambiente'])
-    missione = Missione.from_dict(session['missione'])
-    npc_list = missione.get_nemici
-
-    if 'personaggi_selezionati' in session:
-        personaggi = session['personaggi_selezionati']
-        for pg in personaggi:
-            # Deserializziamo i singoli oggetti e
-            # inseriamoli nella lista personaggi_battle
-            cls = classi.get(pg.get('classe'))
-            if cls:
-                personaggio = cls.from_dict(pg)
-            personaggi_battle.append(personaggio)
-    if 'inventari_selezionati' in session:
-        inventari = session['inventari_selezionati']
-        for inventario in inventari:
-            inventario = Inventario.from_dict(inventario)
-            inventari_battle.append(inventario)
-
-    #TODO Personaggio turno è da riempire con personaggio a cui tocca il turno
-    personaggio_turno_corrente = personaggi_battle[0]
-    session['personaggio_turno_corrente'] = Personaggio.to_dict(personaggio_turno_corrente)
-
-    return render_template(
-        'begin_battle.html',
-        personaggi=personaggi_battle,
-        inventari=inventari_battle,
-        ambiente=ambiente,
-        missione=missione,
-        personaggio_turno_corrente=personaggio_turno_corrente)
->>>>>>> 187708b4376d14f650e3ec6bc6f8ea9d097b458d
 
 
 @battle_bp.route('/select_char', methods=['GET', 'POST'])
