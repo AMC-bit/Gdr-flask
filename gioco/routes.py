@@ -32,7 +32,7 @@ def index():
         if os.path.exists(file_path_save):
             with open(file_path_save) as file:
                 salvataggio = json.load(file)
-                if salvataggio['missione']:
+                if 'missione' in salvataggio:
                     has_missioni = True
             can_select_char = has_personaggi and has_missioni #and has_missione
             return render_template('menu.html', can_select_char=can_select_char, has_missioni=has_missioni)
