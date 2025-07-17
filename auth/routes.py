@@ -158,11 +158,11 @@ def elimina_personaggi_utente(character_ids):
         if filename.endswith(".json"):
             path_file = os.path.join(cartella, filename)
             try:
-                with open(path_file, 'r') as f:
+                with open(path_file, 'r', encoding="utf-8") as f:
                     dati = json.load(f)
                 # Cancella se character_ids corrisponde
-                for id in character_ids:
-                    if dati.get("id") == id:
+                for char_id in character_ids:
+                    if dati.get("id") == char_id:
                         os.remove(path_file)
                         print(f"Eliminato personaggio: {filename}")
                 if dati.get("id") == current_user.character_ids:
@@ -190,7 +190,8 @@ def credit_refill():
             message = "La quantità deve essere positiva."
             return redirect(url_for('auth.credit_refill', message=message))
         else:
-            current_user.crediti += amount  # aggiunta dei crediti
+            user = User.query.get_or_404(current_user.id)
+            user.crediti += amount  # aggiunta dei crediti
             db.session.commit()  # salvataggio in database
             message = (f"Ricaricati {amount} crediti. ")
             return redirect(url_for('auth.credit_refill', message=message))

@@ -1,15 +1,18 @@
-import os, json, logging
+import os
+import json
+import logging
 from . import characters_bp
-from flask import render_template, request, redirect, url_for, session, abort, flash
+from flask import render_template, request
+from flask import redirect, url_for, session, abort, flash
 from gioco.personaggio import Personaggio
 from gioco.oggetto import Oggetto
 from gioco.schemas.personaggio import PersonaggioSchema
 from gioco.schemas.inventario import InventarioSchema
 from gioco.inventario import Inventario
 from flask_login import login_required, current_user
-from auth.models import db
+from auth.models import db, User
 from auth.credits import credits_to_create, credits_to_refund
-from config import DATA_DIR_PGS, DATA_DIR_INV, CreateDirs
+from config import DATA_DIR_PGS, DATA_DIR_INV
 from utils.salvataggio import Json
 
 
@@ -17,6 +20,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 schema = PersonaggioSchema()
 schema_inv = InventarioSchema()
+
 
 @characters_bp.route('/load_char')
 @login_required
@@ -44,7 +48,8 @@ def load_char():
     print(f"all_char_json: {all_char_json}")
     print(f"user_char: {user_char}")
 
-    # scorro la lista 'all_char_json' e includo solo gli elementi che sono anche nella lista 'user_char'
+    # scorro la lista 'all_char_json'
+    # e includo solo gli elementi che sono anche nella lista 'user_char'
     owned_char = [c for c in all_char_json if c in user_char]
 
     # caso in cui l'utente non abbia id posseduti
@@ -58,22 +63,18 @@ def load_char():
 
     return owned_char
 
+
 def CharSingleJson(pg_dict: dict):
     # Recuperare i dati dal form per singolo personaggio
     # Creazione del file JSON con l'id del personaggio
     name_file = f"{pg_dict['id']}.json"
     path = os.path.join(DATA_DIR_PGS, name_file)
-    with open(path, "w", encoding="utf-8") as file:
-        json.dump(pg_dict, file, indent=4)
+    Json.scrivi_dati(path, pg_dict)
 
 
 @characters_bp.route('/create_char', methods=['GET', 'POST'])
 @login_required
 def create_char():
-
-    CreateDirs()  # check cartelle esistenti
-
-    
     # cattura dinamica di tutte le sottoclassi di Oggetto e Personaggio
     classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
     oggetti = {cls.__name__: cls for cls in Oggetto.__subclasses__()}
@@ -92,14 +93,19 @@ def create_char():
         inv = Inventario(id_proprietario=pg.id)
         inv.aggiungi_oggetto(ogg)
 
-        # Controllo se ci sono almeno 10 crediti per eseguire la creazione di un personaggio
+        # Controllo se ci sono almeno 10 crediti
+        # per eseguire la creazione di un personaggio
         costo_pg = credits_to_create(pg)
-        if current_user.crediti < costo_pg:
-            msg = f"Non hai abbastanza crediti per creare un personaggio (minimo richiesto: {costo_pg})."
+        user = User.query.get_or_404(current_user.id)
+        if user.crediti < costo_pg:
+            msg = (
+                f"Non hai abbastanza crediti per creare un personaggio "
+                f"(minimo richiesto: {costo_pg})."
+                )
             flash(msg, "danger")
             return redirect(url_for('auth.personal_area'))
         else:
-            current_user.crediti -= costo_pg
+            user.crediti -= costo_pg
 
         pg_dict = schema.dump(pg)
 
@@ -108,10 +114,10 @@ def create_char():
 
         # Salvataggio dell'inventario su JSON
         file_name = (
-        f"{inv.id_proprietario}.json"
-        if inv.id_proprietario else
-        f"{inv.id}.json"
-        )
+            f"{inv.id_proprietario}.json"
+            if inv.id_proprietario
+            else f"{inv.id}.json"
+            )
         file_path = os.path.join(DATA_DIR_INV, file_name)
         Json.scrivi_dati(file_path, schema_inv.dump(inv))
 
@@ -120,7 +126,10 @@ def create_char():
         current_user.character_ids = [str(cid) for cid in character_ids]
 
         db.session.commit()
-        logger.info(f"Creato personaggio: {pg.nome}, Classe: {classe_sel}, id: {pg.id}, Oggetto iniziale: {oggetto_sel}")
+        logger.info(
+            f"Creato personaggio: {pg.nome}, Classe: {classe_sel}, "
+            f"id: {pg.id}, Oggetto iniziale: {oggetto_sel}"
+            )
 
         return redirect(url_for('characters.show_chars'))
 
@@ -198,16 +207,15 @@ def get_owned_chars(owned_chars):
     for id in owned_chars:
         nome_file = id
         print(f"ID: {id}")
-        #Recupero il path del file json del personaggio
+        # recupero il path del file json del personaggio
         path = os.path.join(DATA_DIR_PGS, f"{nome_file}.json")
 
-        with open(path, "r") as file:
-            char_dict = json.load(file)
-            # deserializza il personaggio
-            personaggio = schema.load(char_dict)
-            # serializza di nuovo per uniformità
-            char_dict = schema.dump(personaggio)
-            personaggi_posseduti.append(char_dict)
+        char_dict = Json.carica_dati(path)
+        # deserializza il personaggio
+        personaggio = schema.load(char_dict)
+        # serializza di nuovo per uniformità
+        char_dict = schema.dump(personaggio)
+        personaggi_posseduti.append(char_dict)
     return personaggi_posseduti
 
 
@@ -223,7 +231,7 @@ def show_chars():
         'list_char.html',
         personaggi=lista_pers_utente
     )
-# -----
+
 
 @characters_bp.route('/characters/<uuid:char_id>', methods=['GET'])
 @login_required
@@ -242,16 +250,19 @@ def char_details(char_id):
     pg_dict = None  # conterrà il dizionario del pg trovato
     for p in lista_pers:  # prendo tutti i p dentro la lista di dizionari
         if str(p['id']) == str(char_id):  # char id viene preso da URL
-            pg_dict = p  # in caso di corrispondenza il diz trovato diventa pg_dict
+            pg_dict = p  # in caso di match il diz trovato diventa pg_dict
             break  # mi basta un solo match perché i pg non sono duplicabili
 
     if pg_dict is None:
-        logger.warning(f"Tentativo di accesso a personaggio inesistente con ID: {char_id}")
+        logger.warning(
+            f"Tentativo di accesso a personaggio inesistente ID: {char_id}"
+            )
         abort(404)
 
     logger.info(
-        f"Visualizzazione dettagli personaggio con ID: {char_id}, Nome: {pg_dict.get('nome', 'N/A')}"
-    )
+        f"Visualizzazione dettagli personaggio ID: {char_id}, "
+        f"Nome: {pg_dict.get('nome', 'N/A')}"
+        )
     return render_template(
         'char_details.html',
         pg=pg_dict,
@@ -272,8 +283,7 @@ def char_delete(char_id):
         return redirect(url_for('characters.show_chars'))
 
     # andiamo a leggere il file designato
-    with open(file_path, 'r', encoding='utf-8') as f:
-        pg_dict = json.load(f)
+    pg_dict = Json.carica_dati(file_path)
 
     # ricrea oggetto personaggio
     pg_obj = schema.load(pg_dict)
@@ -301,7 +311,8 @@ def char_delete(char_id):
         logger.warning(f"Inventario non trovato: {inv_path}")
 
     # rimborso crediti
-    current_user.crediti += credits_to_refund(pg_obj)
+    user = User.query.get_or_404(current_user.id)
+    user.crediti += credits_to_refund(pg_obj)
 
     db.session.commit()
     flash("Personaggio eliminato con successo!", "success")
@@ -311,14 +322,17 @@ def char_delete(char_id):
 @characters_bp.route('/combattimento', methods=['GET', 'POST'])
 def begin_combat():
     lista_pers = session.get('personaggi', [])
-    personaggi_utente = [p for p in lista_pers if p['id'] in (current_user.character_ids or [])]
+    personaggi_utente = [
+        p for p in lista_pers
+        if p['id'] in (current_user.character_ids or [])
+    ]
 
     if request.method == 'POST':
         id_1 = request.form['pg1']
         id_2 = request.form['pg2']
 
-        pg1_dict = next((p for p in personaggi_utente if p['id'] == id_1), None)
-        pg2_dict = next((p for p in personaggi_utente if p['id'] == id_2), None)
+        pg1_dict = (p for p in personaggi_utente if p['id'] == id_1)
+        pg2_dict = (p for p in personaggi_utente if p['id'] == id_2)
 
         if not pg1_dict or not pg2_dict:
             abort(400, "Personaggio non trovato.")
@@ -338,7 +352,10 @@ def begin_combat():
             if successo:
                 danno1 = pg1.attacca()
                 pg2.subisci_danno(danno1)
-                log_combattimento.append(f"{pg1.nome} infligge {danno1} danni a {pg2.nome} (Salute residua: {pg2.salute})")
+                log_combattimento.append(
+                    f"{pg1.nome} infligge {danno1} danni a {pg2.nome} "
+                    f"(Salute residua: {pg2.salute})"
+                )
             else:
                 log_combattimento.append(f"{pg1.nome} ha fallito l'attacco!")
             if pg2.salute <= 0:
@@ -348,14 +365,18 @@ def begin_combat():
             if successo:
                 danno2 = pg2.attacca()
                 pg1.subisci_danno(danno2)
-                log_combattimento.append(f"{pg2.nome} infligge {danno2} danni a {pg1.nome} (Salute residua: {pg1.salute})")
+                log_combattimento.append(
+                    f"{pg2.nome} infligge {danno2} danni a {pg1.nome} "
+                    f"(Salute residua: {pg1.salute})"
+                )
             else:
                 log_combattimento.append(f"{pg2.nome} ha fallito l'attacco!")
             turno += 1
 
-        if 0 >= pg2.salute:
+        risultato = ""
+        if pg2.salute <= 0:
             risultato = f"Vittoria di {pg1.nome}!"
-        elif 0 >= pg1.salute:
+        elif pg1.salute <= 0:
             risultato = f"Vittoria di {pg2.nome}!"
 
         log_combattimento.append(f"Risultato finale: {risultato}")
@@ -365,7 +386,10 @@ def begin_combat():
             pg1=pg1,
             pg2=pg2,
             risultato=risultato,
-            log_combattimento=log_combattimento
+            log_combattimento=log_combattimento,
         )
 
-    return render_template('combat.html', personaggi=personaggi_utente)
+    return render_template(
+        'combat.html',
+        personaggi=personaggi_utente,
+    )
