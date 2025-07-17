@@ -28,24 +28,28 @@ def sign_in():
         re_psw = request.form['re_psw']
 
         if not name:
-            raise ValueError("Name field can't be empty")
+            flash("Il nome è necessario", 'error')
+            return render_template('sign_in.html', email=email)
         if not email:
-            raise ValueError("Email can't be empty")
+            flash("La email è necessaria", 'error')
+            return render_template('sign_in.html', name=name)
         if not email_check(email):
-            raise ValueError('Email does not match an email pattern')
+            flash('Inserisci una mail corretta', 'warning')
+            return render_template('sign_in.html', name=name)
         if not (psw and re_psw and psw == re_psw):
-            raise ValueError(
-                'Password and repeat Password fields must match'
-            )
+            flash('Password e conferma password non combaciano', 'warning')
+            return render_template('sign_in.html', name=name, email=email)
 
         hash_psw = protect_psw_hash(psw)
+
         utente_exist = (
             User.query
             .filter(User.email == email)
             .first()
         )
         if utente_exist:
-            raise ValueError('Email già registrata')
+            flash('Email già registrata', 'error')
+            return render_template('sign_in.html', name=name, email=email)
 
         nuovo_utente = User(
             nome=name,
@@ -57,6 +61,7 @@ def sign_in():
         db.session.add(nuovo_utente)
         db.session.commit()
 
+        flash("Sei registrato. Ora effettua il login", "success")
         return redirect(url_for('auth.login'))
 
     return render_template('sign_in.html')
@@ -64,7 +69,6 @@ def sign_in():
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
-
     if request.method == 'POST':
         email = request.form['email'].strip()
         password = request.form['password']
