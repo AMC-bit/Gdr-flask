@@ -21,7 +21,7 @@ def CreateDirs():
     Crea directory per i file JSON per i personaggi e gli inventari
     se non sono esistenti
     """
-    for d in (DATA_DIR_PGS, DATA_DIR_INV):
+    for d in (DATA_DIR_PGS, DATA_DIR_INV, DATA_DIR_SAVE, DATA_DIR_MIS):
         os.makedirs(d, exist_ok=True)
 
         # crea file gitkeep se non esiste

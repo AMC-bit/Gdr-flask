@@ -29,12 +29,13 @@ def index():
                                 has_personaggi = True
                                 break
         file_path_save = os.path.join(DATA_DIR_SAVE, "salvataggio.json")
-        with open(file_path_save) as file:
-            salvataggio = json.load(file)
-            if salvataggio['missione']:
-                has_missioni = True
-        can_select_char = has_personaggi and has_missioni #and has_missione
-        return render_template('menu.html', can_select_char=can_select_char, has_missioni=has_missioni)
+        if os.path.exists(file_path_save):
+            with open(file_path_save) as file:
+                salvataggio = json.load(file)
+                if salvataggio['missione']:
+                    has_missioni = True
+            can_select_char = has_personaggi and has_missioni #and has_missione
+            return render_template('menu.html', can_select_char=can_select_char, has_missioni=has_missioni)
     return render_template('menu.html')
 
 @gioco.route('/clear')
