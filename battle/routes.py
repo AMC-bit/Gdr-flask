@@ -22,6 +22,8 @@ path_save = os.path.join(
 classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
 schema = PersonaggioSchema()
 schema_inv = InventarioSchema()
+
+
 @battle_bp.route('/show_inventory', methods=['GET', 'POST'])
 def show_inventory():
     # recupero dalla sessione il personaggio che sta giocando il turno corrente
@@ -31,7 +33,7 @@ def show_inventory():
         if cls_pg_turno_corr:
                 personaggio_turno_corrente = cls_pg_turno_corr.from_dict(personaggio_turno_corrente)
 
-        #Recupero gli inventari dalla sessione cerco l'inventario del personaggio in turno e lo deserializzo
+        # recupero inventari dalla sessione cerco l'inventario del personaggio in turno e lo deserializzo
         inventari_des = []
         if 'inventari_selezionati' in session :
             inventari = session['inventari_selezionati']
@@ -43,6 +45,7 @@ def show_inventory():
         'show_inventory.html',
         personaggio_turno_corrente=personaggio_turno_corrente,
         inventario=inventario)
+
 
 @battle_bp.route('/begin_battle')
 def begin_battle():
