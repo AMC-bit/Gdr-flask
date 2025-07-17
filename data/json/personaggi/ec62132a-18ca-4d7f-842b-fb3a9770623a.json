@@ -1,0 +1,13 @@
+{
+    "classe": "Mago",
+    "id": "ec62132a-18ca-4d7f-842b-fb3a9770623a",
+    "nome": "Antoniioo",
+    "npc": false,
+    "salute_max": 80,
+    "salute": 80,
+    "attacco_min": 0,
+    "attacco_max": 90,
+    "livello": 1,
+    "destrezza": 15,
+    "storico_danni_subiti": []
+}

@@ -1,0 +1,13 @@
+{
+    "classe": "Mago",
+    "id": "1b86994c-04a4-4958-8023-d9a8b20bbb54",
+    "nome": "carolina",
+    "npc": false,
+    "salute_max": 80,
+    "salute": 80,
+    "attacco_min": 0,
+    "attacco_max": 90,
+    "livello": 1,
+    "destrezza": 15,
+    "storico_danni_subiti": []
+}
