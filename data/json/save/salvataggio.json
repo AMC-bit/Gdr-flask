@@ -1,44 +1,52 @@
 {
     "missione": {
-        "id": "d0be82c8-fe52-41ab-8fc3-7548c68b425a",
-        "nome": "Sconfiggi lo slime non morto",
+        "id": "d0be82c8-fe52-41ab-8fc3-7548c68b422a",
+        "nome": "Imboscata",
         "ambiente": {
-            "nome": "Palude cimiteriale",
-            "mod_attacco": -5,
-            "mod_cura": -0.1,
-            "classe": "Palude"
+            "nome": "Foresta",
+            "mod_attacco": 5,
+            "mod_cura": 5.5,
+            "classe": "Foresta"
         },
         "nemici": [
             {
                 "classe": "Guerriero",
-                "id": "866f1744-8a23-438d-927b-8743dc8c52e4",
-                "nome": "Scheletrino",
+                "id": "866f1744-8a23-438d-927b-8743dc8c52e7",
+                "nome": "Robin Hood",
                 "npc": true,
-                "salute_max": 60,
-                "salute": 60,
-                "attacco_min": 40,
-                "attacco_max": 120,
+                "salute_max": 130,
+                "salute": 130,
+                "attacco_min": 20,
+                "attacco_max": 100,
                 "livello": 1,
-                "destrezza": 20,
+                "destrezza": 15,
                 "storico_danni_subiti": []
             },
             {
-                "classe": "Ladro",
-                "id": "b2c1f3d8-4e5a-4f9b-8c0d-6f7e8a9b0c4d",
-                "nome": "Slime non morto",
+                "classe": "Guerriero",
+                "id": "b2c1f3d8-4e5a-4f9b-8c0d-6f7e8a9b0c1d",
+                "nome": "Little John",
                 "npc": true,
-                "salute_max": 260,
-                "salute": 260,
-                "attacco_min": 5,
-                "attacco_max": 35,
+                "salute_max": 130,
+                "salute": 130,
+                "attacco_min": 20,
+                "attacco_max": 100,
                 "livello": 1,
-                "destrezza": 10,
+                "destrezza": 15,
                 "storico_danni_subiti": []
             }
         ],
         "premi": [
             {
                 "id": "7e2b1c8a-2e3d-4b7a-9e2a-1c3f4b5d6e7f",
+                "nome": "Pozione Rossa",
+                "usato": false,
+                "valore": 30,
+                "tipo_oggetto": "Ristorativo",
+                "classe": "PozioneCura"
+            },
+            {
+                "id": "2a4c5e6f-7b8d-4c9e-8f1a-2b3c4d5e6f7a",
                 "nome": "Pozione Rossa",
                 "usato": false,
                 "valore": 30,
@@ -55,24 +63,9 @@
             }
         ],
         "strategia_nemici": {
-            "nome": "Difensiva"
+            "nome": "Equilibrata"
         },
         "completata": false,
         "attiva": false
-    },
-    "personaggi_selezionati": [
-        {
-            "classe": "Mago",
-            "id": "e5c47cfd-a1e1-4fe0-b2f3-7476796c48ed",
-            "nome": "sf",
-            "npc": false,
-            "salute_max": 80,
-            "salute": 80,
-            "attacco_min": 0,
-            "attacco_max": 90,
-            "livello": 1,
-            "destrezza": 15,
-            "storico_danni_subiti": []
-        }
-    ]
+    }
 }
