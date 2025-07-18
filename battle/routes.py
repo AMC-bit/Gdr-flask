@@ -264,3 +264,8 @@ def test_battle():
         vittoria=vittoria,
         messaggi=session.get('messaggi_battaglia', [])
     )
+
+
+@battle_bp.route('/fight', methods=['GET', 'POST'])
+def fight():
+    return render_template("fight.html")
