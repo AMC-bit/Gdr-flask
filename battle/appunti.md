@@ -22,9 +22,8 @@ modo da gestire quanto segue:
 
 ## Punto di partenza
 
-test_battle quindi deve poter mostare questi dati:
+la situazione è questa ltaatuale test_battle verrà rimosso e mi è stato assegnato il compito di gestire gli inventari
+controllare da data_load gli npg e i pg:
 
-- npc e pc
-- personaggio che sta eseguendo l'azione e se è pc mostrare il pulsante di uso
-  oggetto e la lista dei personaggi su cui eseguire lazione e il pulsante di conferma
-- poter mostrare in una sezione scorrevole sottostante i messaggi con i risultati
+- se è un pg si dovrà inviare alla pagina la lista degli oggetti dell'inventario, aspettare la scelta del giocatore e vedere su chi verrà utilizzata dopodichè controlla l'ambiente della missione e applica le modifiche e aggiorna il bersaglio con l'effetto dell'oggetto.
+- se è un npg si dovrà usare la strategia presente nella missione, vedere se è cosa sceglie di usare e applicare l'effetto sul bersaglio designato

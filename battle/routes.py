@@ -273,3 +273,37 @@ def test_battle():
 @battle_bp.route('/TEMPLATE', methods=['GET', 'POST'])
 def test_battle_v2():
     return render_template("TEMPLATE.html")
+
+
+@battle_bp.route('/TEMPLATE', methods=['GET', 'POST'])
+def mostra_inventario(pg_turno_corrente: Personaggio, missione: Missione):
+    # recupero l'inventario del pg corrente
+    data_load = Json.carica_dati(path_save)
+    inventario = usa_inventario(pg_turno_corrente, missione)
+    if inventario is None:
+        logging.error(f"Inventario non trovato per il personaggio {pg_turno_corrente.nome}")
+        return None
+
+    # serializzo l'inventario
+    inventario_serializzato = schema_inv.dump(inventario)
+    return inventario_serializzato
+
+
+def usa_inventario(pg_turno_corrente: Personaggio, missione: Missione):
+    if pg_turno_corrente.npc:
+        # cerco l'inventario del pg corrente
+        invent = None
+        inventario = carica_inventario_da_json()
+        for inv in inventario:
+            if inv.id_proprietario == pg_turno_corrente.id:
+                invent = inv
+        if invent is None:
+            logging.error(f"Inventario non trovato per il personaggio {pg_turno_corrente.nome}")
+            return None
+    else:
+        inventario = carica_inventario_da_json()
+        for inv in inventario:
+            if inv.id_proprietario == pg_turno_corrente.id:
+                return inv
+
+    return None

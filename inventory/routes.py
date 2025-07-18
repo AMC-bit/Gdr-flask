@@ -72,7 +72,6 @@ def carica_inventario_da_json(personaggio_id):
 
 @inventory_bp.route('/inventory', methods=['GET', 'POST'])
 def inventory():
-    
 
     owned_ids = load_char()
     personaggi = get_owned_chars(owned_ids)
