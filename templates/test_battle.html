@@ -97,7 +97,8 @@
     </div>
 
     <!-- Lista personaggi -->
-    <div class="row mb-4">
+<div class="container mb-4">
+    <div class="row">
         <div class="col-md-6">
             <div class="card h-100">
                 <div class="card-header bg-info text-white">
@@ -177,7 +178,7 @@
             </div>
         </div>
     </div>
-
+</div>
     <!-- Azioni del turno -->
     {% if not battaglia_finita and not personaggio_turno_corrente.npc %}
     <div class="row mb-4">
@@ -229,7 +230,7 @@
                                             </option>
                                         {% endif %}
                                     {% endfor %}
-                                </select>
+                                </select>  
                             </div>
                         </div>
                         
