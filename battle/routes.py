@@ -193,25 +193,25 @@ def test_battle():
                     if bersaglio.sconfitto():
                         save_data['messaggi_battaglia'].append(f"{bersaglio.nome} è stato sconfitto!")
 
-                    elif azione == 'usa_oggetto' and bersaglio and oggetto_id:
-                        inventario = None
-                        for inv in inventari_pg_obj :
-                            if inv.id_proprietario == personaggio_turno_corrente.id:
-                                inventario = inv
+                elif azione == 'usa_oggetto' and bersaglio and oggetto_id:
+                    inventario = None
+                    for inv in inventari_pg_obj :
+                        if inv.id_proprietario == personaggio_turno_corrente.id:
+                            inventario = inv
+                            break
+                    oggetto = None
+                    if inventario:
+                        for o in inventario.oggetti :
+                            if o.id == oggetto_id :
+                                oggetto = o
                                 break
-                        oggetto = None
-                        if inventario:
-                            for o in inventario.oggetti :
-                                if o.id == oggetto_id :
-                                    oggetto = o
-                                    break
-                        if oggetto:
-                            risultato = inventario.usa_oggetto(oggetto, ambiente_obj)
-                            bersaglio.recupera_salute(risultato)
-                            save_data['messaggi_battaglia'].append(f"{personaggio_turno_corrente.nome} usa {oggetto.nome} su {bersaglio.nome} per {risultato} HP!")
+                    if oggetto:
+                        risultato = inventario.usa_oggetto(oggetto, ambiente_obj)
+                        bersaglio.recupera_salute(risultato)
+                        save_data['messaggi_battaglia'].append(f"{personaggio_turno_corrente.nome} usa {oggetto.nome} su {bersaglio.nome} per {risultato} HP!")
 
                     Json.scrivi_dati(path_save, save_data)
-
+                    
     # Passa al prossimo turno vivo
     for _ in range(len(ordine_turni)):
         indice_turno = (indice_turno + 1) % len(ordine_turni)
@@ -221,7 +221,7 @@ def test_battle():
         Json.scrivi_dati(path_save, save_data)
 
         #Aggiorniamo missione
-        save_data['missione'] = missione_obj
+        save_data['missione'] = MissioniSchema().dump(missione_obj)
         Json.scrivi_dati(path_save, save_data)
         return redirect(url_for('battle.test_battle'))
 
@@ -245,7 +245,7 @@ def test_battle():
                 break
         save_data['indice_turno_corrente'] = indice_turno
         #Aggiorniamo missione
-        save_data['missione'] = missione_obj
+        save_data['missione'] = MissioniSchema().dump(missione_obj)
         Json.scrivi_dati(path_save, save_data)
         return redirect(url_for('battle.test_battle'))
 
