@@ -31,10 +31,16 @@ class Mago(Personaggio):
         Returns:
             int: danno inflitto all'avversario
         """
-        danno = random.randint(self.attacco_min, self.attacco_max)
-        danno += mod_ambiente
-        msg = f"{self.nome} lancia un incantesimo infliggendo {danno} danni!"
+        danno = 0
+        if self.esegui_azione():
+            danno = random.randint(
+                self.attacco_min, self.attacco_max
+            ) + mod_ambiente
+            msg = f"{self.nome} colpisce furtivamente infliggendo {danno} danni!"
+        else:
+            msg = f"{self.nome} tenta di attaccare ma fallisce!"
         logger.info(msg)
+        print(msg)
         return danno
 
     def recupera_salute(self, mod_ambiente: int = 0) -> None:
@@ -83,12 +89,16 @@ class Guerriero(Personaggio):
         Returns:
             None
         """
-        danno = random.randint(
-            self.attacco_min,
-            self.attacco_max + mod_ambiente
-        )
-        msg = f"{self.nome} colpisce con la spada infliggendo {danno} danni!"
+        danno = 0
+        if self.esegui_azione():
+            danno = random.randint(
+                self.attacco_min, self.attacco_max
+            ) + mod_ambiente
+            msg = f"{self.nome} colpisce furtivamente infliggendo {danno} danni!"
+        else:
+            msg = f"{self.nome} tenta di attaccare ma fallisce!"
         logger.info(msg)
+        print(msg)
         return danno
 
     def recupera_salute(self, mod_ambiente: int = 0) -> None:
@@ -135,7 +145,7 @@ class Ladro(Personaggio):
         Returns:
             danno (int): danno inflitto all'avversario
         """
-        
+        danno = 0
         if self.esegui_azione():
             danno = random.randint(
                 self.attacco_min, self.attacco_max
