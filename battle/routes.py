@@ -88,7 +88,7 @@ def select_char():
             pg['id'] for pg in personaggi_selezionati]
         print("Personaggi selezionati", session['personaggi_selezionati'])
         # reindirizzo verso la pagina di destinazione
-        return redirect(url_for('battle.begin_battle'))
+        return redirect(url_for('battle.test_battle'))
     return render_template(
         'select_char.html',
         personaggi=pg_list,
@@ -126,9 +126,9 @@ def test_battle():
         inventario_pg_obj = inventario_schema.load(inventario_pg)
         inventari_pg_obj.append(inventario_pg_obj)
 
-    #Generiamo una lista con l'ordine in iniziativa dei pg
-    if save_data :
-        if not 'ordine_turni' in save_data :
+    # Generiamo una lista con l'ordine in iniziativa dei pg
+    if save_data:
+        if 'ordine_turni' not in save_data :
             ordine_turni = list(range(len(tutti_personaggi)))
             random.shuffle(ordine_turni)
             save_data['ordine_turni'] = ordine_turni
@@ -136,14 +136,14 @@ def test_battle():
             #ogni nuovo ingresso o modifica
             Json.scrivi_dati(path_save, save_data)
 
-        if not 'indice_turno_corrente' in save_data:
+        if 'indice_turno_corrente' not in save_data:
             save_data['indice_turno_corrente'] = 0
             Json.scrivi_dati(path_save, save_data)
 
-        if not 'messaggi_battaglia' in save_data:
+        if 'messaggi_battaglia' not in save_data:
             save_data['messaggi_battaglia'] = []
             Json.scrivi_dati(path_save, save_data)
-    #TODO Ricordati di cancellare i messaggi battaglia a fine battaglia
+    # TODO Ricordati di cancellare i messaggi battaglia a fine battaglia
 
 
     # --- TURNO CORRENTE ---
@@ -178,7 +178,7 @@ def test_battle():
         oggetto_id = request.form.get('oggetto_id')
 
         # Trova bersaglio
-        for p in tutti_personaggi :
+        for p in tutti_personaggi:
             if str(p.id) == bersaglio_id and not p.sconfitto():
                 save_data['messaggi_battaglia'].append(
                 "SONO QUA 2!")
@@ -268,3 +268,8 @@ def test_battle():
         vittoria = vittoria,
         messaggi = save_data['messaggi_battaglia']
     )
+
+
+@battle_bp.route('/TEMPLATE', methods=['GET', 'POST'])
+def test_battle_v2():
+    return render_template("TEMPLATE.html")
