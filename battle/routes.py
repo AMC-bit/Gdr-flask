@@ -74,7 +74,7 @@ def select_char():
                 personaggi_selezionati.append(pg)
             except (ValueError, IndexError):
                 continue
-            
+
         data_load = Json.carica_dati(path_save)
         if isinstance(data_load, dict):
             data_load['personaggi_selezionati'] = personaggi_selezionati
@@ -144,7 +144,7 @@ def test_battle():
             save_data['messaggi_battaglia'] = []
             Json.scrivi_dati(path_save, save_data)
     #TODO Ricordati di cancellare i messaggi battaglia a fine battaglia
-    
+
 
     # --- TURNO CORRENTE ---
     ordine_turni = save_data['ordine_turni']
@@ -183,7 +183,7 @@ def test_battle():
                 save_data['messaggi_battaglia'].append(
                 "SONO QUA 2!")
                 Json.scrivi_dati(path_save, save_data)
-                
+
                 bersaglio = p
                 if azione == 'attacco' and bersaglio:
                     danno = personaggio_turno_corrente.attacca()
@@ -211,7 +211,7 @@ def test_battle():
                             save_data['messaggi_battaglia'].append(f"{personaggio_turno_corrente.nome} usa {oggetto.nome} su {bersaglio.nome} per {risultato} HP!")
 
                     Json.scrivi_dati(path_save, save_data)
-                    
+
     # Passa al prossimo turno vivo
     for _ in range(len(ordine_turni)):
         indice_turno = (indice_turno + 1) % len(ordine_turni)
@@ -219,7 +219,7 @@ def test_battle():
             break
         save_data['indice_turno_corrente'] = indice_turno
         Json.scrivi_dati(path_save, save_data)
-        
+
         #Aggiorniamo missione
         save_data['missione'] = missione_obj
         Json.scrivi_dati(path_save, save_data)
