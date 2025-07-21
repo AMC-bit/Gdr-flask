@@ -365,7 +365,7 @@ def usa_inventario(
 
     txt1 = f"{pg.nome} usa {nome_oggetto} su {bersaglio.nome}"
 
-    # controollo se il bersaglio è specificato,
+    # controllo se il bersaglio è specificato,
     # altrimenti usa il personaggio stesso
     if bersaglio is None:
         bersaglio = pg
