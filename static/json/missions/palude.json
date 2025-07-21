@@ -1,16 +1,16 @@
 {
-    "id": "d0be82c8-fe52-41ab-8fc3-7548c68b425a",
+    "id": "e62e1f84-878b-4d2f-870f-9797bb3d60fc",
     "nome": "Sconfiggi lo slime non morto",
     "ambiente": {
             "classe": "Palude",
-            "nome": "Palude cimiteriale",
+            "nome": "Palude",
             "mod_attacco": -5,
             "mod_cura": -0.1
     },
     "nemici": [
         {
             "classe": "Guerriero",
-            "id": "866f1744-8a23-438d-927b-8743dc8c52e4",
+            "id": "5c9f6e63-87a1-4c9a-9257-b2044a54d518",
             "nome": "Scheletrino",
             "npc": true,
             "salute_max": 60,
@@ -23,7 +23,7 @@
         },
         {
             "classe": "Ladro",
-            "id": "b2c1f3d8-4e5a-4f9b-8c0d-6f7e8a9b0c4d",
+            "id": "c9b8414e-9fae-4eb7-a2ea-3cfb77677185",
             "nome": "Slime non morto",
             "npc": true,
             "salute_max": 260,
@@ -33,6 +33,36 @@
             "livello": 1,
             "destrezza": 10,
             "storico_danni_subiti": []
+        }
+    ],
+    "inventari_nemici":[
+        {
+            "id": "74d202f2-20cd-4f41-849c-3c2692bbca30",
+            "id_proprietario": "5c9f6e63-87a1-4c9a-9257-b2044a54d518",
+            "oggetti": [
+                {
+                    "id": "782bc69f-8b9c-4372-8ab2-88e8d27bbdf4",
+                    "nome": "Bomba Acida",
+                    "usato": false,
+                    "valore": 30,
+                    "tipo_oggetto": "Offensivo",
+                    "classe": "BombaAcida"
+                }
+            ]
+        },
+        {
+            "id": "cb6aebef-1fc4-48a5-9975-e0b1f9fd1934",
+            "id_proprietario": "c9b8414e-9fae-4eb7-a2ea-3cfb77677185",
+            "oggetti": [
+                {
+                    "id": "009a6c6e-5887-4a08-af10-41fd02cc9edf",
+                    "nome": "Bomba Acida",
+                    "usato": false,
+                    "valore": 30,
+                    "tipo_oggetto": "Offensivo",
+                    "classe": "BombaAcida"
+                }
+            ]
         }
     ],
     "premi": [

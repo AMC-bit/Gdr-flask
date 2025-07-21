@@ -15,7 +15,7 @@ logger.setLevel(logging.INFO)
 @dataclass
 class Missione():
     """
-    Si occupa di aggregare istanze di ambiente , nemici e ricompense
+    Si occupa di aggregare istanze di ambiente , nemici, inventari dei nemici e ricompense
     Rappresenta una missione, composta da un ambiente, nemici e premi.
     """
 
@@ -24,6 +24,8 @@ class Missione():
         default_factory=lambda: AmbienteFactory.usa_ambiente("Palude")
     )
     nemici: list[Personaggio] = field(default_factory=list)
+    #
+    inventari_nemici: list[Inventario] = field(default_factory=list)
     premi: list[Oggetto] = field(default_factory=list)
     nome: str = ""
     strategia_nemici: Strategia = field(
