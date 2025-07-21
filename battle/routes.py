@@ -147,12 +147,6 @@ def setup_battle():
     return missione_obj, personaggi_selezionati_obj, inventari_pg_obj
 
 
-
-
-
-
-
-
 @battle_bp.route('/auto_battle', methods=['GET'])
 def auto_battle():
     # --- SETUP DATI ---
@@ -279,22 +273,17 @@ def ordine_iniziativa(tutti_personaggi):
 
 @battle_bp.route('/test_iniziativa')
 def test_iniziativa():
-    class Fakepg:
-        def __init__(self, id, nome, iniziativa):
-            self.id = id
-            self.nome = nome
-            self.iniziativa = iniziativa
 
-    personaggi = [
-        Fakepg(1, "Acqua", 10),
-        Fakepg(2, "Metano", 15),
-        Fakepg(3, "Uranio", 5),
-    ]
+    #chiamo setup lista personaggi
+    setup = setup_battle()
+
+    personaggi = setup[1]
 
     iniziativa = []
     for pg in personaggi:
         tiro = random.randint(1, 20)
         iniziativa.append((pg.id, pg.iniziativa + tiro)) 
+        flash(f'id: {pg.id}. Valori iniziativa {pg.iniziativa}. Tiro: {tiro}', 'info')
     # Ordino per l'elemento 1 della tupla decrescente
     iniziativa.sort(key=lambda tuple: tuple[1], reverse=True)
 

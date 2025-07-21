@@ -1,0 +1,14 @@
+{
+    "classe": "Ladro",
+    "id": "c2e941a9-cd35-4b4b-a6f8-b369a8c90896",
+    "nome": "drfg",
+    "npc": false,
+    "salute_max": 120,
+    "salute": 120,
+    "attacco_min": 10,
+    "attacco_max": 85,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 25,
+    "storico_danni_subiti": []
+}
