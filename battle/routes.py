@@ -80,6 +80,14 @@ def select_char():
         else:
             msg = 'Dati non in formato corretto'
             flash(msg, 'error')
+        # reset dei dati della battaglia per testing
+        if "messaggi_battaglia" in data_load:
+            # rimuove la chiave
+            del data_load["messaggi_battaglia"]
+        if "ordine_turni" in data_load:
+            del data_load["ordine_turni"]
+        if "indice_turno_corrente" in data_load:
+            data_load["indice_turno_corrente"] = 0
         Json.scrivi_dati(path_save, data_load)
 
         # inserisco l'id nella sessione
@@ -157,7 +165,6 @@ def auto_battle():
     tutti_personaggi = personaggi_selezionati_obj + nemici_obj
 
     # Inizializza messaggi e ordine turni se non presenti
-    
 
     if 'ordine_turni' not in save_data:
         ordine_turni = list(range(len(tutti_personaggi)))
@@ -243,10 +250,3 @@ def auto_battle():
         vittoria=vittoria,
         messaggi=save_data['messaggi_battaglia']
     )
-
-
-
-
-@battle_bp.route('/TEMPLATE', methods=['GET', 'POST'])
-def test_battle_v2():
-    return render_template("TEMPLATE.html")
