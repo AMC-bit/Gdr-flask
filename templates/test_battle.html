@@ -2,6 +2,18 @@
 {% block title %}Battaglia{% endblock %}
 
 {% block content %}
+
+<p>
+    TUTTI I PERSONAGGI :{{tutti_personaggi}} 
+    AMBIENTE: {{ambiente}} MISSIONE : {{missione}} 
+    PERSONAGGIO IN TURNO :{{personaggio_turno_corrente}}
+    INVENTARIO CORRENTE : {{inventario_corrente}}
+    BATTAGLIA FINITA : {{battaglia_finita}}
+    VITTORIA : {{vittoria}}
+<p>
+    MESSAGGI : {{messaggi}}
+</p>
+
 <div class="container-fluid">
     <!-- Header con informazioni battaglia -->
     <div class="row mb-4">
@@ -85,7 +97,8 @@
     </div>
 
     <!-- Lista personaggi -->
-    <div class="row mb-4">
+<div class="container mb-4">
+    <div class="row">
         <div class="col-md-6">
             <div class="card h-100">
                 <div class="card-header bg-info text-white">
@@ -165,7 +178,7 @@
             </div>
         </div>
     </div>
-
+</div>
     <!-- Azioni del turno -->
     {% if not battaglia_finita and not personaggio_turno_corrente.npc %}
     <div class="row mb-4">
@@ -196,9 +209,9 @@
                                 {% if inventario_corrente and inventario_corrente.oggetti %}
                                 <div class="mt-3" id="oggetti_div" style="display: none;">
                                     <label class="form-label">Seleziona Oggetto:</label>
-                                    <select class="form-select" name="oggetto_nome">
+                                    <select class="form-select" name="oggetto_id">
                                         {% for oggetto in inventario_corrente.oggetti %}
-                                            <option value="{{oggetto.nome}}">{{oggetto.nome}}</option>
+                                            <option value="{{oggetto.id}}">{{oggetto.nome}}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -217,7 +230,7 @@
                                             </option>
                                         {% endif %}
                                     {% endfor %}
-                                </select>
+                                </select>  
                             </div>
                         </div>
                         
