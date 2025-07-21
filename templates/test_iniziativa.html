@@ -12,9 +12,9 @@
             </tr>
         </thead>
         <tbody>
-            {% for pg, totale in risultati %}
+            {% for id, totale in risultati %}
             <tr>
-                <td>{{ loop.index }}</td>
+                <td>{{ id }}</td>
                 <td>{{ totale }}</td>
             </tr>
             {% endfor %}

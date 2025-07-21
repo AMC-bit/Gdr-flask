@@ -304,9 +304,9 @@ def test_iniziativa():
             self.iniziativa = iniziativa
 
     personaggi = [
-        Fakepg(1, "Acqua", 10),
-        Fakepg(2, "Metano", 15),
-        Fakepg(3, "Uranio", 5),
+        Fakepg(11, "Acqua", 10),
+        Fakepg(22, "Metano", 10),
+        Fakepg(33, "Uranio", 10),
     ]
 
     iniziativa = []

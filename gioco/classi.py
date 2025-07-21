@@ -17,6 +17,7 @@ class Mago(Personaggio):
     salute: int = salute_max
     attacco_min: int = 0
     attacco_max: int = 90
+    iniziativa: int = 15
 
 
     def attacca(self, mod_ambiente: int = 0) -> None:
@@ -69,6 +70,7 @@ class Guerriero(Personaggio):
     salute: int = salute_max
     attacco_min: int = 20
     attacco_max: int = 100
+    iniziativa: int = 20
 
     def attacca(self, mod_ambiente: int = 0) -> int:
         """
@@ -122,6 +124,7 @@ class Ladro(Personaggio):
     salute: int = salute_max
     attacco_max: int = 85
     attacco_min: int = 10
+    iniziativa: int = 25
 
 
     def attacca(self, mod_ambiente: int = 0) -> int:
