@@ -114,7 +114,7 @@ def select_char():
             data_load['personaggi_selezionati'] = personaggi_selezionati
         else:
             msg = 'Dati non in formato corretto'
-            flash(msg, 'error')
+            flash(msg, 'danger')
         Json.scrivi_dati(path_save, data_load)
 
         # inserisco l'id nella sessione
@@ -266,6 +266,6 @@ def test_battle():
     )
 
 
-@battle_bp.route('/fight', methods=['GET', 'POST'])
-def fight():
-    return render_template("fight.html")
+@battle_bp.route('/battle', methods=['GET', 'POST'])
+def battle():
+    return render_template("battle.html")

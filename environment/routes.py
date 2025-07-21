@@ -28,7 +28,7 @@ def show_environment():
     ambiente_data = session.get('ambiente')
     if not ambiente_data:
         msg = 'Nessun ambiente selezionato.'
-        flash(msg, 'error')
+        flash(msg, 'danger')
         logger.info(msg)
         # return redirect(url_for('environment.select_environment'))
         return redirect(url_for('mission.select_mission'))
