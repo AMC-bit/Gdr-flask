@@ -3,6 +3,7 @@ from . import battle_bp
 import os
 import logging
 from gioco.personaggio import Personaggio
+from gioco.classi import Mago, Ladro, Guerriero
 from gioco.inventario import Inventario
 from gioco.ambiente import Ambiente
 from gioco.missione import Missione
@@ -273,3 +274,41 @@ def test_battle():
 @battle_bp.route('/TEMPLATE', methods=['GET', 'POST'])
 def test_battle_v2():
     return render_template("TEMPLATE.html")
+
+
+@battle_bp.route('/battle', methods=['GET', 'POST'])
+def battle():
+
+    personaggi = [
+        Mago(nome="Homo"),
+        Guerriero(nome="Gugu"),
+        Ladro(nome="Lili")]
+
+    nemici = [
+        Mago(nome="Tatu"),
+        Guerriero(nome="Mimu"),
+        Ladro(nome="Pupu")]
+
+    log_battaglia = [
+        f"Evento {i}: {random.choice([
+            'Colpo critico',
+            'Parata',
+            'Magia',
+            'Fendente'
+            ])}"
+        f" di {random.choice(personaggi + nemici).nome}."
+        for i in range(1, 21)
+        ]
+
+    missione = Missione(
+        nome="Assalto alla Palude",
+        nemici=nemici
+    )
+
+    return render_template(
+        "battle.html",
+        missione=missione,
+        personaggi=personaggi,
+        nemici=nemici,
+        log_battaglia=log_battaglia
+        )
