@@ -1,6 +1,6 @@
 {
     "missione": {
-        "id": "d0be82c8-fe52-41ab-8fc3-7548c68b422a",
+        "id": "292c816f-3e3f-4c79-9f4a-4ea4dbe0e2d1",
         "nome": "Imboscata",
         "ambiente": {
             "nome": "Foresta",
@@ -11,7 +11,7 @@
         "nemici": [
             {
                 "classe": "Guerriero",
-                "id": "866f1744-8a23-438d-927b-8743dc8c52e7",
+                "id": "8c1dfb36-6eae-4c7d-a6f9-2f0b9e8edc96",
                 "nome": "Robin Hood",
                 "npc": true,
                 "salute_max": 130,
@@ -24,7 +24,7 @@
             },
             {
                 "classe": "Guerriero",
-                "id": "b2c1f3d8-4e5a-4f9b-8c0d-6f7e8a9b0c1d",
+                "id": "5d9db649-b9a7-43f2-aec4-b65a372645fc",
                 "nome": "Little John",
                 "npc": true,
                 "salute_max": 130,
@@ -38,11 +38,11 @@
         ],
         "inventari_nemici": [
             {
-                "id": "e373a5eb-244f-4cda-832b-04e3fdfdfcc3",
-                "id_proprietario": "866f1744-8a23-438d-927b-8743dc8c52e7",
+                "id": "9c37ce4b-016f-4c2d-a42e-8136ae988f4c",
+                "id_proprietario": "8c1dfb36-6eae-4c7d-a6f9-2f0b9e8edc96",
                 "oggetti": [
                     {
-                        "id": "009a6c6e-5887-4a08-af10-41fd02cc9edf",
+                        "id": "aef17f9f-f158-4308-bc11-786b6818b19e",
                         "nome": "Bomba Acida",
                         "usato": false,
                         "valore": 30,
@@ -52,11 +52,11 @@
                 ]
             },
             {
-                "id": "e373a5eb-244f-4cda-832b-04e3fdfdfcc4",
-                "id_proprietario": "b2c1f3d8-4e5a-4f9b-8c0d-6f7e8a9b0c1d",
+                "id": "90d9d1a6-2fc8-4550-9e3f-c038fe0114f4",
+                "id_proprietario": "5d9db649-b9a7-43f2-aec4-b65a372645fc",
                 "oggetti": [
                     {
-                        "id": "009a6c6e-5887-4a08-af10-41fd02cc9edf",
+                        "id": "8f0f45be-bc36-463c-913c-c1c314b029b4",
                         "nome": "Bomba Acida",
                         "usato": false,
                         "valore": 30,
@@ -101,16 +101,82 @@
     "personaggi_selezionati": [
         {
             "classe": "Mago",
-            "id": "91e950b7-c5ac-4100-923e-fc6d99e663fb",
-            "nome": "Franco",
+            "id": "017f16a6-ff3d-4601-ae73-6a1b2caec830",
+            "nome": "Alastor",
             "npc": false,
             "salute_max": 80,
-            "salute": 80,
+            "salute": 0,
             "attacco_min": 0,
             "attacco_max": 90,
             "livello": 1,
             "destrezza": 15,
-            "storico_danni_subiti": []
+            "storico_danni_subiti": [
+                100
+            ]
+        },
+        {
+            "classe": "Ladro",
+            "id": "1e8b15ce-569d-44fe-bd27-907d2fdbe7e2",
+            "nome": "CherryBomb",
+            "npc": false,
+            "salute_max": 120,
+            "salute": 0,
+            "attacco_min": 10,
+            "attacco_max": 85,
+            "livello": 1,
+            "destrezza": 15,
+            "storico_danni_subiti": [
+                79,
+                78
+            ]
+        },
+        {
+            "classe": "Guerriero",
+            "id": "36f445c1-0f97-4117-959f-0d6b5de2505a",
+            "nome": "Carmilla",
+            "npc": false,
+            "salute_max": 130,
+            "salute": 0,
+            "attacco_min": 20,
+            "attacco_max": 100,
+            "livello": 1,
+            "destrezza": 15,
+            "storico_danni_subiti": [
+                35,
+                103
+            ]
         }
+    ],
+    "ordine_turni": [
+        4,
+        1,
+        3
+    ],
+    "indice_turno_corrente": 1,
+    "messaggi_battaglia": [
+        "Alastor usa Bomba Acida su Little John infliggendo 30 HP di danno",
+        "Alastor attacca Robin Hood per 0 danni!",
+        "Carmilla non utilizza oggetti in questo turno",
+        "Carmilla attacca Little John per 80 danni!",
+        "Little John non ha un inventario! Errore!!!!.",
+        "Little John attacca Carmilla per 35 danni!",
+        "CherryBomb non utilizza oggetti in questo turno",
+        "CherryBomb attacca Little John per 0 danni!",
+        "Robin Hood non ha un inventario! Errore!!!!.",
+        "Robin Hood attacca CherryBomb per 79 danni!",
+        "Alastor non utilizza oggetti in questo turno",
+        "Alastor attacca Robin Hood per 86 danni!",
+        "Carmilla non utilizza oggetti in questo turno",
+        "Carmilla attacca Little John per 0 danni!",
+        "Little John non ha un inventario! Errore!!!!.",
+        "Little John attacca Carmilla per 103 danni!",
+        "Carmilla \u00e8 stato sconfitto!",
+        "Robin Hood non ha un inventario! Errore!!!!.",
+        "Robin Hood attacca Alastor per 100 danni!",
+        "Alastor \u00e8 stato sconfitto!",
+        "Little John non ha un inventario! Errore!!!!.",
+        "Little John attacca CherryBomb per 78 danni!",
+        "CherryBomb \u00e8 stato sconfitto!",
+        "Tutti i personaggi sono stati sconfitti! Sconfitta!"
     ]
 }

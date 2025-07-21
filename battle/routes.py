@@ -203,6 +203,23 @@ def auto_battle():
             save_data['indice_turno_corrente'] = indice_turno
         personaggio_turno_corrente = tutti_personaggi[ordine_turni[indice_turno]]
 
+        # tentativo di usare la l'inventario im maniera automatica
+        pg = personaggio_turno_corrente
+        inventario = None
+        for inv in setup[2]:
+            if isinstance(inv, Inventario) and inv.id_proprietario == pg.id:
+                inventario = inv
+                break
+
+        result = usa_inventario_automatico(
+            inventario,
+            pg,
+            missione_obj,
+            (nemici_obj + personaggi_selezionati_obj)
+            )
+        txt = result[1]
+        save_data['messaggi_battaglia'].append(txt)
+
         if personaggio_turno_corrente.npc:
             bersagli_validi = [p for p in personaggi_selezionati_obj if not p.sconfitto()]
         else:
@@ -420,11 +437,13 @@ def usa_inventario_automatico(
         if value < 0:
             # Se il valore è negativo, significa che l'oggetto è offensivo
             bersaglio = random.choice(bersagli)
-            txt = f"{pg.nome} usa Bomba Acida su {bersaglio.nome} infliggendo {-value} HP di danno"
+            txt = (f"{pg.nome} usa Bomba Acida su {bersaglio.nome} "
+                   f"infliggendo {-value} HP di danno")
             bersaglio.salute += value
         if value > 0:
             bersaglio = None
-            txt = f"{pg.nome} usa Pozione Curativa su se stesso"
+            txt = (f"{pg.nome} usa Pozione Curativa su se stesso "
+                   f"recuperando {value} HP")
             pg.salute += value
             if pg.salute >= pg.salute_max:
                 pg.salute = pg.salute_max
@@ -433,5 +452,10 @@ def usa_inventario_automatico(
                 txt += f", recuperando {value} HP."
         logger.info(txt)
         return value, txt
-
-    return None, "Nessun oggetto disponibile nell'inventario."
+    if inventario is None:
+        txt = f"{pg.nome} non ha un inventario! Errore!!!!."
+    elif inventario.oggetti is None:
+        txt = f"{pg.nome} non ha oggetti nell'inventario."
+    else:
+        txt = f"{pg.nome} non utilizza oggetti in questo turno"
+    return None, txt
