@@ -286,6 +286,18 @@ def carica_inventario(
     lista_inv_pc: list[Inventario],
     lista_inv_npc: list[Inventario]
     ) -> Inventario:
+    """Carica l'inventario del personaggio corrente.
+
+    Args:
+        pg_turno_corrente (Personaggio): Il personaggio corrente.
+        lista_inv_pc (list[Inventario]):
+        L'elenco degli inventari dei personaggi giocanti.
+        lista_inv_npc (list[Inventario]):
+        L'elenco degli inventari dei personaggi non giocanti.
+
+    Returns:
+        Inventario: L'inventario del personaggio corrente, se trovato.
+    """
     inventario = None
     if pg_turno_corrente.npc:
         # cerco l'inventario tra quelli NPC
@@ -301,12 +313,24 @@ def carica_inventario(
                 break
     # controllo finale
     if inventario is None:
-        logging.error(f"Inventario non trovato per il personaggio {pg_turno_corrente.nome}")
+        logging.error(
+            f"Inventario non trovato per il personaggio: "
+            f"{pg_turno_corrente.nome}"
+        )
         return None
     return inventario
 
 
-def mostra_inventario(inventario: Inventario):
+def mostra_inventario(inventario: Inventario) -> jsonify:
+    """
+    Mostra il contenuto dell'inventario.
+
+    Args:
+        inventario (Inventario): L'inventario da mostrare.
+
+    Returns:
+        JSON: La lista degli oggetti presenti nell'inventario.
+    """
     lista_oggetti = [
         {
             'nome': oggetto.nome
@@ -321,22 +345,41 @@ def usa_inventario(
     ambiente: Ambiente,
     nome_oggetto: str,
     bersaglio: Personaggio = None
-):
+) -> tuple[int | None, str]:
+    """
+    Utilizza un oggetto dall'inventario.
+
+    Args:
+        inventario (Inventario): L'inventario da cui utilizzare l'oggetto.
+        pg (Personaggio): Il personaggio che utilizza l'oggetto.
+        ambiente (Ambiente): L'ambiente in cui si trova il personaggio.
+        nome_oggetto (str): Il nome dell'oggetto da utilizzare.
+        bersaglio (Personaggio, optional):
+        Il bersaglio dell'effetto dell'oggetto. Defaults to None.
+
+    Returns:
+        tuple[int | None, str]:
+        Il risultato dell'uso dell'oggetto e un messaggio descrittivo.
+    """
 
     txt1 = f"{pg.nome} usa {nome_oggetto} su {bersaglio.nome}"
 
+    # controollo se il bersaglio è specificato,
+    # altrimenti usa il personaggio stesso
     if bersaglio is None:
-        bersaglio = pg  # Se non specificato, usa il personaggio stesso
+        bersaglio = pg
         txt1 = f"{pg.nome} usa {nome_oggetto} su se stesso"
 
+    # cerco il tipo di oggetto nell'inventario,
+    # servirà per determinarne l'effetto
     tipo_oggetto = None
     for obj in inventario.oggetti:
         if obj.nome == nome_oggetto:
             tipo_oggetto = obj.tipo_oggetto
             break
 
-    risultato = inventario.usa_oggetto(nome_oggetto, ambiente)
-    if risultato is not None:
+    if tipo_oggetto is not None:
+        risultato = inventario.usa_oggetto(nome_oggetto, ambiente)
         if tipo_oggetto == "Ristorativo":
             bersaglio.salute += risultato
             if bersaglio.salute > bersaglio.salute_max:
