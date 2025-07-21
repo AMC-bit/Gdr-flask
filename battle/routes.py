@@ -95,6 +95,7 @@ def select_char():
         missione_corrente=missione_corrente
         )
 
+# in ingresso lista di tutti i personaggi, e  sommo iniziativa + d20, ordino in base a qst, mettendo gli id
 
 @battle_bp.route('/test_battle', methods=['GET', 'POST'])
 def test_battle():
