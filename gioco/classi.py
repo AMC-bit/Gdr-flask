@@ -135,7 +135,7 @@ class Ladro(Personaggio):
         Returns:
             danno (int): danno inflitto all'avversario
         """
-        danno = 0
+        
         if self.esegui_azione():
             danno = random.randint(
                 self.attacco_min, self.attacco_max
@@ -144,6 +144,7 @@ class Ladro(Personaggio):
         else:
             msg = f"{self.nome} tenta di attaccare ma fallisce!"
         logger.info(msg)
+        print(msg)
         return danno
 
     def recupera_salute(self, mod_ambiente: int = 0) -> None:
