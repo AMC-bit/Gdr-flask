@@ -145,23 +145,108 @@ def setup_battle():
 
 
 
-@battle_bp.route('/test_battle', methods=['GET', 'POST'])
-def test_battle():
+@battle_bp.route('/auto_battle', methods=['GET'])
+def auto_battle():
+    # --- SETUP DATI ---
     setup = setup_battle()
     missione = setup[0]
-    personaggi = setup[1]
-    inventari = setup [2]
+    personaggi_selezionati = setup[1]
+    nemici = setup[0].nemici
+    ambiente = setup[0].ambiente
+    save_data = Json.carica_dati(path_save)
+    # Deserializzazione oggetti
+    missione_obj = MissioniSchema().load(missione)
+    personaggi_selezionati_obj = PersonaggioSchema(many=True).load(personaggi_selezionati)
+    nemici_obj = PersonaggioSchema(many=True).load(nemici)
+    ambiente_obj = AmbienteSchema().load(ambiente)
+    tutti_personaggi = personaggi_selezionati_obj + nemici_obj
 
+    # Inizializza messaggi e ordine turni se non presenti
+    
+
+    if 'ordine_turni' not in save_data:
+        ordine_turni = list(range(len(tutti_personaggi)))
+        random.shuffle(ordine_turni)
+        save_data['ordine_turni'] = ordine_turni
+
+    if 'indice_turno_corrente' not in save_data:
+        save_data['indice_turno_corrente'] = 0
+
+    if 'messaggi_battaglia' not in save_data:
+        save_data['messaggi_battaglia'] = []
+
+    ordine_turni = save_data['ordine_turni']
+    indice_turno = save_data['indice_turno_corrente']
+    battaglia_finita = False
+    vittoria = False
+    # --- Controlla se la battaglia è già finita ---
+    pc_vivi = [p for p in personaggi_selezionati_obj if not p.sconfitto()]
+    npc_vivi = [p for p in nemici_obj if not p.sconfitto()]
+    if not pc_vivi:
+        battaglia_finita = True
+        vittoria = False
+        save_data['messaggi_battaglia'].append("Tutti i personaggi sono stati sconfitti! Sconfitta!")
+    elif not npc_vivi:
+        battaglia_finita = True
+        vittoria = True
+        save_data['messaggi_battaglia'].append("Tutti i nemici sono stati sconfitti! Vittoria!")
+
+    if not battaglia_finita:
+        ordine_turni = [idx for idx in ordine_turni if not tutti_personaggi[idx].sconfitto()]
+        save_data['ordine_turni'] = ordine_turni
+        if indice_turno >= len(ordine_turni):
+            indice_turno = 0
+            save_data['indice_turno_corrente'] = indice_turno
+        personaggio_turno_corrente = tutti_personaggi[ordine_turni[indice_turno]]
+
+        if personaggio_turno_corrente.npc:
+            bersagli_validi = [p for p in personaggi_selezionati_obj if not p.sconfitto()]
+        else:
+            bersagli_validi = [n for n in nemici_obj if not n.sconfitto()]
+
+        if bersagli_validi:
+            bersaglio = random.choice(bersagli_validi)
+            danno = personaggio_turno_corrente.attacca(ambiente_obj.mod_attacco)
+            bersaglio.subisci_danno(danno)
+            save_data['messaggi_battaglia'].append(
+                f"{personaggio_turno_corrente.nome} attacca {bersaglio.nome} per {danno} danni!"
+            )
+            if bersaglio.sconfitto():
+                save_data['messaggi_battaglia'].append(f"{bersaglio.nome} è stato sconfitto!")
+
+        save_data['personaggi_selezionati'] = PersonaggioSchema(many=True).dump(personaggi_selezionati_obj)
+        missione_obj.nemici = nemici_obj
+        save_data['missione'] = MissioniSchema().dump(missione_obj)
+    
+        save_data['indice_turno_corrente'] = (indice_turno + 1) % len(ordine_turni)
+        Json.scrivi_dati(path_save, save_data)
+        pc_vivi = [p for p in personaggi_selezionati_obj if not p.sconfitto()]
+        npc_vivi = [p for p in nemici_obj if not p.sconfitto()]
+        if not pc_vivi:
+            battaglia_finita = True
+            vittoria = False
+            save_data['messaggi_battaglia'].append("Tutti i personaggi sono stati sconfitti! Sconfitta!")
+        elif not npc_vivi:
+            battaglia_finita = True
+            vittoria = True
+            save_data['messaggi_battaglia'].append("Tutti i nemici sono stati sconfitti! Vittoria!")
+        
+    # Salvataggio stato
+    save_data['missione'] = MissioniSchema().dump(missione_obj)
+    Json.scrivi_dati(path_save, save_data)
+    # ripristino stato nemici solo per scopo di testing
+    if battaglia_finita:
+        for n in nemici_obj:
+            n.salute = n.salute_max
+            n.storico_danni_subiti = []
+        missione_obj.nemici = nemici_obj
+        save_data['missione'] = MissioniSchema().dump(missione_obj)
+        Json.scrivi_dati(path_save, save_data)
     return render_template(
-        'test_battle.html',
-        tutti_personaggi = tutti_personaggi,
-        ambiente = ambiente_obj,
-        missione = missione_obj,
-        personaggio_turno_corrente = personaggio_turno_corrente,
-        inventario_corrente = inventario_corrente,
-        battaglia_finita = battaglia_finita,
-        vittoria = vittoria,
-        messaggi = save_data['messaggi_battaglia']
+        'auto_battle.html',
+        battaglia_finita=battaglia_finita,
+        vittoria=vittoria,
+        messaggi=save_data['messaggi_battaglia']
     )
 
 
