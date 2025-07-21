@@ -23,13 +23,11 @@
                     {% for pg in personaggi %}
                         <li class="list-group-item">
                             <h6>{{ pg.nome }}</h6>
-                            <p>
                             {% if pg.sconfitto() %}
-                            Morto
+                            <span class="badge badge-danger">Morto</span>
                             {% else %}
-                            Vivo
+                            <span class="badge badge-success">Vivo</span>
                             {% endif %}
-                            </p>
                             <p class="mb-1">Attacco: {{ pg.attacco_min }} - {{ pg.attacco_max }}</p>
                         </li>
                     {% else %}
@@ -72,13 +70,11 @@
                     {% for n in nemici %}
                         <li class="list-group-item">
                             <h6>{{ n.nome }}</h6>
-                            <p>
                             {% if n.sconfitto() %}
-                            Morto
+                            <span class="badge badge-danger">Morto</span>
                             {% else %}
-                            Vivo
+                            <span class="badge badge-success">Vivo</span>
                             {% endif %}
-                            </p>
                             <p class="mb-1">Attacco: {{ n.attacco_min }} - {{ n.attacco_max }}</p>
                         </li>
                     {% else %}
@@ -90,14 +86,21 @@
 
     </div>
 {% if battaglia_finita %}
-  <h3>
-    {% if vittoria %} 
-        Vittoria 
-    {% else %} 
-        Sconfitta
-    {% endif %}</h3>
+    <div class="row">
+        <div class="col-12 text-center mb-4">
+            {% if vittoria %}
+                <h1 class="h1">Vittoria</h1>
+            {% else %}
+                <h1 class="h1">Sconfitta</h1>
+            {% endif %}
+        </div>
+    </div>
 {% else %}
-  <meta http-equiv="refresh" content="2">
-  <p>La battaglia è in corso...</p>
+<meta http-equiv="refresh" content="2">
+<div class="row">
+    <div class="col-12 text-center mb-4">
+        <h3 class="h3">Battaglia in corso</h3>
+    </div>
+</div>
 {% endif %}
 {% endblock content %}
