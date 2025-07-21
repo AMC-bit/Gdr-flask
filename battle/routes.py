@@ -26,31 +26,6 @@ classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
 schema = PersonaggioSchema()
 schema_inv = InventarioSchema()
 
-
-@battle_bp.route('/show_inventory', methods=['GET', 'POST'])
-def show_inventory():
-    # recupero dalla sessione il personaggio che sta giocando il turno corrente
-    if 'personaggio_turno_corrente' in session:
-        personaggio_turno_corrente = session['personaggio_turno_corrente']
-        cls_pg_turno_corr = classi.get(personaggio_turno_corrente.get('classe'))
-        if cls_pg_turno_corr:
-                personaggio_turno_corrente = cls_pg_turno_corr.from_dict(personaggio_turno_corrente)
-
-        # recupero inventari dalla sessione cerco l'inventario del personaggio in turno e lo deserializzo
-        inventari_des = []
-        if 'inventari_selezionati' in session :
-            inventari = session['inventari_selezionati']
-            for inventario in inventari:
-                if inventario['id_proprietario'] ==  personaggio_turno_corrente.id:
-                    inventario = Inventario.from_dict(inventario)
-
-    return render_template(
-        'show_inventory.html',
-        personaggio_turno_corrente=personaggio_turno_corrente,
-        inventario=inventario)
-
-
-
 @battle_bp.route('/select_char', methods=['GET', 'POST'])
 def select_char():
     # if request.method == 'POST':
@@ -95,9 +70,18 @@ def select_char():
         missione_corrente=missione_corrente
         )
 
+def setup_battle():
+    """TODO Fa il setup dei dati prendendoli dai file json data/ save, inventari, personaggi
+    Deserializza i dati dai json e ritorna gli oggetti
 
-@battle_bp.route('/test_battle', methods=['GET', 'POST'])
-def test_battle():
+    Returns:
+        Missione: La missione deserializzata con dentro i suoi campi la lista dei
+        nemici, l'ambiente, la lista degli inventari dei nemici e la lista dei premi.
+
+        List[Personaggio]: La lista dei personaggi selezionati dei giocatori.
+
+        List[Inventario]: La lista degli inventari dei giocatori.
+    """
     # --- SETUP DATI ---
     # Recupera o crea la lista unica di personaggi (giocatori + npc)
     save_data = Json.carica_dati(path_save)
@@ -105,17 +89,20 @@ def test_battle():
     #print(f"MISSIONE DICT :{missione}")
     personaggi_selezionati = Json.carica_dati(path_save)['personaggi_selezionati']
     #print(f"PERSONAGGI SELEZIONATI DICT :{personaggi_selezionati}")
-    nemici = missione['nemici']
-    ambiente = missione['ambiente']
+    #nemici = missione['nemici']
+    #ambiente = missione['ambiente']
+    #inventari_nemici = missione['inventari_nemici']
 
     #deserializzo i dati recuperati da json
     missione_obj = MissioniSchema().load(missione)
     personaggio_schema = PersonaggioSchema(many=True)
     personaggi_selezionati_obj = personaggio_schema.load(personaggi_selezionati)
     #print(f"PERSONAGGI_OBJ : {personaggi_selezionati_obj}")
-    nemici_obj = personaggio_schema.load(nemici)
-    ambiente_obj = AmbienteSchema().load(ambiente)
-    tutti_personaggi = personaggi_selezionati_obj + nemici_obj
+    #nemici_obj = personaggio_schema.load(nemici)
+    #ambiente_obj = AmbienteSchema().load(ambiente)
+    #inventari_nemici_obj = InventarioSchema(many=True).load(inventari_nemici)
+
+    #tutti_personaggi_obj = personaggi_selezionati_obj + nemici_obj
 
     #Carico gli inventari dei personaggi:
     inventari_pg_obj = []
@@ -125,148 +112,28 @@ def test_battle():
         inventario_pg = Json.carica_dati(pg_inv_path)
         inventario_pg_obj = inventario_schema.load(inventario_pg)
         inventari_pg_obj.append(inventario_pg_obj)
-
-    # Generiamo una lista con l'ordine in iniziativa dei pg
-    if save_data:
-        if 'ordine_turni' not in save_data :
-            ordine_turni = list(range(len(tutti_personaggi)))
-            random.shuffle(ordine_turni)
-            save_data['ordine_turni'] = ordine_turni
-            #ricarichiamo sul jason la versione aggiornata di save_data dopo 
-            #ogni nuovo ingresso o modifica
-            Json.scrivi_dati(path_save, save_data)
-
-        if 'indice_turno_corrente' not in save_data:
-            save_data['indice_turno_corrente'] = 0
-            Json.scrivi_dati(path_save, save_data)
-
-        if 'messaggi_battaglia' not in save_data:
-            save_data['messaggi_battaglia'] = []
-            Json.scrivi_dati(path_save, save_data)
-    # TODO Ricordati di cancellare i messaggi battaglia a fine battaglia
+        
+    return missione_obj, personaggi_selezionati_obj, inventari_pg_obj
 
 
-    # --- TURNO CORRENTE ---
-    ordine_turni = save_data['ordine_turni']
-    indice_turno = save_data['indice_turno_corrente']
-    idx_pg = ordine_turni[indice_turno]
-    personaggio_turno_corrente = tutti_personaggi[idx_pg]
 
-    # --- CONDIZIONI DI VITTORIA/SCONFITTA ---
-    pc_vivi = [p for p in personaggi_selezionati_obj if not p.sconfitto()]
-    npc_vivi = [p for p in nemici_obj if not p.sconfitto()]
-    battaglia_finita = False
-    vittoria = False
-    if not pc_vivi:
-        battaglia_finita = True
-        vittoria = False
-        save_data['messaggi_battaglia'].append(
-            "Tutti i personaggi sono stati sconfitti! Sconfitta!")
-        Json.scrivi_dati(path_save, save_data)
-    elif not npc_vivi:
-        battaglia_finita = True
-        vittoria = True
-        save_data['messaggi_battaglia'].append(
-            "Tutti i nemici sono stati sconfitti! Vittoria!")
-        Json.scrivi_dati(path_save, save_data)
 
-    # --- AZIONI TURNO GIOCATORE ---
-    #print(f"BATTAGLIA FINITA :{battaglia_finita}")
-    if request.method == 'POST' and not battaglia_finita:
-        azione = request.form.get('azione')
-        bersaglio_id = request.form.get('bersaglio_id')
-        oggetto_id = request.form.get('oggetto_id')
 
-        # Trova bersaglio
-        for p in tutti_personaggi:
-            if str(p.id) == bersaglio_id and not p.sconfitto():
-                save_data['messaggi_battaglia'].append(
-                "SONO QUA 2!")
-                Json.scrivi_dati(path_save, save_data)
 
-                bersaglio = p
-                if azione == 'attacco' and bersaglio:
-                    danno = personaggio_turno_corrente.attacca()
-                    bersaglio.subisci_danno(danno)
-                    save_data['messaggi_battaglia'].append(f"{personaggio_turno_corrente.nome} attacca {bersaglio.nome} per {danno} danni!")
-                    Json.scrivi_dati(path_save, save_data)
-                    if bersaglio.sconfitto():
-                        save_data['messaggi_battaglia'].append(f"{bersaglio.nome} è stato sconfitto!")
 
-                elif azione == 'usa_oggetto' and bersaglio and oggetto_id:
-                    inventario = None
-                    for inv in inventari_pg_obj :
-                        if inv.id_proprietario == personaggio_turno_corrente.id:
-                            inventario = inv
-                            break
-                    oggetto = None
-                    if inventario:
-                        for o in inventario.oggetti :
-                            if o.id == oggetto_id :
-                                oggetto = o
-                                break
-                    if oggetto:
-                        risultato = inventario.usa_oggetto(oggetto, ambiente_obj)
-                        bersaglio.recupera_salute(risultato)
-                        save_data['messaggi_battaglia'].append(f"{personaggio_turno_corrente.nome} usa {oggetto.nome} su {bersaglio.nome} per {risultato} HP!")
 
-                Json.scrivi_dati(path_save, save_data)
-
-    # Passa al prossimo turno vivo
-    for _ in range(len(ordine_turni)):
-        indice_turno = (indice_turno + 1) % len(ordine_turni)
-        if not tutti_personaggi[ordine_turni[indice_turno]].sconfitto():
-            break
-        save_data['indice_turno_corrente'] = indice_turno
-        Json.scrivi_dati(path_save, save_data)
-
-        #Aggiorniamo missione
-        save_data['missione'] = MissioniSchema().dump(missione_obj)
-        Json.scrivi_dati(path_save, save_data)
-        return redirect(url_for('battle.test_battle'))
-
-    # --- AZIONE NPC ---
-    if not battaglia_finita and personaggio_turno_corrente.npc:
-        # Scegli un bersaglio valido (giocatore vivo)
-        bersagli_validi = [p for p in personaggi_selezionati_obj if not p.sconfitto()]
-        if bersagli_validi:
-            bersaglio = random.choice(bersagli_validi)
-            danno = personaggio_turno_corrente.attacca()
-            bersaglio.subisci_danno(danno)
-            save_data['messaggi_battaglia'].append(f"{personaggio_turno_corrente.nome} (NPC) attacca {bersaglio.nome} per {danno} danni!")
-            if bersaglio.sconfitto():
-                save_data['messaggi_battaglia'].append(f"{bersaglio.nome} è stato sconfitto!")
-            Json.scrivi_dati(path_save, save_data)
-
-        # Passa al prossimo turno vivo
-        for _ in range(len(ordine_turni)):
-            indice_turno = (indice_turno + 1) % len(ordine_turni)
-            if not tutti_personaggi[ordine_turni[indice_turno]].sconfitto():
-                break
-        save_data['indice_turno_corrente'] = indice_turno
-        #Aggiorniamo missione
-        save_data['missione'] = MissioniSchema().dump(missione_obj)
-        Json.scrivi_dati(path_save, save_data)
-        return redirect(url_for('battle.test_battle'))
-
-    # --- INVENTARIO DEL TURNO CORRENTE ---
-    inventario_corrente = None
-    for inv in inventari_pg_obj:
-        #print(f"CONFRONTO {inv.id} TYPE :{type(inv.id)} CON {personaggio_turno_corrente.id} TYPE :{type(personaggio_turno_corrente.id)}")
-        if inv.id_proprietario == personaggio_turno_corrente.id:
-            inventario_corrente = inv
-            break
+@battle_bp.route('/test_battle', methods=['GET', 'POST'])
+def test_battle():
+    setup = setup_battle()
+    missione = setup[0]
+    personaggi = setup[1]
+    inventari = setup [2]
 
     return render_template(
         'test_battle.html',
-        tutti_personaggi = tutti_personaggi,
-        ambiente = ambiente_obj,
-        missione = missione_obj,
-        personaggio_turno_corrente = personaggio_turno_corrente,
-        inventario_corrente = inventario_corrente,
-        battaglia_finita = battaglia_finita,
-        vittoria = vittoria,
-        messaggi = save_data['messaggi_battaglia']
+        pg = personaggi,
+        missione = missione,
+        inventari_pg = inventari
     )
 
 
