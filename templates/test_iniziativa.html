@@ -7,10 +7,7 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th>#</th>
-                <th>Nome</th>
-                <th>Iniziativa Base</th>
-                <th>Tiro d20</th>
+                <th>id</th>
                 <th>Totale</th>
             </tr>
         </thead>
@@ -18,10 +15,7 @@
             {% for pg, totale in risultati %}
             <tr>
                 <td>{{ loop.index }}</td>
-                <td>{{ pg.nome }}</td>
-                <td>{{ pg.iniziativa }}</td>
-                <td>{{ tiro }}</td>
-                <td><strong>{{ totale }}</strong></td>
+                <td>{{ totale }}</td>
             </tr>
             {% endfor %}
         </tbody>
