@@ -101,8 +101,8 @@ def select_char():
         )
 
 
-@battle_bp.route('/test_battle', methods=['GET'])
-def test_battle():
+@battle_bp.route('/auto_battle', methods=['GET'])
+def auto_battle():
     # --- SETUP DATI ---
     save_data = Json.carica_dati(path_save)
     missione = save_data['missione']
@@ -199,7 +199,7 @@ def test_battle():
         save_data['missione'] = MissioniSchema().dump(missione_obj)
         Json.scrivi_dati(path_save, save_data)
     return render_template(
-        'test_battle.html',
+        'auto_battle.html',
         battaglia_finita=battaglia_finita,
         vittoria=vittoria,
         messaggi=save_data['messaggi_battaglia']
