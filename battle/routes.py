@@ -89,6 +89,8 @@ def select_char():
             del data_load["ordine_turni"]
         if "indice_turno_corrente" in data_load:
             data_load["indice_turno_corrente"] = 0
+        if "turno" in data_load:
+            data_load["turno"] = 0
         Json.scrivi_dati(path_save, data_load)
 
         # inserisco l'id nella sessione
