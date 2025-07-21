@@ -286,7 +286,8 @@ def carica_inventario(
     lista_inv_pc: list[Inventario],
     lista_inv_npc: list[Inventario]
     ) -> Inventario:
-    """Carica l'inventario del personaggio corrente.
+    """
+    Carica l'inventario del personaggio corrente.
 
     Args:
         pg_turno_corrente (Personaggio): Il personaggio corrente.
