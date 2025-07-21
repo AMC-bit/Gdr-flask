@@ -50,7 +50,7 @@
                 </div>
                 <div class="card-body border-dark p-0">
                     <div class="log-container p-3 text-center" style="max-height: 500px; overflow-y: auto; background-color: #f8f9fa;">
-                        {% for log in log_battaglia %}
+                        {% for log in messaggi %}
                             <p class="mb-2">{{ log }}</p>
                         {% else %}
                             <p class="text-muted">In attesa di eventi di combattimento...</p>
@@ -89,5 +89,15 @@
         </div>
 
     </div>
-
+{% if battaglia_finita %}
+  <h3>
+    {% if vittoria %} 
+        Vittoria 
+    {% else %} 
+        Sconfitta
+    {% endif %}</h3>
+{% else %}
+  <meta http-equiv="refresh" content="2">
+  <p>La battaglia è in corso...</p>
+{% endif %}
 {% endblock content %}
