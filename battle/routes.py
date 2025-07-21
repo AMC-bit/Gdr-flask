@@ -87,7 +87,7 @@ def select_char():
             pg['id'] for pg in personaggi_selezionati]
         print("Personaggi selezionati", session['personaggi_selezionati'])
         # reindirizzo verso la pagina di destinazione
-        return redirect(url_for('battle.test_battle'))
+        return redirect(url_for('battle.auto_battle'))
     return render_template(
         'select_char.html',
         personaggi=pg_list,
@@ -149,16 +149,11 @@ def setup_battle():
 def auto_battle():
     # --- SETUP DATI ---
     setup = setup_battle()
-    missione = setup[0]
-    personaggi_selezionati = setup[1]
-    nemici = setup[0].nemici
-    ambiente = setup[0].ambiente
+    missione_obj = setup[0]
+    personaggi_selezionati_obj = setup[1]
+    nemici_obj = setup[0].nemici
+    ambiente_obj = setup[0].ambiente
     save_data = Json.carica_dati(path_save)
-    # Deserializzazione oggetti
-    missione_obj = MissioniSchema().load(missione)
-    personaggi_selezionati_obj = PersonaggioSchema(many=True).load(personaggi_selezionati)
-    nemici_obj = PersonaggioSchema(many=True).load(nemici)
-    ambiente_obj = AmbienteSchema().load(ambiente)
     tutti_personaggi = personaggi_selezionati_obj + nemici_obj
 
     # Inizializza messaggi e ordine turni se non presenti
