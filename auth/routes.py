@@ -28,16 +28,16 @@ def sign_in():
         re_psw = request.form['re_psw']
 
         if not name:
-            flash("Il nome è necessario", 'error')
+            flash("Il nome è necessario", 'danger')
             return render_template('sign_in.html', email=email)
         if not email:
-            flash("La email è necessaria", 'error')
+            flash("La email è necessaria", 'danger')
             return render_template('sign_in.html', name=name)
         if not email_check(email):
-            flash('Inserisci una mail corretta', 'warning')
+            flash('Inserisci una mail corretta', 'danger')
             return render_template('sign_in.html', name=name)
         if not (psw and re_psw and psw == re_psw):
-            flash('Password e conferma password non combaciano', 'warning')
+            flash('Password e conferma password non combaciano', 'danger')
             return render_template('sign_in.html', name=name, email=email)
 
         hash_psw = protect_psw_hash(psw)
@@ -48,7 +48,7 @@ def sign_in():
             .first()
         )
         if utente_exist:
-            flash('Email già registrata', 'error')
+            flash('Email già registrata', 'danger')
             return render_template('sign_in.html', name=name, email=email)
 
         nuovo_utente = User(
@@ -114,7 +114,7 @@ def edit_user():
         new_psw = request.form['new_password']
 
         if not email_check(new_email):
-            flash("Email does not match an email pattern", "error")
+            flash("Email does not match an email pattern", "danger")
             return render_template(
                 'edit_user.html',
                 utente=user,

@@ -9,12 +9,15 @@ from gioco.schemas.oggetto import OggettoSchema
 from gioco.schemas.personaggio import PersonaggioSchema
 from gioco.schemas.strategy import StrategiaSchema
 from gioco.schemas.ambiente import AmbienteSchema
+from gioco.schemas.inventario import InventarioSchema
 
 class MissioniSchema(Schema):
     id = fields.UUID(load_default=lambda: uuid.uuid4())
     nome = fields.String(required=True)
     ambiente = fields.Nested(AmbienteSchema, required=True)
     nemici = fields.List(fields.Nested(PersonaggioSchema), required=True)
+    #
+    inventari_nemici = fields.List(fields.Nested(InventarioSchema), required = True)
     premi = fields.List(fields.Nested(OggettoSchema), required=True)
     strategia_nemici = fields.Nested(StrategiaSchema, allow_none=True)
     completata = fields.Bool()
