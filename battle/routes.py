@@ -16,15 +16,21 @@ from inventory.routes import carica_inventario_da_json
 from utils.salvataggio import Json
 import random
 import json
-from config import DATA_DIR_SAVE, DATA_DIR_INV
+from config import DATA_DIR_SAVE, DATA_DIR_INV, DATA_DIR_MIS
 
 path_save = os.path.join(
     DATA_DIR_SAVE, "salvataggio.json"
+)
+path_inv = os.path.join(
+    DATA_DIR_INV, "inventario.json"
 )
 
 classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
 schema = PersonaggioSchema()
 schema_inv = InventarioSchema()
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 
 @battle_bp.route('/show_inventory', methods=['GET', 'POST'])
@@ -275,35 +281,79 @@ def test_battle_v2():
     return render_template("TEMPLATE.html")
 
 
-@battle_bp.route('/TEMPLATE', methods=['GET', 'POST'])
-def mostra_inventario(pg_turno_corrente: Personaggio, missione: Missione):
-    # recupero l'inventario del pg corrente
-    data_load = Json.carica_dati(path_save)
-    inventario = usa_inventario(pg_turno_corrente, missione)
+def carica_inventario(
+    pg_turno_corrente: Personaggio,
+    lista_inv_pc: list[Inventario],
+    lista_inv_npc: list[Inventario]
+    ) -> Inventario:
+    inventario = None
+    if pg_turno_corrente.npc:
+        # cerco l'inventario tra quelli NPC
+        for inv in lista_inv_npc:
+            if inv.id_proprietario == pg_turno_corrente.id:
+                inventario = inv
+                break
+    else:
+        # cerco l'inventario tra quelli PC
+        for inv in lista_inv_pc:
+            if inv.id_proprietario == pg_turno_corrente.id:
+                inventario = inv
+                break
+    # controllo finale
     if inventario is None:
         logging.error(f"Inventario non trovato per il personaggio {pg_turno_corrente.nome}")
         return None
-
-    # serializzo l'inventario
-    inventario_serializzato = schema_inv.dump(inventario)
-    return inventario_serializzato
+    return inventario
 
 
-def usa_inventario(pg_turno_corrente: Personaggio, missione: Missione):
-    if pg_turno_corrente.npc:
-        # cerco l'inventario del pg corrente
-        invent = None
-        inventario = carica_inventario_da_json()
-        for inv in inventario:
-            if inv.id_proprietario == pg_turno_corrente.id:
-                invent = inv
-        if invent is None:
-            logging.error(f"Inventario non trovato per il personaggio {pg_turno_corrente.nome}")
-            return None
+def mostra_inventario(inventario: Inventario):
+    lista_oggetti = [
+        {
+            'nome': oggetto.nome
+        } for oggetto in inventario.oggetti
+    ]
+    return jsonify(lista_oggetti)
+
+
+def usa_inventario(
+    inventario: Inventario,
+    pg: Personaggio,
+    ambiente: Ambiente,
+    nome_oggetto: str,
+    bersaglio: Personaggio = None
+):
+
+    txt1 = f"{pg.nome} usa {nome_oggetto} su {bersaglio.nome}"
+
+    if bersaglio is None:
+        bersaglio = pg  # Se non specificato, usa il personaggio stesso
+        txt1 = f"{pg.nome} usa {nome_oggetto} su se stesso"
+
+    tipo_oggetto = None
+    for obj in inventario.oggetti:
+        if obj.nome == nome_oggetto:
+            tipo_oggetto = obj.tipo_oggetto
+            break
+
+    risultato = inventario.usa_oggetto(nome_oggetto, ambiente)
+    if risultato is not None:
+        if tipo_oggetto == "Ristorativo":
+            bersaglio.salute += risultato
+            if bersaglio.salute > bersaglio.salute_max:
+                bersaglio.salute = bersaglio.salute_max
+                txt = f"{txt1}, che torna al massimo della salute."
+            else:
+                txt = f"{txt1}, recuperando {risultato} HP."
+        elif tipo_oggetto == "Offensivo":
+            risultato = risultato # Il danno è negativo per l'oggetto offensivo
+            bersaglio.salute += risultato
+            txt = f"{txt1}, infliggendo {-risultato} HP di danno."
+        elif tipo_oggetto == "Buff":
+            bersaglio.attacco_max += risultato
+            txt = f"{txt1}, incrementando l'attacco massimo di {risultato}."
+        else:
+            txt = f"{txt1}, ma non ha effetto."
     else:
-        inventario = carica_inventario_da_json()
-        for inv in inventario:
-            if inv.id_proprietario == pg_turno_corrente.id:
-                return inv
-
-    return None
+        txt = f"{pg.nome} non ha l'oggetto {nome_oggetto} nell'inventario."
+    logger.info(txt)
+    return risultato, txt
