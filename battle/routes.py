@@ -250,3 +250,60 @@ def auto_battle():
         vittoria=vittoria,
         messaggi=save_data['messaggi_battaglia']
     )
+    
+# in ingresso lista di tutti i personaggi, e  sommo iniziativa + d20, ordino in base a qst, mettendo gli id
+def ordine_iniziativa(tutti_personaggi):
+    """
+    Calcola l'iniziativa per ogni personaggio sommando il valore di iniziativa al tiro di un d20.
+    Ritorna una lista ordinata di ID in base all'iniziativa decrescente.
+    
+    Args:
+        personaggi (list): Lista di oggetti `Personaggio`.
+
+    Returns:
+        list: Lista ordinata di ID in base al punteggio iniziativa.
+    """
+    iniziativa = []
+    for pg in tutti_personaggi:
+        tiro = random.randint(1, 20)
+        iniziativa.append((pg.id, pg.iniziativa + tiro)) 
+    # Ordino per l'elemento 1 della tupla decrescente
+    iniziativa.sort(key=lambda tuple: tuple[1], reverse=True)
+
+    lista_ordinata_id = []
+    for tupla in iniziativa:
+        id = tupla[0]
+        lista_ordinata_id.append(id)
+    return lista_ordinata_id
+
+
+@battle_bp.route('/test_iniziativa')
+def test_iniziativa():
+    class Fakepg:
+        def __init__(self, id, nome, iniziativa):
+            self.id = id
+            self.nome = nome
+            self.iniziativa = iniziativa
+
+    personaggi = [
+        Fakepg(1, "Acqua", 10),
+        Fakepg(2, "Metano", 15),
+        Fakepg(3, "Uranio", 5),
+    ]
+
+    iniziativa = []
+    for pg in personaggi:
+        tiro = random.randint(1, 20)
+        iniziativa.append((pg.id, pg.iniziativa + tiro)) 
+    # Ordino per l'elemento 1 della tupla decrescente
+    iniziativa.sort(key=lambda tuple: tuple[1], reverse=True)
+
+    return render_template(
+        "test_iniziativa.html",
+        risultati=iniziativa
+    )
+
+
+@battle_bp.route('/TEMPLATE', methods=['GET', 'POST'])
+def test_battle_v2():
+    return render_template("TEMPLATE.html")
