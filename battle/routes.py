@@ -1,4 +1,6 @@
 from flask import redirect, render_template, session, url_for, request, flash, jsonify
+
+from gioco.oggetto import Oggetto
 from . import battle_bp
 import os
 import logging
@@ -195,8 +197,9 @@ def mostra_inventario(inventario: Inventario) -> jsonify:
     """
     lista_oggetti = [
         {
-            'nome': oggetto.nome
-        } for oggetto in inventario.oggetti
+            'nome': oggetto.nome,
+        } for oggetto in inventario.mostra_lista_inventario()
+        if isinstance(oggetto, Oggetto)
     ]
     return jsonify(lista_oggetti)
 
