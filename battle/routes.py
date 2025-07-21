@@ -1,6 +1,7 @@
 from flask import redirect, render_template, session, url_for, request, flash, jsonify
 
 from gioco.oggetto import Oggetto
+from gioco.strategy import Strategia
 from . import battle_bp
 import os
 import logging
@@ -265,3 +266,58 @@ def usa_inventario(
         txt = f"{pg.nome} non ha l'oggetto {nome_oggetto} nell'inventario."
     logger.info(txt)
     return risultato, txt
+
+
+def usa_inventario_automatico(
+    inventario: Inventario,
+    pg: Personaggio,
+    missione: Missione,
+    bersagli: list[Personaggio],
+    strategia: Strategia = None
+) -> tuple[int | None, str]:
+    """
+    Utilizza un oggetto dall'inventario in modo automatico.
+
+    Args:
+        inventario (Inventario): L'inventario da cui utilizzare l'oggetto.
+        pg (Personaggio): Il personaggio che utilizza l'oggetto.
+        ambiente (Ambiente): L'ambiente in cui si trova il personaggio.
+        bersagli (list[Personaggio]): I bersagli dell'effetto dell'oggetto.
+
+    Returns:
+        tuple[int | None, str]:
+        Il risultato dell'uso dell'oggetto e un messaggio descrittivo.
+    """
+    ambiente = missione.ambiente
+
+    if strategia is None:
+        strategia = missione.strategia_nemici
+
+    bersagli = [
+        bersaglio for bersaglio in bersagli
+        if bersaglio.salute > 0
+        and bersaglio != pg
+        and bersaglio.npc != pg.npc
+    ]
+
+    value = strategia.uso_inventario_npc(pg.salute, inventario, ambiente)
+
+    if value is not None:
+        if value < 0:
+            # Se il valore è negativo, significa che l'oggetto è offensivo
+            bersaglio = random.choice(bersagli)
+            txt = f"{pg.nome} usa Bomba Acida su {bersaglio.nome} infliggendo {-value} HP di danno"
+            bersaglio.salute += value
+        if value > 0:
+            bersaglio = None
+            txt = f"{pg.nome} usa Pozione Curativa su se stesso"
+            pg.salute += value
+            if pg.salute >= pg.salute_max:
+                pg.salute = pg.salute_max
+                txt += ", che torna al massimo della salute."
+            else:
+                txt += f", recuperando {value} HP."
+        logger.info(txt)
+        return value, txt
+
+    return None, "Nessun oggetto disponibile nell'inventario."
