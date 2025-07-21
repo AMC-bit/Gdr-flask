@@ -150,12 +150,6 @@ def setup_battle():
     return missione_obj, personaggi_selezionati_obj, inventari_pg_obj
 
 
-
-
-
-
-
-
 @battle_bp.route('/auto_battle', methods=['GET'])
 def auto_battle():
     # --- SETUP DATI ---

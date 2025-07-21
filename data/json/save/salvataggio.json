@@ -15,12 +15,15 @@
                 "nome": "Pdor",
                 "npc": true,
                 "salute_max": 30,
-                "salute": 30,
+                "salute": 25,
                 "attacco_min": 4,
                 "attacco_max": 8,
                 "livello": 1,
                 "destrezza": 1,
-                "storico_danni_subiti": []
+                "iniziativa": 15,
+                "storico_danni_subiti": [
+                    0
+                ]
             },
             {
                 "classe": "Guerriero",
@@ -28,12 +31,15 @@
                 "nome": "Blaine",
                 "npc": true,
                 "salute_max": 180,
-                "salute": 180,
+                "salute": 170,
                 "attacco_min": 40,
                 "attacco_max": 120,
                 "livello": 1,
                 "destrezza": 25,
-                "storico_danni_subiti": []
+                "iniziativa": 20,
+                "storico_danni_subiti": [
+                    0
+                ]
             }
         ],
         "inventari_nemici": [
@@ -85,8 +91,8 @@
     "personaggi_selezionati": [
         {
             "classe": "Mago",
-            "id": "0b96620c-2c90-4b53-b076-9781dd3103f2",
-            "nome": "defefef",
+            "id": "59ac19e8-c2a1-4a90-b176-615bd47854ee",
+            "nome": "gg",
             "npc": false,
             "salute_max": 80,
             "salute": 0,
@@ -94,32 +100,51 @@
             "attacco_max": 90,
             "livello": 1,
             "destrezza": 15,
+            "iniziativa": 15,
+            "storico_danni_subiti": []
+        },
+        {
+            "classe": "Guerriero",
+            "id": "6c16f177-49bb-418a-acbf-2d169699538e",
+            "nome": "belin",
+            "npc": false,
+            "salute_max": 130,
+            "salute": 130,
+            "attacco_min": 20,
+            "attacco_max": 100,
+            "livello": 1,
+            "destrezza": 15,
+            "iniziativa": 20,
+            "storico_danni_subiti": []
+        },
+        {
+            "classe": "Ladro",
+            "id": "c2e941a9-cd35-4b4b-a6f8-b369a8c90896",
+            "nome": "drfg",
+            "npc": false,
+            "salute_max": 120,
+            "salute": 22,
+            "attacco_min": 10,
+            "attacco_max": 85,
+            "livello": 1,
+            "destrezza": 15,
+            "iniziativa": 25,
             "storico_danni_subiti": [
-                79,
-                0,
-                53
+                98
             ]
         }
     ],
-    "indice_turno_corrente": 0,
-    "turno": 5,
     "ordine_turni": [
+        4,
+        1,
+        2,
         0,
-        2
+        3
     ],
+    "indice_turno_corrente": 3,
     "messaggi_battaglia": [
-        "Turno 1 - \u00e8 il turno di defefef!",
-        "defefef attacca Blaine per 0 danni!",
-        "Turno 2 - \u00e8 il turno di Blaine!",
-        "Blaine attacca defefef per 79 danni!",
-        "Turno 3 - \u00e8 il turno di Pdor!",
-        "Pdor attacca defefef per 0 danni!",
-        "Turno 4 - \u00e8 il turno di defefef!",
-        "defefef attacca Pdor per 70 danni!",
-        "Pdor \u00e8 stato sconfitto!",
-        "Turno 5 - \u00e8 il turno di Blaine!",
-        "Blaine attacca defefef per 53 danni!",
-        "defefef \u00e8 stato sconfitto!",
-        "Tutti i personaggi sono stati sconfitti!"
+        "Blaine attacca drfg per 98 danni!",
+        "belin attacca Blaine per 0 danni!",
+        "drfg attacca Pdor per 0 danni!"
     ]
 }

@@ -29,6 +29,7 @@ class Personaggio():
     storico_danni_subiti: list[int] = field(default_factory=list)
     livello: int = 1
     destrezza: int = 15
+    iniziativa: int = 0
     classe: str = ""
     """
         in una @dataclass i campi possono avere un dato di default oppure
