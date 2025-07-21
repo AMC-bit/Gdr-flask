@@ -205,8 +205,11 @@ def auto_battle():
 
         # tentativo di usare la l'inventario im maniera automatica
         pg = personaggio_turno_corrente
+        inventari = []
+        inventari.extend(setup[2])
+        inventari.extend(missione_obj.inventari_nemici)
         inventario = None
-        for inv in setup[2]:
+        for inv in inventari:
             if isinstance(inv, Inventario) and inv.id_proprietario == pg.id:
                 inventario = inv
                 break
