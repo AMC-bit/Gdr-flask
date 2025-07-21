@@ -35,6 +35,36 @@
             "storico_danni_subiti": []
         }
     ],
+    "inventari_nemici":[
+        {
+            "id": "e373a5eb-244f-4cda-832b-04e3fdfdfcc1",
+            "id_proprietario": "866f1744-8a23-438d-927b-8743dc8c52e8",
+            "oggetti": [
+                {
+                    "id": "aef17f9f-f158-4308-bc11-786b6818b19e",
+                    "nome": "Bomba Acida",
+                    "usato": false,
+                    "valore": 30,
+                    "tipo_oggetto": "Offensivo",
+                    "classe": "BombaAcida"
+                }
+            ]
+        },
+        {
+            "id": "6ab8ce89-0a16-4953-a9f5-cd0892a6bd96",
+            "id_proprietario": "b2c1f3d8-4e5a-4f9b-8c0d-6f7e8a9b0c8d",
+            "oggetti": [
+                {
+                    "id": "8f0f45be-bc36-463c-913c-c1c314b029b4",
+                    "nome": "Bomba Acida",
+                    "usato": false,
+                    "valore": 30,
+                    "tipo_oggetto": "Offensivo",
+                    "classe": "BombaAcida"
+                }
+            ]
+        }
+    ],
     "premi": [
         {
             "id": "7e2b1c8a-2e3d-4b7a-9e2a-1c3f4b5d6e8f",

@@ -1,5 +1,5 @@
 {
-    "id": "d0be82c8-fe52-41ab-8fc3-7548c68b422a",
+    "id": "292c816f-3e3f-4c79-9f4a-4ea4dbe0e2d1",
     "nome": "Imboscata",
     "ambiente": {
             "classe": "Foresta",
@@ -10,7 +10,7 @@
     "nemici": [
         {
             "classe": "Guerriero",
-            "id": "866f1744-8a23-438d-927b-8743dc8c52e7",
+            "id": "8c1dfb36-6eae-4c7d-a6f9-2f0b9e8edc96",
             "nome": "Robin Hood",
             "npc": true,
             "salute_max": 130,
@@ -23,7 +23,7 @@
         },
         {
             "classe": "Guerriero",
-            "id": "b2c1f3d8-4e5a-4f9b-8c0d-6f7e8a9b0c1d",
+            "id": "5d9db649-b9a7-43f2-aec4-b65a372645fc",
             "nome": "Little John",
             "npc": true,
             "salute_max": 130,
@@ -33,6 +33,36 @@
             "livello": 1,
             "destrezza": 15,
             "storico_danni_subiti": []
+        }
+    ],
+    "inventari_nemici":[
+        {
+            "id": "9c37ce4b-016f-4c2d-a42e-8136ae988f4c",
+            "id_proprietario": "8c1dfb36-6eae-4c7d-a6f9-2f0b9e8edc96",
+            "oggetti": [
+                {
+                    "id": "aef17f9f-f158-4308-bc11-786b6818b19e",
+                    "nome": "Bomba Acida",
+                    "usato": false,
+                    "valore": 30,
+                    "tipo_oggetto": "Offensivo",
+                    "classe": "BombaAcida"
+                }
+            ]
+        },
+        {
+            "id": "90d9d1a6-2fc8-4550-9e3f-c038fe0114f4",
+            "id_proprietario": "5d9db649-b9a7-43f2-aec4-b65a372645fc",
+            "oggetti": [
+                {
+                    "id": "8f0f45be-bc36-463c-913c-c1c314b029b4",
+                    "nome": "Bomba Acida",
+                    "usato": false,
+                    "valore": 30,
+                    "tipo_oggetto": "Offensivo",
+                    "classe": "BombaAcida"
+                }
+            ]
         }
     ],
     "premi": [
