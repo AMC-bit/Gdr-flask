@@ -15,14 +15,12 @@
                 "nome": "Pdor",
                 "npc": true,
                 "salute_max": 30,
-                "salute": 0,
+                "salute": 30,
                 "attacco_min": 4,
                 "attacco_max": 8,
                 "livello": 1,
                 "destrezza": 1,
-                "storico_danni_subiti": [
-                    100
-                ]
+                "storico_danni_subiti": []
             },
             {
                 "classe": "Guerriero",
@@ -30,15 +28,12 @@
                 "nome": "Blaine",
                 "npc": true,
                 "salute_max": 180,
-                "salute": 122,
+                "salute": 180,
                 "attacco_min": 40,
                 "attacco_max": 120,
                 "livello": 1,
                 "destrezza": 25,
-                "storico_danni_subiti": [
-                    58,
-                    0
-                ]
+                "storico_danni_subiti": []
             }
         ],
         "inventari_nemici": [
@@ -100,60 +95,31 @@
             "livello": 1,
             "destrezza": 15,
             "storico_danni_subiti": [
-                113
-            ]
-        },
-        {
-            "classe": "Mago",
-            "id": "38ab2f2e-a6f2-44e5-b8aa-792bcfea3edd",
-            "nome": "maxim",
-            "npc": false,
-            "salute_max": 80,
-            "salute": 15,
-            "attacco_min": 0,
-            "attacco_max": 90,
-            "livello": 1,
-            "destrezza": 15,
-            "storico_danni_subiti": [
+                79,
                 0,
-                65
+                53
             ]
-        },
-        {
-            "classe": "Mago",
-            "id": "99e3fcd4-4ccd-4a3a-8d06-65f92bfc7e7d",
-            "nome": "kebab",
-            "npc": false,
-            "salute_max": 80,
-            "salute": 80,
-            "attacco_min": 0,
-            "attacco_max": 90,
-            "livello": 1,
-            "destrezza": 15,
-            "storico_danni_subiti": []
         }
     ],
-    "indice_turno_corrente": 2,
-    "turno": 17,
+    "indice_turno_corrente": 0,
+    "turno": 5,
     "ordine_turni": [
-        4,
-        2,
-        1
+        0,
+        2
     ],
     "messaggi_battaglia": [
-        "Turno 12 - \u00e8 il turno di Pdor!",
-        "Pdor attacca maxim per 0 danni!",
-        "Turno 13 - \u00e8 il turno di Blaine!",
-        "Blaine attacca defefef per 113 danni!",
-        "defefef \u00e8 stato sconfitto!",
-        "Turno 14 - \u00e8 il turno di kebab!",
-        "kebab attacca Blaine per 58 danni!",
-        "Turno 15 - \u00e8 il turno di maxim!",
-        "maxim attacca Pdor per 100 danni!",
+        "Turno 1 - \u00e8 il turno di defefef!",
+        "defefef attacca Blaine per 0 danni!",
+        "Turno 2 - \u00e8 il turno di Blaine!",
+        "Blaine attacca defefef per 79 danni!",
+        "Turno 3 - \u00e8 il turno di Pdor!",
+        "Pdor attacca defefef per 0 danni!",
+        "Turno 4 - \u00e8 il turno di defefef!",
+        "defefef attacca Pdor per 70 danni!",
         "Pdor \u00e8 stato sconfitto!",
-        "Turno 16 - \u00e8 il turno di Blaine!",
-        "Blaine attacca maxim per 65 danni!",
-        "Turno 17 - \u00e8 il turno di kebab!",
-        "kebab attacca Blaine per 0 danni!"
+        "Turno 5 - \u00e8 il turno di Blaine!",
+        "Blaine attacca defefef per 53 danni!",
+        "defefef \u00e8 stato sconfitto!",
+        "Tutti i personaggi sono stati sconfitti!"
     ]
 }

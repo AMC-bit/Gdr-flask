@@ -86,19 +86,31 @@
     </div>
 {% if battaglia_finita %}
     <div class="row">
-        <div class="col-12 text-center mb-4">
+        <div class="col-12 text-center my-4">
             {% if vittoria %}
-                <h1 class="h1">Vittoria</h1>
+                <h1 class="h1">
+                <i class="bi bi-emoji-sunglasses-fill"></i>
+                Vittoria
+                <i class="bi bi-emoji-sunglasses-fill"></i>
+                </h1>
             {% else %}
-                <h1 class="h1">Sconfitta</h1>
+                <h1 class="h1">
+                <i class="bi bi-emoji-dizzy-fill"></i>
+                Sconfitta
+                <i class="bi bi-emoji-dizzy-fill"></i>
+                </h1>
             {% endif %}
         </div>
     </div>
 {% else %}
 <meta http-equiv="refresh" content="2">
-<div class="row">
+<div class="col-12 text-center my-4">
     <div class="col-12 text-center mb-4">
-        <h3 class="h3">Battaglia in corso</h3>
+        <h3 class="h3">
+        <i class="bi bi-question-circle"></i>
+        Battaglia in corso
+        <i class="bi bi-question-circle"></i>
+        </h3>
     </div>
 </div>
 {% endif %}
