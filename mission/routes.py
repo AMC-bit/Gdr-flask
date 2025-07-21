@@ -104,7 +104,7 @@ def select_mission():
             return redirect(url_for('mission.show_mission'))
         else:
             msg = 'Missione non trovata.'
-            flash(msg, 'error')
+            flash(msg, 'danger')
             logger.info(msg)
     return render_template('select_mission.html', missioni = missioni )
 
@@ -120,7 +120,7 @@ def show_mission():
 
     if not missione_data:
         msg = 'Nessuna missione selezionata.'
-        flash(msg, 'error')
+        flash(msg, 'danger')
         logger.error(msg)
         return redirect(url_for('mission.select_mission'))
 
