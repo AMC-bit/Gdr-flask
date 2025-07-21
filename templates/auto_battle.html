@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Messaggi Battaglia</h2>
+<ul>
+  {% for msg in messaggi %}
+    <li>{{ msg }}</li>
+  {% endfor %}
+</ul>
+
+{% if battaglia_finita %}
+  <h3>
+    {% if vittoria %} 
+        Vittoria 
+    {% else %} 
+        Sconfitta
+    {% endif %}</h3>
+{% else %}
+  <meta http-equiv="refresh" content="4">
+  <p>La battaglia è in corso...</p>
+{% endif %}
+{% endblock %}
