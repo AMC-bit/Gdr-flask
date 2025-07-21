@@ -150,6 +150,9 @@ def test_battle():
     if not battaglia_finita:
         ordine_turni = [idx for idx in ordine_turni if not tutti_personaggi[idx].sconfitto()]
         save_data['ordine_turni'] = ordine_turni
+        if indice_turno >= len(ordine_turni):
+            indice_turno = 0
+            save_data['indice_turno_corrente'] = indice_turno
         personaggio_turno_corrente = tutti_personaggi[ordine_turni[indice_turno]]
 
         if personaggio_turno_corrente.npc:
@@ -170,7 +173,7 @@ def test_battle():
         save_data['personaggi_selezionati'] = PersonaggioSchema(many=True).dump(personaggi_selezionati_obj)
         missione_obj.nemici = nemici_obj
         save_data['missione'] = MissioniSchema().dump(missione_obj)
-
+    
         save_data['indice_turno_corrente'] = (indice_turno + 1) % len(ordine_turni)
         Json.scrivi_dati(path_save, save_data)
         pc_vivi = [p for p in personaggi_selezionati_obj if not p.sconfitto()]
