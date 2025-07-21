@@ -23,6 +23,13 @@
                     {% for pg in personaggi %}
                         <li class="list-group-item">
                             <h6>{{ pg.nome }}</h6>
+                            <p>
+                            {% if pg.sconfitto() %}
+                            Morto
+                            {% else %}
+                            Vivo
+                            {% endif %}
+                            </p>
                             <p class="mb-1">Attacco: {{ pg.attacco_min }} - {{ pg.attacco_max }}</p>
                         </li>
                     {% else %}
@@ -65,6 +72,13 @@
                     {% for n in nemici %}
                         <li class="list-group-item">
                             <h6>{{ n.nome }}</h6>
+                            <p>
+                            {% if n.sconfitto() %}
+                            Morto
+                            {% else %}
+                            Vivo
+                            {% endif %}
+                            </p>
                             <p class="mb-1">Attacco: {{ n.attacco_min }} - {{ n.attacco_max }}</p>
                         </li>
                     {% else %}

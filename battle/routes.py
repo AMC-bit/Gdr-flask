@@ -156,19 +156,23 @@ def battle():
         Guerriero(nome="Mimu"),
         Ladro(nome="Pupu")]
 
-    log_battaglia = [
-        f"Evento {i}: {random.choice([
+    log_battaglia = []
+
+    for i in range(1, 101):
+        azione = random.choice([
             'Colpo critico',
             'Parata',
             'Magia',
             'Fendente'
-            ])}"
-        f" di {random.choice(personaggi + nemici).nome}."
-        for i in range(1, 21)
-        ]
+        ])
+        personaggio = random.choice(personaggi + nemici).nome
+
+        # costruisci la stringa e la aggiungi alla lista
+        messaggio = f"Evento {i}: {azione} di {personaggio}."
+        log_battaglia.append(messaggio)
 
     missione = Missione(
-        nome="Assalto alla Palude",
+        nome="Missione di prova",
         nemici=nemici
     )
 
