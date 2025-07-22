@@ -1,56 +1,64 @@
 {
     "missione": {
-        "id": "292c816f-3e3f-4c79-9f4a-4ea4dbe0e2d1",
-        "nome": "Imboscata",
+        "id": "e62e1f84-878b-4d2f-870f-9797bb3d60fc",
+        "nome": "Sconfiggi lo slime non morto",
         "ambiente": {
-            "nome": "Foresta",
-            "mod_attacco": 5,
-            "mod_cura": 5.5,
-            "classe": "Foresta"
+            "nome": "Palude",
+            "mod_attacco": -5,
+            "mod_cura": -0.1,
+            "classe": "Palude"
         },
         "nemici": [
             {
                 "classe": "Guerriero",
-                "id": "8c1dfb36-6eae-4c7d-a6f9-2f0b9e8edc96",
-                "nome": "Robin Hood",
+                "id": "5c9f6e63-87a1-4c9a-9257-b2044a54d518",
+                "nome": "Scheletrino",
                 "npc": true,
-                "salute_max": 130,
+                "salute_max": 60,
                 "salute": 0,
-                "attacco_min": 20,
-                "attacco_max": 100,
+                "attacco_min": 40,
+                "attacco_max": 120,
                 "livello": 1,
-                "destrezza": 15,
+                "destrezza": 20,
                 "iniziativa": 20,
                 "storico_danni_subiti": [
-                    69,
-                    63
+                    25,
+                    51
                 ]
             },
             {
-                "classe": "Guerriero",
-                "id": "5d9db649-b9a7-43f2-aec4-b65a372645fc",
-                "nome": "Little John",
+                "classe": "Ladro",
+                "id": "c9b8414e-9fae-4eb7-a2ea-3cfb77677185",
+                "nome": "Slime non morto",
                 "npc": true,
-                "salute_max": 130,
-                "salute": -8,
-                "attacco_min": 20,
-                "attacco_max": 100,
+                "salute_max": 260,
+                "salute": 0,
+                "attacco_min": 5,
+                "attacco_max": 35,
                 "livello": 1,
-                "destrezza": 15,
-                "iniziativa": 20,
+                "destrezza": 10,
+                "iniziativa": 25,
                 "storico_danni_subiti": [
-                    45,
-                    63
+                    0,
+                    20,
+                    0,
+                    20,
+                    0,
+                    74,
+                    0,
+                    19,
+                    83,
+                    47
                 ]
             }
         ],
         "inventari_nemici": [
             {
-                "id": "9c37ce4b-016f-4c2d-a42e-8136ae988f4c",
-                "id_proprietario": "8c1dfb36-6eae-4c7d-a6f9-2f0b9e8edc96",
+                "id": "74d202f2-20cd-4f41-849c-3c2692bbca30",
+                "id_proprietario": "5c9f6e63-87a1-4c9a-9257-b2044a54d518",
                 "oggetti": [
                     {
-                        "id": "aef17f9f-f158-4308-bc11-786b6818b19e",
+                        "id": "782bc69f-8b9c-4372-8ab2-88e8d27bbdf4",
                         "nome": "Bomba Acida",
                         "usato": false,
                         "valore": 30,
@@ -60,22 +68,23 @@
                 ]
             },
             {
-                "id": "90d9d1a6-2fc8-4550-9e3f-c038fe0114f4",
-                "id_proprietario": "5d9db649-b9a7-43f2-aec4-b65a372645fc",
-                "oggetti": []
+                "id": "cb6aebef-1fc4-48a5-9975-e0b1f9fd1934",
+                "id_proprietario": "c9b8414e-9fae-4eb7-a2ea-3cfb77677185",
+                "oggetti": [
+                    {
+                        "id": "009a6c6e-5887-4a08-af10-41fd02cc9edf",
+                        "nome": "Bomba Acida",
+                        "usato": false,
+                        "valore": 30,
+                        "tipo_oggetto": "Offensivo",
+                        "classe": "BombaAcida"
+                    }
+                ]
             }
         ],
         "premi": [
             {
                 "id": "7e2b1c8a-2e3d-4b7a-9e2a-1c3f4b5d6e7f",
-                "nome": "Pozione Rossa",
-                "usato": false,
-                "valore": 30,
-                "tipo_oggetto": "Ristorativo",
-                "classe": "PozioneCura"
-            },
-            {
-                "id": "2a4c5e6f-7b8d-4c9e-8f1a-2b3c4d5e6f7a",
                 "nome": "Pozione Rossa",
                 "usato": false,
                 "valore": 30,
@@ -92,7 +101,7 @@
             }
         ],
         "strategia_nemici": {
-            "nome": "Equilibrata"
+            "nome": "Difensiva"
         },
         "completata": false,
         "attiva": false
@@ -104,14 +113,14 @@
             "nome": "CherryBomb",
             "npc": false,
             "salute_max": 120,
-            "salute": 45,
+            "salute": 120,
             "attacco_min": 10,
             "attacco_max": 85,
             "livello": 1,
             "destrezza": 15,
             "iniziativa": 25,
             "storico_danni_subiti": [
-                45
+                0
             ]
         },
         {
@@ -120,14 +129,15 @@
             "nome": "Alastor",
             "npc": false,
             "salute_max": 80,
-            "salute": 23,
+            "salute": 71,
             "attacco_min": 0,
             "attacco_max": 90,
             "livello": 1,
             "destrezza": 15,
             "iniziativa": 15,
             "storico_danni_subiti": [
-                57
+                9,
+                0
             ]
         },
         {
@@ -136,50 +146,75 @@
             "nome": "Carmilla",
             "npc": false,
             "salute_max": 130,
-            "salute": 45,
+            "salute": 109,
             "attacco_min": 20,
             "attacco_max": 100,
             "livello": 1,
             "destrezza": 15,
             "iniziativa": 20,
             "storico_danni_subiti": [
-                85
+                21
             ]
         }
     ],
     "ordine_turni": [
-        "c93b0b9d-86c6-4609-8b30-4913044641a9",
-        "5d9db649-b9a7-43f2-aec4-b65a372645fc",
+        "c5dea147-e1bb-4eff-b295-7496d2708da4",
         "d7c8fd4a-1c42-49cd-877f-ea3a3dbed548",
-        "c5dea147-e1bb-4eff-b295-7496d2708da4"
+        "c93b0b9d-86c6-4609-8b30-4913044641a9"
     ],
-    "turno": 8,
-    "indice_turno_corrente": 3,
+    "turno": 16,
+    "indice_turno_corrente": 1,
     "messaggi_battaglia": [
-        "Turno 1 - \u00e8 il turno di Alastor!",
-        "Alastor non utilizza oggetti in questo turno",
-        "Alastor attacca Little John per 45 danni!",
-        "Turno 2 - \u00e8 il turno di Robin Hood!",
-        "Robin Hood non utilizza oggetti in questo turno",
-        "Robin Hood attacca CherryBomb per 45 danni!",
-        "Turno 3 - \u00e8 il turno di Little John!",
-        "Little John usa Bomba Acida su CherryBomb infliggendo 30 HP di danno",
-        "Little John attacca Alastor per 57 danni!",
-        "Turno 4 - \u00e8 il turno di Carmilla!",
+        "Turno 1 - \u00e8 il turno di Slime non morto!",
+        "Slime non morto non utilizza oggetti in questo turno",
+        "Slime non morto tenta di attaccare ma fallisce!",
+        "Turno 2 - \u00e8 il turno di CherryBomb!",
+        "CherryBomb non utilizza oggetti in questo turno",
+        "CherryBomb colpisce furtivamente infliggendo 25 danni!",
+        "Turno 3 - \u00e8 il turno di Carmilla!",
         "Carmilla non utilizza oggetti in questo turno",
-        "Carmilla attacca Little John per 63 danni!",
-        "Turno 5 - \u00e8 il turno di CherryBomb!",
-        "CherryBomb usa Bomba Acida su Robin Hood infliggendo 30 HP di danno",
-        "CherryBomb attacca Robin Hood per 69 danni!",
-        "Turno 6 - \u00e8 il turno di Alastor!",
+        "Carmilla colpisce con la spada infliggendo 51 danni!",
+        "Scheletrino \u00e8 stato sconfitto!",
+        "Turno 4 - \u00e8 il turno di Alastor!",
         "Alastor non utilizza oggetti in questo turno",
-        "Alastor attacca Robin Hood per 63 danni!",
-        "Robin Hood \u00e8 stato sconfitto!",
-        "Turno 7 - \u00e8 il turno di Little John!",
-        "Little John non utilizza oggetti in questo turno",
-        "Little John attacca Carmilla per 85 danni!",
-        "Turno 8 - \u00e8 il turno di Carmilla!",
-        "Carmilla usa Bomba Acida su Little John infliggendo 30 HP di danno",
+        "Alastor tenta di attaccare ma fallisce!",
+        "Turno 5 - \u00e8 il turno di Slime non morto!",
+        "Slime non morto non utilizza oggetti in questo turno",
+        "Slime non morto colpisce furtivamente infliggendo 21 danni!",
+        "Turno 6 - \u00e8 il turno di CherryBomb!",
+        "CherryBomb non utilizza oggetti in questo turno",
+        "CherryBomb colpisce furtivamente infliggendo 20 danni!",
+        "Turno 7 - \u00e8 il turno di Carmilla!",
+        "Carmilla non utilizza oggetti in questo turno",
+        "Carmilla tenta di attaccare ma fallisce!",
+        "Turno 8 - \u00e8 il turno di Alastor!",
+        "Alastor non utilizza oggetti in questo turno",
+        "Alastor lancia un incantesimo infliggendo 20 danni!",
+        "Turno 9 - \u00e8 il turno di Slime non morto!",
+        "Slime non morto non utilizza oggetti in questo turno",
+        "Slime non morto colpisce furtivamente infliggendo 9 danni!",
+        "Turno 10 - \u00e8 il turno di CherryBomb!",
+        "CherryBomb non utilizza oggetti in questo turno",
+        "CherryBomb tenta di attaccare ma fallisce!",
+        "Turno 11 - \u00e8 il turno di Carmilla!",
+        "Carmilla non utilizza oggetti in questo turno",
+        "Carmilla colpisce con la spada infliggendo 74 danni!",
+        "Turno 12 - \u00e8 il turno di Alastor!",
+        "Alastor non utilizza oggetti in questo turno",
+        "Alastor tenta di attaccare ma fallisce!",
+        "Turno 13 - \u00e8 il turno di Slime non morto!",
+        "Slime non morto non utilizza oggetti in questo turno",
+        "Slime non morto tenta di attaccare ma fallisce!",
+        "Turno 14 - \u00e8 il turno di CherryBomb!",
+        "CherryBomb non utilizza oggetti in questo turno",
+        "CherryBomb colpisce furtivamente infliggendo 19 danni!",
+        "Turno 15 - \u00e8 il turno di Carmilla!",
+        "Carmilla non utilizza oggetti in questo turno",
+        "Carmilla colpisce con la spada infliggendo 83 danni!",
+        "Turno 16 - \u00e8 il turno di Alastor!",
+        "Alastor non utilizza oggetti in questo turno",
+        "Alastor lancia un incantesimo infliggendo 47 danni!",
+        "Slime non morto \u00e8 stato sconfitto!",
         "Tutti i nemici sono stati sconfitti! Vittoria!"
     ]
 }

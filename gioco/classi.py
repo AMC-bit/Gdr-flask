@@ -124,7 +124,7 @@ class Guerriero(Personaggio):
             msg = f"{self.nome} tenta di attaccare ma fallisce!"
         logger.info(msg)
         print(msg)
-        return danno
+        return danno, msg
 
     def recupera_salute(self, mod_ambiente: int = 0) -> str:
         """
