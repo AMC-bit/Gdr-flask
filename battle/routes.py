@@ -170,7 +170,7 @@ def auto_battle():
     # Inizializza messaggi e ordine turni se non presenti
 
     if 'ordine_turni' not in save_data:
-        ordine_turni = list(range(len(tutti_personaggi)))
+        ordine_turni = ordine_iniziativa(tutti_personaggi)
         random.shuffle(ordine_turni)
         save_data['ordine_turni'] = ordine_turni
     if 'turno' not in save_data:
@@ -180,8 +180,8 @@ def auto_battle():
 
     if 'messaggi_battaglia' not in save_data:
         save_data['messaggi_battaglia'] = []
-
-    ordine_turni = ordine_iniziativa(tutti_personaggi)
+    
+    ordine_turni = save_data['ordine_turni']
     indice_turno = save_data['indice_turno_corrente']
     
     battaglia_finita = False
@@ -206,7 +206,7 @@ def auto_battle():
             save_data['indice_turno_corrente'] = indice_turno
         personaggio_turno_corrente = None
         for p in tutti_personaggi:
-            if str(p.id) == ordine_turni[indice_turno]:
+            if str(p.id) == ordine_turni[indice_turno] and not p.sconfitto():
                 personaggio_turno_corrente = p
                 break
         print("PG CORRENTE", personaggio_turno_corrente)
@@ -247,6 +247,8 @@ def auto_battle():
                 f"{personaggio_turno_corrente.nome} attacca {bersaglio.nome} per {danno} danni!"
             )
             if bersaglio.sconfitto():
+                # rimuove id dalla ordine turni
+                ordine_turni.remove(str(bersaglio.id))
                 save_data['messaggi_battaglia'].append(f"{bersaglio.nome} è stato sconfitto!")
 
         save_data['personaggi_selezionati'] = PersonaggioSchema(many=True).dump(personaggi_selezionati_obj)
@@ -270,6 +272,7 @@ def auto_battle():
     save_data['missione'] = MissioniSchema().dump(missione_obj)
     Json.scrivi_dati(path_save, save_data)
     # ripristino stato nemici solo per scopo di testing
+    """
     if battaglia_finita:
         for n in nemici_obj:
             n.salute = n.salute_max
@@ -277,6 +280,7 @@ def auto_battle():
         missione_obj.nemici = nemici_obj
         save_data['missione'] = MissioniSchema().dump(missione_obj)
         Json.scrivi_dati(path_save, save_data)
+    """
     return render_template(
         'auto_battle.html',
         battaglia_finita=battaglia_finita,
