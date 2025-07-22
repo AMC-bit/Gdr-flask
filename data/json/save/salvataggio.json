@@ -15,17 +15,13 @@
                 "nome": "Pdor",
                 "npc": true,
                 "salute_max": 30,
-                "salute": 0,
+                "salute": 25,
                 "attacco_min": 4,
                 "attacco_max": 8,
                 "livello": 1,
                 "destrezza": 1,
                 "iniziativa": 15,
-                "storico_danni_subiti": [
-                    11,
-                    0,
-                    78
-                ]
+                "storico_danni_subiti": []
             },
             {
                 "classe": "Guerriero",
@@ -33,32 +29,43 @@
                 "nome": "Blaine",
                 "npc": true,
                 "salute_max": 180,
-                "salute": 0,
+                "salute": 170,
                 "attacco_min": 40,
                 "attacco_max": 120,
                 "livello": 1,
                 "destrezza": 25,
                 "iniziativa": 20,
-                "storico_danni_subiti": [
-                    0,
-                    58,
-                    87,
-                    17,
-                    0,
-                    33
-                ]
+                "storico_danni_subiti": []
             }
         ],
         "inventari_nemici": [
             {
                 "id": "e373a5eb-244f-4cda-832b-04e3fdfdfcc1",
                 "id_proprietario": "866f1744-8a23-438d-927b-8743dc8c52e8",
-                "oggetti": []
+                "oggetti": [
+                    {
+                        "id": "aef17f9f-f158-4308-bc11-786b6818b19e",
+                        "nome": "Bomba Acida",
+                        "usato": false,
+                        "valore": 30,
+                        "tipo_oggetto": "Offensivo",
+                        "classe": "BombaAcida"
+                    }
+                ]
             },
             {
                 "id": "6ab8ce89-0a16-4953-a9f5-cd0892a6bd96",
                 "id_proprietario": "b2c1f3d8-4e5a-4f9b-8c0d-6f7e8a9b0c8d",
-                "oggetti": []
+                "oggetti": [
+                    {
+                        "id": "8f0f45be-bc36-463c-913c-c1c314b029b4",
+                        "nome": "Bomba Acida",
+                        "usato": false,
+                        "valore": 30,
+                        "tipo_oggetto": "Offensivo",
+                        "classe": "BombaAcida"
+                    }
+                ]
             }
         ],
         "premi": [
@@ -76,147 +83,5 @@
         },
         "completata": false,
         "attiva": false
-    },
-    "personaggi_selezionati": [
-        {
-            "classe": "Mago",
-            "id": "0b96620c-2c90-4b53-b076-9781dd3103f2",
-            "nome": "defefef",
-            "npc": false,
-            "salute_max": 80,
-            "salute": 80,
-            "attacco_min": 0,
-            "attacco_max": 90,
-            "livello": 1,
-            "destrezza": 15,
-            "iniziativa": 15,
-            "storico_danni_subiti": []
-        },
-        {
-            "classe": "Mago",
-            "id": "38ab2f2e-a6f2-44e5-b8aa-792bcfea3edd",
-            "nome": "maxim",
-            "npc": false,
-            "salute_max": 80,
-            "salute": 40,
-            "attacco_min": 0,
-            "attacco_max": 90,
-            "livello": 1,
-            "destrezza": 15,
-            "iniziativa": 15,
-            "storico_danni_subiti": []
-        },
-        {
-            "classe": "Mago",
-            "id": "5db05bbe-c96c-4bb6-9a33-93b005190dfb",
-            "nome": "das",
-            "npc": false,
-            "salute_max": 80,
-            "salute": 80,
-            "attacco_min": 0,
-            "attacco_max": 90,
-            "livello": 1,
-            "destrezza": 15,
-            "iniziativa": 15,
-            "storico_danni_subiti": []
-        },
-        {
-            "classe": "Mago",
-            "id": "6e37cba6-ae1c-4797-87c0-234e78b5b95d",
-            "nome": "cececece",
-            "npc": false,
-            "salute_max": 80,
-            "salute": 0,
-            "attacco_min": 0,
-            "attacco_max": 90,
-            "livello": 1,
-            "destrezza": 15,
-            "iniziativa": 15,
-            "storico_danni_subiti": [
-                129
-            ]
-        },
-        {
-            "classe": "Mago",
-            "id": "9732d882-53b0-4510-91f2-f693bc05ac1b",
-            "nome": "ai cinese",
-            "npc": false,
-            "salute_max": 80,
-            "salute": 0,
-            "attacco_min": 0,
-            "attacco_max": 90,
-            "livello": 1,
-            "destrezza": 15,
-            "iniziativa": 15,
-            "storico_danni_subiti": [
-                82
-            ]
-        },
-        {
-            "classe": "Mago",
-            "id": "99e3fcd4-4ccd-4a3a-8d06-65f92bfc7e7d",
-            "nome": "kebab",
-            "npc": false,
-            "salute_max": 80,
-            "salute": 80,
-            "attacco_min": 0,
-            "attacco_max": 90,
-            "livello": 1,
-            "destrezza": 15,
-            "iniziativa": 15,
-            "storico_danni_subiti": []
-        }
-    ],
-    "turno": 11,
-    "indice_turno_corrente": 1,
-    "ordine_turni": [
-        "0b96620c-2c90-4b53-b076-9781dd3103f2",
-        "38ab2f2e-a6f2-44e5-b8aa-792bcfea3edd",
-        "5db05bbe-c96c-4bb6-9a33-93b005190dfb",
-        "99e3fcd4-4ccd-4a3a-8d06-65f92bfc7e7d"
-    ],
-    "messaggi_battaglia": [
-        "Turno 1 - \u00e8 il turno di defefef!",
-        "defefef non utilizza oggetti in questo turno",
-        "defefef attacca Pdor per 11 danni!",
-        "Turno 2 - \u00e8 il turno di maxim!",
-        "maxim non utilizza oggetti in questo turno",
-        "maxim attacca Pdor per 0 danni!",
-        "Turno 3 - \u00e8 il turno di das!",
-        "das non utilizza oggetti in questo turno",
-        "das attacca Pdor per 78 danni!",
-        "Pdor \u00e8 stato sconfitto!",
-        "Turno 4 - \u00e8 il turno di ai cinese!",
-        "ai cinese non utilizza oggetti in questo turno",
-        "ai cinese attacca Blaine per 0 danni!",
-        "Turno 5 - \u00e8 il turno di Blaine!",
-        "Blaine usa Bomba Acida su maxim infliggendo 40 HP di danno",
-        "Blaine attacca ai cinese per 82 danni!",
-        "ai cinese \u00e8 stato sconfitto!",
-        "Turno 6 - \u00e8 il turno di cececece!",
-        "cececece non utilizza oggetti in questo turno",
-        "cececece attacca Blaine per 58 danni!",
-        "Turno 7 - \u00e8 il turno di defefef!",
-        "defefef non utilizza oggetti in questo turno",
-        "defefef attacca Blaine per 87 danni!",
-        "Turno 8 - \u00e8 il turno di maxim!",
-        "maxim non utilizza oggetti in questo turno",
-        "maxim attacca Blaine per 17 danni!",
-        "Turno 9 - \u00e8 il turno di das!",
-        "das non utilizza oggetti in questo turno",
-        "das attacca Blaine per 0 danni!",
-        "Turno 10 - \u00e8 il turno di Blaine!",
-        "Blaine non utilizza oggetti in questo turno",
-        "Blaine attacca cececece per 129 danni!",
-        "cececece \u00e8 stato sconfitto!",
-        "Turno 11 - \u00e8 il turno di kebab!",
-        "kebab non utilizza oggetti in questo turno",
-        "kebab attacca Blaine per 33 danni!",
-        "Blaine \u00e8 stato sconfitto!",
-        "Tutti i nemici sono stati sconfitti! Vittoria!",
-        "Tutti i nemici sono stati sconfitti! Vittoria!",
-        "Tutti i nemici sono stati sconfitti! Vittoria!",
-        "Tutti i nemici sono stati sconfitti! Vittoria!",
-        "Tutti i nemici sono stati sconfitti! Vittoria!"
-    ]
+    }
 }

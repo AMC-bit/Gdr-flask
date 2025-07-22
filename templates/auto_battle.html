@@ -12,30 +12,32 @@
 
         <!-- card personaggi del giocatore -->
         <div class="col-md-3">
-            <div class="card mb-3">
+            <div class="card shadow mb-3">
                 <div class="card-header bg-primary text-white">
                     <h5 class="mb-0 text-center">
                         <i class="bi bi-emoji-smile-fill me-2"></i>
                         Personaggi
                     </h5>
                 </div>
-                <ul class="list-group list-group-flush">
-                    {% for pg in personaggi %}
-                        <li class="list-group-item">
-                            <h6>{{ pg.nome }} {% if pg.sconfitto() %}
-                            <span class="badge bg-danger ms-1">Morto</span>
-                            {% else %}
-                            <span class="badge bg-success ms-1">Vivo</span>
-                            {% endif %}
-                            </h6>
-                            <p class="mb-1">Classe: {{ pg.classe }}</p>
-                            <p class="mb-1">Salute: {{ pg.salute }} / {{ pg.salute_max }}</p>
-                            <p class="mb-1">Attacco: {{ pg.attacco_min }} - {{ pg.attacco_max }}</p>
-                        </li>
-                    {% else %}
-                        <li class="list-group-item">Nessun personaggio presente</li>
-                    {% endfor %}
-                </ul>
+                <div class="text-default" style="max-height: 500px; overflow-y: auto;">
+                    <ul class="list-group list-group-flush">
+                        {% for pg in personaggi %}
+                            <li class="list-group-item">
+                                <h6>{{ pg.nome }} {% if pg.sconfitto() %}
+                                <span class="badge bg-danger ms-1">Morto</span>
+                                {% else %}
+                                <span class="badge bg-success ms-1">Vivo</span>
+                                {% endif %}
+                                </h6>
+                                <p class="mb-1">Classe: {{ pg.classe }}</p>
+                                <p class="mb-1">Salute: {{ pg.salute }} / {{ pg.salute_max }}</p>
+                                <p class="mb-1">Attacco: {{ pg.attacco_min }} - {{ pg.attacco_max }}</p>
+                            </li>
+                        {% else %}
+                            <li class="list-group-item">Nessun personaggio presente</li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -49,7 +51,7 @@
                     </h5>
                 </div>
                 <div class="card-body border-dark p-0">
-                    <div class="log-container p-3 text-center" style="max-height: 500px; overflow-y: auto; background-color: #f8f9fa;">
+                    <div class="p-3 text-center" style="max-height: 500px; overflow-y: auto; background-color: #f8f9fa;">
                         {% for log in messaggi %}
                             <p class="mb-2">{{ log }}</p>
                         {% else %}
@@ -62,28 +64,30 @@
 
         <!-- card nemici -->
         <div class="col-md-3">
-            <div class="card mb-3">
+            <div class="card shadow mb-3">
                 <div class="card-header bg-danger text-white">
                     <h5 class="mb-0 text-center">
                     <i class="bi bi-emoji-angry-fill me-2"></i>
                     Nemici</h5>
                 </div>
-                <ul class="list-group list-group-flush">
-                    {% for n in nemici %}
-                        <li class="list-group-item">
-                            <h6>{{ n.nome }} {% if n.sconfitto() %}
-                            <span class="badge bg-danger ms-1">Morto</span>
-                            {% else %}
-                            <span class="badge bg-success ms-1">Vivo</span>
-                            {% endif %}</h6>
-                            <p class="mb-1">Classe: {{ n.classe }}</p>
-                            <p class="mb-1">Salute: {{ n.salute }} / {{ n.salute_max }}</p>
-                            <p class="mb-1">Attacco: {{ n.attacco_min }} - {{ n.attacco_max }}</p>
-                        </li>
-                    {% else %}
-                        <li class="list-group-item">Nessun nemico presente</li>
-                    {% endfor %}
-                </ul>
+                <div class="text-default" style="max-height: 500px; overflow-y: auto;">
+                    <ul class="list-group list-group-flush">
+                        {% for n in nemici %}
+                            <li class="list-group-item">
+                                <h6>{{ n.nome }} {% if n.sconfitto() %}
+                                <span class="badge bg-danger ms-1">Morto</span>
+                                {% else %}
+                                <span class="badge bg-success ms-1">Vivo</span>
+                                {% endif %}</h6>
+                                <p class="mb-1">Classe: {{ n.classe }}</p>
+                                <p class="mb-1">Salute: {{ n.salute }} / {{ n.salute_max }}</p>
+                                <p class="mb-1">Attacco: {{ n.attacco_min }} - {{ n.attacco_max }}</p>
+                            </li>
+                        {% else %}
+                            <li class="list-group-item">Nessun nemico presente</li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
 
