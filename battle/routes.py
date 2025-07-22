@@ -114,7 +114,7 @@ def select_char():
         )
 
 def setup_battle():
-    """TODO Fa il setup dei dati prendendoli dai file json data/ save, inventari, personaggi
+    """Fa il setup dei dati prendendoli dai file json data/ save, inventari, personaggi
     Deserializza i dati dai json e ritorna gli oggetti
 
     Returns:
@@ -143,9 +143,7 @@ def setup_battle():
     #nemici_obj = personaggio_schema.load(nemici)
     #ambiente_obj = AmbienteSchema().load(ambiente)
     #inventari_nemici_obj = InventarioSchema(many=True).load(inventari_nemici)
-
     #tutti_personaggi_obj = personaggi_selezionati_obj + nemici_obj
-
     #Carico gli inventari dei personaggi:
     inventari_pg_obj = []
     inventario_schema = InventarioSchema()
@@ -465,3 +463,51 @@ def usa_inventario_automatico(
     else:
         txt = f"{pg.nome} non utilizza oggetti in questo turno"
     return None, txt
+
+
+# in ingresso lista di tutti i personaggi, e  sommo iniziativa + d20, ordino in base a qst, mettendo gli id
+def ordine_iniziativa(tutti_personaggi):
+    """
+    Calcola l'iniziativa per ogni personaggio sommando il valore di iniziativa al tiro di un d20.
+    Ritorna una lista ordinata di ID in base all'iniziativa decrescente.
+
+    Args:
+        personaggi (list): Lista di oggetti `Personaggio`.
+
+    Returns:
+        list: Lista ordinata di ID in base al punteggio iniziativa.
+    """
+    iniziativa = []
+    for pg in tutti_personaggi:
+        tiro = random.randint(1, 20)
+        iniziativa.append((pg.id, pg.iniziativa + tiro))
+    # Ordino per l'elemento 1 della tupla decrescente
+    iniziativa.sort(key=lambda tuple: tuple[1], reverse=True)
+
+    lista_ordinata_id = []
+    for tupla in iniziativa:
+        id = tupla[0]
+        lista_ordinata_id.append(id)
+    return lista_ordinata_id
+
+
+@battle_bp.route('/test_iniziativa')
+def test_iniziativa():
+
+    #chiamo setup lista personaggi
+    setup = setup_battle()
+
+    personaggi = setup[1]
+
+    iniziativa = []
+    for pg in personaggi:
+        tiro = random.randint(1, 20)
+        iniziativa.append((pg.id, pg.iniziativa + tiro))
+        flash(f'id: {pg.id}. Valori iniziativa {pg.iniziativa}. Tiro: {tiro}', 'info')
+    # Ordino per l'elemento 1 della tupla decrescente
+    iniziativa.sort(key=lambda tuple: tuple[1], reverse=True)
+
+    return render_template(
+        "test_iniziativa.html",
+        risultati=iniziativa
+    )
