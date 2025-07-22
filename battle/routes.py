@@ -1,27 +1,22 @@
 from flask import redirect, render_template, session, url_for, request, flash, jsonify
-
-from gioco.oggetto import Oggetto
-from gioco.strategy import Strategia
-from . import battle_bp
-import os
 import logging
 import random
-import json
-import time
-from gioco.personaggio import Personaggio
-from gioco.classi import Mago, Ladro, Guerriero
-from gioco.inventario import Inventario
+import os
+
+from . import battle_bp
+from gioco.oggetto import Oggetto
 from gioco.ambiente import Ambiente
 from gioco.missione import Missione
-from utils.salvataggio import Json
-from characters.routes import load_char, get_owned_chars
-from gioco.schemas.personaggio import PersonaggioSchema
-from gioco.schemas.inventario import InventarioSchema
-from gioco.schemas.ambiente import AmbienteSchema
+from gioco.strategy import Strategia
+from gioco.inventario import Inventario
+from gioco.personaggio import Personaggio
 from gioco.schemas.missione import MissioniSchema
-from inventory.routes import carica_inventario_da_json
+from gioco.schemas.inventario import InventarioSchema
+from gioco.schemas.personaggio import PersonaggioSchema
+from characters.routes import load_char, get_owned_chars
+from config import DATA_DIR_SAVE, DATA_DIR_INV
 from utils.salvataggio import Json
-from config import DATA_DIR_SAVE, DATA_DIR_INV, DATA_DIR_MIS
+
 path_save = os.path.join(
     DATA_DIR_SAVE, "salvataggio.json"
 )
@@ -57,7 +52,6 @@ def show_inventory():
         'show_inventory.html',
         personaggio_turno_corrente=personaggio_turno_corrente,
         inventario=inventario)
-
 
 
 @battle_bp.route('/select_char', methods=['GET', 'POST'])
@@ -112,6 +106,7 @@ def select_char():
         personaggi=pg_list,
         missione_corrente=missione_corrente
         )
+
 
 def setup_battle():
     """Fa il setup dei dati prendendoli dai file json data/ save, inventari, personaggi
@@ -174,10 +169,10 @@ def auto_battle():
 
     if 'messaggi_battaglia' not in save_data:
         save_data['messaggi_battaglia'] = []
-    
+
     ordine_turni = save_data['ordine_turni']
     indice_turno = save_data['indice_turno_corrente']
-    
+
     battaglia_finita = False
     vittoria = False
     # --- Controlla se la battaglia è già finita ---
@@ -235,11 +230,23 @@ def auto_battle():
 
         if bersagli_validi:
             bersaglio = random.choice(bersagli_validi)
-            danno = personaggio_turno_corrente.attacca(ambiente_obj.mod_attacco)
+            danno, msg = personaggio_turno_corrente.attacca(ambiente_obj.mod_attacco)
+            if msg is None:
+                if danno <= 0:
+                    danno = 0
+                    msg = (
+                        f"{personaggio_turno_corrente.nome} prova ad attaccare"
+                        f" {bersaglio.nome} ma fallisce!"
+                    )
+                else:
+                    msg = (
+                        f"{personaggio_turno_corrente.nome} attacca"
+                        f" {bersaglio.nome} per {danno} danni!"
+                    )
+
             bersaglio.subisci_danno(danno)
-            save_data['messaggi_battaglia'].append(
-                f"{personaggio_turno_corrente.nome} attacca {bersaglio.nome} per {danno} danni!"
-            )
+            save_data['messaggi_battaglia'].append(msg)
+
             if bersaglio.sconfitto():
                 # rimuove id dalla ordine turni
                 ordine_turni.remove(str(bersaglio.id))

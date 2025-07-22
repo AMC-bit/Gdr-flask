@@ -20,7 +20,7 @@ class Mago(Personaggio):
     iniziativa: int = 15
 
 
-    def attacca(self, mod_ambiente: int = 0) -> None:
+    def attacca(self, mod_ambiente: int = 0) -> tuple[int, str]:
         """
         Il Mago ha attacco minimo diminuito di 5 e attacco massimo
         aumentato di 10
@@ -30,21 +30,32 @@ class Mago(Personaggio):
             mod_ambiente (int): modificatore ambientale di attacco (default: 0)
 
         Returns:
-            int: danno inflitto all'avversario
+            tuple[int, str]: danno inflitto all'avversario e messaggio di log
         """
         danno = 0
+        msg = ""
         if self.esegui_azione():
             danno = random.randint(
                 self.attacco_min, self.attacco_max
             ) + mod_ambiente
-            msg = f"{self.nome} colpisce furtivamente infliggendo {danno} danni!"
+            if danno < 0:
+                danno = 0
+                msg = (
+                    f"{self.nome} lancia un incantesimo, ma non "
+                    f"infligge danni!"
+                )
+            else:
+                msg = (
+                    f"{self.nome} lancia un incantesimo infliggendo "
+                    f"{danno} danni!"
+                )
         else:
             msg = f"{self.nome} tenta di attaccare ma fallisce!"
         logger.info(msg)
         print(msg)
-        return danno
+        return danno, msg
 
-    def recupera_salute(self, mod_ambiente: int = 0) -> None:
+    def recupera_salute(self, mod_ambiente: int = 0) -> str:
         """
         Recupera la salute del Mago alla fine di ogni duello del 20%
 
@@ -53,7 +64,7 @@ class Mago(Personaggio):
             (default: 0)
 
         Returns:
-            None
+            msg (str): messaggio di log del recupero salute
         """
         recupero = int((self.salute + mod_ambiente) * 0.2)
         nuova_salute = min(self.salute + recupero, 80)
@@ -62,6 +73,7 @@ class Mago(Personaggio):
         msg = f"{self.nome} medita e recupera {effettivo} HP." \
             f" Salute attuale: {self.salute}"
         logger.info(msg)
+        return msg
 
 
 @dataclass
@@ -78,7 +90,7 @@ class Guerriero(Personaggio):
     attacco_max: int = 100
     iniziativa: int = 20
 
-    def attacca(self, mod_ambiente: int = 0) -> int:
+    def attacca(self, mod_ambiente: int = 0) -> tuple[int, str]:
         """
         Il Guerriero ha un attacco minimo aumentato di 15*  e un attacco
         massimo aumentato di 20* + il modificatore dell'ambiente corrente
@@ -89,21 +101,32 @@ class Guerriero(Personaggio):
             mod_ambiente (int): modificatore ambientale di attacco (default: 0)
 
         Returns:
-            None
+            tuple[int, str]: danno inflitto all'avversario e messaggio di log
         """
         danno = 0
+        msg = ""
         if self.esegui_azione():
             danno = random.randint(
                 self.attacco_min, self.attacco_max
             ) + mod_ambiente
-            msg = f"{self.nome} colpisce furtivamente infliggendo {danno} danni!"
+            if danno < 0:
+                danno = 0
+                msg = (
+                    f"{self.nome} colpisce, ma non "
+                    f"infligge danni!"
+                )
+            else:
+                msg = (
+                    f"{self.nome} colpisce con la spada infliggendo "
+                    f"{danno} danni!"
+                )
         else:
             msg = f"{self.nome} tenta di attaccare ma fallisce!"
         logger.info(msg)
         print(msg)
         return danno
 
-    def recupera_salute(self, mod_ambiente: int = 0) -> None:
+    def recupera_salute(self, mod_ambiente: int = 0) -> str:
         """
         Il guerriero al termine di ogni duello recupera salute pari 30
 
@@ -112,7 +135,7 @@ class Guerriero(Personaggio):
             (default: 0)
 
         Returns:
-            None
+            msg (str): messaggio di log del recupero salute
         """
         recupero = 30 + mod_ambiente
         nuova_salute = min(self.salute + recupero, 120)
@@ -121,6 +144,7 @@ class Guerriero(Personaggio):
         msg = f"{self.nome} si fascia le ferite e recupera {effettivo} HP." \
             f" Salute attuale: {self.salute}"
         logger.info(msg)
+        return msg
 
 
 @dataclass
@@ -137,7 +161,7 @@ class Ladro(Personaggio):
     iniziativa: int = 25
 
 
-    def attacca(self, mod_ambiente: int = 0) -> int:
+    def attacca(self, mod_ambiente: int = 0) -> tuple[int, str]:
         """
         attacco del ladro valore random tra attacco_min e attacco_max
         con un modificatore ambientale, se l'azione ha successo
@@ -146,21 +170,30 @@ class Ladro(Personaggio):
             mod_ambiente (int): modificatore ambientale di attacco (default: 0)
 
         Returns:
-            danno (int): danno inflitto all'avversario
+            tuple[int, str]: danno inflitto all'avversario e messaggio di log
         """
         danno = 0
         if self.esegui_azione():
             danno = random.randint(
                 self.attacco_min, self.attacco_max
             ) + mod_ambiente
-            msg = f"{self.nome} colpisce furtivamente infliggendo {danno} danni!"
+            if danno < 0:
+                danno = 0
+                msg = (
+                    f"{self.nome} colpisce, ma non "
+                    f"infligge danni!"
+                )
+            else:
+                msg = (
+                    f"{self.nome} colpisce furtivamente infliggendo "
+                    f"{danno} danni!"
+                )
         else:
             msg = f"{self.nome} tenta di attaccare ma fallisce!"
         logger.info(msg)
-        print(msg)
-        return danno
+        return danno, msg
 
-    def recupera_salute(self, mod_ambiente: int = 0) -> None:
+    def recupera_salute(self, mod_ambiente: int = 0) -> str:
         """
         Permette al ladro di recuperare un numero casuale
         di punti salute in un range 10-40, modificato dall'ambiente
@@ -170,7 +203,7 @@ class Ladro(Personaggio):
             (default: 0)
 
         Returns:
-            None
+            msg (str): messaggio di log del recupero salute
         """
         recupero = random.randint(10, 40) + mod_ambiente
         nuova_salute = min(self.salute + recupero, 140)
@@ -179,4 +212,5 @@ class Ladro(Personaggio):
         msg = f"{self.nome} si cura rapidamente e recupera {effettivo} HP. " \
             f"Salute attuale: {self.salute}"
         logger.info(msg)
+        return msg
 

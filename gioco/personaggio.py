@@ -75,26 +75,39 @@ class Personaggio():
             logger.info(msg)
         return successo
 
-    def attacca(self, mod_ambiente: int = 0) -> int:
+    def attacca(self, mod_ambiente: int = 0) -> tuple[int, str]:
         """
-        Tenta un attacco generando un danno casuale tra attacco_min e attacco_max,
-        influenzato da eventuali modificatori ambientali. Il successo dipende da un tiro
-        basato sulla destrezza (sistama d20).
+        Tenta un attacco generando un danno casuale tra attacco_min e
+        attacco_max, influenzato da eventuali modificatori ambientali.
+        Il successo dipende da un tiro basato sulla destrezza (sistema d20).
 
         Args:
             mod_ambiente (int): modificatore di attacco in base all'ambiente
 
         Returns:
-            int: danno inflitto all'avversario, 0 se l'attacco fallisce
+            tuple[int, str]: danno inflitto all'avversario e messaggio di log
         """
         danno = 0
+        msg = ""
         if self.esegui_azione():
-            danno = random.randint(self.attacco_min, self.attacco_max) + mod_ambiente
-            msg = f"{self.nome} Attacca con successo e infligge {danno} danni!"
+            danno = random.randint(
+                self.attacco_min, self.attacco_max
+            ) + mod_ambiente
+            if danno < 0:
+                msg = (
+                    f"{self.nome} Attacca con successo e infligge "
+                    f"{danno} danni!"
+                )
+            else:
+                danno = max(0, danno)  # Assicura che il danno non sia negativo
+                msg = (
+                    f"{self.nome} Attacca con successo, ma non "
+                    f"infligge danni!"
+                )
         else:
             msg = f"{self.nome} Tenta di attaccare ma fallisce!"
         logger.info(msg)
-        return danno
+        return danno, msg
 
     def subisci_danno(self, danno: int) -> None:
         """
@@ -115,18 +128,21 @@ class Personaggio():
         """
         return self.salute <= 0
 
-    def recupera_salute(self, mod_ambiente: int = 0) -> None:
+    def recupera_salute(self, mod_ambiente: int = 0) -> str:
         """
         Recupera la salute del personaggio del 30% della salute corrente.
         Viene usato da pozioni e dal recupero salute post duello.
 
         Args:
             mod_ambiente (int): modificatore di recupero in base all'ambiente
+
+        Returns:
+            msg (str): messaggio di log del recupero salute
         """
         if self.salute >= self.salute_max:
             msg = f"{self.nome} ha già la salute piena."
             logger.info(msg)
-            return
+            return msg
         recupero = int(self.salute * 0.3) + mod_ambiente
         nuova_salute = min(self.salute + recupero, 100)
         effettivo = nuova_salute - self.salute
@@ -136,6 +152,7 @@ class Personaggio():
             f" Salute attuale: {self.salute}"
         )
         logger.info(msg)
+        return msg
 
     def migliora_statistiche(self) -> None:
         """
