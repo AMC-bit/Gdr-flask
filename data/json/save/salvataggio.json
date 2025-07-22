@@ -1,54 +1,50 @@
 {
     "missione": {
-        "id": "d0be82c8-fe52-41ab-8fc3-7548c68b423a",
-        "nome": "Sgomina il culto di Pdor figlio di Kmer",
+        "id": "e62e1f84-878b-4d2f-870f-9797bb3d60fc",
+        "nome": "Sconfiggi lo slime non morto",
         "ambiente": {
-            "nome": "Vulcano",
-            "mod_attacco": 10,
-            "mod_cura": -5.0,
-            "classe": "Vulcano"
+            "nome": "Palude",
+            "mod_attacco": -5,
+            "mod_cura": -0.1,
+            "classe": "Palude"
         },
         "nemici": [
             {
-                "classe": "Mago",
-                "id": "866f1744-8a23-438d-927b-8743dc8c52e8",
-                "nome": "Pdor",
-                "npc": true,
-                "salute_max": 30,
-                "salute": 25,
-                "attacco_min": 4,
-                "attacco_max": 8,
-                "livello": 1,
-                "destrezza": 1,
-                "iniziativa": 15,
-                "storico_danni_subiti": [
-                    0
-                ]
-            },
-            {
                 "classe": "Guerriero",
-                "id": "b2c1f3d8-4e5a-4f9b-8c0d-6f7e8a9b0c8d",
-                "nome": "Blaine",
+                "id": "5c9f6e63-87a1-4c9a-9257-b2044a54d518",
+                "nome": "Scheletrino",
                 "npc": true,
-                "salute_max": 180,
-                "salute": 170,
+                "salute_max": 60,
+                "salute": 60,
                 "attacco_min": 40,
                 "attacco_max": 120,
                 "livello": 1,
-                "destrezza": 25,
+                "destrezza": 20,
                 "iniziativa": 20,
-                "storico_danni_subiti": [
-                    0
-                ]
+                "storico_danni_subiti": []
+            },
+            {
+                "classe": "Ladro",
+                "id": "c9b8414e-9fae-4eb7-a2ea-3cfb77677185",
+                "nome": "Slime non morto",
+                "npc": true,
+                "salute_max": 260,
+                "salute": 260,
+                "attacco_min": 5,
+                "attacco_max": 35,
+                "livello": 1,
+                "destrezza": 10,
+                "iniziativa": 25,
+                "storico_danni_subiti": []
             }
         ],
         "inventari_nemici": [
             {
-                "id": "e373a5eb-244f-4cda-832b-04e3fdfdfcc1",
-                "id_proprietario": "866f1744-8a23-438d-927b-8743dc8c52e8",
+                "id": "74d202f2-20cd-4f41-849c-3c2692bbca30",
+                "id_proprietario": "5c9f6e63-87a1-4c9a-9257-b2044a54d518",
                 "oggetti": [
                     {
-                        "id": "aef17f9f-f158-4308-bc11-786b6818b19e",
+                        "id": "782bc69f-8b9c-4372-8ab2-88e8d27bbdf4",
                         "nome": "Bomba Acida",
                         "usato": false,
                         "valore": 30,
@@ -58,11 +54,11 @@
                 ]
             },
             {
-                "id": "6ab8ce89-0a16-4953-a9f5-cd0892a6bd96",
-                "id_proprietario": "b2c1f3d8-4e5a-4f9b-8c0d-6f7e8a9b0c8d",
+                "id": "cb6aebef-1fc4-48a5-9975-e0b1f9fd1934",
+                "id_proprietario": "c9b8414e-9fae-4eb7-a2ea-3cfb77677185",
                 "oggetti": [
                     {
-                        "id": "8f0f45be-bc36-463c-913c-c1c314b029b4",
+                        "id": "009a6c6e-5887-4a08-af10-41fd02cc9edf",
                         "nome": "Bomba Acida",
                         "usato": false,
                         "valore": 30,
@@ -74,16 +70,24 @@
         ],
         "premi": [
             {
-                "id": "7e2b1c8a-2e3d-4b7a-9e2a-1c3f4b5d6e8f",
-                "nome": "Medaglione",
+                "id": "7e2b1c8a-2e3d-4b7a-9e2a-1c3f4b5d6e7f",
+                "nome": "Pozione Rossa",
                 "usato": false,
-                "valore": 10,
-                "tipo_oggetto": "Buff",
-                "classe": "Medaglione"
+                "valore": 30,
+                "tipo_oggetto": "Ristorativo",
+                "classe": "PozioneCura"
+            },
+            {
+                "id": "9f8e7d6c-5b4a-3c2d-1e0f-9a8b7c6d5e4f",
+                "nome": "Bomba Acida",
+                "usato": false,
+                "valore": 30,
+                "tipo_oggetto": "Offensivo",
+                "classe": "BombaAcida"
             }
         ],
         "strategia_nemici": {
-            "nome": "Aggressiva"
+            "nome": "Difensiva"
         },
         "completata": false,
         "attiva": false
@@ -91,8 +95,8 @@
     "personaggi_selezionati": [
         {
             "classe": "Mago",
-            "id": "59ac19e8-c2a1-4a90-b176-615bd47854ee",
-            "nome": "gg",
+            "id": "10cb89ef-c1d4-467d-b7e7-cf0b7738286a",
+            "nome": "belin",
             "npc": false,
             "salute_max": 80,
             "salute": 0,
@@ -101,50 +105,54 @@
             "livello": 1,
             "destrezza": 15,
             "iniziativa": 15,
-            "storico_danni_subiti": []
-        },
-        {
-            "classe": "Guerriero",
-            "id": "6c16f177-49bb-418a-acbf-2d169699538e",
-            "nome": "belin",
-            "npc": false,
-            "salute_max": 130,
-            "salute": 130,
-            "attacco_min": 20,
-            "attacco_max": 100,
-            "livello": 1,
-            "destrezza": 15,
-            "iniziativa": 20,
-            "storico_danni_subiti": []
+            "storico_danni_subiti": [
+                0,
+                73,
+                15
+            ]
         },
         {
             "classe": "Ladro",
-            "id": "c2e941a9-cd35-4b4b-a6f8-b369a8c90896",
-            "nome": "drfg",
+            "id": "78fb2ff8-8c3e-4e2c-8d10-66265d0d0348",
+            "nome": "gigio",
             "npc": false,
             "salute_max": 120,
-            "salute": 22,
+            "salute": 0,
             "attacco_min": 10,
             "attacco_max": 85,
             "livello": 1,
             "destrezza": 15,
             "iniziativa": 25,
             "storico_danni_subiti": [
-                98
+                22,
+                102
             ]
         }
     ],
+    "turno": 7,
+    "indice_turno_corrente": 1,
     "ordine_turni": [
-        4,
-        1,
+        3,
         2,
-        0,
-        3
+        0
     ],
-    "indice_turno_corrente": 3,
     "messaggi_battaglia": [
-        "Blaine attacca drfg per 98 danni!",
-        "belin attacca Blaine per 0 danni!",
-        "drfg attacca Pdor per 0 danni!"
+        "Turno 1 - \u00e8 il turno di Slime non morto!",
+        "Slime non morto attacca gigio per 22 danni!",
+        "Turno 2 - \u00e8 il turno di Scheletrino!",
+        "Scheletrino attacca gigio per 102 danni!",
+        "gigio \u00e8 stato sconfitto!",
+        "Turno 3 - \u00e8 il turno di belin!",
+        "belin attacca Slime non morto per 0 danni!",
+        "Turno 4 - \u00e8 il turno di Slime non morto!",
+        "Slime non morto attacca belin per 0 danni!",
+        "Turno 5 - \u00e8 il turno di Scheletrino!",
+        "Scheletrino attacca belin per 73 danni!",
+        "Turno 6 - \u00e8 il turno di belin!",
+        "belin attacca Slime non morto per 0 danni!",
+        "Turno 7 - \u00e8 il turno di Slime non morto!",
+        "Slime non morto attacca belin per 15 danni!",
+        "belin \u00e8 stato sconfitto!",
+        "Tutti i personaggi sono stati sconfitti!"
     ]
 }
