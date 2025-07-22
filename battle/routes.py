@@ -473,52 +473,6 @@ def usa_inventario_automatico(
     return None, txt
 
 
-# in ingresso lista di tutti i personaggi, e  sommo iniziativa + d20, ordino in base a qst, mettendo gli id
-def ordine_iniziativa(tutti_personaggi):
-    """
-    Calcola l'iniziativa per ogni personaggio sommando il valore di iniziativa al tiro di un d20.
-    Ritorna una lista ordinata di ID in base all'iniziativa decrescente.
-
-    Args:
-        personaggi (list): Lista di oggetti `Personaggio`.
-
-    Returns:
-        list: Lista ordinata di ID in base al punteggio iniziativa.
-    """
-    iniziativa = []
-    for pg in tutti_personaggi:
-        tiro = random.randint(1, 20)
-        iniziativa.append((pg.id, pg.iniziativa + tiro))
-    # Ordino per l'elemento 1 della tupla decrescente
-    iniziativa.sort(key=lambda tuple: tuple[1], reverse=True)
-
-    lista_ordinata_id = []
-    for tupla in iniziativa:
-        id = tupla[0]
-        lista_ordinata_id.append(id)
-    return lista_ordinata_id
-
-
-@battle_bp.route('/test_iniziativa')
-def test_iniziativa():
-
-    #chiamo setup lista personaggi
-    setup = setup_battle()
-
-    personaggi = setup[1]
-
-    iniziativa = []
-    for pg in personaggi:
-        tiro = random.randint(1, 20)
-        iniziativa.append((pg.id, pg.iniziativa + tiro))
-        flash(f'id: {pg.id}. Valori iniziativa {pg.iniziativa}. Tiro: {tiro}', 'info')
-    # Ordino per l'elemento 1 della tupla decrescente
-    iniziativa.sort(key=lambda tuple: tuple[1], reverse=True)
-
-    return render_template(
-        "test_iniziativa.html",
-        risultati=iniziativa
-    )
 
     
 # in ingresso lista di tutti i personaggi, e  sommo iniziativa + d20, ordino in base a qst, mettendo gli id
@@ -546,27 +500,6 @@ def ordine_iniziativa(tutti_personaggi):
         lista_ordinata_id.append(str(id))
     return lista_ordinata_id
 
-
-@battle_bp.route('/test_iniziativa')
-def test_iniziativa():
-
-    #chiamo setup lista personaggi
-    setup = setup_battle()
-
-    personaggi = setup[1]
-
-    iniziativa = []
-    for pg in personaggi:
-        tiro = random.randint(1, 20)
-        iniziativa.append((pg.id, pg.iniziativa + tiro)) 
-        flash(f'id: {pg.id}. Valori iniziativa {pg.iniziativa}. Tiro: {tiro}', 'info')
-    # Ordino per l'elemento 1 della tupla decrescente
-    iniziativa.sort(key=lambda tuple: tuple[1], reverse=True)
-
-    return render_template(
-        "test_iniziativa.html",
-        risultati=iniziativa
-    )
 
 
 @battle_bp.route('/TEMPLATE', methods=['GET', 'POST'])
