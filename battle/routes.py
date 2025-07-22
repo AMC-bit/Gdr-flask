@@ -74,7 +74,7 @@ def select_char():
                 personaggi_selezionati.append(pg)
             except (ValueError, IndexError):
                 continue
-        
+
         data_load = Json.carica_dati(path_save)
         if isinstance(data_load, dict):
             data_load['personaggi_selezionati'] = personaggi_selezionati
@@ -212,7 +212,7 @@ def auto_battle():
         save_data['personaggi_selezionati'] = PersonaggioSchema(many=True).dump(personaggi_selezionati_obj)
         missione_obj.nemici = nemici_obj
         save_data['missione'] = MissioniSchema().dump(missione_obj)
-    
+
         save_data['indice_turno_corrente'] = (indice_turno + 1) % len(ordine_turni)
         Json.scrivi_dati(path_save, save_data)
         pc_vivi = [p for p in personaggi_selezionati_obj if not p.sconfitto()]
@@ -225,7 +225,7 @@ def auto_battle():
             battaglia_finita = True
             vittoria = True
             save_data['messaggi_battaglia'].append("Tutti i nemici sono stati sconfitti!")
-        
+
     # Salvataggio stato
     save_data['missione'] = MissioniSchema().dump(missione_obj)
     Json.scrivi_dati(path_save, save_data)
@@ -262,7 +262,7 @@ def ordine_iniziativa(tutti_personaggi):
     iniziativa = []
     for pg in tutti_personaggi:
         tiro = random.randint(1, 20)
-        iniziativa.append((pg.id, pg.iniziativa + tiro)) 
+        iniziativa.append((pg.id, pg.iniziativa + tiro))
     # Ordino per l'elemento 1 della tupla decrescente
     iniziativa.sort(key=lambda tuple: tuple[1], reverse=True)
 
@@ -284,7 +284,7 @@ def test_iniziativa():
     iniziativa = []
     for pg in personaggi:
         tiro = random.randint(1, 20)
-        iniziativa.append((pg.id, pg.iniziativa + tiro)) 
+        iniziativa.append((pg.id, pg.iniziativa + tiro))
         flash(f'id: {pg.id}. Valori iniziativa {pg.iniziativa}. Tiro: {tiro}', 'info')
     # Ordino per l'elemento 1 della tupla decrescente
     iniziativa.sort(key=lambda tuple: tuple[1], reverse=True)
