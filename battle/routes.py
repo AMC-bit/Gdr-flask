@@ -131,19 +131,13 @@ def setup_battle():
     #print(f"MISSIONE DICT :{missione}")
     personaggi_selezionati = Json.carica_dati(path_save)['personaggi_selezionati']
     #print(f"PERSONAGGI SELEZIONATI DICT :{personaggi_selezionati}")
-    #nemici = missione['nemici']
-    #ambiente = missione['ambiente']
-    #inventari_nemici = missione['inventari_nemici']
 
     # Deserializzazione oggetti
     missione_obj = MissioniSchema().load(missione)
     personaggio_schema = PersonaggioSchema(many=True)
     personaggi_selezionati_obj = personaggio_schema.load(personaggi_selezionati)
     #print(f"PERSONAGGI_OBJ : {personaggi_selezionati_obj}")
-    #nemici_obj = personaggio_schema.load(nemici)
-    #ambiente_obj = AmbienteSchema().load(ambiente)
-    #inventari_nemici_obj = InventarioSchema(many=True).load(inventari_nemici)
-    #tutti_personaggi_obj = personaggi_selezionati_obj + nemici_obj
+
     #Carico gli inventari dei personaggi:
     inventari_pg_obj = []
     inventario_schema = InventarioSchema()
@@ -494,7 +488,7 @@ def ordine_iniziativa(tutti_personaggi):
     iniziativa = []
     for pg in tutti_personaggi:
         tiro = random.randint(1, 20)
-        iniziativa.append((pg.id, pg.iniziativa + tiro)) 
+        iniziativa.append((pg.id, pg.iniziativa + tiro))
     # Ordino per l'elemento 1 della tupla decrescente
     iniziativa.sort(key=lambda tuple: tuple[1], reverse=True)
 
