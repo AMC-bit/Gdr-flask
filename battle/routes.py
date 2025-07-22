@@ -9,6 +9,7 @@ import random
 import json
 import time
 from gioco.personaggio import Personaggio
+from gioco.classi import Mago, Ladro, Guerriero
 from gioco.inventario import Inventario
 from gioco.ambiente import Ambiente
 from gioco.missione import Missione
@@ -96,6 +97,8 @@ def select_char():
             del data_load["ordine_turni"]
         if "indice_turno_corrente" in data_load:
             data_load["indice_turno_corrente"] = 0
+        if "turno" in data_load:
+            data_load["turno"] = 0
         Json.scrivi_dati(path_save, data_load)
 
         # inserisco l'id nella sessione
@@ -172,7 +175,8 @@ def auto_battle():
         ordine_turni = list(range(len(tutti_personaggi)))
         random.shuffle(ordine_turni)
         save_data['ordine_turni'] = ordine_turni
-
+    if 'turno' not in save_data:
+        save_data['turno'] = 0
     if 'indice_turno_corrente' not in save_data:
         save_data['indice_turno_corrente'] = 0
 
@@ -196,12 +200,16 @@ def auto_battle():
         save_data['messaggi_battaglia'].append("Tutti i nemici sono stati sconfitti! Vittoria!")
 
     if not battaglia_finita:
+        save_data['turno'] += 1
         ordine_turni = [idx for idx in ordine_turni if not tutti_personaggi[idx].sconfitto()]
         save_data['ordine_turni'] = ordine_turni
         if indice_turno >= len(ordine_turni):
             indice_turno = 0
             save_data['indice_turno_corrente'] = indice_turno
         personaggio_turno_corrente = tutti_personaggi[ordine_turni[indice_turno]]
+        save_data['messaggi_battaglia'].append(
+            f"Turno {save_data['turno']} - è il turno di {personaggio_turno_corrente.nome}!"
+            )
 
         # setup per l'uso dell'inventario in maniera automatica
         pg = personaggio_turno_corrente
@@ -249,7 +257,7 @@ def auto_battle():
         if not pc_vivi:
             battaglia_finita = True
             vittoria = False
-            save_data['messaggi_battaglia'].append("Tutti i personaggi sono stati sconfitti! Sconfitta!")
+            save_data['messaggi_battaglia'].append("Tutti i personaggi sono stati sconfitti!")
         elif not npc_vivi:
             battaglia_finita = True
             vittoria = True
@@ -272,11 +280,6 @@ def auto_battle():
         vittoria=vittoria,
         messaggi=save_data['messaggi_battaglia']
     )
-
-
-@battle_bp.route('/TEMPLATE', methods=['GET', 'POST'])
-def test_battle_v2():
-    return render_template("TEMPLATE.html")
 
 
 def carica_inventario(

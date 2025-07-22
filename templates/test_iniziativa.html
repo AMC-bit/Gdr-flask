@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block title %}Test Ordine Iniziativa{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2><i class="fas fa-dice-d20"></i> Test Ordine Iniziativa (con d20)</h2>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Totale</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for id, totale in risultati %}
+            <tr>
+                <td>{{ id }}</td>
+                <td>{{ totale }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
