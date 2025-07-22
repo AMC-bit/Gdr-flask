@@ -137,10 +137,11 @@ def setup_battle():
     inventari_pg_obj = []
     inventario_schema = InventarioSchema()
     for pg in personaggi_selezionati_obj:
-        pg_inv_path = os.path.join(DATA_DIR_INV, f"{str(pg.id)}.json")
-        inventario_pg = Json.carica_dati(pg_inv_path)
-        inventario_pg_obj = inventario_schema.load(inventario_pg)
-        inventari_pg_obj.append(inventario_pg_obj)
+        if not pg.sconfitto():
+            pg_inv_path = os.path.join(DATA_DIR_INV, f"{str(pg.id)}.json")
+            inventario_pg = Json.carica_dati(pg_inv_path)
+            inventario_pg_obj = inventario_schema.load(inventario_pg)
+            inventari_pg_obj.append(inventario_pg_obj)
 
     return missione_obj, personaggi_selezionati_obj, inventari_pg_obj
 
@@ -205,6 +206,7 @@ def auto_battle():
         # setup per l'uso dell'inventario in maniera automatica
         pg = personaggio_turno_corrente
         inventari = []
+        inventari_pg = setup[2]
         inventari.extend(setup[2])
         inventari.extend(missione_obj.inventari_nemici)
         inventario = None
@@ -257,12 +259,20 @@ def auto_battle():
         for pg in personaggi_selezionati_obj:
             file_name = f"{pg.id}.json"
             pg_path = os.path.join(DATA_DIR_PGS, file_name)
+            inv_path = os.path.join(DATA_DIR_INV, file_name)
             if pg.sconfitto():
                 print("MORTO", pg_path)
-                os.remove(pg_path)
+                if os.path.exists(pg_path):
+                    os.remove(pg_path)
+                if os.path.exists(inv_path):
+                    os.remove(inv_path)
             else:
                 print("PATH", pg_path)
                 Json.scrivi_dati(pg_path, PersonaggioSchema().dump(pg))
+                for inv in inventari_pg:
+                    if isinstance(inv, Inventario) and inv.id_proprietario == pg.id:
+                        inventario = inv
+                        Json.scrivi_dati(inv_path, InventarioSchema().dump(inventario))
 
         save_data['indice_turno_corrente'] = (indice_turno + 1) % len(ordine_turni)
         Json.scrivi_dati(path_save, save_data)
