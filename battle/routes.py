@@ -163,8 +163,8 @@ def auto_battle():
     ambiente_obj = setup[0].ambiente
     inventari_pg= setup[2]
     inventari = []
-    inventari.extend(setup[2])
-    inventari.extend(missione_obj.inventari_nemici)
+    inventari += setup[2]
+    inventari += missione_obj.inventari_nemici
     save_data = Json.carica_dati(path_save)
     tutti_personaggi = personaggi_selezionati_obj + nemici_obj
     # setup per l'uso dell'inventario in maniera automatica
