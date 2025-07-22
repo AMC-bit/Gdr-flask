@@ -1,222 +1,185 @@
 {
     "missione": {
-        "id": "d0be82c8-fe52-41ab-8fc3-7548c68b423a",
-        "nome": "Sgomina il culto di Pdor figlio di Kmer",
+        "id": "292c816f-3e3f-4c79-9f4a-4ea4dbe0e2d1",
+        "nome": "Imboscata",
         "ambiente": {
-            "nome": "Vulcano",
-            "mod_attacco": 10,
-            "mod_cura": -5.0,
-            "classe": "Vulcano"
+            "nome": "Foresta",
+            "mod_attacco": 5,
+            "mod_cura": 5.5,
+            "classe": "Foresta"
         },
         "nemici": [
             {
-                "classe": "Mago",
-                "id": "866f1744-8a23-438d-927b-8743dc8c52e8",
-                "nome": "Pdor",
+                "classe": "Guerriero",
+                "id": "8c1dfb36-6eae-4c7d-a6f9-2f0b9e8edc96",
+                "nome": "Robin Hood",
                 "npc": true,
-                "salute_max": 30,
+                "salute_max": 130,
                 "salute": 0,
-                "attacco_min": 4,
-                "attacco_max": 8,
+                "attacco_min": 20,
+                "attacco_max": 100,
                 "livello": 1,
-                "destrezza": 1,
-                "iniziativa": 15,
+                "destrezza": 15,
+                "iniziativa": 20,
                 "storico_danni_subiti": [
-                    11,
-                    0,
-                    78
+                    69,
+                    63
                 ]
             },
             {
                 "classe": "Guerriero",
-                "id": "b2c1f3d8-4e5a-4f9b-8c0d-6f7e8a9b0c8d",
-                "nome": "Blaine",
+                "id": "5d9db649-b9a7-43f2-aec4-b65a372645fc",
+                "nome": "Little John",
                 "npc": true,
-                "salute_max": 180,
-                "salute": 0,
-                "attacco_min": 40,
-                "attacco_max": 120,
+                "salute_max": 130,
+                "salute": -8,
+                "attacco_min": 20,
+                "attacco_max": 100,
                 "livello": 1,
-                "destrezza": 25,
+                "destrezza": 15,
                 "iniziativa": 20,
                 "storico_danni_subiti": [
-                    0,
-                    58,
-                    87,
-                    17,
-                    0,
-                    33
+                    45,
+                    63
                 ]
             }
         ],
         "inventari_nemici": [
             {
-                "id": "e373a5eb-244f-4cda-832b-04e3fdfdfcc1",
-                "id_proprietario": "866f1744-8a23-438d-927b-8743dc8c52e8",
-                "oggetti": []
+                "id": "9c37ce4b-016f-4c2d-a42e-8136ae988f4c",
+                "id_proprietario": "8c1dfb36-6eae-4c7d-a6f9-2f0b9e8edc96",
+                "oggetti": [
+                    {
+                        "id": "aef17f9f-f158-4308-bc11-786b6818b19e",
+                        "nome": "Bomba Acida",
+                        "usato": false,
+                        "valore": 30,
+                        "tipo_oggetto": "Offensivo",
+                        "classe": "BombaAcida"
+                    }
+                ]
             },
             {
-                "id": "6ab8ce89-0a16-4953-a9f5-cd0892a6bd96",
-                "id_proprietario": "b2c1f3d8-4e5a-4f9b-8c0d-6f7e8a9b0c8d",
+                "id": "90d9d1a6-2fc8-4550-9e3f-c038fe0114f4",
+                "id_proprietario": "5d9db649-b9a7-43f2-aec4-b65a372645fc",
                 "oggetti": []
             }
         ],
         "premi": [
             {
-                "id": "7e2b1c8a-2e3d-4b7a-9e2a-1c3f4b5d6e8f",
-                "nome": "Medaglione",
+                "id": "7e2b1c8a-2e3d-4b7a-9e2a-1c3f4b5d6e7f",
+                "nome": "Pozione Rossa",
                 "usato": false,
-                "valore": 10,
-                "tipo_oggetto": "Buff",
-                "classe": "Medaglione"
+                "valore": 30,
+                "tipo_oggetto": "Ristorativo",
+                "classe": "PozioneCura"
+            },
+            {
+                "id": "2a4c5e6f-7b8d-4c9e-8f1a-2b3c4d5e6f7a",
+                "nome": "Pozione Rossa",
+                "usato": false,
+                "valore": 30,
+                "tipo_oggetto": "Ristorativo",
+                "classe": "PozioneCura"
+            },
+            {
+                "id": "9f8e7d6c-5b4a-3c2d-1e0f-9a8b7c6d5e4f",
+                "nome": "Bomba Acida",
+                "usato": false,
+                "valore": 30,
+                "tipo_oggetto": "Offensivo",
+                "classe": "BombaAcida"
             }
         ],
         "strategia_nemici": {
-            "nome": "Aggressiva"
+            "nome": "Equilibrata"
         },
         "completata": false,
         "attiva": false
     },
     "personaggi_selezionati": [
         {
-            "classe": "Mago",
-            "id": "0b96620c-2c90-4b53-b076-9781dd3103f2",
-            "nome": "defefef",
+            "classe": "Ladro",
+            "id": "c5dea147-e1bb-4eff-b295-7496d2708da4",
+            "nome": "CherryBomb",
             "npc": false,
-            "salute_max": 80,
-            "salute": 80,
-            "attacco_min": 0,
-            "attacco_max": 90,
+            "salute_max": 120,
+            "salute": 45,
+            "attacco_min": 10,
+            "attacco_max": 85,
             "livello": 1,
             "destrezza": 15,
-            "iniziativa": 15,
-            "storico_danni_subiti": []
+            "iniziativa": 25,
+            "storico_danni_subiti": [
+                45
+            ]
         },
         {
             "classe": "Mago",
-            "id": "38ab2f2e-a6f2-44e5-b8aa-792bcfea3edd",
-            "nome": "maxim",
+            "id": "c93b0b9d-86c6-4609-8b30-4913044641a9",
+            "nome": "Alastor",
             "npc": false,
             "salute_max": 80,
-            "salute": 40,
-            "attacco_min": 0,
-            "attacco_max": 90,
-            "livello": 1,
-            "destrezza": 15,
-            "iniziativa": 15,
-            "storico_danni_subiti": []
-        },
-        {
-            "classe": "Mago",
-            "id": "5db05bbe-c96c-4bb6-9a33-93b005190dfb",
-            "nome": "das",
-            "npc": false,
-            "salute_max": 80,
-            "salute": 80,
-            "attacco_min": 0,
-            "attacco_max": 90,
-            "livello": 1,
-            "destrezza": 15,
-            "iniziativa": 15,
-            "storico_danni_subiti": []
-        },
-        {
-            "classe": "Mago",
-            "id": "6e37cba6-ae1c-4797-87c0-234e78b5b95d",
-            "nome": "cececece",
-            "npc": false,
-            "salute_max": 80,
-            "salute": 0,
+            "salute": 23,
             "attacco_min": 0,
             "attacco_max": 90,
             "livello": 1,
             "destrezza": 15,
             "iniziativa": 15,
             "storico_danni_subiti": [
-                129
+                57
             ]
         },
         {
-            "classe": "Mago",
-            "id": "9732d882-53b0-4510-91f2-f693bc05ac1b",
-            "nome": "ai cinese",
+            "classe": "Guerriero",
+            "id": "d7c8fd4a-1c42-49cd-877f-ea3a3dbed548",
+            "nome": "Carmilla",
             "npc": false,
-            "salute_max": 80,
-            "salute": 0,
-            "attacco_min": 0,
-            "attacco_max": 90,
+            "salute_max": 130,
+            "salute": 45,
+            "attacco_min": 20,
+            "attacco_max": 100,
             "livello": 1,
             "destrezza": 15,
-            "iniziativa": 15,
+            "iniziativa": 20,
             "storico_danni_subiti": [
-                82
+                85
             ]
-        },
-        {
-            "classe": "Mago",
-            "id": "99e3fcd4-4ccd-4a3a-8d06-65f92bfc7e7d",
-            "nome": "kebab",
-            "npc": false,
-            "salute_max": 80,
-            "salute": 80,
-            "attacco_min": 0,
-            "attacco_max": 90,
-            "livello": 1,
-            "destrezza": 15,
-            "iniziativa": 15,
-            "storico_danni_subiti": []
         }
     ],
-    "turno": 11,
-    "indice_turno_corrente": 1,
     "ordine_turni": [
-        "0b96620c-2c90-4b53-b076-9781dd3103f2",
-        "38ab2f2e-a6f2-44e5-b8aa-792bcfea3edd",
-        "5db05bbe-c96c-4bb6-9a33-93b005190dfb",
-        "99e3fcd4-4ccd-4a3a-8d06-65f92bfc7e7d"
+        "c93b0b9d-86c6-4609-8b30-4913044641a9",
+        "5d9db649-b9a7-43f2-aec4-b65a372645fc",
+        "d7c8fd4a-1c42-49cd-877f-ea3a3dbed548",
+        "c5dea147-e1bb-4eff-b295-7496d2708da4"
     ],
+    "turno": 8,
+    "indice_turno_corrente": 3,
     "messaggi_battaglia": [
-        "Turno 1 - \u00e8 il turno di defefef!",
-        "defefef non utilizza oggetti in questo turno",
-        "defefef attacca Pdor per 11 danni!",
-        "Turno 2 - \u00e8 il turno di maxim!",
-        "maxim non utilizza oggetti in questo turno",
-        "maxim attacca Pdor per 0 danni!",
-        "Turno 3 - \u00e8 il turno di das!",
-        "das non utilizza oggetti in questo turno",
-        "das attacca Pdor per 78 danni!",
-        "Pdor \u00e8 stato sconfitto!",
-        "Turno 4 - \u00e8 il turno di ai cinese!",
-        "ai cinese non utilizza oggetti in questo turno",
-        "ai cinese attacca Blaine per 0 danni!",
-        "Turno 5 - \u00e8 il turno di Blaine!",
-        "Blaine usa Bomba Acida su maxim infliggendo 40 HP di danno",
-        "Blaine attacca ai cinese per 82 danni!",
-        "ai cinese \u00e8 stato sconfitto!",
-        "Turno 6 - \u00e8 il turno di cececece!",
-        "cececece non utilizza oggetti in questo turno",
-        "cececece attacca Blaine per 58 danni!",
-        "Turno 7 - \u00e8 il turno di defefef!",
-        "defefef non utilizza oggetti in questo turno",
-        "defefef attacca Blaine per 87 danni!",
-        "Turno 8 - \u00e8 il turno di maxim!",
-        "maxim non utilizza oggetti in questo turno",
-        "maxim attacca Blaine per 17 danni!",
-        "Turno 9 - \u00e8 il turno di das!",
-        "das non utilizza oggetti in questo turno",
-        "das attacca Blaine per 0 danni!",
-        "Turno 10 - \u00e8 il turno di Blaine!",
-        "Blaine non utilizza oggetti in questo turno",
-        "Blaine attacca cececece per 129 danni!",
-        "cececece \u00e8 stato sconfitto!",
-        "Turno 11 - \u00e8 il turno di kebab!",
-        "kebab non utilizza oggetti in questo turno",
-        "kebab attacca Blaine per 33 danni!",
-        "Blaine \u00e8 stato sconfitto!",
-        "Tutti i nemici sono stati sconfitti! Vittoria!",
-        "Tutti i nemici sono stati sconfitti! Vittoria!",
-        "Tutti i nemici sono stati sconfitti! Vittoria!",
-        "Tutti i nemici sono stati sconfitti! Vittoria!",
+        "Turno 1 - \u00e8 il turno di Alastor!",
+        "Alastor non utilizza oggetti in questo turno",
+        "Alastor attacca Little John per 45 danni!",
+        "Turno 2 - \u00e8 il turno di Robin Hood!",
+        "Robin Hood non utilizza oggetti in questo turno",
+        "Robin Hood attacca CherryBomb per 45 danni!",
+        "Turno 3 - \u00e8 il turno di Little John!",
+        "Little John usa Bomba Acida su CherryBomb infliggendo 30 HP di danno",
+        "Little John attacca Alastor per 57 danni!",
+        "Turno 4 - \u00e8 il turno di Carmilla!",
+        "Carmilla non utilizza oggetti in questo turno",
+        "Carmilla attacca Little John per 63 danni!",
+        "Turno 5 - \u00e8 il turno di CherryBomb!",
+        "CherryBomb usa Bomba Acida su Robin Hood infliggendo 30 HP di danno",
+        "CherryBomb attacca Robin Hood per 69 danni!",
+        "Turno 6 - \u00e8 il turno di Alastor!",
+        "Alastor non utilizza oggetti in questo turno",
+        "Alastor attacca Robin Hood per 63 danni!",
+        "Robin Hood \u00e8 stato sconfitto!",
+        "Turno 7 - \u00e8 il turno di Little John!",
+        "Little John non utilizza oggetti in questo turno",
+        "Little John attacca Carmilla per 85 danni!",
+        "Turno 8 - \u00e8 il turno di Carmilla!",
+        "Carmilla usa Bomba Acida su Little John infliggendo 30 HP di danno",
         "Tutti i nemici sono stati sconfitti! Vittoria!"
     ]
 }
