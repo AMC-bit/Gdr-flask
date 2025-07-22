@@ -21,7 +21,7 @@ from gioco.schemas.ambiente import AmbienteSchema
 from gioco.schemas.missione import MissioniSchema
 from inventory.routes import carica_inventario_da_json
 from utils.salvataggio import Json
-from config import DATA_DIR_SAVE, DATA_DIR_INV, DATA_DIR_MIS
+from config import DATA_DIR_SAVE, DATA_DIR_INV, DATA_DIR_PGS
 path_save = os.path.join(
     DATA_DIR_SAVE, "salvataggio.json"
 )
@@ -203,7 +203,6 @@ def auto_battle():
             if str(p.id) == ordine_turni[indice_turno] and not p.sconfitto():
                 personaggio_turno_corrente = p
                 break
-        print("PG CORRENTE", personaggio_turno_corrente)
         save_data['messaggi_battaglia'].append(
             f"Turno {save_data['turno']} - è il turno di {personaggio_turno_corrente.nome}!"
             )
@@ -248,6 +247,15 @@ def auto_battle():
         save_data['personaggi_selezionati'] = PersonaggioSchema(many=True).dump(personaggi_selezionati_obj)
         missione_obj.nemici = nemici_obj
         save_data['missione'] = MissioniSchema().dump(missione_obj)
+        for pg in personaggi_selezionati_obj:
+            file_name = f"{pg.id}.json"
+            pg_path = os.path.join(DATA_DIR_PGS, file_name)
+            if pg.sconfitto():
+                print("MORTO", pg_path)
+                os.remove(pg_path)
+            else:
+                print("PATH", pg_path)
+                Json.scrivi_dati(pg_path, PersonaggioSchema().dump(pg))
 
         save_data['indice_turno_corrente'] = (indice_turno + 1) % len(ordine_turni)
         Json.scrivi_dati(path_save, save_data)
