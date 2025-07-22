@@ -138,7 +138,6 @@ def show_mission():
         premi_raggruppati[premio.nome].append(premio)
 
     msg = f"Missione mostrata: {missione.nome}"
-    flash(msg, 'info')
 
     logger.info(msg)
     descrizione_ambiente = description(ambiente)
