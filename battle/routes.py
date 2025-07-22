@@ -276,7 +276,10 @@ def auto_battle():
         'auto_battle.html',
         battaglia_finita=battaglia_finita,
         vittoria=vittoria,
-        messaggi=save_data['messaggi_battaglia']
+        messaggi=save_data['messaggi_battaglia'],
+        personaggi=personaggi_selezionati_obj,
+        nemici=nemici_obj,
+        missione=missione_obj
     )
 
 
