@@ -156,6 +156,12 @@ def auto_battle():
     ambiente_obj = setup[0].ambiente
     save_data = Json.carica_dati(path_save)
     tutti_personaggi = personaggi_selezionati_obj + nemici_obj
+    # setup per l'uso dell'inventario in maniera automatica
+    inventari = []
+    inventari_pg = setup[2]
+    inventari += setup[2]  # Riferimenti agli oggetti
+    inventari += missione_obj.inventari_nemici  # Riferimenti agli oggetti
+    inventario = None
 
     # Inizializza messaggi e ordine turni se non presenti
 
@@ -203,21 +209,18 @@ def auto_battle():
             f"Turno {save_data['turno']} - è il turno di {personaggio_turno_corrente.nome}!"
             )
 
-        # setup per l'uso dell'inventario in maniera automatica
-        pg = personaggio_turno_corrente
-        inventari = []
-        inventari_pg = setup[2]
-        inventari.extend(setup[2])
-        inventari.extend(missione_obj.inventari_nemici)
-        inventario = None
+        #uso dell'inventario in maniera automatica
         for inv in inventari:
-            if isinstance(inv, Inventario) and inv.id_proprietario == pg.id:
+            if (
+                isinstance(inv, Inventario)
+                and inv.id_proprietario == personaggio_turno_corrente.id
+            ):
                 inventario = inv
                 break
 
         result = usa_inventario_automatico(
             inventario,
-            pg,
+            personaggio_turno_corrente,
             missione_obj,
             (nemici_obj + personaggi_selezionati_obj)
             )
