@@ -175,8 +175,9 @@ def auto_battle():
     if 'messaggi_battaglia' not in save_data:
         save_data['messaggi_battaglia'] = []
 
-    ordine_turni = save_data['ordine_turni']
+    ordine_turni = ordine_iniziativa(tutti_personaggi)
     indice_turno = save_data['indice_turno_corrente']
+    
     battaglia_finita = False
     vittoria = False
     # --- Controlla se la battaglia è già finita ---
@@ -193,12 +194,16 @@ def auto_battle():
 
     if not battaglia_finita:
         save_data['turno'] += 1
-        ordine_turni = [idx for idx in ordine_turni if not tutti_personaggi[idx].sconfitto()]
         save_data['ordine_turni'] = ordine_turni
         if indice_turno >= len(ordine_turni):
             indice_turno = 0
             save_data['indice_turno_corrente'] = indice_turno
-        personaggio_turno_corrente = tutti_personaggi[ordine_turni[indice_turno]]
+        personaggio_turno_corrente = None
+        for p in tutti_personaggi:
+            if str(p.id) == ordine_turni[indice_turno]:
+                personaggio_turno_corrente = p
+                break
+        print("PG CORRENTE", personaggio_turno_corrente)
         save_data['messaggi_battaglia'].append(
             f"Turno {save_data['turno']} - è il turno di {personaggio_turno_corrente.nome}!"
             )
@@ -254,3 +259,55 @@ def auto_battle():
         nemici=nemici_obj,
         missione=missione_obj
     )
+    
+# in ingresso lista di tutti i personaggi, e  sommo iniziativa + d20, ordino in base a qst, mettendo gli id
+def ordine_iniziativa(tutti_personaggi):
+    """
+    Calcola l'iniziativa per ogni personaggio sommando il valore di iniziativa al tiro di un d20.
+    Ritorna una lista ordinata di ID in base all'iniziativa decrescente.
+    
+    Args:
+        personaggi (list): Lista di oggetti `Personaggio`.
+
+    Returns:
+        list: Lista ordinata di ID in base al punteggio iniziativa.
+    """
+    iniziativa = []
+    for pg in tutti_personaggi:
+        tiro = random.randint(1, 20)
+        iniziativa.append((pg.id, pg.iniziativa + tiro)) 
+    # Ordino per l'elemento 1 della tupla decrescente
+    iniziativa.sort(key=lambda tuple: tuple[1], reverse=True)
+
+    lista_ordinata_id = []
+    for tupla in iniziativa:
+        id = tupla[0]
+        lista_ordinata_id.append(str(id))
+    return lista_ordinata_id
+
+
+@battle_bp.route('/test_iniziativa')
+def test_iniziativa():
+
+    #chiamo setup lista personaggi
+    setup = setup_battle()
+
+    personaggi = setup[1]
+
+    iniziativa = []
+    for pg in personaggi:
+        tiro = random.randint(1, 20)
+        iniziativa.append((pg.id, pg.iniziativa + tiro)) 
+        flash(f'id: {pg.id}. Valori iniziativa {pg.iniziativa}. Tiro: {tiro}', 'info')
+    # Ordino per l'elemento 1 della tupla decrescente
+    iniziativa.sort(key=lambda tuple: tuple[1], reverse=True)
+
+    return render_template(
+        "test_iniziativa.html",
+        risultati=iniziativa
+    )
+
+
+@battle_bp.route('/TEMPLATE', methods=['GET', 'POST'])
+def test_battle_v2():
+    return render_template("TEMPLATE.html")
