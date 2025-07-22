@@ -21,6 +21,7 @@ from gioco.schemas.ambiente import AmbienteSchema
 from gioco.schemas.missione import MissioniSchema
 from inventory.routes import carica_inventario_da_json
 from utils.salvataggio import Json
+from gioco.schemas.oggetto import get_all_subclasses
 from config import DATA_DIR_SAVE, DATA_DIR_INV, DATA_DIR_MIS
 path_save = os.path.join(
     DATA_DIR_SAVE, "salvataggio.json"
@@ -35,28 +36,6 @@ schema_inv = InventarioSchema()
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
-
-@battle_bp.route('/show_inventory', methods=['GET', 'POST'])
-def show_inventory():
-    # recupero dalla sessione il personaggio che sta giocando il turno corrente
-    if 'personaggio_turno_corrente' in session:
-        personaggio_turno_corrente = session['personaggio_turno_corrente']
-        cls_pg_turno_corr = classi.get(personaggio_turno_corrente.get('classe'))
-        if cls_pg_turno_corr:
-                personaggio_turno_corrente = cls_pg_turno_corr.from_dict(personaggio_turno_corrente)
-
-        # recupero inventari dalla sessione cerco l'inventario del personaggio in turno e lo deserializzo
-        inventari_des = []
-        if 'inventari_selezionati' in session :
-            inventari = session['inventari_selezionati']
-            for inventario in inventari:
-                if inventario['id_proprietario'] ==  personaggio_turno_corrente.id:
-                    inventario = Inventario.from_dict(inventario)
-
-    return render_template(
-        'show_inventory.html',
-        personaggio_turno_corrente=personaggio_turno_corrente,
-        inventario=inventario)
 
 
 
@@ -149,6 +128,33 @@ def setup_battle():
 
     return missione_obj, personaggi_selezionati_obj, inventari_pg_obj
 
+def assegna_premi(missione : Missione, messaggi_battaglia : list[str], personaggi_selezionati : list[Personaggio]  ,inventari : list[Inventario]):
+    """Da chiamare a fine scontro in caso di vittoria per assegnare 
+    i premi della missione agli inventari dei personaggi
+
+    Args:
+        missione (Missione): La missione corrente
+        inventari (list[Inventario]): Inventari dei personaggi giocanti
+
+    Returns:
+        None
+    """
+    for inventario in inventari:
+        print(f"INVENTARIO:{inventari}")
+        for pg in personaggi_selezionati:
+            print(f"PG:{pg}")
+            if inventario.id_proprietario == pg.id:
+                for premio in missione.premi:
+                    print(f"PREMIO:{premio}")
+                    #QUESTA è una PORCATA , cè da rimettere mano nella lista premi di ogni missione
+                    oggetti_map = {
+                    subcls.__name__: subcls
+                    for subcls in get_all_subclasses(Oggetto)
+                    }
+                    oggetto_cls = oggetti_map[premio.classe]
+                    nuova_istanza = oggetto_cls()
+                    messaggi_battaglia.append(f"{pg.nome} ha ricevuto in premio {nuova_istanza.nome}")
+                    inventario.aggiungi_oggetto(nuova_istanza)
 
 @battle_bp.route('/auto_battle', methods=['GET'])
 def auto_battle():
@@ -158,6 +164,9 @@ def auto_battle():
     personaggi_selezionati_obj = setup[1]
     nemici_obj = setup[0].nemici
     ambiente_obj = setup[0].ambiente
+    inventari = []
+    inventari.extend(setup[2])
+    inventari.extend(missione_obj.inventari_nemici)
     save_data = Json.carica_dati(path_save)
     tutti_personaggi = personaggi_selezionati_obj + nemici_obj
 
@@ -190,6 +199,8 @@ def auto_battle():
     elif not npc_vivi:
         battaglia_finita = True
         vittoria = True
+        #TODO Assegna i premi
+        assegna_premi(missione_obj,save_data['messaggi_battaglia'], personaggi_selezionati_obj, inventari)
         save_data['messaggi_battaglia'].append("Tutti i nemici sono stati sconfitti! Vittoria!")
 
     if not battaglia_finita:
@@ -210,9 +221,7 @@ def auto_battle():
 
         # setup per l'uso dell'inventario in maniera automatica
         pg = personaggio_turno_corrente
-        inventari = []
-        inventari.extend(setup[2])
-        inventari.extend(missione_obj.inventari_nemici)
+        
         inventario = None
         for inv in inventari:
             if isinstance(inv, Inventario) and inv.id_proprietario == pg.id:

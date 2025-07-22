@@ -1,61 +1,58 @@
 {
     "missione": {
-        "id": "e62e1f84-878b-4d2f-870f-9797bb3d60fc",
-        "nome": "Sconfiggi lo slime non morto",
+        "id": "292c816f-3e3f-4c79-9f4a-4ea4dbe0e2d1",
+        "nome": "Imboscata",
         "ambiente": {
-            "nome": "Palude",
-            "mod_attacco": -5,
-            "mod_cura": -0.1,
-            "classe": "Palude"
+            "nome": "Foresta",
+            "mod_attacco": 5,
+            "mod_cura": 5.5,
+            "classe": "Foresta"
         },
         "nemici": [
             {
                 "classe": "Guerriero",
-                "id": "5c9f6e63-87a1-4c9a-9257-b2044a54d518",
-                "nome": "Scheletrino",
+                "id": "8c1dfb36-6eae-4c7d-a6f9-2f0b9e8edc96",
+                "nome": "Robin Hood",
                 "npc": true,
-                "salute_max": 60,
+                "salute_max": 130,
                 "salute": 0,
-                "attacco_min": 40,
-                "attacco_max": 120,
+                "attacco_min": 20,
+                "attacco_max": 100,
                 "livello": 1,
-                "destrezza": 20,
+                "destrezza": 15,
                 "iniziativa": 20,
                 "storico_danni_subiti": [
-                    42,
-                    41
+                    0,
+                    84,
+                    15,
+                    76
                 ]
             },
             {
-                "classe": "Ladro",
-                "id": "c9b8414e-9fae-4eb7-a2ea-3cfb77677185",
-                "nome": "Slime non morto",
+                "classe": "Guerriero",
+                "id": "5d9db649-b9a7-43f2-aec4-b65a372645fc",
+                "nome": "Little John",
                 "npc": true,
-                "salute_max": 260,
+                "salute_max": 130,
                 "salute": 0,
-                "attacco_min": 5,
-                "attacco_max": 35,
+                "attacco_min": 20,
+                "attacco_max": 100,
                 "livello": 1,
-                "destrezza": 10,
-                "iniziativa": 25,
+                "destrezza": 15,
+                "iniziativa": 20,
                 "storico_danni_subiti": [
-                    30,
-                    70,
-                    15,
-                    0,
-                    0,
-                    81,
-                    75
+                    66,
+                    87
                 ]
             }
         ],
         "inventari_nemici": [
             {
-                "id": "74d202f2-20cd-4f41-849c-3c2692bbca30",
-                "id_proprietario": "5c9f6e63-87a1-4c9a-9257-b2044a54d518",
+                "id": "9c37ce4b-016f-4c2d-a42e-8136ae988f4c",
+                "id_proprietario": "8c1dfb36-6eae-4c7d-a6f9-2f0b9e8edc96",
                 "oggetti": [
                     {
-                        "id": "782bc69f-8b9c-4372-8ab2-88e8d27bbdf4",
+                        "id": "aef17f9f-f158-4308-bc11-786b6818b19e",
                         "nome": "Bomba Acida",
                         "usato": false,
                         "valore": 30,
@@ -65,11 +62,11 @@
                 ]
             },
             {
-                "id": "cb6aebef-1fc4-48a5-9975-e0b1f9fd1934",
-                "id_proprietario": "c9b8414e-9fae-4eb7-a2ea-3cfb77677185",
+                "id": "90d9d1a6-2fc8-4550-9e3f-c038fe0114f4",
+                "id_proprietario": "5d9db649-b9a7-43f2-aec4-b65a372645fc",
                 "oggetti": [
                     {
-                        "id": "009a6c6e-5887-4a08-af10-41fd02cc9edf",
+                        "id": "8f0f45be-bc36-463c-913c-c1c314b029b4",
                         "nome": "Bomba Acida",
                         "usato": false,
                         "valore": 30,
@@ -89,6 +86,14 @@
                 "classe": "PozioneCura"
             },
             {
+                "id": "2a4c5e6f-7b8d-4c9e-8f1a-2b3c4d5e6f7a",
+                "nome": "Pozione Rossa",
+                "usato": false,
+                "valore": 30,
+                "tipo_oggetto": "Ristorativo",
+                "classe": "PozioneCura"
+            },
+            {
                 "id": "9f8e7d6c-5b4a-3c2d-1e0f-9a8b7c6d5e4f",
                 "nome": "Bomba Acida",
                 "usato": false,
@@ -98,7 +103,7 @@
             }
         ],
         "strategia_nemici": {
-            "nome": "Difensiva"
+            "nome": "Equilibrata"
         },
         "completata": false,
         "attiva": false
@@ -110,15 +115,13 @@
             "nome": "sora",
             "npc": false,
             "salute_max": 120,
-            "salute": 119,
+            "salute": 120,
             "attacco_min": 10,
             "attacco_max": 85,
             "livello": 1,
             "destrezza": 15,
             "iniziativa": 25,
-            "storico_danni_subiti": [
-                1
-            ]
+            "storico_danni_subiti": []
         },
         {
             "classe": "Mago",
@@ -126,14 +129,15 @@
             "nome": "Franco",
             "npc": false,
             "salute_max": 80,
-            "salute": 67,
+            "salute": 10,
             "attacco_min": 0,
             "attacco_max": 90,
             "livello": 1,
             "destrezza": 15,
             "iniziativa": 15,
             "storico_danni_subiti": [
-                13
+                70,
+                0
             ]
         },
         {
@@ -142,63 +146,64 @@
             "nome": "silvia",
             "npc": false,
             "salute_max": 130,
-            "salute": 117,
+            "salute": 130,
             "attacco_min": 20,
             "attacco_max": 100,
             "livello": 1,
             "destrezza": 15,
             "iniziativa": 20,
             "storico_danni_subiti": [
-                13
+                0
             ]
         }
     ],
     "ordine_turni": [
+        "91e950b7-c5ac-4100-923e-fc6d99e663fb",
         "261e7402-1708-4c1e-87ed-19525083328b",
-        "fb35d2a9-f73c-47bf-acd2-2e05aa74721a",
-        "91e950b7-c5ac-4100-923e-fc6d99e663fb"
+        "fb35d2a9-f73c-47bf-acd2-2e05aa74721a"
     ],
-    "turno": 12,
+    "turno": 9,
     "indice_turno_corrente": 1,
     "messaggi_battaglia": [
-        "Turno 1 - \u00e8 il turno di Slime non morto!",
-        "Slime non morto non utilizza oggetti in questo turno",
-        "Slime non morto attacca Franco per 13 danni!",
-        "Turno 2 - \u00e8 il turno di sora!",
+        "Turno 1 - \u00e8 il turno di Franco!",
+        "Franco usa Bomba Acida su Little John infliggendo 30 HP di danno",
+        "Franco attacca Little John per 66 danni!",
+        "Turno 2 - \u00e8 il turno di Robin Hood!",
+        "Robin Hood non utilizza oggetti in questo turno",
+        "Robin Hood attacca silvia per 0 danni!",
+        "Turno 3 - \u00e8 il turno di sora!",
         "sora non utilizza oggetti in questo turno",
-        "sora attacca Scheletrino per 42 danni!",
-        "Turno 3 - \u00e8 il turno di silvia!",
+        "sora attacca Robin Hood per 0 danni!",
+        "Turno 4 - \u00e8 il turno di Little John!",
+        "Little John non utilizza oggetti in questo turno",
+        "Little John attacca Franco per 70 danni!",
+        "Turno 5 - \u00e8 il turno di silvia!",
         "silvia non utilizza oggetti in questo turno",
-        "silvia attacca Scheletrino per 41 danni!",
-        "Scheletrino \u00e8 stato sconfitto!",
-        "Turno 4 - \u00e8 il turno di Franco!",
+        "silvia attacca Robin Hood per 84 danni!",
+        "Turno 6 - \u00e8 il turno di Franco!",
         "Franco non utilizza oggetti in questo turno",
-        "Franco attacca Slime non morto per 30 danni!",
-        "Turno 5 - \u00e8 il turno di Slime non morto!",
-        "Slime non morto non utilizza oggetti in questo turno",
-        "Slime non morto attacca sora per 1 danni!",
-        "Turno 6 - \u00e8 il turno di sora!",
+        "Franco attacca Robin Hood per 15 danni!",
+        "Turno 7 - \u00e8 il turno di Robin Hood!",
+        "Robin Hood non utilizza oggetti in questo turno",
+        "Robin Hood attacca Franco per 0 danni!",
+        "Turno 8 - \u00e8 il turno di sora!",
         "sora non utilizza oggetti in questo turno",
-        "sora attacca Slime non morto per 70 danni!",
-        "Turno 7 - \u00e8 il turno di silvia!",
+        "sora attacca Little John per 87 danni!",
+        "Little John \u00e8 stato sconfitto!",
+        "Turno 9 - \u00e8 il turno di silvia!",
         "silvia non utilizza oggetti in questo turno",
-        "silvia attacca Slime non morto per 15 danni!",
-        "Turno 8 - \u00e8 il turno di Franco!",
-        "Franco non utilizza oggetti in questo turno",
-        "Franco attacca Slime non morto per 0 danni!",
-        "Turno 9 - \u00e8 il turno di Slime non morto!",
-        "Slime non morto non utilizza oggetti in questo turno",
-        "Slime non morto attacca silvia per 13 danni!",
-        "Turno 10 - \u00e8 il turno di sora!",
-        "sora non utilizza oggetti in questo turno",
-        "sora attacca Slime non morto per 0 danni!",
-        "Turno 11 - \u00e8 il turno di silvia!",
-        "silvia non utilizza oggetti in questo turno",
-        "silvia attacca Slime non morto per 81 danni!",
-        "Turno 12 - \u00e8 il turno di Franco!",
-        "Franco non utilizza oggetti in questo turno",
-        "Franco attacca Slime non morto per 75 danni!",
-        "Slime non morto \u00e8 stato sconfitto!",
+        "silvia attacca Robin Hood per 76 danni!",
+        "Robin Hood \u00e8 stato sconfitto!",
+        "Tutti i nemici sono stati sconfitti! Vittoria!",
+        "sora ha ricevuto in premio Pozione Rossa",
+        "sora ha ricevuto in premio Pozione Rossa",
+        "sora ha ricevuto in premio Bomba Acida",
+        "Franco ha ricevuto in premio Pozione Rossa",
+        "Franco ha ricevuto in premio Pozione Rossa",
+        "Franco ha ricevuto in premio Bomba Acida",
+        "silvia ha ricevuto in premio Pozione Rossa",
+        "silvia ha ricevuto in premio Pozione Rossa",
+        "silvia ha ricevuto in premio Bomba Acida",
         "Tutti i nemici sono stati sconfitti! Vittoria!"
     ]
 }
