@@ -17,14 +17,11 @@ def index():
         has_missioni = False
         # controlla se ci sono personaggi e missioni nel file json
         for filename in os.listdir(DATA_DIR_PGS):
-                print("TEST1", filename)
                 if filename.endswith('.json'):
                     full_path = os.path.join(DATA_DIR_PGS, filename)
                     with open(full_path, 'r') as file:
                         personaggi = json.load(file)
                         for char_id in current_user.character_ids:
-                            print("TEST2", char_id)
-                            print("TEST3",personaggi['id'])
                             if personaggi['id'] == char_id:
                                 has_personaggi = True
                                 break
