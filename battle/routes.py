@@ -1,7 +1,13 @@
 from flask import redirect, render_template, session, url_for, request, flash, jsonify
+
+from gioco.oggetto import Oggetto
+from gioco.strategy import Strategia
 from . import battle_bp
 import os
 import logging
+import random
+import json
+import time
 from gioco.personaggio import Personaggio
 from gioco.classi import Mago, Ladro, Guerriero
 from gioco.inventario import Inventario
@@ -15,18 +21,20 @@ from gioco.schemas.ambiente import AmbienteSchema
 from gioco.schemas.missione import MissioniSchema
 from inventory.routes import carica_inventario_da_json
 from utils.salvataggio import Json
-import random
-import json
-from config import DATA_DIR_SAVE, DATA_DIR_INV
-import time
+from config import DATA_DIR_SAVE, DATA_DIR_INV, DATA_DIR_MIS
 path_save = os.path.join(
     DATA_DIR_SAVE, "salvataggio.json"
+)
+path_inv = os.path.join(
+    DATA_DIR_INV, "inventario.json"
 )
 
 classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
 schema = PersonaggioSchema()
 schema_inv = InventarioSchema()
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 @battle_bp.route('/show_inventory', methods=['GET', 'POST'])
 def show_inventory():
@@ -74,7 +82,7 @@ def select_char():
                 personaggi_selezionati.append(pg)
             except (ValueError, IndexError):
                 continue
-        
+
         data_load = Json.carica_dati(path_save)
         if isinstance(data_load, dict):
             data_load['personaggi_selezionati'] = personaggi_selezionati
@@ -106,7 +114,7 @@ def select_char():
         )
 
 def setup_battle():
-    """TODO Fa il setup dei dati prendendoli dai file json data/ save, inventari, personaggi
+    """Fa il setup dei dati prendendoli dai file json data/ save, inventari, personaggi
     Deserializza i dati dai json e ritorna gli oggetti
 
     Returns:
@@ -135,9 +143,7 @@ def setup_battle():
     #nemici_obj = personaggio_schema.load(nemici)
     #ambiente_obj = AmbienteSchema().load(ambiente)
     #inventari_nemici_obj = InventarioSchema(many=True).load(inventari_nemici)
-
     #tutti_personaggi_obj = personaggi_selezionati_obj + nemici_obj
-
     #Carico gli inventari dei personaggi:
     inventari_pg_obj = []
     inventario_schema = InventarioSchema()
@@ -146,7 +152,7 @@ def setup_battle():
         inventario_pg = Json.carica_dati(pg_inv_path)
         inventario_pg_obj = inventario_schema.load(inventario_pg)
         inventari_pg_obj.append(inventario_pg_obj)
-        
+
     return missione_obj, personaggi_selezionati_obj, inventari_pg_obj
 
 
@@ -207,6 +213,27 @@ def auto_battle():
         save_data['messaggi_battaglia'].append(
             f"Turno {save_data['turno']} - è il turno di {personaggio_turno_corrente.nome}!"
             )
+
+        # setup per l'uso dell'inventario in maniera automatica
+        pg = personaggio_turno_corrente
+        inventari = []
+        inventari.extend(setup[2])
+        inventari.extend(missione_obj.inventari_nemici)
+        inventario = None
+        for inv in inventari:
+            if isinstance(inv, Inventario) and inv.id_proprietario == pg.id:
+                inventario = inv
+                break
+
+        result = usa_inventario_automatico(
+            inventario,
+            pg,
+            missione_obj,
+            (nemici_obj + personaggi_selezionati_obj)
+            )
+        txt = result[1]
+        save_data['messaggi_battaglia'].append(txt)
+
         if personaggio_turno_corrente.npc:
             bersagli_validi = [p for p in personaggi_selezionati_obj if not p.sconfitto()]
         else:
@@ -225,7 +252,7 @@ def auto_battle():
         save_data['personaggi_selezionati'] = PersonaggioSchema(many=True).dump(personaggi_selezionati_obj)
         missione_obj.nemici = nemici_obj
         save_data['missione'] = MissioniSchema().dump(missione_obj)
-    
+
         save_data['indice_turno_corrente'] = (indice_turno + 1) % len(ordine_turni)
         Json.scrivi_dati(path_save, save_data)
         pc_vivi = [p for p in personaggi_selezionati_obj if not p.sconfitto()]
@@ -237,8 +264,8 @@ def auto_battle():
         elif not npc_vivi:
             battaglia_finita = True
             vittoria = True
-            save_data['messaggi_battaglia'].append("Tutti i nemici sono stati sconfitti!")
-        
+            save_data['messaggi_battaglia'].append("Tutti i nemici sono stati sconfitti! Vittoria!")
+
     # Salvataggio stato
     save_data['missione'] = MissioniSchema().dump(missione_obj)
     Json.scrivi_dati(path_save, save_data)
@@ -259,6 +286,240 @@ def auto_battle():
         nemici=nemici_obj,
         missione=missione_obj
     )
+
+
+def carica_inventario(
+    pg_turno_corrente: Personaggio,
+    lista_inv_pc: list[Inventario],
+    lista_inv_npc: list[Inventario]
+    ) -> Inventario:
+    """
+    Carica l'inventario del personaggio corrente.
+
+    Args:
+        pg_turno_corrente (Personaggio): Il personaggio corrente.
+        lista_inv_pc (list[Inventario]):
+        L'elenco degli inventari dei personaggi giocanti.
+        lista_inv_npc (list[Inventario]):
+        L'elenco degli inventari dei personaggi non giocanti.
+
+    Returns:
+        Inventario: L'inventario del personaggio corrente, se trovato.
+    """
+    inventario = None
+    if pg_turno_corrente.npc:
+        # cerco l'inventario tra quelli NPC
+        for inv in lista_inv_npc:
+            if inv.id_proprietario == pg_turno_corrente.id:
+                inventario = inv
+                break
+    else:
+        # cerco l'inventario tra quelli PC
+        for inv in lista_inv_pc:
+            if inv.id_proprietario == pg_turno_corrente.id:
+                inventario = inv
+                break
+    # controllo finale
+    if inventario is None:
+        logging.error(
+            f"Inventario non trovato per il personaggio: "
+            f"{pg_turno_corrente.nome}"
+        )
+        return None
+    return inventario
+
+
+def mostra_inventario(inventario: Inventario) -> jsonify:
+    """
+    Mostra il contenuto dell'inventario.
+
+    Args:
+        inventario (Inventario): L'inventario da mostrare.
+
+    Returns:
+        JSON: La lista degli oggetti presenti nell'inventario.
+    """
+    lista_oggetti = [
+        {
+            'nome': oggetto.nome,
+        } for oggetto in inventario.mostra_lista_inventario()
+        if isinstance(oggetto, Oggetto)
+    ]
+    return jsonify(lista_oggetti)
+
+
+def usa_inventario(
+    inventario: Inventario,
+    pg: Personaggio,
+    ambiente: Ambiente,
+    nome_oggetto: str,
+    bersaglio: Personaggio = None
+) -> tuple[int | None, str]:
+    """
+    Utilizza un oggetto dall'inventario.
+
+    Args:
+        inventario (Inventario): L'inventario da cui utilizzare l'oggetto.
+        pg (Personaggio): Il personaggio che utilizza l'oggetto.
+        ambiente (Ambiente): L'ambiente in cui si trova il personaggio.
+        nome_oggetto (str): Il nome dell'oggetto da utilizzare.
+        bersaglio (Personaggio, optional):
+        Il bersaglio dell'effetto dell'oggetto. Defaults to None.
+
+    Returns:
+        tuple[int | None, str]:
+        Il risultato dell'uso dell'oggetto e un messaggio descrittivo.
+    """
+
+    txt1 = f"{pg.nome} usa {nome_oggetto} su {bersaglio.nome}"
+
+    # controllo se il bersaglio è specificato,
+    # altrimenti usa il personaggio stesso
+    if bersaglio is None:
+        bersaglio = pg
+        txt1 = f"{pg.nome} usa {nome_oggetto} su se stesso"
+
+    # cerco il tipo di oggetto nell'inventario,
+    # servirà per determinarne l'effetto
+    tipo_oggetto = None
+    for obj in inventario.oggetti:
+        if obj.nome == nome_oggetto:
+            tipo_oggetto = obj.tipo_oggetto
+            break
+
+    if tipo_oggetto is not None:
+        risultato = inventario.usa_oggetto(nome_oggetto, ambiente)
+        if tipo_oggetto == "Ristorativo":
+            bersaglio.salute += risultato
+            if bersaglio.salute > bersaglio.salute_max:
+                bersaglio.salute = bersaglio.salute_max
+                txt = f"{txt1}, che torna al massimo della salute."
+            else:
+                txt = f"{txt1}, recuperando {risultato} HP."
+        elif tipo_oggetto == "Offensivo":
+            risultato = risultato # Il danno è negativo per l'oggetto offensivo
+            bersaglio.salute += risultato
+            txt = f"{txt1}, infliggendo {-risultato} HP di danno."
+        elif tipo_oggetto == "Buff":
+            bersaglio.attacco_max += risultato
+            txt = f"{txt1}, incrementando l'attacco massimo di {risultato}."
+        else:
+            txt = f"{txt1}, ma non ha effetto."
+    else:
+        txt = f"{pg.nome} non ha l'oggetto {nome_oggetto} nell'inventario."
+    logger.info(txt)
+    return risultato, txt
+
+
+def usa_inventario_automatico(
+    inventario: Inventario,
+    pg: Personaggio,
+    missione: Missione,
+    bersagli: list[Personaggio],
+    strategia: Strategia = None
+) -> tuple[int | None, str]:
+    """
+    Utilizza un oggetto dall'inventario in modo automatico.
+
+    Args:
+        inventario (Inventario): L'inventario da cui utilizzare l'oggetto.
+        pg (Personaggio): Il personaggio che utilizza l'oggetto.
+        ambiente (Ambiente): L'ambiente in cui si trova il personaggio.
+        bersagli (list[Personaggio]): I bersagli dell'effetto dell'oggetto.
+
+    Returns:
+        tuple[int | None, str]:
+        Il risultato dell'uso dell'oggetto e un messaggio descrittivo.
+    """
+    ambiente = missione.ambiente
+
+    if strategia is None:
+        strategia = missione.strategia_nemici
+
+    bersagli = [
+        bersaglio for bersaglio in bersagli
+        if bersaglio.salute > 0
+        and bersaglio != pg
+        and bersaglio.npc != pg.npc
+    ]
+
+    value = strategia.uso_inventario_npc(pg.salute, inventario, ambiente)
+
+    if value is not None:
+        if value < 0:
+            # Se il valore è negativo, significa che l'oggetto è offensivo
+            bersaglio = random.choice(bersagli)
+            txt = (f"{pg.nome} usa Bomba Acida su {bersaglio.nome} "
+                   f"infliggendo {-value} HP di danno")
+            bersaglio.salute += value
+        if value > 0:
+            bersaglio = None
+            txt = (f"{pg.nome} usa Pozione Curativa su se stesso "
+                   f"recuperando {value} HP")
+            pg.salute += value
+            if pg.salute >= pg.salute_max:
+                pg.salute = pg.salute_max
+                txt += ", che torna al massimo della salute."
+            else:
+                txt += f", recuperando {value} HP."
+        logger.info(txt)
+        return value, txt
+    if inventario is None:
+        txt = f"{pg.nome} non ha un inventario! Errore!!!!."
+    elif inventario.oggetti is None:
+        txt = f"{pg.nome} non ha oggetti nell'inventario."
+    else:
+        txt = f"{pg.nome} non utilizza oggetti in questo turno"
+    return None, txt
+
+
+# in ingresso lista di tutti i personaggi, e  sommo iniziativa + d20, ordino in base a qst, mettendo gli id
+def ordine_iniziativa(tutti_personaggi):
+    """
+    Calcola l'iniziativa per ogni personaggio sommando il valore di iniziativa al tiro di un d20.
+    Ritorna una lista ordinata di ID in base all'iniziativa decrescente.
+
+    Args:
+        personaggi (list): Lista di oggetti `Personaggio`.
+
+    Returns:
+        list: Lista ordinata di ID in base al punteggio iniziativa.
+    """
+    iniziativa = []
+    for pg in tutti_personaggi:
+        tiro = random.randint(1, 20)
+        iniziativa.append((pg.id, pg.iniziativa + tiro))
+    # Ordino per l'elemento 1 della tupla decrescente
+    iniziativa.sort(key=lambda tuple: tuple[1], reverse=True)
+
+    lista_ordinata_id = []
+    for tupla in iniziativa:
+        id = tupla[0]
+        lista_ordinata_id.append(id)
+    return lista_ordinata_id
+
+
+@battle_bp.route('/test_iniziativa')
+def test_iniziativa():
+
+    #chiamo setup lista personaggi
+    setup = setup_battle()
+
+    personaggi = setup[1]
+
+    iniziativa = []
+    for pg in personaggi:
+        tiro = random.randint(1, 20)
+        iniziativa.append((pg.id, pg.iniziativa + tiro))
+        flash(f'id: {pg.id}. Valori iniziativa {pg.iniziativa}. Tiro: {tiro}', 'info')
+    # Ordino per l'elemento 1 della tupla decrescente
+    iniziativa.sort(key=lambda tuple: tuple[1], reverse=True)
+
+    return render_template(
+        "test_iniziativa.html",
+        risultati=iniziativa
+    )
+
     
 # in ingresso lista di tutti i personaggi, e  sommo iniziativa + d20, ordino in base a qst, mettendo gli id
 def ordine_iniziativa(tutti_personaggi):

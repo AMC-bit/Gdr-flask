@@ -15,15 +15,13 @@
                 "nome": "Pdor",
                 "npc": true,
                 "salute_max": 30,
-                "salute": 25,
+                "salute": 30,
                 "attacco_min": 4,
                 "attacco_max": 8,
                 "livello": 1,
                 "destrezza": 1,
                 "iniziativa": 15,
-                "storico_danni_subiti": [
-                    0
-                ]
+                "storico_danni_subiti": []
             },
             {
                 "classe": "Guerriero",
@@ -31,31 +29,20 @@
                 "nome": "Blaine",
                 "npc": true,
                 "salute_max": 180,
-                "salute": 170,
+                "salute": 180,
                 "attacco_min": 40,
                 "attacco_max": 120,
                 "livello": 1,
                 "destrezza": 25,
                 "iniziativa": 20,
-                "storico_danni_subiti": [
-                    0
-                ]
+                "storico_danni_subiti": []
             }
         ],
         "inventari_nemici": [
             {
                 "id": "e373a5eb-244f-4cda-832b-04e3fdfdfcc1",
                 "id_proprietario": "866f1744-8a23-438d-927b-8743dc8c52e8",
-                "oggetti": [
-                    {
-                        "id": "aef17f9f-f158-4308-bc11-786b6818b19e",
-                        "nome": "Bomba Acida",
-                        "usato": false,
-                        "valore": 30,
-                        "tipo_oggetto": "Offensivo",
-                        "classe": "BombaAcida"
-                    }
-                ]
+                "oggetti": []
             },
             {
                 "id": "6ab8ce89-0a16-4953-a9f5-cd0892a6bd96",
@@ -91,60 +78,73 @@
     "personaggi_selezionati": [
         {
             "classe": "Mago",
-            "id": "59ac19e8-c2a1-4a90-b176-615bd47854ee",
-            "nome": "gg",
+            "id": "017f16a6-ff3d-4601-ae73-6a1b2caec830",
+            "nome": "Alastor",
             "npc": false,
             "salute_max": 80,
-            "salute": 0,
+            "salute": 80,
             "attacco_min": 0,
             "attacco_max": 90,
             "livello": 1,
             "destrezza": 15,
             "iniziativa": 15,
-            "storico_danni_subiti": []
-        },
-        {
-            "classe": "Guerriero",
-            "id": "6c16f177-49bb-418a-acbf-2d169699538e",
-            "nome": "belin",
-            "npc": false,
-            "salute_max": 130,
-            "salute": 130,
-            "attacco_min": 20,
-            "attacco_max": 100,
-            "livello": 1,
-            "destrezza": 15,
-            "iniziativa": 20,
-            "storico_danni_subiti": []
+            "storico_danni_subiti": [
+                0
+            ]
         },
         {
             "classe": "Ladro",
-            "id": "c2e941a9-cd35-4b4b-a6f8-b369a8c90896",
-            "nome": "drfg",
+            "id": "1e8b15ce-569d-44fe-bd27-907d2fdbe7e2",
+            "nome": "CherryBomb",
             "npc": false,
             "salute_max": 120,
-            "salute": 22,
+            "salute": 120,
             "attacco_min": 10,
             "attacco_max": 85,
             "livello": 1,
             "destrezza": 15,
             "iniziativa": 25,
+            "storico_danni_subiti": []
+        },
+        {
+            "classe": "Guerriero",
+            "id": "36f445c1-0f97-4117-959f-0d6b5de2505a",
+            "nome": "Carmilla",
+            "npc": false,
+            "salute_max": 130,
+            "salute": 44,
+            "attacco_min": 20,
+            "attacco_max": 100,
+            "livello": 1,
+            "destrezza": 15,
+            "iniziativa": 20,
             "storico_danni_subiti": [
-                98
+                53
             ]
         }
     ],
+    "turno": 4,
+    "indice_turno_corrente": 0,
     "ordine_turni": [
         4,
         1,
-        2,
         0,
-        3
+        2
     ],
-    "indice_turno_corrente": 3,
     "messaggi_battaglia": [
-        "Blaine attacca drfg per 98 danni!",
-        "belin attacca Blaine per 0 danni!",
-        "drfg attacca Pdor per 0 danni!"
+        "Turno 1 - \u00e8 il turno di Pdor!",
+        "Pdor usa Bomba Acida su Carmilla infliggendo 33 HP di danno",
+        "Pdor attacca Alastor per 0 danni!",
+        "Turno 2 - \u00e8 il turno di Blaine!",
+        "Blaine non utilizza oggetti in questo turno",
+        "Blaine attacca Carmilla per 53 danni!",
+        "Turno 3 - \u00e8 il turno di CherryBomb!",
+        "CherryBomb usa Bomba Acida su Pdor infliggendo 42 HP di danno",
+        "CherryBomb attacca Blaine per 71 danni!",
+        "Turno 4 - \u00e8 il turno di Carmilla!",
+        "Carmilla usa Bomba Acida su Blaine infliggendo 32 HP di danno",
+        "Carmilla attacca Blaine per 86 danni!",
+        "Blaine \u00e8 stato sconfitto!",
+        "Tutti i nemici sono stati sconfitti! Vittoria!"
     ]
 }

@@ -1,0 +1,13 @@
+{
+    "classe": "Mago",
+    "id": "017f16a6-ff3d-4601-ae73-6a1b2caec830",
+    "nome": "Alastor",
+    "npc": false,
+    "salute_max": 80,
+    "salute": 80,
+    "attacco_min": 0,
+    "attacco_max": 90,
+    "livello": 1,
+    "destrezza": 15,
+    "storico_danni_subiti": []
+}
