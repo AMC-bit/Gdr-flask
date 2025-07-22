@@ -137,10 +137,11 @@ def setup_battle():
     inventari_pg_obj = []
     inventario_schema = InventarioSchema()
     for pg in personaggi_selezionati_obj:
-        pg_inv_path = os.path.join(DATA_DIR_INV, f"{str(pg.id)}.json")
-        inventario_pg = Json.carica_dati(pg_inv_path)
-        inventario_pg_obj = inventario_schema.load(inventario_pg)
-        inventari_pg_obj.append(inventario_pg_obj)
+        if not pg.sconfitto():
+            pg_inv_path = os.path.join(DATA_DIR_INV, f"{str(pg.id)}.json")
+            inventario_pg = Json.carica_dati(pg_inv_path)
+            inventario_pg_obj = inventario_schema.load(inventario_pg)
+            inventari_pg_obj.append(inventario_pg_obj)
 
     return missione_obj, personaggi_selezionati_obj, inventari_pg_obj
 
@@ -155,6 +156,12 @@ def auto_battle():
     ambiente_obj = setup[0].ambiente
     save_data = Json.carica_dati(path_save)
     tutti_personaggi = personaggi_selezionati_obj + nemici_obj
+    # setup per l'uso dell'inventario in maniera automatica
+    inventari = []
+    inventari_pg = setup[2]
+    inventari += setup[2]  # Riferimenti agli oggetti
+    inventari += missione_obj.inventari_nemici  # Riferimenti agli oggetti
+    inventario = None
 
     # Inizializza messaggi e ordine turni se non presenti
 
@@ -202,20 +209,18 @@ def auto_battle():
             f"Turno {save_data['turno']} - è il turno di {personaggio_turno_corrente.nome}!"
             )
 
-        # setup per l'uso dell'inventario in maniera automatica
-        pg = personaggio_turno_corrente
-        inventari = []
-        inventari.extend(setup[2])
-        inventari.extend(missione_obj.inventari_nemici)
-        inventario = None
+        #uso dell'inventario in maniera automatica
         for inv in inventari:
-            if isinstance(inv, Inventario) and inv.id_proprietario == pg.id:
+            if (
+                isinstance(inv, Inventario)
+                and inv.id_proprietario == personaggio_turno_corrente.id
+            ):
                 inventario = inv
                 break
 
         result = usa_inventario_automatico(
             inventario,
-            pg,
+            personaggio_turno_corrente,
             missione_obj,
             (nemici_obj + personaggi_selezionati_obj)
             )
@@ -257,12 +262,20 @@ def auto_battle():
         for pg in personaggi_selezionati_obj:
             file_name = f"{pg.id}.json"
             pg_path = os.path.join(DATA_DIR_PGS, file_name)
+            inv_path = os.path.join(DATA_DIR_INV, file_name)
             if pg.sconfitto():
                 print("MORTO", pg_path)
-                os.remove(pg_path)
+                if os.path.exists(pg_path):
+                    os.remove(pg_path)
+                if os.path.exists(inv_path):
+                    os.remove(inv_path)
             else:
                 print("PATH", pg_path)
                 Json.scrivi_dati(pg_path, PersonaggioSchema().dump(pg))
+                for inv in inventari_pg:
+                    if isinstance(inv, Inventario) and inv.id_proprietario == pg.id:
+                        inventario = inv
+                        Json.scrivi_dati(inv_path, InventarioSchema().dump(inventario))
 
         save_data['indice_turno_corrente'] = (indice_turno + 1) % len(ordine_turni)
         Json.scrivi_dati(path_save, save_data)
