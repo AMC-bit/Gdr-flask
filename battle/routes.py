@@ -273,7 +273,7 @@ def auto_battle():
         elif not npc_vivi:
             battaglia_finita = True
             vittoria = True
-            #TODO Assegna i premi
+            #Assegna i premi
             assegna_premi(missione_obj,save_data['messaggi_battaglia'], personaggi_selezionati_obj, inventari_pg)
             save_data['messaggi_battaglia'].append("Tutti i nemici sono stati sconfitti! Vittoria!")
 
