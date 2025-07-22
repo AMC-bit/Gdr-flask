@@ -42,16 +42,7 @@
             {
                 "id": "e373a5eb-244f-4cda-832b-04e3fdfdfcc1",
                 "id_proprietario": "866f1744-8a23-438d-927b-8743dc8c52e8",
-                "oggetti": [
-                    {
-                        "id": "aef17f9f-f158-4308-bc11-786b6818b19e",
-                        "nome": "Bomba Acida",
-                        "usato": false,
-                        "valore": 30,
-                        "tipo_oggetto": "Offensivo",
-                        "classe": "BombaAcida"
-                    }
-                ]
+                "oggetti": []
             },
             {
                 "id": "6ab8ce89-0a16-4953-a9f5-cd0892a6bd96",
@@ -87,8 +78,8 @@
     "personaggi_selezionati": [
         {
             "classe": "Mago",
-            "id": "0b96620c-2c90-4b53-b076-9781dd3103f2",
-            "nome": "defefef",
+            "id": "017f16a6-ff3d-4601-ae73-6a1b2caec830",
+            "nome": "Alastor",
             "npc": false,
             "salute_max": 80,
             "salute": 80,
@@ -97,159 +88,63 @@
             "livello": 1,
             "destrezza": 15,
             "iniziativa": 15,
+            "storico_danni_subiti": [
+                0
+            ]
+        },
+        {
+            "classe": "Ladro",
+            "id": "1e8b15ce-569d-44fe-bd27-907d2fdbe7e2",
+            "nome": "CherryBomb",
+            "npc": false,
+            "salute_max": 120,
+            "salute": 120,
+            "attacco_min": 10,
+            "attacco_max": 85,
+            "livello": 1,
+            "destrezza": 15,
+            "iniziativa": 25,
             "storico_danni_subiti": []
         },
         {
-            "classe": "Mago",
-            "id": "38ab2f2e-a6f2-44e5-b8aa-792bcfea3edd",
-            "nome": "maxim",
+            "classe": "Guerriero",
+            "id": "36f445c1-0f97-4117-959f-0d6b5de2505a",
+            "nome": "Carmilla",
             "npc": false,
-            "salute_max": 80,
-            "salute": 80,
-            "attacco_min": 0,
-            "attacco_max": 90,
+            "salute_max": 130,
+            "salute": 44,
+            "attacco_min": 20,
+            "attacco_max": 100,
             "livello": 1,
             "destrezza": 15,
-            "iniziativa": 15,
-            "storico_danni_subiti": []
-        },
-        {
-            "classe": "Mago",
-            "id": "5db05bbe-c96c-4bb6-9a33-93b005190dfb",
-            "nome": "das",
-            "npc": false,
-            "salute_max": 80,
-            "salute": 80,
-            "attacco_min": 0,
-            "attacco_max": 90,
-            "livello": 1,
-            "destrezza": 15,
-            "iniziativa": 15,
-            "storico_danni_subiti": []
-        },
-        {
-            "classe": "Mago",
-            "id": "64b41932-d6df-4d8c-bfad-99364d628db7",
-            "nome": "skrrrrrrrrrrrrrrrrrrrrrt",
-            "npc": false,
-            "salute_max": 80,
-            "salute": 80,
-            "attacco_min": 0,
-            "attacco_max": 90,
-            "livello": 1,
-            "destrezza": 15,
-            "iniziativa": 15,
-            "storico_danni_subiti": []
-        },
-        {
-            "classe": "Mago",
-            "id": "6e37cba6-ae1c-4797-87c0-234e78b5b95d",
-            "nome": "cececece",
-            "npc": false,
-            "salute_max": 80,
-            "salute": 80,
-            "attacco_min": 0,
-            "attacco_max": 90,
-            "livello": 1,
-            "destrezza": 15,
-            "iniziativa": 15,
-            "storico_danni_subiti": []
-        },
-        {
-            "classe": "Mago",
-            "id": "9732d882-53b0-4510-91f2-f693bc05ac1b",
-            "nome": "ai cinese",
-            "npc": false,
-            "salute_max": 80,
-            "salute": 80,
-            "attacco_min": 0,
-            "attacco_max": 90,
-            "livello": 1,
-            "destrezza": 15,
-            "iniziativa": 15,
-            "storico_danni_subiti": []
-        },
-        {
-            "classe": "Mago",
-            "id": "99e3fcd4-4ccd-4a3a-8d06-65f92bfc7e7d",
-            "nome": "kebab",
-            "npc": false,
-            "salute_max": 80,
-            "salute": 80,
-            "attacco_min": 0,
-            "attacco_max": 90,
-            "livello": 1,
-            "destrezza": 15,
-            "iniziativa": 15,
-            "storico_danni_subiti": []
-        },
-        {
-            "classe": "Mago",
-            "id": "b404601f-671a-4ed9-84b3-58c4f969b9d2",
-            "nome": "auto",
-            "npc": false,
-            "salute_max": 80,
-            "salute": 80,
-            "attacco_min": 0,
-            "attacco_max": 90,
-            "livello": 1,
-            "destrezza": 15,
-            "iniziativa": 15,
-            "storico_danni_subiti": []
-        },
-        {
-            "classe": "Mago",
-            "id": "c4fd8a3c-bdcf-4a4a-89cb-64b3b5ea33ff",
-            "nome": "ciao",
-            "npc": false,
-            "salute_max": 80,
-            "salute": 80,
-            "attacco_min": 0,
-            "attacco_max": 90,
-            "livello": 1,
-            "destrezza": 15,
-            "iniziativa": 15,
-            "storico_danni_subiti": []
-        },
-        {
-            "classe": "Mago",
-            "id": "ed8f49a7-ca34-416b-ba7b-fa88e43aecbb",
-            "nome": "zoro",
-            "npc": false,
-            "salute_max": 80,
-            "salute": 80,
-            "attacco_min": 0,
-            "attacco_max": 90,
-            "livello": 1,
-            "destrezza": 15,
-            "iniziativa": 15,
-            "storico_danni_subiti": []
+            "iniziativa": 20,
+            "storico_danni_subiti": [
+                53
+            ]
         }
     ],
-    "indice_turno_corrente": 3,
-    "turno": 3,
+    "turno": 4,
+    "indice_turno_corrente": 0,
     "ordine_turni": [
-        5,
-        3,
-        0,
-        6,
-        10,
-        2,
         4,
-        8,
         1,
-        9,
-        7
+        0,
+        2
     ],
     "messaggi_battaglia": [
-        "Turno 1 - \u00e8 il turno di ai cinese!",
-        "ai cinese attacca Pdor per 0 danni!",
-        "Turno 2 - \u00e8 il turno di skrrrrrrrrrrrrrrrrrrrrrt!",
-        "skrrrrrrrrrrrrrrrrrrrrrt attacca Blaine per 92 danni!",
+        "Turno 1 - \u00e8 il turno di Pdor!",
+        "Pdor usa Bomba Acida su Carmilla infliggendo 33 HP di danno",
+        "Pdor attacca Alastor per 0 danni!",
+        "Turno 2 - \u00e8 il turno di Blaine!",
+        "Blaine non utilizza oggetti in questo turno",
+        "Blaine attacca Carmilla per 53 danni!",
+        "Turno 3 - \u00e8 il turno di CherryBomb!",
+        "CherryBomb usa Bomba Acida su Pdor infliggendo 42 HP di danno",
+        "CherryBomb attacca Blaine per 71 danni!",
+        "Turno 4 - \u00e8 il turno di Carmilla!",
+        "Carmilla usa Bomba Acida su Blaine infliggendo 32 HP di danno",
+        "Carmilla attacca Blaine per 86 danni!",
         "Blaine \u00e8 stato sconfitto!",
-        "Turno 3 - \u00e8 il turno di defefef!",
-        "defefef attacca Pdor per 97 danni!",
-        "Pdor \u00e8 stato sconfitto!",
-        "Tutti i nemici sono stati sconfitti!"
+        "Tutti i nemici sono stati sconfitti! Vittoria!"
     ]
 }

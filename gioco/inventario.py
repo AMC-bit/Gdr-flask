@@ -1,7 +1,6 @@
 import uuid
 from gioco.oggetto import Oggetto
 from gioco.schemas.oggetto import OggettoSchema
-from gioco.personaggio import Personaggio
 from gioco.ambiente import Ambiente
 #  , Json
 from typing import List, Optional, Union
@@ -152,7 +151,6 @@ class Inventario:
             self.oggetti.remove(oggetto)
         return result
 
-
     def riversa_inventario(self, da_inventario : 'Inventario')-> None:
         """
         Permette ad un inventario di prendere tutti gli oggetti di un secondo
@@ -196,41 +194,3 @@ class Inventario:
                 return oggetto
         logger.warning(f"Nessun oggetto con ID {oggetto_id} trovato nell'inventario.")
         return None
-
-    def to_dict(self) -> dict:
-        """
-        Serializza l'inventario in un dizionario.
-
-        Returns:
-            dict: Rappresentazione dell'inventario come dizionario.
-        """
-        return {
-            'classe': self.__class__.__name__,
-            'id': str(self.id),
-            'oggetti': [OggettoSchema().dump(oggetto) for oggetto in self.oggetti],
-            'id_proprietario': str(
-                self.id_proprietario
-                ) if self.id_proprietario else None
-        }
-
-    @classmethod
-    def from_dict(cls, data: dict) -> 'Inventario':
-        """
-        Deserializza un dizionario in un oggetto Inventario.
-
-        Args:
-            data (dict): Il dizionario da deserializzare.
-
-        Returns:
-            Inventario: L'oggetto Inventario deserializzato.
-        """
-        inventario = cls()
-        id_temp = data.get('id', None)
-        inventario.id = uuid.UUID(id_temp) if id_temp else uuid.uuid4()
-        inventario.oggetti = [
-            Oggetto.from_dict(oggetto) for oggetto in data.get('oggetti', [])
-        ]
-        id_prop = data.get('id_proprietario')
-        inventario.id_proprietario = uuid.UUID(id_prop) if id_prop else None
-
-        return inventario
