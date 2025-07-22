@@ -12,7 +12,7 @@
 
         <!-- card personaggi del giocatore -->
         <div class="col-md-3">
-            <div class="card mb-3">
+            <div class="card shadow mb-3">
                 <div class="card-header bg-primary text-white">
                     <h5 class="mb-0 text-center">
                         <i class="bi bi-emoji-smile-fill me-2"></i>
@@ -31,20 +31,20 @@
                             <p class="mb-1">Classe: {{ pg.classe }}</p>
                             <p class="mb-1">Salute: {{ pg.salute }} / {{ pg.salute_max }}</p>
                             <div class="progress">
-                            <div class="progress-bar 
-                            {% if pg.salute > pg.salute_max / 2 %}
-                                bg-success
-                            {% elif pg.salute > pg.salute_max / 4 %}
-                                bg-warning
-                            {% else %}
-                                bg-danger
-                            {% endif %}" 
-                            role="progressbar"
-                            style="width: {{ (pg.salute / pg.salute_max * 100) | round(0) }}%"
-                            aria-valuenow="{{ pg.salute }}"
-                            aria-valuemin="0"
-                            aria-valuemax="{{ pg.salute_max }}">
-                        </div>
+                                <div class="progress-bar 
+                                {% if pg.salute > pg.salute_max / 2 %}
+                                    bg-success
+                                {% elif pg.salute > pg.salute_max / 4 %}
+                                    bg-warning
+                                {% else %}
+                                    bg-danger
+                                {% endif %}" 
+                                role="progressbar"
+                                style="width: {{ (pg.salute / pg.salute_max * 100) | round(0) }}%"
+                                aria-valuenow="{{ pg.salute }}"
+                                aria-valuemin="0"
+                                aria-valuemax="{{ pg.salute_max }}">
+                                </div>
                             </div>
                             <p class="mb-1">Attacco: {{ pg.attacco_min }} - {{ pg.attacco_max }}</p>
                         </li>
@@ -65,7 +65,7 @@
                     </h5>
                 </div>
                 <div class="card-body border-dark p-0">
-                    <div class="log-container p-3 text-center" style="max-height: 500px; overflow-y: auto; background-color: #f8f9fa;">
+                    <div class="p-3 text-center" style="max-height: 500px; overflow-y: auto; background-color: #f8f9fa;">
                         {% for log in messaggi %}
                             <p class="mb-2">{{ log }}</p>
                         {% else %}
@@ -78,7 +78,7 @@
 
         <!-- card nemici -->
         <div class="col-md-3">
-            <div class="card mb-3">
+            <div class="card shadow mb-3">
                 <div class="card-header bg-danger text-white">
                     <h5 class="mb-0 text-center">
                     <i class="bi bi-emoji-angry-fill me-2"></i>
