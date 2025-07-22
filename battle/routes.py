@@ -203,7 +203,7 @@ def auto_battle():
             save_data['indice_turno_corrente'] = indice_turno
         personaggio_turno_corrente = tutti_personaggi[ordine_turni[indice_turno]]
 
-        # tentativo di usare la l'inventario im maniera automatica
+        # setup per l'uso dell'inventario in maniera automatica
         pg = personaggio_turno_corrente
         inventari = []
         inventari.extend(setup[2])
