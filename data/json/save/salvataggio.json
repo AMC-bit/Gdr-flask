@@ -15,15 +15,13 @@
                 "nome": "Pdor",
                 "npc": true,
                 "salute_max": 30,
-                "salute": 25,
+                "salute": 30,
                 "attacco_min": 4,
                 "attacco_max": 8,
                 "livello": 1,
                 "destrezza": 1,
                 "iniziativa": 15,
-                "storico_danni_subiti": [
-                    0
-                ]
+                "storico_danni_subiti": []
             },
             {
                 "classe": "Guerriero",
@@ -31,15 +29,13 @@
                 "nome": "Blaine",
                 "npc": true,
                 "salute_max": 180,
-                "salute": 170,
+                "salute": 180,
                 "attacco_min": 40,
                 "attacco_max": 120,
                 "livello": 1,
                 "destrezza": 25,
                 "iniziativa": 20,
-                "storico_danni_subiti": [
-                    0
-                ]
+                "storico_danni_subiti": []
             }
         ],
         "inventari_nemici": [
@@ -91,11 +87,11 @@
     "personaggi_selezionati": [
         {
             "classe": "Mago",
-            "id": "59ac19e8-c2a1-4a90-b176-615bd47854ee",
-            "nome": "gg",
+            "id": "0b96620c-2c90-4b53-b076-9781dd3103f2",
+            "nome": "defefef",
             "npc": false,
             "salute_max": 80,
-            "salute": 0,
+            "salute": 80,
             "attacco_min": 0,
             "attacco_max": 90,
             "livello": 1,
@@ -104,47 +100,156 @@
             "storico_danni_subiti": []
         },
         {
-            "classe": "Guerriero",
-            "id": "6c16f177-49bb-418a-acbf-2d169699538e",
-            "nome": "belin",
+            "classe": "Mago",
+            "id": "38ab2f2e-a6f2-44e5-b8aa-792bcfea3edd",
+            "nome": "maxim",
             "npc": false,
-            "salute_max": 130,
-            "salute": 130,
-            "attacco_min": 20,
-            "attacco_max": 100,
+            "salute_max": 80,
+            "salute": 80,
+            "attacco_min": 0,
+            "attacco_max": 90,
             "livello": 1,
             "destrezza": 15,
-            "iniziativa": 20,
+            "iniziativa": 15,
             "storico_danni_subiti": []
         },
         {
-            "classe": "Ladro",
-            "id": "c2e941a9-cd35-4b4b-a6f8-b369a8c90896",
-            "nome": "drfg",
+            "classe": "Mago",
+            "id": "5db05bbe-c96c-4bb6-9a33-93b005190dfb",
+            "nome": "das",
             "npc": false,
-            "salute_max": 120,
-            "salute": 22,
-            "attacco_min": 10,
-            "attacco_max": 85,
+            "salute_max": 80,
+            "salute": 80,
+            "attacco_min": 0,
+            "attacco_max": 90,
             "livello": 1,
             "destrezza": 15,
-            "iniziativa": 25,
-            "storico_danni_subiti": [
-                98
-            ]
+            "iniziativa": 15,
+            "storico_danni_subiti": []
+        },
+        {
+            "classe": "Mago",
+            "id": "64b41932-d6df-4d8c-bfad-99364d628db7",
+            "nome": "skrrrrrrrrrrrrrrrrrrrrrt",
+            "npc": false,
+            "salute_max": 80,
+            "salute": 80,
+            "attacco_min": 0,
+            "attacco_max": 90,
+            "livello": 1,
+            "destrezza": 15,
+            "iniziativa": 15,
+            "storico_danni_subiti": []
+        },
+        {
+            "classe": "Mago",
+            "id": "6e37cba6-ae1c-4797-87c0-234e78b5b95d",
+            "nome": "cececece",
+            "npc": false,
+            "salute_max": 80,
+            "salute": 80,
+            "attacco_min": 0,
+            "attacco_max": 90,
+            "livello": 1,
+            "destrezza": 15,
+            "iniziativa": 15,
+            "storico_danni_subiti": []
+        },
+        {
+            "classe": "Mago",
+            "id": "9732d882-53b0-4510-91f2-f693bc05ac1b",
+            "nome": "ai cinese",
+            "npc": false,
+            "salute_max": 80,
+            "salute": 80,
+            "attacco_min": 0,
+            "attacco_max": 90,
+            "livello": 1,
+            "destrezza": 15,
+            "iniziativa": 15,
+            "storico_danni_subiti": []
+        },
+        {
+            "classe": "Mago",
+            "id": "99e3fcd4-4ccd-4a3a-8d06-65f92bfc7e7d",
+            "nome": "kebab",
+            "npc": false,
+            "salute_max": 80,
+            "salute": 80,
+            "attacco_min": 0,
+            "attacco_max": 90,
+            "livello": 1,
+            "destrezza": 15,
+            "iniziativa": 15,
+            "storico_danni_subiti": []
+        },
+        {
+            "classe": "Mago",
+            "id": "b404601f-671a-4ed9-84b3-58c4f969b9d2",
+            "nome": "auto",
+            "npc": false,
+            "salute_max": 80,
+            "salute": 80,
+            "attacco_min": 0,
+            "attacco_max": 90,
+            "livello": 1,
+            "destrezza": 15,
+            "iniziativa": 15,
+            "storico_danni_subiti": []
+        },
+        {
+            "classe": "Mago",
+            "id": "c4fd8a3c-bdcf-4a4a-89cb-64b3b5ea33ff",
+            "nome": "ciao",
+            "npc": false,
+            "salute_max": 80,
+            "salute": 80,
+            "attacco_min": 0,
+            "attacco_max": 90,
+            "livello": 1,
+            "destrezza": 15,
+            "iniziativa": 15,
+            "storico_danni_subiti": []
+        },
+        {
+            "classe": "Mago",
+            "id": "ed8f49a7-ca34-416b-ba7b-fa88e43aecbb",
+            "nome": "zoro",
+            "npc": false,
+            "salute_max": 80,
+            "salute": 80,
+            "attacco_min": 0,
+            "attacco_max": 90,
+            "livello": 1,
+            "destrezza": 15,
+            "iniziativa": 15,
+            "storico_danni_subiti": []
         }
     ],
-    "ordine_turni": [
-        4,
-        1,
-        2,
-        0,
-        3
-    ],
     "indice_turno_corrente": 3,
+    "turno": 3,
+    "ordine_turni": [
+        5,
+        3,
+        0,
+        6,
+        10,
+        2,
+        4,
+        8,
+        1,
+        9,
+        7
+    ],
     "messaggi_battaglia": [
-        "Blaine attacca drfg per 98 danni!",
-        "belin attacca Blaine per 0 danni!",
-        "drfg attacca Pdor per 0 danni!"
+        "Turno 1 - \u00e8 il turno di ai cinese!",
+        "ai cinese attacca Pdor per 0 danni!",
+        "Turno 2 - \u00e8 il turno di skrrrrrrrrrrrrrrrrrrrrrt!",
+        "skrrrrrrrrrrrrrrrrrrrrrt attacca Blaine per 92 danni!",
+        "Blaine \u00e8 stato sconfitto!",
+        "Turno 3 - \u00e8 il turno di defefef!",
+        "defefef attacca Pdor per 97 danni!",
+        "Pdor \u00e8 stato sconfitto!",
+        "Tutti i nemici sono stati sconfitti!"
     ]
 }
