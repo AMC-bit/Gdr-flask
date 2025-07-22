@@ -19,25 +19,39 @@
                         Personaggi
                     </h5>
                 </div>
-                <div class="text-default" style="max-height: 500px; overflow-y: auto;">
-                    <ul class="list-group list-group-flush">
-                        {% for pg in personaggi %}
-                            <li class="list-group-item">
-                                <h6>{{ pg.nome }} {% if pg.sconfitto() %}
-                                <span class="badge bg-danger ms-1">Morto</span>
-                                {% else %}
-                                <span class="badge bg-success ms-1">Vivo</span>
-                                {% endif %}
-                                </h6>
-                                <p class="mb-1">Classe: {{ pg.classe }}</p>
-                                <p class="mb-1">Salute: {{ pg.salute }} / {{ pg.salute_max }}</p>
-                                <p class="mb-1">Attacco: {{ pg.attacco_min }} - {{ pg.attacco_max }}</p>
-                            </li>
-                        {% else %}
-                            <li class="list-group-item">Nessun personaggio presente</li>
-                        {% endfor %}
-                    </ul>
-                </div>
+                <ul class="list-group list-group-flush">
+                    {% for pg in personaggi %}
+                        <li class="list-group-item">
+                            <h6>{{ pg.nome }} {% if pg.sconfitto() %}
+                            <span class="badge bg-danger ms-1">Morto</span>
+                            {% else %}
+                            <span class="badge bg-success ms-1">Vivo</span>
+                            {% endif %}
+                            </h6>
+                            <p class="mb-1">Classe: {{ pg.classe }}</p>
+                            <p class="mb-1">Salute: {{ pg.salute }} / {{ pg.salute_max }}</p>
+                            <div class="progress">
+                            <div class="progress-bar 
+                            {% if pg.salute > pg.salute_max / 2 %}
+                                bg-success
+                            {% elif pg.salute > pg.salute_max / 4 %}
+                                bg-warning
+                            {% else %}
+                                bg-danger
+                            {% endif %}" 
+                            role="progressbar"
+                            style="width: {{ (pg.salute / pg.salute_max * 100) | round(0) }}%"
+                            aria-valuenow="{{ pg.salute }}"
+                            aria-valuemin="0"
+                            aria-valuemax="{{ pg.salute_max }}">
+                        </div>
+                            </div>
+                            <p class="mb-1">Attacco: {{ pg.attacco_min }} - {{ pg.attacco_max }}</p>
+                        </li>
+                    {% else %}
+                        <li class="list-group-item">Nessun personaggio presente</li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
 
@@ -70,24 +84,38 @@
                     <i class="bi bi-emoji-angry-fill me-2"></i>
                     Nemici</h5>
                 </div>
-                <div class="text-default" style="max-height: 500px; overflow-y: auto;">
-                    <ul class="list-group list-group-flush">
-                        {% for n in nemici %}
-                            <li class="list-group-item">
-                                <h6>{{ n.nome }} {% if n.sconfitto() %}
-                                <span class="badge bg-danger ms-1">Morto</span>
+                <ul class="list-group list-group-flush">
+                    {% for n in nemici %}
+                        <li class="list-group-item">
+                            <h6>{{ n.nome }} {% if n.sconfitto() %}
+                            <span class="badge bg-danger ms-1">Morto</span>
+                            {% else %}
+                            <span class="badge bg-success ms-1">Vivo</span>
+                            {% endif %}</h6>
+                            <p class="mb-1">Classe: {{ n.classe }}</p>
+                            <p class="mb-1">Salute: {{ n.salute }} / {{ n.salute_max }}</p>
+                            <div class="progress">
+                            <div class="progress-bar 
+                                {% if n.salute > n.salute_max / 2 %}
+                                    bg-success
+                                {% elif n.salute > n.salute_max / 4 %}
+                                    bg-warning
                                 {% else %}
-                                <span class="badge bg-success ms-1">Vivo</span>
-                                {% endif %}</h6>
-                                <p class="mb-1">Classe: {{ n.classe }}</p>
-                                <p class="mb-1">Salute: {{ n.salute }} / {{ n.salute_max }}</p>
-                                <p class="mb-1">Attacco: {{ n.attacco_min }} - {{ n.attacco_max }}</p>
-                            </li>
-                        {% else %}
-                            <li class="list-group-item">Nessun nemico presente</li>
-                        {% endfor %}
-                    </ul>
-                </div>
+                                    bg-danger
+                                {% endif %}" 
+                                role="progressbar"
+                                style="width: {{ (n.salute / n.salute_max * 100) | round(0) }}%"
+                                aria-valuenow="{{ n.salute }}"
+                                aria-valuemin="0"
+                                aria-valuemax="{{ n.salute_max }}">
+                            </div>
+                            </div>
+                            <p class="mb-1">Attacco: {{ n.attacco_min }} - {{ n.attacco_max }}</p>
+                        </li>
+                    {% else %}
+                        <li class="list-group-item">Nessun nemico presente</li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
 
