@@ -161,6 +161,7 @@ def auto_battle():
     personaggi_selezionati_obj = setup[1]
     nemici_obj = setup[0].nemici
     ambiente_obj = setup[0].ambiente
+    inventari_pg= setup[2]
     inventari = []
     inventari.extend(setup[2])
     inventari.extend(missione_obj.inventari_nemici)
@@ -186,19 +187,7 @@ def auto_battle():
 
     battaglia_finita = False
     vittoria = False
-    # --- Controlla se la battaglia è già finita ---
-    pc_vivi = [p for p in personaggi_selezionati_obj if not p.sconfitto()]
-    npc_vivi = [p for p in nemici_obj if not p.sconfitto()]
-    if not pc_vivi:
-        battaglia_finita = True
-        vittoria = False
-        save_data['messaggi_battaglia'].append("Tutti i personaggi sono stati sconfitti! Sconfitta!")
-    elif not npc_vivi:
-        battaglia_finita = True
-        vittoria = True
-        #TODO Assegna i premi
-        assegna_premi(missione_obj,save_data['messaggi_battaglia'], personaggi_selezionati_obj, inventari)
-        save_data['messaggi_battaglia'].append("Tutti i nemici sono stati sconfitti! Vittoria!")
+
 
     if not battaglia_finita:
         save_data['turno'] += 1
@@ -265,7 +254,24 @@ def auto_battle():
         save_data['personaggi_selezionati'] = PersonaggioSchema(many=True).dump(personaggi_selezionati_obj)
         missione_obj.nemici = nemici_obj
         save_data['missione'] = MissioniSchema().dump(missione_obj)
-        for pg in personaggi_selezionati_obj:
+        
+
+        save_data['indice_turno_corrente'] = (indice_turno + 1) % len(ordine_turni)
+        Json.scrivi_dati(path_save, save_data)
+        pc_vivi = [p for p in personaggi_selezionati_obj if not p.sconfitto()]
+        npc_vivi = [p for p in nemici_obj if not p.sconfitto()]
+        if not pc_vivi:
+            battaglia_finita = True
+            vittoria = False
+            save_data['messaggi_battaglia'].append("Tutti i personaggi sono stati sconfitti!")
+        elif not npc_vivi:
+            battaglia_finita = True
+            vittoria = True
+            #TODO Assegna i premi
+            assegna_premi(missione_obj,save_data['messaggi_battaglia'], personaggi_selezionati_obj, inventari_pg)
+            save_data['messaggi_battaglia'].append("Tutti i nemici sono stati sconfitti! Vittoria!")
+
+    for pg in personaggi_selezionati_obj:
             file_name = f"{pg.id}.json"
             pg_path = os.path.join(DATA_DIR_PGS, file_name)
             inv_path = os.path.join(DATA_DIR_INV, file_name)
@@ -282,19 +288,6 @@ def auto_battle():
                     if isinstance(inv, Inventario) and inv.id_proprietario == pg.id:
                         inventario = inv
                         Json.scrivi_dati(inv_path, InventarioSchema().dump(inventario))
-
-        save_data['indice_turno_corrente'] = (indice_turno + 1) % len(ordine_turni)
-        Json.scrivi_dati(path_save, save_data)
-        pc_vivi = [p for p in personaggi_selezionati_obj if not p.sconfitto()]
-        npc_vivi = [p for p in nemici_obj if not p.sconfitto()]
-        if not pc_vivi:
-            battaglia_finita = True
-            vittoria = False
-            save_data['messaggi_battaglia'].append("Tutti i personaggi sono stati sconfitti!")
-        elif not npc_vivi:
-            battaglia_finita = True
-            vittoria = True
-            save_data['messaggi_battaglia'].append("Tutti i nemici sono stati sconfitti! Vittoria!")
 
     # Salvataggio stato
     save_data['missione'] = MissioniSchema().dump(missione_obj)
