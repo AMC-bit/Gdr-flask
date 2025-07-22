@@ -17,6 +17,7 @@ class Mago(Personaggio):
     salute: int = salute_max
     attacco_min: int = 0
     attacco_max: int = 90
+    iniziativa: int = 15
 
 
     def attacca(self, mod_ambiente: int = 0) -> None:
@@ -31,10 +32,16 @@ class Mago(Personaggio):
         Returns:
             int: danno inflitto all'avversario
         """
-        danno = random.randint(self.attacco_min, self.attacco_max)
-        danno += mod_ambiente
-        msg = f"{self.nome} lancia un incantesimo infliggendo {danno} danni!"
+        danno = 0
+        if self.esegui_azione():
+            danno = random.randint(
+                self.attacco_min, self.attacco_max
+            ) + mod_ambiente
+            msg = f"{self.nome} colpisce furtivamente infliggendo {danno} danni!"
+        else:
+            msg = f"{self.nome} tenta di attaccare ma fallisce!"
         logger.info(msg)
+        print(msg)
         return danno
 
     def recupera_salute(self, mod_ambiente: int = 0) -> None:
@@ -69,6 +76,7 @@ class Guerriero(Personaggio):
     salute: int = salute_max
     attacco_min: int = 20
     attacco_max: int = 100
+    iniziativa: int = 20
 
     def attacca(self, mod_ambiente: int = 0) -> int:
         """
@@ -83,12 +91,16 @@ class Guerriero(Personaggio):
         Returns:
             None
         """
-        danno = random.randint(
-            self.attacco_min,
-            self.attacco_max + mod_ambiente
-        )
-        msg = f"{self.nome} colpisce con la spada infliggendo {danno} danni!"
+        danno = 0
+        if self.esegui_azione():
+            danno = random.randint(
+                self.attacco_min, self.attacco_max
+            ) + mod_ambiente
+            msg = f"{self.nome} colpisce furtivamente infliggendo {danno} danni!"
+        else:
+            msg = f"{self.nome} tenta di attaccare ma fallisce!"
         logger.info(msg)
+        print(msg)
         return danno
 
     def recupera_salute(self, mod_ambiente: int = 0) -> None:
@@ -122,6 +134,7 @@ class Ladro(Personaggio):
     salute: int = salute_max
     attacco_max: int = 85
     attacco_min: int = 10
+    iniziativa: int = 25
 
 
     def attacca(self, mod_ambiente: int = 0) -> int:
@@ -135,7 +148,7 @@ class Ladro(Personaggio):
         Returns:
             danno (int): danno inflitto all'avversario
         """
-        
+        danno = 0
         if self.esegui_azione():
             danno = random.randint(
                 self.attacco_min, self.attacco_max

@@ -28,6 +28,7 @@ class PersonaggioSchema(Schema):
     attacco_max = fields.Integer()
     livello = fields.Integer(load_default=1)
     destrezza = fields.Integer(load_default=15)
+    iniziativa = fields.Integer()
     storico_danni_subiti = fields.List(fields.Integer(), load_default=list)
 
     @post_load

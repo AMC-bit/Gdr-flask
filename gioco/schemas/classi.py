@@ -32,6 +32,7 @@ class PersonaggioSchema(Schema):
             self._set_default_if_empty(data_clean, "salute", 80)
             self._set_default_if_empty(data_clean, "attacco_min", 0)
             self._set_default_if_empty(data_clean, "attacco_max", 90)
+            self._set_default_if_empty(data_clean, "iniziativa", 15)
             char = Mago(**data_clean)
             char.classe = classe
             return char
@@ -41,6 +42,7 @@ class PersonaggioSchema(Schema):
             self._set_default_if_empty(data_clean, "salute", 120)
             self._set_default_if_empty(data_clean, "attacco_min", 20)
             self._set_default_if_empty(data_clean, "attacco_max", 100)
+            self._set_default_if_empty(data_clean, "iniziativa", 20)
             char = Guerriero(**data_clean)
             char.classe = classe
             return char
@@ -50,6 +52,7 @@ class PersonaggioSchema(Schema):
             self._set_default_if_empty(data_clean, "salute", 100)
             self._set_default_if_empty(data_clean, "attacco_min", 10)
             self._set_default_if_empty(data_clean, "attacco_max", 85)
+            self._set_default_if_empty(data_clean, "inziativa", 25)
             char = Ladro(**data_clean)
             char.classe = classe
             return char
