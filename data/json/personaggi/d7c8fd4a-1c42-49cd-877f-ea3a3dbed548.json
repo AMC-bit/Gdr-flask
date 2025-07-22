@@ -4,13 +4,14 @@
     "nome": "Carmilla",
     "npc": false,
     "salute_max": 130,
-    "salute": 109,
+    "salute": 48,
     "attacco_min": 20,
     "attacco_max": 100,
     "livello": 1,
     "destrezza": 15,
     "iniziativa": 20,
     "storico_danni_subiti": [
-        21
+        21,
+        61
     ]
 }
