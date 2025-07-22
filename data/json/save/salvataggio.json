@@ -15,16 +15,13 @@
                 "nome": "Scheletrino",
                 "npc": true,
                 "salute_max": 60,
-                "salute": 0,
+                "salute": 60,
                 "attacco_min": 40,
                 "attacco_max": 120,
                 "livello": 1,
                 "destrezza": 20,
                 "iniziativa": 20,
-                "storico_danni_subiti": [
-                    25,
-                    51
-                ]
+                "storico_danni_subiti": []
             },
             {
                 "classe": "Ladro",
@@ -32,24 +29,13 @@
                 "nome": "Slime non morto",
                 "npc": true,
                 "salute_max": 260,
-                "salute": 0,
+                "salute": 260,
                 "attacco_min": 5,
                 "attacco_max": 35,
                 "livello": 1,
                 "destrezza": 10,
                 "iniziativa": 25,
-                "storico_danni_subiti": [
-                    0,
-                    20,
-                    0,
-                    20,
-                    0,
-                    74,
-                    0,
-                    19,
-                    83,
-                    47
-                ]
+                "storico_danni_subiti": []
             }
         ],
         "inventari_nemici": [
@@ -105,116 +91,5 @@
         },
         "completata": false,
         "attiva": false
-    },
-    "personaggi_selezionati": [
-        {
-            "classe": "Ladro",
-            "id": "c5dea147-e1bb-4eff-b295-7496d2708da4",
-            "nome": "CherryBomb",
-            "npc": false,
-            "salute_max": 120,
-            "salute": 120,
-            "attacco_min": 10,
-            "attacco_max": 85,
-            "livello": 1,
-            "destrezza": 15,
-            "iniziativa": 25,
-            "storico_danni_subiti": [
-                0
-            ]
-        },
-        {
-            "classe": "Mago",
-            "id": "c93b0b9d-86c6-4609-8b30-4913044641a9",
-            "nome": "Alastor",
-            "npc": false,
-            "salute_max": 80,
-            "salute": 71,
-            "attacco_min": 0,
-            "attacco_max": 90,
-            "livello": 1,
-            "destrezza": 15,
-            "iniziativa": 15,
-            "storico_danni_subiti": [
-                9,
-                0
-            ]
-        },
-        {
-            "classe": "Guerriero",
-            "id": "d7c8fd4a-1c42-49cd-877f-ea3a3dbed548",
-            "nome": "Carmilla",
-            "npc": false,
-            "salute_max": 130,
-            "salute": 109,
-            "attacco_min": 20,
-            "attacco_max": 100,
-            "livello": 1,
-            "destrezza": 15,
-            "iniziativa": 20,
-            "storico_danni_subiti": [
-                21
-            ]
-        }
-    ],
-    "ordine_turni": [
-        "c5dea147-e1bb-4eff-b295-7496d2708da4",
-        "d7c8fd4a-1c42-49cd-877f-ea3a3dbed548",
-        "c93b0b9d-86c6-4609-8b30-4913044641a9"
-    ],
-    "turno": 16,
-    "indice_turno_corrente": 1,
-    "messaggi_battaglia": [
-        "Turno 1 - \u00e8 il turno di Slime non morto!",
-        "Slime non morto non utilizza oggetti in questo turno",
-        "Slime non morto tenta di attaccare ma fallisce!",
-        "Turno 2 - \u00e8 il turno di CherryBomb!",
-        "CherryBomb non utilizza oggetti in questo turno",
-        "CherryBomb colpisce furtivamente infliggendo 25 danni!",
-        "Turno 3 - \u00e8 il turno di Carmilla!",
-        "Carmilla non utilizza oggetti in questo turno",
-        "Carmilla colpisce con la spada infliggendo 51 danni!",
-        "Scheletrino \u00e8 stato sconfitto!",
-        "Turno 4 - \u00e8 il turno di Alastor!",
-        "Alastor non utilizza oggetti in questo turno",
-        "Alastor tenta di attaccare ma fallisce!",
-        "Turno 5 - \u00e8 il turno di Slime non morto!",
-        "Slime non morto non utilizza oggetti in questo turno",
-        "Slime non morto colpisce furtivamente infliggendo 21 danni!",
-        "Turno 6 - \u00e8 il turno di CherryBomb!",
-        "CherryBomb non utilizza oggetti in questo turno",
-        "CherryBomb colpisce furtivamente infliggendo 20 danni!",
-        "Turno 7 - \u00e8 il turno di Carmilla!",
-        "Carmilla non utilizza oggetti in questo turno",
-        "Carmilla tenta di attaccare ma fallisce!",
-        "Turno 8 - \u00e8 il turno di Alastor!",
-        "Alastor non utilizza oggetti in questo turno",
-        "Alastor lancia un incantesimo infliggendo 20 danni!",
-        "Turno 9 - \u00e8 il turno di Slime non morto!",
-        "Slime non morto non utilizza oggetti in questo turno",
-        "Slime non morto colpisce furtivamente infliggendo 9 danni!",
-        "Turno 10 - \u00e8 il turno di CherryBomb!",
-        "CherryBomb non utilizza oggetti in questo turno",
-        "CherryBomb tenta di attaccare ma fallisce!",
-        "Turno 11 - \u00e8 il turno di Carmilla!",
-        "Carmilla non utilizza oggetti in questo turno",
-        "Carmilla colpisce con la spada infliggendo 74 danni!",
-        "Turno 12 - \u00e8 il turno di Alastor!",
-        "Alastor non utilizza oggetti in questo turno",
-        "Alastor tenta di attaccare ma fallisce!",
-        "Turno 13 - \u00e8 il turno di Slime non morto!",
-        "Slime non morto non utilizza oggetti in questo turno",
-        "Slime non morto tenta di attaccare ma fallisce!",
-        "Turno 14 - \u00e8 il turno di CherryBomb!",
-        "CherryBomb non utilizza oggetti in questo turno",
-        "CherryBomb colpisce furtivamente infliggendo 19 danni!",
-        "Turno 15 - \u00e8 il turno di Carmilla!",
-        "Carmilla non utilizza oggetti in questo turno",
-        "Carmilla colpisce con la spada infliggendo 83 danni!",
-        "Turno 16 - \u00e8 il turno di Alastor!",
-        "Alastor non utilizza oggetti in questo turno",
-        "Alastor lancia un incantesimo infliggendo 47 danni!",
-        "Slime non morto \u00e8 stato sconfitto!",
-        "Tutti i nemici sono stati sconfitti! Vittoria!"
-    ]
+    }
 }

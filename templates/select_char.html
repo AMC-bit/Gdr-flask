@@ -5,7 +5,7 @@
 <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
   <form method="POST" class="card shadow-sm p-4" style="max-width: 800px; width: 100%;">
     <h3 class="text-center mb-2"><i>{{ missione_corrente.nome }}</i></h3>
-    <h3 class="text-center mb-4">Ambiente: <i>{{ missione_corrente.ambiente.nome }}</i></h3>
+    <h4 class="text-center mb-4">Ambiente: <i>{{ missione_corrente.ambiente.nome }}</i></h4>
 
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3 mb-3">
       {% for personaggio in personaggi %}

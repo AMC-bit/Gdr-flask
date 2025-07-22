@@ -9,5 +9,6 @@
     "attacco_max": 90,
     "livello": 1,
     "destrezza": 15,
+    "iniziativa": 15,
     "storico_danni_subiti": []
 }
