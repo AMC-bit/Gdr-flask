@@ -14,7 +14,7 @@ from gioco.schemas.missione import MissioniSchema
 from gioco.schemas.inventario import InventarioSchema
 from gioco.schemas.personaggio import PersonaggioSchema
 from characters.routes import load_char, get_owned_chars
-from config import DATA_DIR_SAVE, DATA_DIR_INV
+from config import DATA_DIR_SAVE, DATA_DIR_INV, DATA_DIR_PGS
 from utils.salvataggio import Json
 
 path_save = os.path.join(
