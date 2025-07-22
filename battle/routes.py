@@ -71,7 +71,7 @@ def select_char():
         )
 
 def setup_battle():
-    """TODO Fa il setup dei dati prendendoli dai file json data/ save, inventari, personaggi
+    """Fa il setup dei dati prendendoli dai file json data/ save, inventari, personaggi
     Deserializza i dati dai json e ritorna gli oggetti
 
     Returns:
@@ -101,9 +101,7 @@ def setup_battle():
     #nemici_obj = personaggio_schema.load(nemici)
     #ambiente_obj = AmbienteSchema().load(ambiente)
     #inventari_nemici_obj = InventarioSchema(many=True).load(inventari_nemici)
-
     #tutti_personaggi_obj = personaggi_selezionati_obj + nemici_obj
-
     #Carico gli inventari dei personaggi:
     inventari_pg_obj = []
     inventario_schema = InventarioSchema()
@@ -112,7 +110,7 @@ def setup_battle():
         inventario_pg = Json.carica_dati(pg_inv_path)
         inventario_pg_obj = inventario_schema.load(inventario_pg)
         inventari_pg_obj.append(inventario_pg_obj)
-        
+
     return missione_obj, personaggi_selezionati_obj, inventari_pg_obj
 
 

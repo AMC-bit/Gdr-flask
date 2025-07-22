@@ -1,0 +1,13 @@
+{
+    "classe": "Ladro",
+    "id": "5f7d8943-01bf-4a24-8b02-0bdb4a86a334",
+    "nome": "carolina",
+    "npc": false,
+    "salute_max": 120,
+    "salute": 120,
+    "attacco_min": 10,
+    "attacco_max": 85,
+    "livello": 1,
+    "destrezza": 15,
+    "storico_danni_subiti": []
+}

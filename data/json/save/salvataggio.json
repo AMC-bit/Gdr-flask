@@ -1,48 +1,48 @@
 {
     "missione": {
-        "id": "d0be82c8-fe52-41ab-8fc3-7548c68b422a",
-        "nome": "Imboscata",
+        "id": "e62e1f84-878b-4d2f-870f-9797bb3d60fc",
+        "nome": "Sconfiggi lo slime non morto",
         "ambiente": {
-            "nome": "Foresta",
-            "mod_attacco": 5,
-            "mod_cura": 5.5,
-            "classe": "Foresta"
+            "nome": "Palude",
+            "mod_attacco": -5,
+            "mod_cura": -0.1,
+            "classe": "Palude"
         },
         "nemici": [
             {
                 "classe": "Guerriero",
-                "id": "866f1744-8a23-438d-927b-8743dc8c52e7",
-                "nome": "Robin Hood",
+                "id": "5c9f6e63-87a1-4c9a-9257-b2044a54d518",
+                "nome": "Scheletrino",
                 "npc": true,
-                "salute_max": 130,
-                "salute": 130,
-                "attacco_min": 20,
-                "attacco_max": 100,
+                "salute_max": 60,
+                "salute": 60,
+                "attacco_min": 40,
+                "attacco_max": 120,
                 "livello": 1,
-                "destrezza": 15,
+                "destrezza": 20,
                 "storico_danni_subiti": []
             },
             {
-                "classe": "Guerriero",
-                "id": "b2c1f3d8-4e5a-4f9b-8c0d-6f7e8a9b0c1d",
-                "nome": "Little John",
+                "classe": "Ladro",
+                "id": "c9b8414e-9fae-4eb7-a2ea-3cfb77677185",
+                "nome": "Slime non morto",
                 "npc": true,
-                "salute_max": 130,
-                "salute": 130,
-                "attacco_min": 20,
-                "attacco_max": 100,
+                "salute_max": 260,
+                "salute": 260,
+                "attacco_min": 5,
+                "attacco_max": 35,
                 "livello": 1,
-                "destrezza": 15,
+                "destrezza": 10,
                 "storico_danni_subiti": []
             }
         ],
         "inventari_nemici": [
             {
-                "id": "e373a5eb-244f-4cda-832b-04e3fdfdfcc3",
-                "id_proprietario": "866f1744-8a23-438d-927b-8743dc8c52e7",
+                "id": "74d202f2-20cd-4f41-849c-3c2692bbca30",
+                "id_proprietario": "5c9f6e63-87a1-4c9a-9257-b2044a54d518",
                 "oggetti": [
                     {
-                        "id": "009a6c6e-5887-4a08-af10-41fd02cc9edf",
+                        "id": "782bc69f-8b9c-4372-8ab2-88e8d27bbdf4",
                         "nome": "Bomba Acida",
                         "usato": false,
                         "valore": 30,
@@ -52,8 +52,8 @@
                 ]
             },
             {
-                "id": "e373a5eb-244f-4cda-832b-04e3fdfdfcc4",
-                "id_proprietario": "b2c1f3d8-4e5a-4f9b-8c0d-6f7e8a9b0c1d",
+                "id": "cb6aebef-1fc4-48a5-9975-e0b1f9fd1934",
+                "id_proprietario": "c9b8414e-9fae-4eb7-a2ea-3cfb77677185",
                 "oggetti": [
                     {
                         "id": "009a6c6e-5887-4a08-af10-41fd02cc9edf",
@@ -76,14 +76,6 @@
                 "classe": "PozioneCura"
             },
             {
-                "id": "2a4c5e6f-7b8d-4c9e-8f1a-2b3c4d5e6f7a",
-                "nome": "Pozione Rossa",
-                "usato": false,
-                "valore": 30,
-                "tipo_oggetto": "Ristorativo",
-                "classe": "PozioneCura"
-            },
-            {
                 "id": "9f8e7d6c-5b4a-3c2d-1e0f-9a8b7c6d5e4f",
                 "nome": "Bomba Acida",
                 "usato": false,
@@ -93,21 +85,21 @@
             }
         ],
         "strategia_nemici": {
-            "nome": "Equilibrata"
+            "nome": "Difensiva"
         },
         "completata": false,
         "attiva": false
     },
     "personaggi_selezionati": [
         {
-            "classe": "Mago",
-            "id": "91e950b7-c5ac-4100-923e-fc6d99e663fb",
-            "nome": "Franco",
+            "classe": "Ladro",
+            "id": "5f7d8943-01bf-4a24-8b02-0bdb4a86a334",
+            "nome": "carolina",
             "npc": false,
-            "salute_max": 80,
-            "salute": 80,
-            "attacco_min": 0,
-            "attacco_max": 90,
+            "salute_max": 120,
+            "salute": 120,
+            "attacco_min": 10,
+            "attacco_max": 85,
             "livello": 1,
             "destrezza": 15,
             "storico_danni_subiti": []
