@@ -10,18 +10,41 @@
         },
         "nemici": [
             {
+<<<<<<< HEAD
+=======
+                "classe": "Mago",
+                "id": "866f1744-8a23-438d-927b-8743dc8c52e8",
+                "nome": "Pdor",
+                "npc": true,
+                "salute_max": 30,
+                "salute": 30,
+                "attacco_min": 4,
+                "attacco_max": 8,
+                "livello": 1,
+                "destrezza": 1,
+                "iniziativa": 15,
+                "storico_danni_subiti": []
+            },
+            {
+>>>>>>> ca69bb08b7de2f9941be22471f43d483c8760fa9
                 "classe": "Guerriero",
                 "id": "5c9f6e63-87a1-4c9a-9257-b2044a54d518",
                 "nome": "Scheletrino",
                 "npc": true,
+<<<<<<< HEAD
                 "salute_max": 60,
                 "salute": 60,
+=======
+                "salute_max": 180,
+                "salute": 180,
+>>>>>>> ca69bb08b7de2f9941be22471f43d483c8760fa9
                 "attacco_min": 40,
                 "attacco_max": 120,
                 "livello": 1,
                 "destrezza": 20,
                 "iniziativa": 20,
                 "storico_danni_subiti": []
+<<<<<<< HEAD
             },
             {
                 "classe": "Ladro",
@@ -36,10 +59,13 @@
                 "destrezza": 10,
                 "iniziativa": 25,
                 "storico_danni_subiti": []
+=======
+>>>>>>> ca69bb08b7de2f9941be22471f43d483c8760fa9
             }
         ],
         "inventari_nemici": [
             {
+<<<<<<< HEAD
                 "id": "74d202f2-20cd-4f41-849c-3c2692bbca30",
                 "id_proprietario": "5c9f6e63-87a1-4c9a-9257-b2044a54d518",
                 "oggetti": [
@@ -52,6 +78,11 @@
                         "classe": "BombaAcida"
                     }
                 ]
+=======
+                "id": "e373a5eb-244f-4cda-832b-04e3fdfdfcc1",
+                "id_proprietario": "866f1744-8a23-438d-927b-8743dc8c52e8",
+                "oggetti": []
+>>>>>>> ca69bb08b7de2f9941be22471f43d483c8760fa9
             },
             {
                 "id": "cb6aebef-1fc4-48a5-9975-e0b1f9fd1934",
@@ -95,35 +126,67 @@
     "personaggi_selezionati": [
         {
             "classe": "Mago",
+<<<<<<< HEAD
             "id": "10cb89ef-c1d4-467d-b7e7-cf0b7738286a",
             "nome": "belin",
+=======
+            "id": "017f16a6-ff3d-4601-ae73-6a1b2caec830",
+            "nome": "Alastor",
+>>>>>>> ca69bb08b7de2f9941be22471f43d483c8760fa9
             "npc": false,
             "salute_max": 80,
-            "salute": 0,
+            "salute": 80,
             "attacco_min": 0,
             "attacco_max": 90,
             "livello": 1,
             "destrezza": 15,
             "iniziativa": 15,
             "storico_danni_subiti": [
+<<<<<<< HEAD
                 0,
                 73,
                 15
+=======
+                0
+>>>>>>> ca69bb08b7de2f9941be22471f43d483c8760fa9
             ]
         },
         {
             "classe": "Ladro",
+<<<<<<< HEAD
             "id": "78fb2ff8-8c3e-4e2c-8d10-66265d0d0348",
             "nome": "gigio",
             "npc": false,
             "salute_max": 120,
             "salute": 0,
+=======
+            "id": "1e8b15ce-569d-44fe-bd27-907d2fdbe7e2",
+            "nome": "CherryBomb",
+            "npc": false,
+            "salute_max": 120,
+            "salute": 120,
+>>>>>>> ca69bb08b7de2f9941be22471f43d483c8760fa9
             "attacco_min": 10,
             "attacco_max": 85,
             "livello": 1,
             "destrezza": 15,
             "iniziativa": 25,
+            "storico_danni_subiti": []
+        },
+        {
+            "classe": "Guerriero",
+            "id": "36f445c1-0f97-4117-959f-0d6b5de2505a",
+            "nome": "Carmilla",
+            "npc": false,
+            "salute_max": 130,
+            "salute": 44,
+            "attacco_min": 20,
+            "attacco_max": 100,
+            "livello": 1,
+            "destrezza": 15,
+            "iniziativa": 20,
             "storico_danni_subiti": [
+<<<<<<< HEAD
                 22,
                 102
             ]
@@ -154,5 +217,34 @@
         "Slime non morto attacca belin per 15 danni!",
         "belin \u00e8 stato sconfitto!",
         "Tutti i personaggi sono stati sconfitti!"
+=======
+                53
+            ]
+        }
+    ],
+    "turno": 4,
+    "indice_turno_corrente": 0,
+    "ordine_turni": [
+        4,
+        1,
+        0,
+        2
+    ],
+    "messaggi_battaglia": [
+        "Turno 1 - \u00e8 il turno di Pdor!",
+        "Pdor usa Bomba Acida su Carmilla infliggendo 33 HP di danno",
+        "Pdor attacca Alastor per 0 danni!",
+        "Turno 2 - \u00e8 il turno di Blaine!",
+        "Blaine non utilizza oggetti in questo turno",
+        "Blaine attacca Carmilla per 53 danni!",
+        "Turno 3 - \u00e8 il turno di CherryBomb!",
+        "CherryBomb usa Bomba Acida su Pdor infliggendo 42 HP di danno",
+        "CherryBomb attacca Blaine per 71 danni!",
+        "Turno 4 - \u00e8 il turno di Carmilla!",
+        "Carmilla usa Bomba Acida su Blaine infliggendo 32 HP di danno",
+        "Carmilla attacca Blaine per 86 danni!",
+        "Blaine \u00e8 stato sconfitto!",
+        "Tutti i nemici sono stati sconfitti! Vittoria!"
+>>>>>>> ca69bb08b7de2f9941be22471f43d483c8760fa9
     ]
 }
