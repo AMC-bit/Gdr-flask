@@ -97,6 +97,22 @@
             "valore": 30,
             "tipo_oggetto": "Offensivo",
             "classe": "BombaAcida"
+        },
+        {
+            "id": "832e743f-6c52-43e3-af61-c1c4a5eceba4",
+            "nome": "Pozione Rossa",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "Ristorativo",
+            "classe": "PozioneCura"
+        },
+        {
+            "id": "8b2dc392-7e11-405c-85f0-219c9cd8f795",
+            "nome": "Bomba Acida",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "Offensivo",
+            "classe": "BombaAcida"
         }
     ]
 }

@@ -1,60 +1,60 @@
 {
     "missione": {
-        "id": "292c816f-3e3f-4c79-9f4a-4ea4dbe0e2d1",
-        "nome": "Imboscata",
+        "id": "e62e1f84-878b-4d2f-870f-9797bb3d60fc",
+        "nome": "Sconfiggi lo slime non morto",
         "ambiente": {
-            "nome": "Foresta",
-            "mod_attacco": 5,
-            "mod_cura": 5.5,
-            "classe": "Foresta"
+            "nome": "Palude",
+            "mod_attacco": -5,
+            "mod_cura": -0.1,
+            "classe": "Palude"
         },
         "nemici": [
             {
                 "classe": "Guerriero",
-                "id": "8c1dfb36-6eae-4c7d-a6f9-2f0b9e8edc96",
-                "nome": "Robin Hood",
+                "id": "5c9f6e63-87a1-4c9a-9257-b2044a54d518",
+                "nome": "Scheletrino",
                 "npc": true,
-                "salute_max": 130,
+                "salute_max": 60,
                 "salute": 0,
-                "attacco_min": 20,
-                "attacco_max": 100,
+                "attacco_min": 40,
+                "attacco_max": 120,
                 "livello": 1,
-                "destrezza": 15,
+                "destrezza": 20,
                 "iniziativa": 20,
                 "storico_danni_subiti": [
-                    84,
-                    81
+                    42,
+                    0,
+                    59
                 ]
             },
             {
-                "classe": "Guerriero",
-                "id": "5d9db649-b9a7-43f2-aec4-b65a372645fc",
-                "nome": "Little John",
+                "classe": "Ladro",
+                "id": "c9b8414e-9fae-4eb7-a2ea-3cfb77677185",
+                "nome": "Slime non morto",
                 "npc": true,
-                "salute_max": 130,
+                "salute_max": 260,
                 "salute": 0,
-                "attacco_min": 20,
-                "attacco_max": 100,
+                "attacco_min": 5,
+                "attacco_max": 35,
                 "livello": 1,
-                "destrezza": 15,
-                "iniziativa": 20,
+                "destrezza": 10,
+                "iniziativa": 25,
                 "storico_danni_subiti": [
-                    40,
-                    19,
                     0,
-                    0,
-                    20,
-                    73
+                    86,
+                    84,
+                    23,
+                    74
                 ]
             }
         ],
         "inventari_nemici": [
             {
-                "id": "9c37ce4b-016f-4c2d-a42e-8136ae988f4c",
-                "id_proprietario": "8c1dfb36-6eae-4c7d-a6f9-2f0b9e8edc96",
+                "id": "74d202f2-20cd-4f41-849c-3c2692bbca30",
+                "id_proprietario": "5c9f6e63-87a1-4c9a-9257-b2044a54d518",
                 "oggetti": [
                     {
-                        "id": "aef17f9f-f158-4308-bc11-786b6818b19e",
+                        "id": "782bc69f-8b9c-4372-8ab2-88e8d27bbdf4",
                         "nome": "Bomba Acida",
                         "usato": false,
                         "valore": 30,
@@ -64,11 +64,11 @@
                 ]
             },
             {
-                "id": "90d9d1a6-2fc8-4550-9e3f-c038fe0114f4",
-                "id_proprietario": "5d9db649-b9a7-43f2-aec4-b65a372645fc",
+                "id": "cb6aebef-1fc4-48a5-9975-e0b1f9fd1934",
+                "id_proprietario": "c9b8414e-9fae-4eb7-a2ea-3cfb77677185",
                 "oggetti": [
                     {
-                        "id": "8f0f45be-bc36-463c-913c-c1c314b029b4",
+                        "id": "009a6c6e-5887-4a08-af10-41fd02cc9edf",
                         "nome": "Bomba Acida",
                         "usato": false,
                         "valore": 30,
@@ -88,14 +88,6 @@
                 "classe": "PozioneCura"
             },
             {
-                "id": "2a4c5e6f-7b8d-4c9e-8f1a-2b3c4d5e6f7a",
-                "nome": "Pozione Rossa",
-                "usato": false,
-                "valore": 30,
-                "tipo_oggetto": "Ristorativo",
-                "classe": "PozioneCura"
-            },
-            {
                 "id": "9f8e7d6c-5b4a-3c2d-1e0f-9a8b7c6d5e4f",
                 "nome": "Bomba Acida",
                 "usato": false,
@@ -105,7 +97,7 @@
             }
         ],
         "strategia_nemici": {
-            "nome": "Equilibrata"
+            "nome": "Difensiva"
         },
         "completata": false,
         "attiva": false
@@ -123,7 +115,10 @@
             "livello": 1,
             "destrezza": 15,
             "iniziativa": 15,
-            "storico_danni_subiti": []
+            "storico_danni_subiti": [
+                21,
+                0
+            ]
         },
         {
             "classe": "Mago",
@@ -131,7 +126,7 @@
             "nome": "Gilberto",
             "npc": false,
             "salute_max": 80,
-            "salute": 23,
+            "salute": 56,
             "attacco_min": 0,
             "attacco_max": 90,
             "livello": 1,
@@ -165,7 +160,7 @@
             "nome": "carolina",
             "npc": false,
             "salute_max": 130,
-            "salute": 18,
+            "salute": 0,
             "attacco_min": 20,
             "attacco_max": 100,
             "livello": 1,
@@ -174,87 +169,78 @@
             "storico_danni_subiti": [
                 77,
                 6,
-                62
+                62,
+                83
             ]
         },
         {
             "classe": "Guerriero",
-            "id": "92b67268-b305-4e33-99c8-7fb046c865e9",
-            "nome": "Astolfo",
+            "id": "d08d1d68-64a0-4381-9fb6-768bd0bdc754",
+            "nome": "Giacobbe",
             "npc": false,
             "salute_max": 130,
-            "salute": 0,
+            "salute": 130,
             "attacco_min": 20,
             "attacco_max": 100,
             "livello": 1,
             "destrezza": 15,
             "iniziativa": 20,
-            "storico_danni_subiti": [
-                16,
-                0,
-                43,
-                52,
-                34
-            ]
+            "storico_danni_subiti": []
         }
     ],
     "ordine_turni": [
-        "38378733-fdc7-47a5-b341-95bce29e6283",
         "188d0d0f-88a6-4ba5-913a-1ef0080c9a7c",
         "336c4805-b1cb-4656-8094-fa07838d2367",
+        "d08d1d68-64a0-4381-9fb6-768bd0bdc754",
         "1c27f6d8-8815-4325-b9a1-3feada31b944"
     ],
     "turno": 11,
     "indice_turno_corrente": 1,
     "messaggi_battaglia": [
-        "Turno 1 - \u00e8 il turno di Astolfo!",
-        "Astolfo non utilizza oggetti in questo turno",
-        "Astolfo colpisce con la spada infliggendo 40 danni!",
-        "Turno 2 - \u00e8 il turno di Robin Hood!",
-        "Robin Hood non utilizza oggetti in questo turno",
-        "Robin Hood colpisce con la spada infliggendo 34 danni!",
-        "Astolfo \u00e8 stato sconfitto!",
-        "Turno 3 - \u00e8 il turno di Baldassarre!",
+        "Turno 1 - \u00e8 il turno di Baldassarre!",
         "Baldassarre non utilizza oggetti in questo turno",
-        "Baldassarre lancia un incantesimo infliggendo 19 danni!",
+        "Baldassarre lancia un incantesimo infliggendo 42 danni!",
+        "Turno 2 - \u00e8 il turno di Scheletrino!",
+        "Scheletrino non utilizza oggetti in questo turno",
+        "Scheletrino colpisce con la spada infliggendo 83 danni!",
+        "carolina \u00e8 stato sconfitto!",
+        "Turno 3 - \u00e8 il turno di Slime non morto!",
+        "Slime non morto non utilizza oggetti in questo turno",
+        "Slime non morto colpisce furtivamente infliggendo 21 danni!",
         "Turno 4 - \u00e8 il turno di silvia!",
         "silvia non utilizza oggetti in questo turno",
-        "silvia colpisce con la spada infliggendo 84 danni!",
-        "Turno 5 - \u00e8 il turno di Little John!",
-        "Little John non utilizza oggetti in questo turno",
-        "Little John colpisce con la spada infliggendo 62 danni!",
-        "Turno 6 - \u00e8 il turno di Gilberto!",
-        "Gilberto non utilizza oggetti in questo turno",
-        "Gilberto lancia un incantesimo infliggendo 81 danni!",
-        "Robin Hood \u00e8 stato sconfitto!",
-        "Turno 7 - \u00e8 il turno di Baldassarre!",
-        "Baldassarre non utilizza oggetti in questo turno",
-        "Baldassarre tenta di attaccare ma fallisce!",
-        "Turno 8 - \u00e8 il turno di silvia!",
-        "silvia usa Bomba Acida su Little John infliggendo 30 HP di danno",
         "silvia tenta di attaccare ma fallisce!",
-        "Turno 9 - \u00e8 il turno di Little John!",
-        "Little John non utilizza oggetti in questo turno",
-        "Little John colpisce con la spada infliggendo 57 danni!",
+        "Turno 5 - \u00e8 il turno di Giacobbe!",
+        "Giacobbe non utilizza oggetti in questo turno",
+        "Giacobbe tenta di attaccare ma fallisce!",
+        "Turno 6 - \u00e8 il turno di Gilberto!",
+        "Gilberto usa Pozione Curativa su se stesso recuperando 33 HP, recuperando 33 HP.",
+        "Gilberto lancia un incantesimo infliggendo 59 danni!",
+        "Scheletrino \u00e8 stato sconfitto!",
+        "Turno 7 - \u00e8 il turno di Slime non morto!",
+        "Slime non morto non utilizza oggetti in questo turno",
+        "Slime non morto tenta di attaccare ma fallisce!",
+        "Turno 8 - \u00e8 il turno di silvia!",
+        "silvia non utilizza oggetti in questo turno",
+        "silvia colpisce con la spada infliggendo 86 danni!",
+        "Turno 9 - \u00e8 il turno di Giacobbe!",
+        "Giacobbe non utilizza oggetti in questo turno",
+        "Giacobbe colpisce con la spada infliggendo 84 danni!",
         "Turno 10 - \u00e8 il turno di Gilberto!",
         "Gilberto non utilizza oggetti in questo turno",
-        "Gilberto lancia un incantesimo infliggendo 20 danni!",
-        "Turno 11 - \u00e8 il turno di carolina!",
-        "carolina non utilizza oggetti in questo turno",
-        "carolina colpisce con la spada infliggendo 73 danni!",
-        "Little John \u00e8 stato sconfitto!",
-        "Baldassarre ha ricevuto in premio Pozione Rossa",
+        "Gilberto lancia un incantesimo infliggendo 23 danni!",
+        "Turno 11 - \u00e8 il turno di Baldassarre!",
+        "Baldassarre usa Pozione Curativa su se stesso recuperando 33 HP, che torna al massimo della salute.",
+        "Baldassarre lancia un incantesimo infliggendo 74 danni!",
+        "Slime non morto \u00e8 stato sconfitto!",
         "Baldassarre ha ricevuto in premio Pozione Rossa",
         "Baldassarre ha ricevuto in premio Bomba Acida",
         "Gilberto ha ricevuto in premio Pozione Rossa",
-        "Gilberto ha ricevuto in premio Pozione Rossa",
         "Gilberto ha ricevuto in premio Bomba Acida",
         "silvia ha ricevuto in premio Pozione Rossa",
-        "silvia ha ricevuto in premio Pozione Rossa",
         "silvia ha ricevuto in premio Bomba Acida",
-        "carolina ha ricevuto in premio Pozione Rossa",
-        "carolina ha ricevuto in premio Pozione Rossa",
-        "carolina ha ricevuto in premio Bomba Acida",
+        "Giacobbe ha ricevuto in premio Pozione Rossa",
+        "Giacobbe ha ricevuto in premio Bomba Acida",
         "Tutti i nemici sono stati sconfitti! Vittoria!"
     ]
 }

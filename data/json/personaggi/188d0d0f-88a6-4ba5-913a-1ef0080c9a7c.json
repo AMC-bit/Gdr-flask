@@ -10,5 +10,8 @@
     "livello": 1,
     "destrezza": 15,
     "iniziativa": 15,
-    "storico_danni_subiti": []
+    "storico_danni_subiti": [
+        21,
+        0
+    ]
 }

@@ -1,17 +1,7 @@
 from marshmallow import Schema, fields, post_load
 import uuid
-
+from gioco.schemas.helper import get_all_subclasses
 from gioco.personaggio import Personaggio
-
-
-def get_all_subclasses(cls):
-    subclasses = set()
-    for subclass in cls.__subclasses__():
-        subclasses.add(subclass)
-        # subclasses.update(get_all_subclasses(subclass))
-        # nel caso di sottoclassi indirette
-    return subclasses
-
 
 class PersonaggioSchema(Schema):
     """

@@ -1,18 +1,14 @@
 {
     "classe": "Guerriero",
-    "id": "38378733-fdc7-47a5-b341-95bce29e6283",
-    "nome": "carolina",
+    "id": "d08d1d68-64a0-4381-9fb6-768bd0bdc754",
+    "nome": "Giacobbe",
     "npc": false,
     "salute_max": 130,
-    "salute": 18,
+    "salute": 130,
     "attacco_min": 20,
     "attacco_max": 100,
     "livello": 1,
     "destrezza": 15,
     "iniziativa": 20,
-    "storico_danni_subiti": [
-        77,
-        6,
-        62
-    ]
+    "storico_danni_subiti": []
 }
