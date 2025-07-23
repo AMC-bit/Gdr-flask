@@ -45,24 +45,3 @@ class PersonaggioSchema(Schema):
         return personaggio_cls(**data)
 
 
-class MagoSchema(PersonaggioSchema):
-    """
-    Schema specifico per la classe Mago.
-    Estende PersonaggioSchema e aggiunge il campo 'mana'.
-    """
-
-
-class LadroSchema(PersonaggioSchema):
-    """
-    Schema specifico per la classe Ladro.
-    Estende PersonaggioSchema e aggiunge il campo 'destrezza'.
-    """
-    pass
-
-
-class GuerrieroSchema(PersonaggioSchema):
-    """
-    Schema specifico per la classe Guerriero.
-    Estende PersonaggioSchema e aggiunge il campo 'forza'.
-    """
-    pass

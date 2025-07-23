@@ -13,6 +13,7 @@ from gioco.personaggio import Personaggio
 from gioco.schemas.missione import MissioniSchema
 from gioco.schemas.inventario import InventarioSchema
 from gioco.schemas.personaggio import PersonaggioSchema
+from gioco.schemas.helper import get_all_subclasses
 from characters.routes import load_char, get_owned_chars
 from config import DATA_DIR_SAVE, DATA_DIR_INV, DATA_DIR_PGS
 from utils.salvataggio import Json
