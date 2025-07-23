@@ -1,0 +1,16 @@
+{
+    "classe": "Guerriero",
+    "id": "eca1a641-9efa-40ab-b6b1-868086074650",
+    "nome": "iyi",
+    "npc": false,
+    "salute_max": 130,
+    "salute": 74,
+    "attacco_min": 20,
+    "attacco_max": 100,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 20,
+    "storico_danni_subiti": [
+        56
+    ]
+}

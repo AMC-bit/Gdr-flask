@@ -1,0 +1,70 @@
+{
+    "id": "fb3d4b61-73ec-4632-a6fe-242b8d352c49",
+    "id_proprietario": "370d10cd-2d2f-43bb-aeaf-6debeb2272d9",
+    "oggetti": [
+        {
+            "id": "70720e62-68d3-4df3-952d-97e70ee9d021",
+            "nome": "Pozione Rossa",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "Ristorativo",
+            "classe": "PozioneCura"
+        },
+        {
+            "id": "065e1760-066f-462d-903f-5f45bc99ce86",
+            "nome": "Pozione Rossa",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "Ristorativo",
+            "classe": "PozioneCura"
+        },
+        {
+            "id": "9b45a2bf-6916-4010-b64b-5af2e048998b",
+            "nome": "Bomba Acida",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "Offensivo",
+            "classe": "BombaAcida"
+        },
+        {
+            "id": "ae248471-8251-4c3a-b4f4-9411f60a59d8",
+            "nome": "Pozione Rossa",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "Ristorativo",
+            "classe": "PozioneCura"
+        },
+        {
+            "id": "88beb181-e3b3-45c5-b22f-74c246ba7342",
+            "nome": "Bomba Acida",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "Offensivo",
+            "classe": "BombaAcida"
+        },
+        {
+            "id": "eee3a2e9-8844-4e8e-b1ff-feb1efd8b025",
+            "nome": "Pozione Rossa",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "Ristorativo",
+            "classe": "PozioneCura"
+        },
+        {
+            "id": "e2a6b602-9836-4031-8ee7-d8311145930a",
+            "nome": "Pozione Rossa",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "Ristorativo",
+            "classe": "PozioneCura"
+        },
+        {
+            "id": "bbf74128-6476-4d03-8155-6306a83d217a",
+            "nome": "Bomba Acida",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "Offensivo",
+            "classe": "BombaAcida"
+        }
+    ]
+}
