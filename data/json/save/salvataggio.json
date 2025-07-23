@@ -1,140 +1,56 @@
 {
     "missione": {
-<<<<<<< HEAD
-        "id": "e62e1f84-878b-4d2f-870f-9797bb3d60fc",
-        "nome": "Sconfiggi lo slime non morto",
+        "id": "d0be82c8-fe52-41ab-8fc3-7548c68b423a",
+        "nome": "Sgomina il culto di Pdor figlio di Kmer",
         "ambiente": {
-            "nome": "Palude",
-            "mod_attacco": -5,
-            "mod_cura": -0.1,
-            "classe": "Palude"
+            "nome": "Vulcano",
+            "mod_attacco": 10,
+            "mod_cura": -5.0,
+            "classe": "Vulcano"
         },
         "nemici": [
             {
-<<<<<<< HEAD
-=======
                 "classe": "Mago",
                 "id": "866f1744-8a23-438d-927b-8743dc8c52e8",
                 "nome": "Pdor",
-=======
-        "id": "292c816f-3e3f-4c79-9f4a-4ea4dbe0e2d1",
-        "nome": "Imboscata",
-        "ambiente": {
-            "nome": "Foresta",
-            "mod_attacco": 5,
-            "mod_cura": 5.5,
-            "classe": "Foresta"
-        },
-        "nemici": [
-            {
-                "classe": "Guerriero",
-                "id": "8c1dfb36-6eae-4c7d-a6f9-2f0b9e8edc96",
-                "nome": "Robin Hood",
->>>>>>> 80e7af73a3de8087b244fd64c857cd17b6dae356
                 "npc": true,
-                "salute_max": 130,
+                "salute_max": 30,
                 "salute": 0,
-                "attacco_min": 20,
-                "attacco_max": 100,
+                "attacco_min": 4,
+                "attacco_max": 8,
                 "livello": 1,
-                "destrezza": 15,
-                "iniziativa": 20,
+                "destrezza": 1,
+                "iniziativa": 15,
                 "storico_danni_subiti": [
-                    0,
-                    50,
-                    77,
-                    0,
-                    82
+                    96
                 ]
             },
             {
->>>>>>> ca69bb08b7de2f9941be22471f43d483c8760fa9
                 "classe": "Guerriero",
-<<<<<<< HEAD
-                "id": "5c9f6e63-87a1-4c9a-9257-b2044a54d518",
-                "nome": "Scheletrino",
+                "id": "b2c1f3d8-4e5a-4f9b-8c0d-6f7e8a9b0c8d",
+                "nome": "Blaine",
                 "npc": true,
-<<<<<<< HEAD
-                "salute_max": 60,
-                "salute": 60,
-=======
                 "salute_max": 180,
-                "salute": 180,
->>>>>>> ca69bb08b7de2f9941be22471f43d483c8760fa9
+                "salute": 118,
                 "attacco_min": 40,
                 "attacco_max": 120,
                 "livello": 1,
-                "destrezza": 20,
-                "iniziativa": 20,
-                "storico_danni_subiti": []
-<<<<<<< HEAD
-            },
-            {
-                "classe": "Ladro",
-                "id": "c9b8414e-9fae-4eb7-a2ea-3cfb77677185",
-                "nome": "Slime non morto",
-                "npc": true,
-                "salute_max": 260,
-                "salute": 260,
-                "attacco_min": 5,
-                "attacco_max": 35,
-                "livello": 1,
-                "destrezza": 10,
-                "iniziativa": 25,
-                "storico_danni_subiti": []
-=======
->>>>>>> ca69bb08b7de2f9941be22471f43d483c8760fa9
-=======
-                "id": "5d9db649-b9a7-43f2-aec4-b65a372645fc",
-                "nome": "Little John",
-                "npc": true,
-                "salute_max": 130,
-                "salute": 0,
-                "attacco_min": 20,
-                "attacco_max": 100,
-                "livello": 1,
-                "destrezza": 15,
+                "destrezza": 25,
                 "iniziativa": 20,
                 "storico_danni_subiti": [
                     0,
-                    75
+                    0,
+                    52
                 ]
->>>>>>> 80e7af73a3de8087b244fd64c857cd17b6dae356
             }
         ],
         "inventari_nemici": [
             {
-<<<<<<< HEAD
-<<<<<<< HEAD
-                "id": "74d202f2-20cd-4f41-849c-3c2692bbca30",
-                "id_proprietario": "5c9f6e63-87a1-4c9a-9257-b2044a54d518",
-                "oggetti": [
-                    {
-                        "id": "782bc69f-8b9c-4372-8ab2-88e8d27bbdf4",
-                        "nome": "Bomba Acida",
-                        "usato": false,
-                        "valore": 30,
-                        "tipo_oggetto": "Offensivo",
-                        "classe": "BombaAcida"
-                    }
-                ]
-=======
                 "id": "e373a5eb-244f-4cda-832b-04e3fdfdfcc1",
                 "id_proprietario": "866f1744-8a23-438d-927b-8743dc8c52e8",
-=======
-                "id": "9c37ce4b-016f-4c2d-a42e-8136ae988f4c",
-                "id_proprietario": "8c1dfb36-6eae-4c7d-a6f9-2f0b9e8edc96",
->>>>>>> 80e7af73a3de8087b244fd64c857cd17b6dae356
-                "oggetti": []
->>>>>>> ca69bb08b7de2f9941be22471f43d483c8760fa9
-            },
-            {
-<<<<<<< HEAD
-                "id": "cb6aebef-1fc4-48a5-9975-e0b1f9fd1934",
-                "id_proprietario": "c9b8414e-9fae-4eb7-a2ea-3cfb77677185",
                 "oggetti": [
                     {
-                        "id": "009a6c6e-5887-4a08-af10-41fd02cc9edf",
+                        "id": "aef17f9f-f158-4308-bc11-786b6818b19e",
                         "nome": "Bomba Acida",
                         "usato": false,
                         "valore": 30,
@@ -142,84 +58,43 @@
                         "classe": "BombaAcida"
                     }
                 ]
-=======
-                "id": "90d9d1a6-2fc8-4550-9e3f-c038fe0114f4",
-                "id_proprietario": "5d9db649-b9a7-43f2-aec4-b65a372645fc",
-                "oggetti": []
->>>>>>> 80e7af73a3de8087b244fd64c857cd17b6dae356
+            },
+            {
+                "id": "6ab8ce89-0a16-4953-a9f5-cd0892a6bd96",
+                "id_proprietario": "b2c1f3d8-4e5a-4f9b-8c0d-6f7e8a9b0c8d",
+                "oggetti": [
+                    {
+                        "id": "8f0f45be-bc36-463c-913c-c1c314b029b4",
+                        "nome": "Bomba Acida",
+                        "usato": false,
+                        "valore": 30,
+                        "tipo_oggetto": "Offensivo",
+                        "classe": "BombaAcida"
+                    }
+                ]
             }
         ],
         "premi": [
             {
-                "id": "7e2b1c8a-2e3d-4b7a-9e2a-1c3f4b5d6e7f",
-                "nome": "Pozione Rossa",
+                "id": "7e2b1c8a-2e3d-4b7a-9e2a-1c3f4b5d6e8f",
+                "nome": "Medaglione",
                 "usato": false,
-                "valore": 30,
-                "tipo_oggetto": "Ristorativo",
-                "classe": "PozioneCura"
-            },
-            {
-<<<<<<< HEAD
-=======
-                "id": "2a4c5e6f-7b8d-4c9e-8f1a-2b3c4d5e6f7a",
-                "nome": "Pozione Rossa",
-                "usato": false,
-                "valore": 30,
-                "tipo_oggetto": "Ristorativo",
-                "classe": "PozioneCura"
-            },
-            {
->>>>>>> 80e7af73a3de8087b244fd64c857cd17b6dae356
-                "id": "9f8e7d6c-5b4a-3c2d-1e0f-9a8b7c6d5e4f",
-                "nome": "Bomba Acida",
-                "usato": false,
-                "valore": 30,
-                "tipo_oggetto": "Offensivo",
-                "classe": "BombaAcida"
+                "valore": 10,
+                "tipo_oggetto": "Buff",
+                "classe": "Medaglione"
             }
         ],
         "strategia_nemici": {
-<<<<<<< HEAD
-            "nome": "Difensiva"
-=======
-            "nome": "Equilibrata"
->>>>>>> 80e7af73a3de8087b244fd64c857cd17b6dae356
+            "nome": "Aggressiva"
         },
         "completata": false,
         "attiva": false
     },
     "personaggi_selezionati": [
         {
-            "classe": "Ladro",
-            "id": "c5dea147-e1bb-4eff-b295-7496d2708da4",
-            "nome": "CherryBomb",
-            "npc": false,
-            "salute_max": 120,
-            "salute": 55,
-            "attacco_min": 10,
-            "attacco_max": 85,
-            "livello": 1,
-            "destrezza": 15,
-            "iniziativa": 25,
-            "storico_danni_subiti": [
-                0,
-                65,
-                0
-            ]
-        },
-        {
             "classe": "Mago",
-<<<<<<< HEAD
-<<<<<<< HEAD
-            "id": "10cb89ef-c1d4-467d-b7e7-cf0b7738286a",
-            "nome": "belin",
-=======
-            "id": "017f16a6-ff3d-4601-ae73-6a1b2caec830",
-=======
-            "id": "c93b0b9d-86c6-4609-8b30-4913044641a9",
->>>>>>> 80e7af73a3de8087b244fd64c857cd17b6dae356
-            "nome": "Alastor",
->>>>>>> ca69bb08b7de2f9941be22471f43d483c8760fa9
+            "id": "1019b244-9151-474d-b745-3b8566d13b09",
+            "nome": "a",
             "npc": false,
             "salute_max": 80,
             "salute": 0,
@@ -229,150 +104,57 @@
             "destrezza": 15,
             "iniziativa": 15,
             "storico_danni_subiti": [
-<<<<<<< HEAD
-<<<<<<< HEAD
-                0,
-                73,
-                15
-=======
-                0
->>>>>>> ca69bb08b7de2f9941be22471f43d483c8760fa9
+                118
             ]
         },
         {
-            "classe": "Ladro",
-<<<<<<< HEAD
-            "id": "78fb2ff8-8c3e-4e2c-8d10-66265d0d0348",
-            "nome": "gigio",
+            "classe": "Mago",
+            "id": "aefd7e0a-d6d1-4328-bb2e-1bb94fce1dcc",
+            "nome": "chri",
             "npc": false,
-            "salute_max": 120,
+            "salute_max": 80,
             "salute": 0,
-=======
-            "id": "1e8b15ce-569d-44fe-bd27-907d2fdbe7e2",
-            "nome": "CherryBomb",
-            "npc": false,
-            "salute_max": 120,
-            "salute": 120,
->>>>>>> ca69bb08b7de2f9941be22471f43d483c8760fa9
-            "attacco_min": 10,
-            "attacco_max": 85,
+            "attacco_min": 0,
+            "attacco_max": 90,
             "livello": 1,
             "destrezza": 15,
-            "iniziativa": 25,
-            "storico_danni_subiti": []
-        },
-        {
-=======
-                9,
-                0,
-                50
-            ]
-        },
-        {
->>>>>>> 80e7af73a3de8087b244fd64c857cd17b6dae356
-            "classe": "Guerriero",
-            "id": "d7c8fd4a-1c42-49cd-877f-ea3a3dbed548",
-            "nome": "Carmilla",
-            "npc": false,
-            "salute_max": 130,
-            "salute": 48,
-            "attacco_min": 20,
-            "attacco_max": 100,
-            "livello": 1,
-            "destrezza": 15,
-            "iniziativa": 20,
+            "iniziativa": 15,
             "storico_danni_subiti": [
-<<<<<<< HEAD
-<<<<<<< HEAD
-                22,
-                102
+                73,
+                74
             ]
         }
+    ],
+    "ordine_turni": [
+        "b2c1f3d8-4e5a-4f9b-8c0d-6f7e8a9b0c8d"
     ],
     "turno": 7,
-    "indice_turno_corrente": 1,
-    "ordine_turni": [
-        3,
-        2,
-        0
-    ],
-    "messaggi_battaglia": [
-        "Turno 1 - \u00e8 il turno di Slime non morto!",
-        "Slime non morto attacca gigio per 22 danni!",
-        "Turno 2 - \u00e8 il turno di Scheletrino!",
-        "Scheletrino attacca gigio per 102 danni!",
-        "gigio \u00e8 stato sconfitto!",
-        "Turno 3 - \u00e8 il turno di belin!",
-        "belin attacca Slime non morto per 0 danni!",
-        "Turno 4 - \u00e8 il turno di Slime non morto!",
-        "Slime non morto attacca belin per 0 danni!",
-        "Turno 5 - \u00e8 il turno di Scheletrino!",
-        "Scheletrino attacca belin per 73 danni!",
-        "Turno 6 - \u00e8 il turno di belin!",
-        "belin attacca Slime non morto per 0 danni!",
-        "Turno 7 - \u00e8 il turno di Slime non morto!",
-        "Slime non morto attacca belin per 15 danni!",
-        "belin \u00e8 stato sconfitto!",
-        "Tutti i personaggi sono stati sconfitti!"
-=======
-                53
-=======
-                21,
-                61
->>>>>>> 80e7af73a3de8087b244fd64c857cd17b6dae356
-            ]
-        }
-    ],
-    "ordine_turni": [
-        "c5dea147-e1bb-4eff-b295-7496d2708da4",
-        "d7c8fd4a-1c42-49cd-877f-ea3a3dbed548"
-    ],
-    "turno": 11,
     "indice_turno_corrente": 0,
     "messaggi_battaglia": [
-        "Turno 1 - \u00e8 il turno di Robin Hood!",
-        "Robin Hood usa Bomba Acida su CherryBomb infliggendo 30 HP di danno",
-        "Robin Hood colpisce con la spada infliggendo 61 danni!",
-        "Turno 2 - \u00e8 il turno di Alastor!",
-        "Alastor usa Bomba Acida su Little John infliggendo 30 HP di danno",
-        "Alastor tenta di attaccare ma fallisce!",
-        "Turno 3 - \u00e8 il turno di Little John!",
-        "Little John usa Bomba Acida su Alastor infliggendo 30 HP di danno",
-        "Little John colpisce con la spada infliggendo 65 danni!",
-        "Turno 4 - \u00e8 il turno di CherryBomb!",
-        "CherryBomb non utilizza oggetti in questo turno",
-        "CherryBomb tenta di attaccare ma fallisce!",
-        "Turno 5 - \u00e8 il turno di Carmilla!",
-        "Carmilla usa Bomba Acida su Little John infliggendo 30 HP di danno",
-        "Carmilla colpisce con la spada infliggendo 50 danni!",
-        "Turno 6 - \u00e8 il turno di Robin Hood!",
-        "Robin Hood non utilizza oggetti in questo turno",
-        "Robin Hood tenta di attaccare ma fallisce!",
-        "Turno 7 - \u00e8 il turno di Alastor!",
-        "Alastor non utilizza oggetti in questo turno",
-        "Alastor lancia un incantesimo infliggendo 75 danni!",
-        "Little John \u00e8 stato sconfitto!",
-        "Turno 8 - \u00e8 il turno di CherryBomb!",
-        "CherryBomb usa Pozione Curativa su se stesso recuperando 30 HP, recuperando 30 HP.",
-        "CherryBomb colpisce furtivamente infliggendo 77 danni!",
-        "Turno 9 - \u00e8 il turno di Carmilla!",
-        "Carmilla non utilizza oggetti in questo turno",
-        "Carmilla tenta di attaccare ma fallisce!",
-        "Turno 10 - \u00e8 il turno di Robin Hood!",
-        "Robin Hood non utilizza oggetti in questo turno",
-        "Robin Hood colpisce con la spada infliggendo 50 danni!",
-        "Alastor \u00e8 stato sconfitto!",
-        "Turno 11 - \u00e8 il turno di CherryBomb!",
-        "CherryBomb non utilizza oggetti in questo turno",
-        "CherryBomb colpisce furtivamente infliggendo 82 danni!",
-        "Robin Hood \u00e8 stato sconfitto!",
-        "CherryBomb ha ricevuto in premio Pozione Rossa",
-        "CherryBomb ha ricevuto in premio Pozione Rossa",
-        "CherryBomb ha ricevuto in premio Bomba Acida",
-        "Carmilla ha ricevuto in premio Pozione Rossa",
-        "Carmilla ha ricevuto in premio Pozione Rossa",
-        "Carmilla ha ricevuto in premio Bomba Acida",
-        "Tutti i nemici sono stati sconfitti! Vittoria!"
->>>>>>> ca69bb08b7de2f9941be22471f43d483c8760fa9
+        "Turno 1 - \u00e8 il turno di a!",
+        "a non utilizza oggetti in questo turno",
+        "a lancia un incantesimo infliggendo 96 danni!",
+        "Pdor \u00e8 stato sconfitto!",
+        "Turno 2 - \u00e8 il turno di Blaine!",
+        "Blaine non utilizza oggetti in questo turno",
+        "Blaine colpisce con la spada infliggendo 73 danni!",
+        "Turno 3 - \u00e8 il turno di chri!",
+        "chri non utilizza oggetti in questo turno",
+        "chri tenta di attaccare ma fallisce!",
+        "Turno 4 - \u00e8 il turno di a!",
+        "a non utilizza oggetti in questo turno",
+        "a tenta di attaccare ma fallisce!",
+        "Turno 5 - \u00e8 il turno di Blaine!",
+        "Blaine non utilizza oggetti in questo turno",
+        "Blaine colpisce con la spada infliggendo 74 danni!",
+        "chri \u00e8 stato sconfitto!",
+        "Turno 6 - \u00e8 il turno di a!",
+        "a non utilizza oggetti in questo turno",
+        "a lancia un incantesimo infliggendo 52 danni!",
+        "Turno 7 - \u00e8 il turno di Blaine!",
+        "Blaine non utilizza oggetti in questo turno",
+        "Blaine colpisce con la spada infliggendo 118 danni!",
+        "a \u00e8 stato sconfitto!",
+        "Tutti i personaggi sono stati sconfitti!"
     ]
 }
