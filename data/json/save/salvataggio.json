@@ -1,0 +1,147 @@
+{
+    "missione": {
+        "id": "d0be82c8-fe52-41ab-8fc3-7548c68b423a",
+        "nome": "Sgomina il culto di Pdor figlio di Kmer",
+        "ambiente": {
+            "nome": "Vulcano",
+            "mod_attacco": 10,
+            "mod_cura": -5.0,
+            "classe": "Vulcano"
+        },
+        "nemici": [
+            {
+                "classe": "Mago",
+                "id": "866f1744-8a23-438d-927b-8743dc8c52e8",
+                "nome": "Pdor",
+                "npc": true,
+                "salute_max": 30,
+                "salute": 25,
+                "attacco_min": 4,
+                "attacco_max": 8,
+                "livello": 1,
+                "destrezza": 1,
+                "iniziativa": 15,
+                "storico_danni_subiti": [
+                    0
+                ]
+            },
+            {
+                "classe": "Guerriero",
+                "id": "b2c1f3d8-4e5a-4f9b-8c0d-6f7e8a9b0c8d",
+                "nome": "Blaine",
+                "npc": true,
+                "salute_max": 180,
+                "salute": 143,
+                "attacco_min": 40,
+                "attacco_max": 120,
+                "livello": 1,
+                "destrezza": 25,
+                "iniziativa": 20,
+                "storico_danni_subiti": [
+                    27
+                ]
+            }
+        ],
+        "inventari_nemici": [
+            {
+                "id": "e373a5eb-244f-4cda-832b-04e3fdfdfcc1",
+                "id_proprietario": "866f1744-8a23-438d-927b-8743dc8c52e8",
+                "oggetti": [
+                    {
+                        "id": "aef17f9f-f158-4308-bc11-786b6818b19e",
+                        "nome": "Bomba Acida",
+                        "usato": false,
+                        "valore": 30,
+                        "tipo_oggetto": "Offensivo",
+                        "classe": "BombaAcida"
+                    }
+                ]
+            },
+            {
+                "id": "6ab8ce89-0a16-4953-a9f5-cd0892a6bd96",
+                "id_proprietario": "b2c1f3d8-4e5a-4f9b-8c0d-6f7e8a9b0c8d",
+                "oggetti": []
+            }
+        ],
+        "premi": [
+            {
+                "id": "7e2b1c8a-2e3d-4b7a-9e2a-1c3f4b5d6e8f",
+                "nome": "Medaglione",
+                "usato": false,
+                "valore": 10,
+                "tipo_oggetto": "Buff",
+                "classe": "Medaglione"
+            }
+        ],
+        "strategia_nemici": {
+            "nome": "Aggressiva"
+        },
+        "completata": false,
+        "attiva": false
+    },
+    "personaggi_selezionati": [
+        {
+            "classe": "Mago",
+            "id": "1842173c-fbe9-4e4f-96cf-3c5a28659aff",
+            "nome": "chri",
+            "npc": false,
+            "salute_max": 80,
+            "salute": 0,
+            "attacco_min": 0,
+            "attacco_max": 90,
+            "livello": 1,
+            "destrezza": 15,
+            "iniziativa": 15,
+            "storico_danni_subiti": [
+                84
+            ]
+        },
+        {
+            "classe": "Mago",
+            "id": "9157a605-cba3-4d9c-94d9-d2b098d6b425",
+            "nome": "a",
+            "npc": false,
+            "salute_max": 80,
+            "salute": 0,
+            "attacco_min": 0,
+            "attacco_max": 90,
+            "livello": 1,
+            "destrezza": 15,
+            "iniziativa": 15,
+            "storico_danni_subiti": [
+                0,
+                0,
+                55
+            ]
+        }
+    ],
+    "ordine_turni": [
+        "866f1744-8a23-438d-927b-8743dc8c52e8",
+        "b2c1f3d8-4e5a-4f9b-8c0d-6f7e8a9b0c8d"
+    ],
+    "turno": 6,
+    "indice_turno_corrente": 1,
+    "messaggi_battaglia": [
+        "Turno 1 - \u00e8 il turno di a!",
+        "a non utilizza oggetti in questo turno",
+        "a lancia un incantesimo, ma non infligge danni!",
+        "Turno 2 - \u00e8 il turno di chri!",
+        "chri non utilizza oggetti in questo turno",
+        "chri lancia un incantesimo infliggendo 27 danni!",
+        "Turno 3 - \u00e8 il turno di Pdor!",
+        "Pdor non utilizza oggetti in questo turno",
+        "Pdor lancia un incantesimo, ma non infligge danni!",
+        "Turno 4 - \u00e8 il turno di Blaine!",
+        "Blaine usa Bomba Acida su a infliggendo 36 HP di danno",
+        "Blaine colpisce con la spada infliggendo 84 danni!",
+        "chri \u00e8 stato sconfitto!",
+        "Turno 5 - \u00e8 il turno di Pdor!",
+        "Pdor non utilizza oggetti in questo turno",
+        "Pdor lancia un incantesimo, ma non infligge danni!",
+        "Turno 6 - \u00e8 il turno di Blaine!",
+        "Blaine non utilizza oggetti in questo turno",
+        "Blaine colpisce con la spada infliggendo 55 danni!",
+        "a \u00e8 stato sconfitto!",
+        "Tutti i personaggi sono stati sconfitti!"
+    ]
+}
