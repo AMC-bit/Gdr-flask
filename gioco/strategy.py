@@ -100,18 +100,6 @@ class Aggressiva(Strategia):
                 )
         return result
 
-    def bonus_destrezza(self, destrezza: int) -> int:
-        '''
-        Incrementa la destrezza del NPC di 3 punti quando usa la strategia
-        aggressiva.
-
-        Args:
-            destrezza (int): la destrezza del NPC
-
-        Returns:
-            int: la destrezza incrementata di 3 punti
-        '''
-        return destrezza + 3
 
 
 @dataclass
@@ -163,19 +151,6 @@ class Difensiva(Strategia):
                     ambiente=ambiente
             )
         return result
-
-    def malus_destrezza(self, destrezza: int) -> int:
-        '''
-        Riduce la destrezza del NPC avversario di 2 punti quando usa la strategia
-        difensiva.
-
-        Args:
-            destrezza (int): la destrezza del NPC
-
-        Returns:
-            int: la destrezza incrementata di 5 punti
-        '''
-        return destrezza + 2
 
 
 class Equilibrata(Strategia):
@@ -261,28 +236,6 @@ class Equilibrata(Strategia):
 
 
 class StrategiaFactory:
-    '''
-    la c è una factory che crea le istanze delle
-    classi derivate di Strategia in base
-    al tipo di strategia richiesta o randomicamente.
-    '''
-    @staticmethod
-    def strategia_random() -> Strategia:
-        '''
-        Restituisce una strategia randomica tra le tre disponibili utilizzando
-        l'altro metodo usa_strategia.
-
-        Args:
-            None
-
-        Returns:
-            Strategia: un'istanza della strategia randomica.
-        '''
-        random_choice = random.choice(
-            ["aggressiva", "difensiva", "equilibrata"]
-        )
-        return StrategiaFactory.usa_strategia(random_choice)
-
     @staticmethod
     def usa_strategia(tipo: str) -> Strategia:
         '''
