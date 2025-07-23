@@ -292,3 +292,129 @@ def state_mission():
     else:
         msg = "Ci sono missioni ancora da completare."
         logger.info(msg)
+
+
+@mission_bp.route('/create_mission', methods=['GET', 'POST'])
+def create_mission():
+    from app import db
+    # cattura dinamica di tutte le sottoclassi di Oggetto e Personaggio
+    oggetti = {cls.__name__: cls for cls in Oggetto.__subclasses__()}
+    ambienti = {cls.__name__: cls for cls in Ambiente.__subclasses__()}
+    strategie = {cls.__name__: cls for cls in Strategia.__subclasses__()}
+    personaggi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
+
+    if request.method == 'POST':
+        missione_id = str(uuid.uuid4())
+        nome = request.form['nome'].strip()
+        oggetto_sel = request.form['oggetto']
+        tipo_ambiente = request.form['ambiente']
+        strategia_tipo = request.form['strategia']
+        personaggio_tipo = request.form['personaggio']
+
+        ogg = oggetti[oggetto_sel]()
+        amb = ambienti[tipo_ambiente]()
+        strat = strategie[strategia_tipo]()
+
+        nemici_input = request.form.get('nemici', '')
+        premi_input = request.form.get('premi', '')
+
+        lista_nemici = []
+        for riga in nemici_input.strip().split('\n'):
+            try:
+                (
+                    nome,
+                    salute,
+                    salute_max,
+                    attacco_min,
+                    attacco_max,
+                    destrezza
+                ) = riga.strip().split(':')
+                nemico = Personaggio(
+                    nome.strip(),
+                    int(salute),
+                    int(salute_max),
+                    int(destrezza),
+                    int(attacco_min),
+                    int(attacco_max)
+                )
+                nemico.id = str(uuid.uuid4())
+                lista_nemici.append(nemico)
+            except ValueError:
+                flash(f"Errore nella riga nemico: {riga}", 'error')
+
+        lista_premi = []
+        for riga in premi_input.strip().split('\n'):
+            try:
+                nome, valore, classe, tipo_oggetto = riga.strip().split(':')
+                premio = Oggetto(
+                    nome.strip(),
+                    classe.strip(),
+                    int(valore),
+                    tipo_oggetto.strip()
+                )
+                lista_premi.append(premio)
+            except ValueError:
+                flash(f"Errore nella riga premio: {riga}", 'error')
+
+        ambiente = Ambiente(nome=tipo_ambiente)
+        missione = Missione(
+            nome=nome,
+            ambiente=ambiente,
+            nemici=lista_nemici,
+            premi=lista_premi,
+            strategia_nemici=strategia_tipo
+        )
+        missione.id = missione_id
+
+        directory = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'static', 'json', 'missions')
+        os.makedirs(directory, exist_ok=True)
+        path_file = os.path.join(directory, f"{missione_id}.json")
+
+        missione_dict = {
+            "id": missione.id,
+            "nome": missione.nome,
+            "ambiente": {
+                "classe": amb.__class__.__name__,
+                "nome": tipo_ambiente,
+                "mod_attacco": amb.mod_attacco,
+                "mod_cura": amb.mod_cura
+            },
+            "nemici": [
+                {
+                    "classe": p.__class__.__name__, #QUI NEL JSON VA CAMBIATA: NON DEVE DARE "PERSONAGGIO", MA "lADRO..."
+                    "id": p.id,
+                    "nome": p.nome,
+                    "npc": True,
+                    "salute_max": p.salute_max,
+                    "salute": p.salute,
+                    "attacco_min": p.attacco_min,
+                    "attacco_max": p.attacco_max,
+                    "livello": getattr(p, 'livello', 1),
+                    "destrezza": p.destrezza,
+                    "storico_danni_subiti": []
+                } for p in lista_nemici
+            ],
+            "premi": [
+                {
+                    "id": o.id,
+                    "nome": o.nome,
+                    "valore": o.valore,
+                    "classe": o.__class__.__name__,
+                    "tipo_oggetto": o.tipo_oggetto
+                } for o in lista_premi
+            ],
+            "strategia_nemici": {
+                "nome": strategia_tipo.strip().lower()
+            }
+        }
+
+        with open(path_file, 'w', encoding='utf-8') as f:
+            json.dump(missione_dict, f, indent=4, ensure_ascii=False)
+
+        flash(f"Missione '{nome}' salvata con successo!", 'success')
+        logger.info(f"Missione personalizzata salvata in {path_file}")
+        return redirect(url_for('mission.select_mission'))
+
+    return render_template('create_mission.html',
+        oggetti=list(oggetti.keys()), strategia=list(strategie.keys()),
+        ambienti=list(ambienti.keys()), personaggi=list(personaggi.keys()))
