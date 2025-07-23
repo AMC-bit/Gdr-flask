@@ -1,7 +1,7 @@
 from flask import render_template, request, session, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
-from auth.models import User, db
+from auth.models import User, UserRole, db
 from . import auth_bp
 from characters.routes import load_char
 import re
@@ -25,6 +25,7 @@ def sign_in():
         email = request.form['email'].strip()
         psw = request.form['psw']
         re_psw = request.form['re_psw']
+        ruolo_sel = request.form.get('ruolo', 'PLAYER') # Default = 'PLAYER'
 
         if not name:
             flash("Il nome è necessario", 'danger')
@@ -56,6 +57,7 @@ def sign_in():
             password_hash=hash_psw,
             crediti=100,
             character_ids=[],
+            ruolo=UserRole[ruolo_sel] if ruolo_sel in UserRole.__members__ else UserRole.PLAYER
         )
         db.session.add(nuovo_utente)
         db.session.commit()
@@ -174,6 +176,13 @@ def elimina_personaggi_utente(character_ids):
 @auth_bp.route('/credit_refill', methods=['GET', 'POST'])
 @login_required
 def credit_refill():
+    # Controllo se l'utente è un amministratore
+    # altrimenti si viene ridiretti all'area personale
+    # Solo gli amministratori possono ricaricare i crediti
+    if not current_user.is_admin():
+        flash("Accesso negato", "danger")
+        return redirect(url_for('auth.personal_area'))
+
     message = None
 
     if request.method == 'POST':
