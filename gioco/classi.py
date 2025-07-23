@@ -1,7 +1,7 @@
 import random, logging
 from gioco.personaggio import Personaggio
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -55,26 +55,6 @@ class Mago(Personaggio):
         print(msg)
         return danno, msg
 
-    def recupera_salute(self, mod_ambiente: int = 0) -> str:
-        """
-        Recupera la salute del Mago alla fine di ogni duello del 20%
-
-        Args:
-            mod_ambiente (int): modificatore ambientale di recupero
-            (default: 0)
-
-        Returns:
-            msg (str): messaggio di log del recupero salute
-        """
-        recupero = int((self.salute + mod_ambiente) * 0.2)
-        nuova_salute = min(self.salute + recupero, 80)
-        effettivo = nuova_salute - self.salute
-        self.salute = nuova_salute
-        msg = f"{self.nome} medita e recupera {effettivo} HP." \
-            f" Salute attuale: {self.salute}"
-        logger.info(msg)
-        return msg
-
 
 @dataclass
 class Guerriero(Personaggio):
@@ -126,27 +106,6 @@ class Guerriero(Personaggio):
         print(msg)
         return danno, msg
 
-    def recupera_salute(self, mod_ambiente: int = 0) -> str:
-        """
-        Il guerriero al termine di ogni duello recupera salute pari 30
-
-        Args:
-            mod_ambiente (int): modificatore ambientale di recupero
-            (default: 0)
-
-        Returns:
-            msg (str): messaggio di log del recupero salute
-        """
-        recupero = 30 + mod_ambiente
-        nuova_salute = min(self.salute + recupero, 120)
-        effettivo = nuova_salute - self.salute
-        self.salute = nuova_salute
-        msg = f"{self.nome} si fascia le ferite e recupera {effettivo} HP." \
-            f" Salute attuale: {self.salute}"
-        logger.info(msg)
-        return msg
-
-
 @dataclass
 class Ladro(Personaggio):
     """
@@ -192,25 +151,3 @@ class Ladro(Personaggio):
             msg = f"{self.nome} tenta di attaccare ma fallisce!"
         logger.info(msg)
         return danno, msg
-
-    def recupera_salute(self, mod_ambiente: int = 0) -> str:
-        """
-        Permette al ladro di recuperare un numero casuale
-        di punti salute in un range 10-40, modificato dall'ambiente
-
-        Args:
-            mod_ambiente (int): modificatore ambientale di recupero
-            (default: 0)
-
-        Returns:
-            msg (str): messaggio di log del recupero salute
-        """
-        recupero = random.randint(10, 40) + mod_ambiente
-        nuova_salute = min(self.salute + recupero, 140)
-        effettivo = nuova_salute - self.salute
-        self.salute = nuova_salute
-        msg = f"{self.nome} si cura rapidamente e recupera {effettivo} HP. " \
-            f"Salute attuale: {self.salute}"
-        logger.info(msg)
-        return msg
-
