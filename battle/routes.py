@@ -17,7 +17,7 @@ from characters.routes import load_char, get_owned_chars
 from config import DATA_DIR_SAVE, DATA_DIR_INV, DATA_DIR_PGS
 from utils.salvataggio import Json
 from gioco.schemas.oggetto import get_all_subclasses
-from config import DATA_DIR_SAVE, DATA_DIR_INV, DATA_DIR_MIS
+from config import DATA_DIR_SAVE, DATA_DIR_INV
 path_save = os.path.join(
     DATA_DIR_SAVE, "salvataggio.json"
 )
