@@ -1,4 +1,3 @@
-import random
 import uuid
 import logging
 from dataclasses import dataclass, field
@@ -99,54 +98,3 @@ class Missione():
             logger.info(msg)
             return True
         return False
-
-    # aggiunge premio all'inventario del giocatore se la missione è completata
-    def assegna_premio(
-        self,
-        inventari_giocatori: list[Inventario],
-        giocatore: str
-    ) -> None:
-        """
-        Mette nell'inventario dei giocatori gli oggetti contenuti nella lista
-        dei Premi (Proprietà di Missione) distribuendoli casualmente
-
-        Args:
-            inventari_giocatori (list[Inventario]): Inventari a cui assegnare
-            il premio
-
-        Returns:
-            None
-
-        """
-        for premio in self.premi:
-            inventario = random.choice(inventari_giocatori)
-            if inventario.id_proprietario is None:
-                msg = "Non è possibile assegnare un premio ad un inventario"
-                msg += "senza un personaggio"
-                logger.warning(msg)
-                raise ValueError(msg)
-            inventario._aggiungi(premio)
-            msg = (
-                f"Premio {premio.nome} aggiunto all'inventario di {giocatore} "
-            )
-            logger.info(msg)
-
-    # QUESTO METODO E' PROVVISORIO
-    def check_missione(self, inventari_vincitori: list[Inventario]) -> None:
-        """
-        Questo metodo mette insieme gli altri nella giusta sequenza:
-        Idealmente andrebbe chiamato dopo ogni attacco del giocatore
-        Rimuovi i nemici sconfitti.
-        Verifica completamento (dovrebbe funzionare anche con la lista dei
-        nemici vuota) assegna il premio al giocatore_vincitore se la missione
-        è completata
-
-        Args:
-            giocatore_vincitore (Personaggio): Usato per assegnargli il premio
-
-        Returns:
-            None
-        """
-        self.rimuovi_nemici_sconfitti()
-        if self.verifica_completamento():
-            self.assegna_premio(inventari_vincitori)
