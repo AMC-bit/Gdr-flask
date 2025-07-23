@@ -1,0 +1,16 @@
+{
+    "classe": "Mago",
+    "id": "10cb89ef-c1d4-467d-b7e7-cf0b7738286a",
+    "nome": "belin",
+    "npc": false,
+    "salute_max": 80,
+    "salute": 3,
+    "attacco_min": 0,
+    "attacco_max": 90,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 15,
+    "storico_danni_subiti": [
+        0
+    ]
+}

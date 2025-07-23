@@ -1,9 +1,9 @@
 {
-    "id": "de1acbf4-b6ff-4d5f-a785-538d47575881",
-    "id_proprietario": "d7c8fd4a-1c42-49cd-877f-ea3a3dbed548",
+    "id": "fb3d4b61-73ec-4632-a6fe-242b8d352c49",
+    "id_proprietario": "370d10cd-2d2f-43bb-aeaf-6debeb2272d9",
     "oggetti": [
         {
-            "id": "bbb20dc9-3331-49e0-a359-8f11f97e7cc7",
+            "id": "70720e62-68d3-4df3-952d-97e70ee9d021",
             "nome": "Pozione Rossa",
             "usato": false,
             "valore": 30,
@@ -11,7 +11,7 @@
             "classe": "PozioneCura"
         },
         {
-            "id": "ba6a87e5-4d2b-4202-badb-673accd620c3",
+            "id": "065e1760-066f-462d-903f-5f45bc99ce86",
             "nome": "Pozione Rossa",
             "usato": false,
             "valore": 30,
@@ -19,23 +19,7 @@
             "classe": "PozioneCura"
         },
         {
-            "id": "f848cea0-cfaa-4dd7-a44d-b87ff53a13eb",
-            "nome": "Pozione Rossa",
-            "usato": false,
-            "valore": 30,
-            "tipo_oggetto": "Ristorativo",
-            "classe": "PozioneCura"
-        },
-        {
-            "id": "424f152b-ff5b-48d0-b02d-d70d481a7d22",
-            "nome": "Pozione Rossa",
-            "usato": false,
-            "valore": 30,
-            "tipo_oggetto": "Ristorativo",
-            "classe": "PozioneCura"
-        },
-        {
-            "id": "fedc3393-e8eb-45a9-99c4-ad420b101ff2",
+            "id": "9b45a2bf-6916-4010-b64b-5af2e048998b",
             "nome": "Bomba Acida",
             "usato": false,
             "valore": 30,
@@ -43,7 +27,7 @@
             "classe": "BombaAcida"
         },
         {
-            "id": "28588c3a-6093-4211-a66a-1345738b614d",
+            "id": "ae248471-8251-4c3a-b4f4-9411f60a59d8",
             "nome": "Pozione Rossa",
             "usato": false,
             "valore": 30,
@@ -51,7 +35,15 @@
             "classe": "PozioneCura"
         },
         {
-            "id": "9cd51b43-e166-40c8-932e-8b0b0ffffe4e",
+            "id": "88beb181-e3b3-45c5-b22f-74c246ba7342",
+            "nome": "Bomba Acida",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "Offensivo",
+            "classe": "BombaAcida"
+        },
+        {
+            "id": "eee3a2e9-8844-4e8e-b1ff-feb1efd8b025",
             "nome": "Pozione Rossa",
             "usato": false,
             "valore": 30,
@@ -59,7 +51,15 @@
             "classe": "PozioneCura"
         },
         {
-            "id": "8402167e-0e02-4e8e-90b6-98bbda07d57e",
+            "id": "e2a6b602-9836-4031-8ee7-d8311145930a",
+            "nome": "Pozione Rossa",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "Ristorativo",
+            "classe": "PozioneCura"
+        },
+        {
+            "id": "bbf74128-6476-4d03-8155-6306a83d217a",
             "nome": "Bomba Acida",
             "usato": false,
             "valore": 30,

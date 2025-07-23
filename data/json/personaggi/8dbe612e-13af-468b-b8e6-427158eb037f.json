@@ -1,0 +1,17 @@
+{
+    "classe": "Mago",
+    "id": "8dbe612e-13af-468b-b8e6-427158eb037f",
+    "nome": "w4",
+    "npc": false,
+    "salute_max": 80,
+    "salute": 63,
+    "attacco_min": 0,
+    "attacco_max": 90,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 15,
+    "storico_danni_subiti": [
+        17,
+        0
+    ]
+}
