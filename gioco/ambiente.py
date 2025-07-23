@@ -43,19 +43,6 @@ class Ambiente():
             "modifica_cura": self.mod_cura
         }
 
-    @classmethod
-    def from_dict(cls, data: dict) -> 'Ambiente':
-        """ricrea il classe corretta in base al campo "classe"
-
-        Args:
-            data (dict):
-
-        Returns:
-            Ambiente:
-        """
-        nome = data.get("classe", "")
-        return AmbienteFactory.usa_ambiente(nome)
-
 
 @dataclass
 class Foresta(Ambiente):
@@ -244,8 +231,6 @@ class Palude(Ambiente):
     def modifica_cura(self, soggetto: Personaggio) -> int:
         return 0
 
-
-# ------------------------------------------
 class AmbienteFactory:
     """
     Factory per la generazione di ambienti nel sistema di combattimento.
