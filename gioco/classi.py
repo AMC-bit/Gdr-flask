@@ -1,6 +1,6 @@
-import random, logging
+import random 
+import logging
 from gioco.personaggio import Personaggio
-
 from dataclasses import dataclass
 
 logger = logging.getLogger(__name__)
