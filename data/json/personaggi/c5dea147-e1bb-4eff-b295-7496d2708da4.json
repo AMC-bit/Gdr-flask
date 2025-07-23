@@ -1,0 +1,18 @@
+{
+    "classe": "Ladro",
+    "id": "c5dea147-e1bb-4eff-b295-7496d2708da4",
+    "nome": "CherryBomb",
+    "npc": false,
+    "salute_max": 120,
+    "salute": 55,
+    "attacco_min": 10,
+    "attacco_max": 85,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 25,
+    "storico_danni_subiti": [
+        0,
+        65,
+        0
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "classe": "Guerriero",
+    "id": "d7c8fd4a-1c42-49cd-877f-ea3a3dbed548",
+    "nome": "Carmilla",
+    "npc": false,
+    "salute_max": 130,
+    "salute": 48,
+    "attacco_min": 20,
+    "attacco_max": 100,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 20,
+    "storico_danni_subiti": [
+        21,
+        61
+    ]
+}

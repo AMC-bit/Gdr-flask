@@ -1,18 +1,47 @@
 {% extends "layout.html" %}
-{% block title %}BeginBattle{% endblock %}
+{% block title %}Selezione Personaggi{% endblock %}
 
 {% block content %}
-    <p>Stai per giocare la missione : {{missione_corrente.nome}}</p>
-    <!--<a href="{{ url_for('mission.select_mission') }}" class="btn btn-warning btn-lg mb-2">Seleziona Missione</a>-->
-    <p>Nell'ambiente {{missione_corrente.ambiente.nome}}</p>
-    <form method="post">
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <form method="POST" class="card shadow-sm p-4" style="max-width: 800px; width: 100%;">
+    <h3 class="text-center mb-2"><i>{{ missione_corrente.nome }}</i></h3>
+    <h4 class="text-center mb-4">Ambiente: <i>{{ missione_corrente.ambiente.nome }}</i></h4>
 
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3 mb-3">
       {% for personaggio in personaggi %}
-        <p><input type="checkbox" name= "selected_chars" value="{{ personaggio.id }}" id="selected_pg">
-          {{personaggio.nome}} - classe: {{personaggio.classe}}</p>
+        <div class="col">
+          <input
+            type="checkbox"
+            class="btn-check"
+            name="selected_chars"
+            id="{{ personaggio.id }}"
+            value="{{ personaggio.id }}"
+            autocomplete="off"
+          >
+          <label
+            class="btn btn-outline-primary card h-100 text-center p-1"
+            for="{{ personaggio.id }}"
+          >
+            <div class="card-body d-flex flex-column justify-content-center">
+            <!-- truncate(15, True, '…') tronca il testo se supera i 15
+            caratteri, in modo da evitare che l'uniformità delle card dei
+            personaggi venga compromessa da nomi troppo
+            lunghi che vanno a capo-->
+              <h5 class="card-title">{{ personaggio.nome|truncate(15, True, '…') }}</h5>
+              <p class="card-text">Classe: {{ personaggio.classe }}</p>
+            </div>
+          </label>
+        </div>
       {% endfor %}
-      <div>
-        <button type="submit">Inizia la battaglia!</button>
-      </div>
-    </form>
+    </div>
+
+    <button type="submit" class="btn btn-outline-primary btn-lg w-100">Vai alla battaglia</button>
+    <a
+      href="{{ url_for('gioco.index') }}"
+      class="btn btn-outline-secondary btn-sm mt-3 w-50 d-block mx-auto rounded"
+    >
+      Annulla
+    </a>
+  </form>
+</div>
 {% endblock %}
