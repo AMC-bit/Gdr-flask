@@ -3,7 +3,7 @@ import json
 import logging
 from . import characters_bp
 from flask import render_template, request
-from flask import redirect, url_for, session, abort, flash
+from flask import redirect, url_for, abort, flash
 from gioco.personaggio import Personaggio
 from gioco.oggetto import Oggetto
 from gioco.schemas.personaggio import PersonaggioSchema
