@@ -1,26 +1,10 @@
-from flask import request, render_template, redirect, url_for, flash, session
+from flask import render_template, redirect, url_for, flash, session
 from . import environment_bp
-from gioco.ambiente import AmbienteFactory, Ambiente
+from gioco.ambiente import Ambiente
 import logging
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
-
-
-@environment_bp.route('/select-environment', methods=['GET', 'POST'])
-def select_environment():
-    if request.method == 'POST':
-        ambiente_id = request.form.get('ambiente_id')
-        ambiente = AmbienteFactory.seleziona_da_id(ambiente_id)
-        session['ambiente'] = ambiente.to_dict()
-        # Salva l'ambiente in sessione
-        msg = f"Ambiente selezionato: {ambiente.nome} (id: {ambiente_id})"
-        flash(msg, 'success')
-        logger.info(msg)
-        return redirect(url_for('environment.show_environment'))
-
-    ambienti = AmbienteFactory.get_opzioni()
-    return render_template('select_environment.html', ambienti=ambienti)
 
 
 @environment_bp.route('/show-environment')

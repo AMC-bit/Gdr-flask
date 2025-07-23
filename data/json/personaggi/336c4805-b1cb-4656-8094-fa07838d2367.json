@@ -1,0 +1,14 @@
+{
+    "classe": "Guerriero",
+    "id": "336c4805-b1cb-4656-8094-fa07838d2367",
+    "nome": "silvia",
+    "npc": false,
+    "salute_max": 130,
+    "salute": 130,
+    "attacco_min": 20,
+    "attacco_max": 100,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 20,
+    "storico_danni_subiti": []
+}
