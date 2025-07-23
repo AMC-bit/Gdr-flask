@@ -1,11 +1,10 @@
 import uuid
+import logging
 from gioco.oggetto import Oggetto
-from gioco.schemas.oggetto import OggettoSchema
 from gioco.ambiente import Ambiente
-#  , Json
 from typing import List, Optional, Union
 from dataclasses import dataclass, field
-import logging
+
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -150,30 +149,6 @@ class Inventario:
             )
             self.oggetti.remove(oggetto)
         return result
-
-    def riversa_inventario(self, da_inventario : 'Inventario')-> None:
-        """
-        Permette ad un inventario di prendere tutti gli oggetti di un secondo
-        inventario (da_inventario)
-
-        Args:
-            da_inventario (Inventario): L'inventario da cui vengono prelevati
-            tutti gli oggetti.
-
-        Return:
-            None
-
-        """
-        msg = ""
-        if len(da_inventario.oggetti) != 0 :
-            msg = "Inseriti nell'inventario : "
-            for oggetto in da_inventario.oggetti :
-                msg += f"\n - {oggetto.nome}"
-                self._aggiungi(oggetto)
-            da_inventario.oggetti.clear()
-        else:
-            msg = "l'inventario è vuoto."
-        logger.info(msg)
 
     def rimuovi_oggetto(self, oggetto_id: Union[str, uuid.UUID]) -> Optional[Oggetto]:
         """
