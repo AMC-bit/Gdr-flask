@@ -31,20 +31,6 @@ class Ambiente:
     def modifica_cura(self, soggetto: Personaggio) -> int:
         raise NotImplementedError
 
-    def to_dict(self) -> dict:
-        return {
-            "classe": self.__class__.__name__,
-            "nome": self.nome,
-            "mod_attacco": self.mod_attacco,
-            "mod_cura": self.mod_cura,
-        }
-
-    @classmethod
-    def from_dict(cls, data: dict) -> 'Ambiente':
-        # Puoi usare sia il nome che la classe per la ricerca
-        key = data.get("classe") or data.get("nome")
-        return AmbienteFactory.usa_ambiente(key)
-
 @dataclass
 class Foresta(Ambiente):
     nome: str = "Foresta"
