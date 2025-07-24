@@ -142,6 +142,8 @@ def delete_user(id):
 
     # elimina i personaggi dell'utente
     elimina_personaggi_utente(utente.character_ids)
+    # elimina gli inventari dell'utente
+    elimina_inventari_utente(utente.character_ids)
 
     db.session.delete(utente)
     db.session.commit()
@@ -150,16 +152,17 @@ def delete_user(id):
 
 # funzione per eliminare tutti i personaggi di un utente
 def elimina_personaggi_utente(character_ids):
-    cartella = os.path.join("data", "json", "personaggi")
-    if not os.path.exists(cartella):
+    cartella_personaggi = os.path.join("data", "json", "personaggi")
+    if not os.path.exists(cartella_personaggi):
         return
 
-    for filename in os.listdir(cartella):
+    for filename in os.listdir(cartella_personaggi):
         if filename.endswith(".json"):
-            path_file = os.path.join(cartella, filename)
+            path_file = os.path.join(cartella_personaggi, filename)
             try:
                 with open(path_file, 'r', encoding="utf-8") as f:
                     dati = json.load(f)
+
                 # Cancella se character_ids corrisponde
                 for char_id in character_ids:
                     if dati.get("id") == char_id:
@@ -170,6 +173,26 @@ def elimina_personaggi_utente(character_ids):
                     print(f"Eliminato personaggio: {filename}")
             except Exception as e:
                 print(f"Errore durante la verifica o cancellazione di {filename}: {e}")
+
+# funzione per eliminare gli inventari di un utente
+def elimina_inventari_utente(character_ids):
+    cartella_inventari = os.path.join("data", "json", "inventari")
+    if not os.path.exists(cartella_inventari):
+        return
+
+    for filename in os.listdir(cartella_inventari):
+        if filename.endswith(".json"):
+            path_file = os.path.join(cartella_inventari, filename)
+            try:
+                with open(path_file, 'r', encoding="utf-8") as f:
+                    dati = json.load(f)
+
+                # Cancella se id_proprietario corrisponde
+                if dati.get("id_proprietario") in character_ids:
+                    os.remove(path_file)
+                    print(f"Eliminato inventario: {filename}")
+            except Exception as e:
+                print(f"Errore durante la cancellazione dell'inventario {filename}: {e}")
 
 
 @auth_bp.route('/credit_refill', methods=['GET', 'POST'])
