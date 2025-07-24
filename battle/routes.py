@@ -33,7 +33,8 @@ schema_inv = InventarioSchema()
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-
+def bold(txt):
+        return f"<b>{txt}</b>"
 
 @battle_bp.route('/select_char', methods=['GET', 'POST'])
 def select_char():
@@ -154,14 +155,11 @@ def assegna_premi(missione : Missione, messaggi_battaglia : list[str], personagg
                     }
                     oggetto_cls = oggetti_map[premio.classe]
                     nuova_istanza = oggetto_cls()
-                    messaggi_battaglia.append(f"{pg.nome} ha ricevuto in premio {nuova_istanza.nome}")
+                    messaggi_battaglia.append(f"{bold(pg.nome)} ha ricevuto in premio {bold(nuova_istanza.nome)}")
                     inventario.aggiungi_oggetto(nuova_istanza)
 
 @battle_bp.route('/auto_battle', methods=['GET'])
 def auto_battle():
-    def bold(txt):
-        return f"<b>{txt}</b>"
-
     if os.path.exists(path_save):
         # --- SETUP DATI ---
         setup = setup_battle()
@@ -375,13 +373,13 @@ def usa_inventario_automatico(
         if value < 0:
             # Se il valore è negativo, significa che l'oggetto è offensivo
             bersaglio = random.choice(bersagli)
-            txt = (f"{pg.nome} usa Bomba Acida su {bersaglio.nome} "
+            txt = (f"{bold(pg.nome)} usa Bomba Acida su {bold(bersaglio.nome)} "
                 f"infliggendo {-value} HP di danno")
             bersaglio.salute += value
         if value > 0:
             bersaglio = None
-            txt = (f"{pg.nome} usa Pozione Curativa su se stesso "
-                f"recuperando {value} HP")
+            txt = (f"{bold(pg.nome)} usa Pozione Curativa su se stesso "
+                f"recuperando{value} HP")
             pg.salute += value
             if pg.salute >= pg.salute_max:
                 pg.salute = pg.salute_max
@@ -391,11 +389,11 @@ def usa_inventario_automatico(
         logger.info(txt)
         return value, txt
     if inventario is None:
-        txt = f"{pg.nome} non ha un inventario! Errore!!!!."
+        txt = f"{bold(pg.nome)} non ha un inventario! Errore!!!!."
     elif inventario.oggetti is None:
-        txt = f"{pg.nome} non ha oggetti nell'inventario."
+        txt = f"{bold(pg.nome)} non ha oggetti nell'inventario."
     else:
-        txt = f"{pg.nome} non utilizza oggetti in questo turno"
+        txt = f"{bold(pg.nome)} non utilizza oggetti in questo turno"
     return None, txt
 
 

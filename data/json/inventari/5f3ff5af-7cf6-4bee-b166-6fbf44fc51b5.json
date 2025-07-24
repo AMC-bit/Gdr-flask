@@ -1,0 +1,62 @@
+{
+    "id": "95b32785-0741-4622-90b2-8e559d6674c6",
+    "id_proprietario": "5f3ff5af-7cf6-4bee-b166-6fbf44fc51b5",
+    "oggetti": [
+        {
+            "id": "fc0598f7-fe58-470e-ae97-2f304f33290b",
+            "nome": "Pozione Rossa",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "TipoOggetto.RISTORATIVO",
+            "classe": "PozioneCura"
+        },
+        {
+            "id": "f7720562-8a4d-4ee2-8376-585bf38d5c7e",
+            "nome": "Pozione Rossa",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "TipoOggetto.RISTORATIVO",
+            "classe": "PozioneCura"
+        },
+        {
+            "id": "4658ff6d-96da-40de-abf6-9bb15fac4c01",
+            "nome": "Pozione Rossa",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "TipoOggetto.RISTORATIVO",
+            "classe": "PozioneCura"
+        },
+        {
+            "id": "fad2d86d-7125-494f-9c3a-7b15f9813d71",
+            "nome": "Pozione Rossa",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "TipoOggetto.RISTORATIVO",
+            "classe": "PozioneCura"
+        },
+        {
+            "id": "5623c501-bfec-45e7-b4a6-bb06bdaa80d5",
+            "nome": "Pozione Rossa",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "TipoOggetto.RISTORATIVO",
+            "classe": "PozioneCura"
+        },
+        {
+            "id": "382be0bb-2593-43f8-91b0-8b5d5ed27d85",
+            "nome": "Bomba Acida",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "TipoOggetto.OFFENSIVO",
+            "classe": "BombaAcida"
+        },
+        {
+            "id": "a6e25fba-d589-430a-97fc-ff9c2bc1eceb",
+            "nome": "Medaglione",
+            "usato": false,
+            "valore": 10,
+            "tipo_oggetto": "TipoOggetto.BUFF",
+            "classe": "Medaglione"
+        }
+    ]
+}
