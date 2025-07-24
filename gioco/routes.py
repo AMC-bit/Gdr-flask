@@ -2,7 +2,6 @@ from flask import Blueprint, render_template, request, session, redirect, url_fo
 from flask_login import current_user
 # Istanze di test
 from gioco.personaggio import Personaggio
-from gioco.classi import Mago, Guerriero, Ladro
 import os
 import json
 from config import DATA_DIR_SAVE, DATA_DIR_PGS

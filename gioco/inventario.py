@@ -1,196 +1,86 @@
 import uuid
-from gioco.oggetto import Oggetto
-from gioco.schemas.oggetto import OggettoSchema
-from gioco.ambiente import Ambiente
-#  , Json
 from typing import List, Optional, Union
+from gioco.oggetto import Oggetto
+from gioco.ambiente import Ambiente
 from dataclasses import dataclass, field
 import logging
 
+'''
+1- Logger
+2- Rimozione oggetto via id Cerca oggetto sia per nome che per id
+'''
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 @dataclass
 class Inventario:
-    """
-    Gestisce la lista di oggetti posseduto da ogni personaggio
-    Sarà la classe inventario a gestire le istanze di classe Oggetto
-    """
+    """Gestisce la lista di oggetti posseduti da ogni personaggio."""
     id_proprietario: Optional[uuid.UUID] = None
-    oggetti: List[Oggetto] = field(default_factory=list)
+    oggetti: List["Oggetto"] = field(default_factory=list)
     id: uuid.UUID = field(default_factory=uuid.uuid4)
 
-    def aggiungi_oggetto(self, oggetto: Oggetto)->None:
-        """
-        Aggiungi un oggetto all'inventario.
-        la stringa di testo viene aggiunta alla stringa di messaggi
-
-        Args:
-            oggetto (Oggetto): L'oggetto da aggiungere all'inventario.
-
-        Return:
-            None
-
-        """
+    def aggiungi_oggetto(self, oggetto: "Oggetto") -> None:
+        """Aggiunge un oggetto all'inventario."""
         self._aggiungi(oggetto)
-        logger.info(f"Aggiunto l'oggetto '{oggetto.nome}' all inventario. ")
+        logger.info(f"[{self.id_proprietario}] Aggiunto oggetto '{oggetto.nome}' all'inventario.")
 
-    def _aggiungi(self, oggetto: Oggetto)-> None:
-        """
-        Aggiunge un oggetto all'inventario il metodo al momento è previsto come
-        interno alla classe, ma può essere usato anche fuori.
-        Serve sia allo scopo di  aggiungere un oggetto all'inventario senza
-        un messaggio di ritorno (opzionale) sia per non mostrare direttamente
-        con un append la lista oggetti qualora servisse anche esternamente.
-
-        Args:
-            oggetto (Oggetto): L'oggetto da aggiungere all'inventario.
-
-        Return:
-            None
-        """
+    def _aggiungi(self, oggetto: "Oggetto") -> None:
         self.oggetti.append(oggetto)
 
-    def cerca_oggetto(self, oggetto: Oggetto) -> Union[bool, None]:
-        """
-        cerca un oggetto specifico nell'inventario
-        ritorna true se è presente o false se non c'è
-        se avviene un errore ritorna None e aggiunge un messaggio di errore
-        alla stringa di messaggi.
+    def cerca_oggetto_per_id(self, oggetto_id: Union[str, uuid.UUID]) -> Optional["Oggetto"]:
+        """Cerca un oggetto nell'inventario per ID."""
+        oggetto_id = str(oggetto_id)
+        for obj in self.oggetti:
+            if str(obj.id) == oggetto_id:
+                return obj
+        return None
 
-        Args:
-            oggetto (Oggetto): l'elemento da cercare all'interno della lista interna oggetti
+    def cerca_oggetto_per_nome(self, nome: str) -> Optional["Oggetto"]:
+        """Cerca un oggetto nell'inventario per nome (case-insensitive)."""
+        for obj in self.oggetti:
+            if obj.nome.lower() == nome.lower():
+                return obj
+        return None
 
-        Returns:
-            found (bool): risultato previsto della funzione per cercare un oggetto specifico
-                ritorna true se viene trovato
-                ritorna false se non è presente
+    def mostra_inventario(self) -> None:
+        """Logga la lista degli oggetti presenti."""
+        if not self.oggetti:
+            msg = "L'inventario è vuoto."
+        else:
+            msg = "Inventario:\n" + "\n".join(f"- {oggetto.nome}" for oggetto in self.oggetti)
+        logger.info(f"[{self.id_proprietario}] {msg}")
 
-            None.
-        """
-        try:
-            found = False
-            for obj in self.oggetti:
-                if obj is oggetto:
-                    found = True
-                    break
-            return found
-        except Exception as e:
-            logger.error(f"Errore durante la ricerca dell'oggetto: {e}")
+    def mostra_lista_inventario(self) -> List["Oggetto"]:
+        """Ritorna la lista degli oggetti nell'inventario."""
+        return self.oggetti.copy()
+
+    def usa_oggetto(self, oggetto: "Oggetto", ambiente: Optional["Ambiente"] = None) -> Optional[int]:
+        """Utilizza un oggetto presente nell'inventario e lo rimuove."""
+        if not self.cerca_oggetto_per_id(oggetto.id):
+            logger.info("Oggetto non trovato nell'inventario.")
             return None
-
-    def mostra_inventario(self)->None:
-        """
-        invia una stringa con la lista dei nomi degli oggetti presenti
-        alla classe Messaggi.
-
-        Args:
-            None
-
-        Return:
-            None.
-
-        """
-        if len(self.oggetti) == 0:
-            msg = "L'inventario è vuoto."
-        else:
-            msg = "Inventario :\n"
-            for oggetto in self.oggetti :
-                msg +=f"-{oggetto.nome}\n"
-        logger.info(msg)
-
-    def mostra_lista_inventario(self)-> Union[list[Oggetto], str, None]:
-        """
-        metodo che ritorna la lista degli oggetti presenti nell'inventario
-        o invia una stringa a Messaggi per avvisare che l'inventario è vuoto:
-
-        Args:
-            None
-
-        Return:
-            list[Oggetto]: lista degli oggetti nell'inventario
-            str: messaggio di inventario vuoto
-            None: solo se si verificano problemi
-        """
-        if len(self.oggetti) == 0:
-            msg = "L'inventario è vuoto."
-            logger.info(msg)
-            return msg
-        else:
-            return self.oggetti
-
-    def usa_oggetto(
-        self,
-        oggetto : Oggetto,
-        ambiente: Ambiente = None)-> int|None:
-        """
-        Utilizza un oggetto presente nell'inventario.
-
-        Args:
-            oggetto (Oggetto): oggetto da usare.
-            ambiente (Ambiente): L'ambiente può alterare il funzionamento degli
-            oggetti
-
-        Return:
-            int: il risultato dell'uso dell'oggetto, se l'oggetto è stato
-            trovato e usato correttamente.
-            None: se l'oggetto non è stato trovato nell'inventario.
-        """
-        result = None
-        if not self.cerca_oggetto(oggetto):
-            msg = "l'oggetto non è stato trovato nell'inventario"
-            logger.info(msg)
-        else:
-            mod_ambiente = (
-                ambiente.modifica_effetto_oggetto(oggetto)
-                if ambiente else 0
-            )
-            result = oggetto.usa(
-                mod_ambiente=mod_ambiente
-            )
-            self.oggetti.remove(oggetto)
+        mod_ambiente = ambiente.modifica_effetto_oggetto(oggetto) if ambiente else 0
+        result = oggetto.usa(mod_ambiente=mod_ambiente)
+        self.oggetti = [obj for obj in self.oggetti if obj.id != oggetto.id]
+        logger.info(f"[{self.id_proprietario}] Usato e rimosso oggetto '{oggetto.nome}'.")
         return result
 
-    def riversa_inventario(self, da_inventario : 'Inventario')-> None:
-        """
-        Permette ad un inventario di prendere tutti gli oggetti di un secondo
-        inventario (da_inventario)
+    def riversa_inventario(self, da_inventario: "Inventario") -> None:
+        """Prende tutti gli oggetti da un altro inventario."""
+        if not da_inventario.oggetti:
+            logger.info("L'inventario da cui prelevare è vuoto.")
+            return
+        for oggetto in da_inventario.oggetti:
+            self._aggiungi(oggetto)
+        logger.info(f"Riversati {len(da_inventario.oggetti)} oggetti nell'inventario di {self.id_proprietario}.")
+        da_inventario.oggetti.clear()
 
-        Args:
-            da_inventario (Inventario): L'inventario da cui vengono prelevati
-            tutti gli oggetti.
-
-        Return:
-            None
-
-        """
-        msg = ""
-        if len(da_inventario.oggetti) != 0 :
-            msg = "Inseriti nell'inventario : "
-            for oggetto in da_inventario.oggetti :
-                msg += f"\n - {oggetto.nome}"
-                self._aggiungi(oggetto)
-            da_inventario.oggetti.clear()
-        else:
-            msg = "l'inventario è vuoto."
-        logger.info(msg)
-
-    def rimuovi_oggetto(self, oggetto_id: Union[str, uuid.UUID]) -> Optional[Oggetto]:
-        """
-        Rimuove un oggetto dall'inventario dato il suo ID.
-
-        Args:
-            oggetto_id (str | UUID): L'ID dell'oggetto da rimuovere.
-
-        Returns:
-            Oggetto: L'oggetto rimosso se trovato.
-            None: Se nessun oggetto con quell'ID è stato trovato.
-        """
-        oggetto_id = str(oggetto_id)  # Normalizziamo a stringa per confronto sicuro
-        for oggetto in self.oggetti:
-            if str(oggetto.id) == oggetto_id:
-                self.oggetti.remove(oggetto)
-                logger.info(f"Oggetto '{oggetto.nome}' rimosso dall'inventario.")
-                return oggetto
-        logger.warning(f"Nessun oggetto con ID {oggetto_id} trovato nell'inventario.")
+    def rimuovi_oggetto(self, oggetto_id: Union[str, uuid.UUID]) -> Optional["Oggetto"]:
+        """Rimuove un oggetto dall'inventario dato il suo ID."""
+        oggetto = self.cerca_oggetto_per_id(oggetto_id)
+        if oggetto:
+            self.oggetti.remove(oggetto)
+            logger.info(f"[{self.id_proprietario}] Oggetto '{oggetto.nome}' rimosso.")
+            return oggetto
+        logger.warning(f"[{self.id_proprietario}] Nessun oggetto con ID {oggetto_id} trovato.")
         return None
