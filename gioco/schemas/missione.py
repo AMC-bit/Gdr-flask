@@ -1,5 +1,3 @@
-import json
-import os
 import uuid
 from marshmallow import Schema, fields, post_load
 
@@ -8,7 +6,6 @@ from gioco.missione import Missione
 from gioco.schemas.oggetto import OggettoSchema
 from gioco.schemas.personaggio import PersonaggioSchema
 from gioco.schemas.strategy import StrategiaSchema
-from gioco.schemas.ambiente import AmbienteSchema
 from gioco.schemas.inventario import InventarioSchema
 
 class MissioniSchema(Schema):

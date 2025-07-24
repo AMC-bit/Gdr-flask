@@ -1,10 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{{ url_for('gioco.index') }}">RPG Web</a>
+    <a class="navbar-brand" href="{{ url_for('home.index') }}">RPG Web</a>
 
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav me-auto">
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('gioco.index') }}">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('home.index') }}">Home</a></li>
       </ul>
       {% if current_user.is_authenticated %}
       <div class="d-flex ms-auto align-items-center gap-3 text-white">
@@ -13,12 +13,20 @@
             <strong>User:</strong> {{ current_user.nome }} <i class="bi bi-person-circle"></i>
           </div>
         </a>
+        {% if current_user.is_admin() %}
         <a href="{{url_for('auth.credit_refill')}}" class="text-decoration-none text-white">
+        {% else %}
+        <span class="text-white" style="cursor: default;">
+        {% endif %}
           <div class="d-flex align-items-center gap-1">
             <strong>Crediti:</strong> {{ current_user.crediti|int }}
             <img src="{{ url_for('static', filename='img/bitcoin4.png') }}" alt="coin" style="height: 1.5em;">
           </div>
+        {% if current_user.is_admin() %}
         </a>
+        {% else %}
+        </span>
+        {% endif %}
         <a class="btn btn-primary" href="{{ url_for('auth.personal_area') }}">Area Personale</a>
         <a class="btn btn-outline-danger" href="{{ url_for('auth.logout') }}">Logout</a>
       </div>

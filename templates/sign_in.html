@@ -3,53 +3,71 @@
 {% block content%}
 
 
-    
-        <div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
-            <form method="POST" class="card shadow-sm p-4" style="max-width: 800px; width: 100%;">
-                <h2 class="h4 text-center mb-4">Registrazione nuovo utente</h2>
-                <div class="mb-3">
-                    <label for="name" class="form-label">Nome</label>
-                    <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    placeholder="Inserisci il nome"
-                    class="form-control"
-                    value="{{ name | default('') }}"
-                    required>
-                </div>
 
-                <div class="mb-3">
-                    <label for="email" class="form-label" >Email</label>
-                    <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="Inserisci la email"
-                    class="form-control"
-                    value="{{ email | default('') }}"
-                    required>
-                </div>
+<div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
+    <form method="POST" class="card shadow-sm p-4" style="max-width: 800px; width: 100%;">
+        <h2 class="h4 text-center mb-4">Registrazione nuovo utente</h2>
+        <div class="mb-3">
+            <label for="name" class="form-label">Nome</label>
+            <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Inserisci il nome"
+            class="form-control"
+            value="{{ name | default('') }}"
+            required>
+        </div>
 
-                <div class="mb-3">
-                    <label for="psw" class="form-label">Password</label>
-                    <input type="password" id="psw" name="psw" placeholder="Inserisci la password" class="form-control" required>
-                </div>
+        <div class="mb-3">
+            <label for="email" class="form-label" >Email</label>
+            <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Inserisci la email"
+            class="form-control"
+            value="{{ email | default('') }}"
+            required>
+        </div>
 
-                <div class="mb-3">
-                    <label for="re_psw" class="form-label">Conferma la Password</label>
-                    <input type="password" id="re_psw" name="re_psw" placeholder="Ripeti la password" class="form-control" required>
-                </div>
+        <div class="mb-3">
+            <label for="psw" class="form-label">Password</label>
+            <input type="password" id="psw" name="psw" placeholder="Inserisci la password" class="form-control" required>
+        </div>
 
-                <div class="mb-3 text-center">
-                    <label class="form-label">Hai già un account? <a href="{{ url_for('auth.login') }}">Accedi qui</a></label>
-                </div>
+        <div class="mb-3">
+            <label for="re_psw" class="form-label">Conferma la Password</label>
+            <input type="password" id="re_psw" name="re_psw" placeholder="Ripeti la password" class="form-control" required>
+        </div>
 
-                <div class="mb-3 text-center">
-                    <button type="submit" class="btn btn-success btn-lg mb-2" >Sign in</button>
-                </div>
-            </form>
+        <div class="mb-3">
+            <label class="form-label">Tipo di ruolo</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="ruolo" id="player" value="PLAYER"
+                        {% if not ruolo or ruolo == 'PLAYER' %}checked{% endif %} required>
+                <label class="form-check-label" for="player">
+                    Player
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="ruolo" id="admin" value="ADMIN"
+                        {% if ruolo == 'ADMIN' %}checked{% endif %} required>
+                <label class="form-check-label" for="admin">
+                    Admin
+                </label>
+            </div>
+        </div>
+
+        <div class="mb-3 text-center">
+            <label class="form-label">Hai già un account? <a href="{{ url_for('auth.login') }}">Accedi qui</a></label>
+        </div>
+
+        <div class="mb-3 text-center">
+            <button type="submit" class="btn btn-success btn-lg mb-2" >Sign in</button>
         </div>
     </form>
+</div>
+
 
 {% endblock %}

@@ -13,11 +13,12 @@ from gioco.personaggio import Personaggio
 from gioco.schemas.missione import MissioniSchema
 from gioco.schemas.inventario import InventarioSchema
 from gioco.schemas.personaggio import PersonaggioSchema
+from gioco.schemas.helper import get_all_subclasses
 from characters.routes import load_char, get_owned_chars
 from config import DATA_DIR_SAVE, DATA_DIR_INV, DATA_DIR_PGS
 from utils.salvataggio import Json
 from gioco.schemas.oggetto import get_all_subclasses
-from config import DATA_DIR_SAVE, DATA_DIR_INV, DATA_DIR_MIS
+from config import DATA_DIR_SAVE, DATA_DIR_INV
 path_save = os.path.join(
     DATA_DIR_SAVE, "salvataggio.json"
 )
@@ -75,10 +76,13 @@ def select_char():
             data_load["turno"] = 0
         Json.scrivi_dati(path_save, data_load)
 
+        """
         # inserisco l'id nella sessione
         session['personaggi_selezionati'] = [
             pg['id'] for pg in personaggi_selezionati]
         print("Personaggi selezionati", session['personaggi_selezionati'])
+        """
+
         # reindirizzo verso la pagina di destinazione
         return redirect(url_for('battle.auto_battle'))
     return render_template(
@@ -156,7 +160,6 @@ def assegna_premi(missione : Missione, messaggi_battaglia : list[str], personagg
 @battle_bp.route('/auto_battle', methods=['GET'])
 def auto_battle():
     if os.path.exists(path_save):
-        
         # --- SETUP DATI ---
         setup = setup_battle()
         missione_obj = setup[0]
@@ -208,6 +211,10 @@ def auto_battle():
                 if str(p.id) == ordine_turni[indice_turno] and not p.sconfitto():
                     personaggio_turno_corrente = p
                     break
+                else:
+                    print (f"ORDINE_TURNI : {ordine_turni}\nP del ciclo for : {p.id} TYPE :{p.id}\nTUTTI PERRSONAGGI : {tutti_personaggi}\n")
+                    print(f"PRIMO ELEMENTO DI ORDINE TURNI : {ordine_turni[0]} TYPE: {type(ordine_turni[0])}")
+
             save_data['messaggi_battaglia'].append(
                 f"Turno {save_data['turno']} - è il turno di {personaggio_turno_corrente.nome}!"
                 )
@@ -262,7 +269,7 @@ def auto_battle():
             save_data['personaggi_selezionati'] = PersonaggioSchema(many=True).dump(personaggi_selezionati_obj)
             missione_obj.nemici = nemici_obj
             save_data['missione'] = MissioniSchema().dump(missione_obj)
-            
+
 
             save_data['indice_turno_corrente'] = (indice_turno + 1) % len(ordine_turni)
             Json.scrivi_dati(path_save, save_data)
@@ -280,22 +287,22 @@ def auto_battle():
                 save_data['messaggi_battaglia'].append("Tutti i nemici sono stati sconfitti! Vittoria!")
 
         for pg in personaggi_selezionati_obj:
-                file_name = f"{pg.id}.json"
-                pg_path = os.path.join(DATA_DIR_PGS, file_name)
-                inv_path = os.path.join(DATA_DIR_INV, file_name)
-                if pg.sconfitto():
-                    print("MORTO", pg_path)
-                    if os.path.exists(pg_path):
-                        os.remove(pg_path)
-                    if os.path.exists(inv_path):
-                        os.remove(inv_path)
-                else:
-                    print("PATH", pg_path)
-                    Json.scrivi_dati(pg_path, PersonaggioSchema().dump(pg))
-                    for inv in inventari_pg:
-                        if isinstance(inv, Inventario) and inv.id_proprietario == pg.id:
-                            inventario = inv
-                            Json.scrivi_dati(inv_path, InventarioSchema().dump(inventario))
+            file_name = f"{pg.id}.json"
+            pg_path = os.path.join(DATA_DIR_PGS, file_name)
+            inv_path = os.path.join(DATA_DIR_INV, file_name)
+            if pg.sconfitto():
+                #print("MORTO", pg_path)
+                if os.path.exists(pg_path):
+                    os.remove(pg_path)
+                if os.path.exists(inv_path):
+                    os.remove(inv_path)
+            else:
+                #print("PATH", pg_path)
+                Json.scrivi_dati(pg_path, PersonaggioSchema().dump(pg))
+                for inv in inventari_pg:
+                    if isinstance(inv, Inventario) and inv.id_proprietario == pg.id:
+                        inventario = inv
+                        Json.scrivi_dati(inv_path, InventarioSchema().dump(inventario))
 
         # Salvataggio stato
         save_data['missione'] = MissioniSchema().dump(missione_obj)
@@ -318,7 +325,7 @@ def auto_battle():
     else:
         flash('Non esiste il file di salvataggio', 'danger')
         return redirect(url_for('mission.select_mission'))
-        
+
     return render_template(
         'auto_battle.html',
         battaglia_finita=battaglia_finita,
@@ -328,129 +335,6 @@ def auto_battle():
         nemici=nemici_obj,
         missione=missione_obj
     )
-
-
-def carica_inventario(
-    pg_turno_corrente: Personaggio,
-    lista_inv_pc: list[Inventario],
-    lista_inv_npc: list[Inventario]
-    ) -> Inventario:
-    """
-    Carica l'inventario del personaggio corrente.
-
-    Args:
-        pg_turno_corrente (Personaggio): Il personaggio corrente.
-        lista_inv_pc (list[Inventario]):
-        L'elenco degli inventari dei personaggi giocanti.
-        lista_inv_npc (list[Inventario]):
-        L'elenco degli inventari dei personaggi non giocanti.
-
-    Returns:
-        Inventario: L'inventario del personaggio corrente, se trovato.
-    """
-    inventario = None
-    if pg_turno_corrente.npc:
-        # cerco l'inventario tra quelli NPC
-        for inv in lista_inv_npc:
-            if inv.id_proprietario == pg_turno_corrente.id:
-                inventario = inv
-                break
-    else:
-        # cerco l'inventario tra quelli PC
-        for inv in lista_inv_pc:
-            if inv.id_proprietario == pg_turno_corrente.id:
-                inventario = inv
-                break
-    # controllo finale
-    if inventario is None:
-        logging.error(
-            f"Inventario non trovato per il personaggio: "
-            f"{pg_turno_corrente.nome}"
-        )
-        return None
-    return inventario
-
-
-def mostra_inventario(inventario: Inventario) -> jsonify:
-        """
-        Mostra il contenuto dell'inventario.
-
-        Args:
-            inventario (Inventario): L'inventario da mostrare.
-
-        Returns:
-            JSON: La lista degli oggetti presenti nell'inventario.
-        """
-        lista_oggetti = [
-            {
-                'nome': oggetto.nome,
-            } for oggetto in inventario.mostra_lista_inventario()
-            if isinstance(oggetto, Oggetto)
-        ]
-        return jsonify(lista_oggetti)
-
-
-def usa_inventario(
-        inventario: Inventario,
-        pg: Personaggio,
-        ambiente: Ambiente,
-        nome_oggetto: str,
-        bersaglio: Personaggio = None
-    ) -> tuple[int | None, str]:
-        """
-        Utilizza un oggetto dall'inventario.
-
-        Args:
-            inventario (Inventario): L'inventario da cui utilizzare l'oggetto.
-            pg (Personaggio): Il personaggio che utilizza l'oggetto.
-            ambiente (Ambiente): L'ambiente in cui si trova il personaggio.
-            nome_oggetto (str): Il nome dell'oggetto da utilizzare.
-            bersaglio (Personaggio, optional):
-            Il bersaglio dell'effetto dell'oggetto. Defaults to None.
-
-        Returns:
-            tuple[int | None, str]:
-            Il risultato dell'uso dell'oggetto e un messaggio descrittivo.
-        """
-
-        txt1 = f"{pg.nome} usa {nome_oggetto} su {bersaglio.nome}"
-
-        # controllo se il bersaglio è specificato,
-        # altrimenti usa il personaggio stesso
-        if bersaglio is None:
-            bersaglio = pg
-            txt1 = f"{pg.nome} usa {nome_oggetto} su se stesso"
-
-        # cerco il tipo di oggetto nell'inventario,
-        # servirà per determinarne l'effetto
-        tipo_oggetto = None
-        for obj in inventario.oggetti:
-            if obj.nome == nome_oggetto:
-                tipo_oggetto = obj.tipo_oggetto
-                break
-
-        if tipo_oggetto is not None:
-            risultato = inventario.usa_oggetto(nome_oggetto, ambiente)
-            if tipo_oggetto == "Ristorativo":
-                bersaglio.salute += risultato
-                if bersaglio.salute > bersaglio.salute_max:
-                    bersaglio.salute = bersaglio.salute_max
-                    txt = f"{txt1}, che torna al massimo della salute."
-                else:
-                    txt = f"{txt1}, recuperando {risultato} HP."
-            elif tipo_oggetto == "Offensivo":
-                risultato = risultato # Il danno è negativo per l'oggetto offensivo
-                bersaglio.salute += risultato
-                txt = f"{txt1}, infliggendo {-risultato} HP di danno."
-            elif tipo_oggetto == "Buff":
-                bersaglio.attacco_max += risultato
-                txt = f"{txt1}, incrementando l'attacco massimo di {risultato}."
-            else:
-                txt = f"{txt1}, ma non ha effetto."
-        else:
-            txt = f"{pg.nome} non ha l'oggetto {nome_oggetto} nell'inventario."
-        logger.info(txt)
-        return risultato, txt
 
 
 def usa_inventario_automatico(

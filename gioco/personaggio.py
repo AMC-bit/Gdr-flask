@@ -1,24 +1,31 @@
-import random, uuid, logging
 from dataclasses import dataclass, field
+import uuid
+import random
+from gioco.log import get_logger
 
+'''
+1- La logica di attacca o recupera_salute nelle sottoclassi cambia solo un dettaglio, lasciando intatto il comportamento principale
+Quindi conviene usare super() per richiamare la logica di base e poi modificare solo il messaggio o il calcolo del danno.
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-# ogni logger del logging ha un livello di soglia ed i messaggi vengono inviati
-# solo se il livello è maggiore di quello di soglia
-# i livelli standard (in ordine crescente di gravità): DEBUG, INFO, ERROR, CRITICAL
-# quindi facendo logger.setLevel(logging.INFO) i messaggi di livello inferiore
-# ad info vengono ignorati
-# in produzione si alza la soglia almeno a warning in modo da non intasare il
-# log con troppi messaggi
+2- Il calcolo del danno è separato in un metodo calcola_danno, che può essere personalizzato dalle sottoclassi
+per cambiare il modo in cui viene calcolato il danno, ma mantiene la logica di base di Personaggio.
+Override completo se la logica della classe figlia è molto diversa (es. ladro recupera in modo casuale, mago percentuale diversa, ecc.)
 
+3 - Costanti sempre coerenti usando properties della classe Personaggio
+
+4 - logger in un file separato con una sola configurazione centralizzata, personalizzabile facilmente, senza duplicare codice in ogni modulo
+name serve per avere il nome del modulo che usa il logger (__name__)
+level puo essere messo a WARNING per la produzione
+logger = get_logger(__name__)
+logger.info("Questo è un messaggio di info!")
+logger.warning("Attenzione, qualcosa non va!")
+logger.error("Errore grave!")
+'''
+
+logger = get_logger(__name__)
 
 @dataclass
-class Personaggio():
-    """
-    Classe Padre per tutte classi
-    Contiene le proprietà comuni a ogni classe (Mago, Ladro, Guerriero)
-    """
+class Personaggio:
     nome: str = ""
     id: uuid.UUID = field(default_factory=uuid.uuid4)
     npc: bool = True
@@ -31,137 +38,148 @@ class Personaggio():
     destrezza: int = 15
     iniziativa: int = 0
     classe: str = ""
-    """
-        in una @dataclass i campi possono avere un dato di default oppure
-        possono avere dei dati calcolati al momento della creazione
-        dell'istanza, tramite default_factory
-        lambda è una funzione anonima che viene chiamata al momento della
-        creazione di un nuovo oggetto in modo da generare il valore di default
-        del campo id
-        default_factory in pratica garantisce che ogni istanza abbia un
-        proprio UUID unico, senza doverlo passare manualmente al costruttore
-        Evita il problema di valori mutabili di default condivisi tra tutte
-        le istanze (come succederebbe con una lista definita direttamente)
-    """
-
-    # def __init__(self, nome: str, npc: bool = True) -> None:
-        # self.id = str(uuid.uuid4())
-        # self.nome = nome
-        # self.salute = 100
-        # self.salute_max = 200
-        # self.attacco_min = 5
-        # self.attacco_max = 80
-        # self.storico_danni_subiti = []
-        # self.livello = 1
-        # self.destrezza = 15  # Caratteristica per la sistema d20
-        # self.npc = npc  # Indica se il personaggio è un NPC
 
     def esegui_azione(self) -> bool:
-        """
-        Tira un d20 e verifica se il risultato è minore o uguale alla destrezza del personaggio.
-
-        Returns:
-            bool: True se il testo è superato, False altrimenti.
-        """
         tiro = random.randint(1, 20)
         successo = tiro <= self.destrezza
-        if successo:
-            msg = (
-                f"{self.nome} ha eseguito l'azione con successo! (tiro={tiro})"
+        msg = (
+            f"{self.nome} ha eseguito l'azione con successo! (tiro={tiro})"
+            if successo else
+            f"{self.nome} ha fallito l'azione! (tiro={tiro})"
         )
-            logger.info(msg)
-        else:
-            msg = f"{self.nome} ha fallito l'azione! (tiro={tiro})"
-            logger.info(msg)
+        logger.info(msg)
         return successo
 
+    def calcola_danno(self, mod_ambiente: int = 0) -> int:
+        """Metodo separato per il calcolo del danno, personalizzabile dalle sottoclassi."""
+        return random.randint(self.attacco_min, self.attacco_max) + mod_ambiente
+
     def attacca(self, mod_ambiente: int = 0) -> tuple[int, str]:
-        """
-        Tenta un attacco generando un danno casuale tra attacco_min e
-        attacco_max, influenzato da eventuali modificatori ambientali.
-        Il successo dipende da un tiro basato sulla destrezza (sistema d20).
-
-        Args:
-            mod_ambiente (int): modificatore di attacco in base all'ambiente
-
-        Returns:
-            tuple[int, str]: danno inflitto all'avversario e messaggio di log
-        """
-        danno = 0
-        msg = ""
         if self.esegui_azione():
-            danno = random.randint(
-                self.attacco_min, self.attacco_max
-            ) + mod_ambiente
-            if danno < 0:
-                msg = (
-                    f"{self.nome} Attacca con successo e infligge "
-                    f"{danno} danni!"
-                )
-            else:
-                danno = max(0, danno)  # Assicura che il danno non sia negativo
-                msg = (
-                    f"{self.nome} Attacca con successo, ma non "
-                    f"infligge danni!"
-                )
+            danno = max(0, self.calcola_danno(mod_ambiente))
+            msg = (
+                f"{self.nome} attacca e infligge {danno} danni!"
+                if danno > 0
+                else f"{self.nome} attacca ma non infligge danni!"
+            )
         else:
-            msg = f"{self.nome} Tenta di attaccare ma fallisce!"
+            danno = 0
+            msg = f"{self.nome} tenta di attaccare ma fallisce!"
         logger.info(msg)
         return danno, msg
 
     def subisci_danno(self, danno: int) -> None:
-        """
-        Sottrae il danno (Input) alla salute del personaggio.
-        Args:
-            danno (int): danno subito dal personaggio
-        """
         self.salute = max(0, self.salute - danno)
         self.storico_danni_subiti.append(danno)
-        msg = f"Salute di {self.nome}: {self.salute}\n"
-        logger.info(msg)
+        logger.info(f"Salute di {self.nome}: {self.salute}")
 
     def sconfitto(self) -> bool:
-        """
-        Verifica se il personaggio è sceso a zero di salute.
-        Returns:
-            bool: True se il personaggio è sconfitto, in caso contrario False
-        """
         return self.salute <= 0
 
+
+    def migliora_statistiche(self) -> None:
+        self.livello += 1
+        self.attacco_max = int(self.attacco_max * 1.02)
+        self.salute_max = int(self.salute_max * 1.01)
+        logger.info(f"{self.nome} è salito al livello {self.livello}!")
+
+
+@dataclass
+class Mago(Personaggio):
+    salute_max: int = 80
+    salute: int = 80
+    attacco_min: int = 0
+    attacco_max: int = 90
+    iniziativa: int = 15
+    classe: str = "Mago"
+
+    def calcola_danno(self, mod_ambiente: int = 0) -> int:
+        # Calcolo danno personalizzato che estende la logica di personaggio
+        return random.randint(self.attacco_min, self.attacco_max) + mod_ambiente
+
+    def attacca(self, mod_ambiente: int = 0) -> tuple[int, str]:
+        danno, _ = super().attacca(mod_ambiente)
+        # Cambia solo il messaggio, non la logica
+        if danno > 0:
+            msg = f"{self.nome} lancia un incantesimo infliggendo {danno} danni!"
+        else:
+            msg = f"{self.nome} lancia un incantesimo, ma non infligge danni!"
+        logger.info(msg)
+        return danno, msg
+
     def recupera_salute(self, mod_ambiente: int = 0) -> str:
-        """
-        Recupera la salute del personaggio del 30% della salute corrente.
-        Viene usato da pozioni e dal recupero salute post duello.
-
-        Args:
-            mod_ambiente (int): modificatore di recupero in base all'ambiente
-
-        Returns:
-            msg (str): messaggio di log del recupero salute
-        """
+        # Cambia solo la percentuale di recupero (20%)
         if self.salute >= self.salute_max:
             msg = f"{self.nome} ha già la salute piena."
-            logger.info(msg)
-            return msg
-        recupero = int(self.salute * 0.3) + mod_ambiente
-        nuova_salute = min(self.salute + recupero, 100)
-        effettivo = nuova_salute - self.salute
-        self.salute = nuova_salute
-        msg = (
-            f"\n{self.nome} recupera {effettivo} HP."
-            f" Salute attuale: {self.salute}"
-        )
+        else:
+            recupero = int((self.salute + mod_ambiente) * 0.2)
+            nuova_salute = min(self.salute + recupero, self.salute_max)
+            effettivo = nuova_salute - self.salute
+            self.salute = nuova_salute
+            msg = f"{self.nome} medita e recupera {effettivo} HP. Salute attuale: {self.salute}"
         logger.info(msg)
         return msg
 
-    def migliora_statistiche(self) -> None:
-        """
-        Metodo per aumentare il livello del personaggio e quindi
-        migliorarne le statistiche.
-        Aumenta del 2% l'attacco massimo e dell'1% la salute massima.
-        """
-        self.livello += 1
-        self.attacco_max = int(self.attacco_max + 0.02 * self.attacco_max)
-        self.salute_max = int(self.salute_max + 0.01 * self.salute_max)
-        msg = f"{self.nome} è salito al livello {self.livello}!"
+
+@dataclass
+class Guerriero(Personaggio):
+    salute_max: int = 130
+    salute: int = 130
+    attacco_min: int = 20
+    attacco_max: int = 100
+    iniziativa: int = 20
+    classe: str = "Guerriero"
+
+    def attacca(self, mod_ambiente: int = 0) -> tuple[int, str]:
+        danno, _ = super().attacca(mod_ambiente)
+        if danno > 0:
+            msg = f"{self.nome} colpisce con la spada infliggendo {danno} danni!"
+        else:
+            msg = f"{self.nome} colpisce, ma non infligge danni!"
         logger.info(msg)
+        return danno, msg
+
+    def recupera_salute(self, mod_ambiente: int = 0) -> str:
+        # Recupero fisso di 30
+        if self.salute >= self.salute_max:
+            msg = f"{self.nome} ha già la salute piena."
+        else:
+            recupero = 30 + mod_ambiente
+            nuova_salute = min(self.salute + recupero, self.salute_max)
+            effettivo = nuova_salute - self.salute
+            self.salute = nuova_salute
+            msg = f"{self.nome} si fascia le ferite e recupera {effettivo} HP. Salute attuale: {self.salute}"
+        logger.info(msg)
+        return msg
+
+
+@dataclass
+class Ladro(Personaggio):
+    salute_max: int = 120
+    salute: int = 120
+    attacco_min: int = 10
+    attacco_max: int = 85
+    iniziativa: int = 25
+    classe: str = "Ladro"
+
+    def attacca(self, mod_ambiente: int = 0) -> tuple[int, str]:
+        danno, _ = super().attacca(mod_ambiente)
+        if danno > 0:
+            msg = f"{self.nome} colpisce furtivamente infliggendo {danno} danni!"
+        else:
+            msg = f"{self.nome} colpisce, ma non infligge danni!"
+        logger.info(msg)
+        return danno, msg
+
+    def recupera_salute(self, mod_ambiente: int = 0) -> str:
+        # Recupero casuale tra 10-40 (+ mod_ambiente)
+        if self.salute >= 140:
+            msg = f"{self.nome} ha già la salute piena."
+        else:
+            recupero = random.randint(10, 40) + mod_ambiente
+            nuova_salute = min(self.salute + recupero, 140)
+            effettivo = nuova_salute - self.salute
+            self.salute = nuova_salute
+            msg = f"{self.nome} si cura rapidamente e recupera {effettivo} HP. Salute attuale: {self.salute}"
+        logger.info(msg)
+        return msg

@@ -1,15 +1,14 @@
 import os
 from flask import Flask
 from flask_session import Session
-from gioco.routes import gioco
 from battle.routes import battle_bp
 from characters.routes import characters_bp
 from environment.routes import environment_bp
 from inventory.routes import inventory_bp
 from mission.routes import mission_bp
+from home.routes import home_bp
 from auth.routes import auth_bp  # Importa il blueprint di autenticazione 1
-from flask_migrate import Migrate
-from auth import auth_bp  # Importa il blueprint di autenticazione 2
+from flask_migrate import Migrate  # Importa il blueprint di autenticazione 2
 from auth.models import db, User
 from flask_login import LoginManager
 from config import CreateDirs
@@ -41,14 +40,13 @@ def create_app():
     # imposta la durata della sessione a 30 minuti
     app.permanent_session_lifetime = timedelta(minutes=30)
 
-    app.register_blueprint(gioco)
     app.register_blueprint(battle_bp)
     app.register_blueprint(characters_bp)
     app.register_blueprint(environment_bp)
     app.register_blueprint(inventory_bp)
     app.register_blueprint(mission_bp)
     app.register_blueprint(auth_bp)
-
+    app.register_blueprint(home_bp)
     return app
 
 # Imposta una SECRET_KEY sicura (meglio via variabile d'ambiente)
