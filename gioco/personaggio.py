@@ -1,4 +1,6 @@
-import random, uuid, logging
+import random
+import uuid 
+import logging
 from dataclasses import dataclass, field
 
 
@@ -128,31 +130,6 @@ class Personaggio():
         """
         return self.salute <= 0
 
-    def recupera_salute(self, mod_ambiente: int = 0) -> str:
-        """
-        Recupera la salute del personaggio del 30% della salute corrente.
-        Viene usato da pozioni e dal recupero salute post duello.
-
-        Args:
-            mod_ambiente (int): modificatore di recupero in base all'ambiente
-
-        Returns:
-            msg (str): messaggio di log del recupero salute
-        """
-        if self.salute >= self.salute_max:
-            msg = f"{self.nome} ha già la salute piena."
-            logger.info(msg)
-            return msg
-        recupero = int(self.salute * 0.3) + mod_ambiente
-        nuova_salute = min(self.salute + recupero, 100)
-        effettivo = nuova_salute - self.salute
-        self.salute = nuova_salute
-        msg = (
-            f"\n{self.nome} recupera {effettivo} HP."
-            f" Salute attuale: {self.salute}"
-        )
-        logger.info(msg)
-        return msg
 
     def migliora_statistiche(self) -> None:
         """

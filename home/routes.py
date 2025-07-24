@@ -1,8 +1,6 @@
-from flask import Blueprint, render_template, request, session, redirect, url_for, Flask
+from flask import Blueprint, render_template, session, redirect, url_for
 from flask_login import current_user
-# Istanze di test
-from gioco.personaggio import Personaggio
-from gioco.classi import Mago, Guerriero, Ladro
+from . import home_bp
 import os
 import json
 from config import DATA_DIR_SAVE, DATA_DIR_PGS
@@ -10,7 +8,7 @@ template_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'te
 gioco = Blueprint('gioco', __name__, template_folder=template_dir)
 
 # Home / menu principale
-@gioco.route('/')
+@home_bp.route('/')
 def index():
     if current_user.is_authenticated:
         has_personaggi = False
@@ -35,7 +33,7 @@ def index():
             return render_template('menu.html', can_select_char=can_select_char, has_missioni=has_missioni)
     return render_template('menu.html')
 
-@gioco.route('/clear')
+@home_bp.route('/clear')
 def clear():
     session.clear()
-    return redirect(url_for('gioco.index'))
+    return redirect(url_for('home.index'))
