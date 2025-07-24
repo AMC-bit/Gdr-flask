@@ -270,25 +270,3 @@ def missione_attiva():
     logger.info(msg)
     flash(msg, 'warning')
     return redirect(url_for('mission.select_mission'))
-
-
-@mission_bp.route('/missioni/stato')
-def state_mission():
-    # recupero tutte le missioni presenti nella sessione (il gestore viene rimosso quindi si cercano solo le missioni presenti in sessione nella lista 'missioni')
-    missioni = session.get('missioni', [])
-    if not missioni:
-        flash("Nessuna missione disponibile.", 'warning')
-        return redirect(url_for('mission.select_mission'))
-    complete = True
-    for missione in missioni:
-        missione_obj = MissioniSchema().make_Missioni(missione)
-        if not missione_obj.verifica_completamento():
-            complete = False
-            break
-
-    if complete:
-        msg = "Tutte le missioni sono state completate."
-        logger.info(msg)
-    else:
-        msg = "Ci sono missioni ancora da completare."
-        logger.info(msg)

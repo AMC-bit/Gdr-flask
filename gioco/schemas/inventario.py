@@ -1,4 +1,3 @@
-import uuid
 from marshmallow import Schema, fields, post_load, EXCLUDE
 from gioco.inventario import Inventario
 from gioco.schemas.oggetto import OggettoSchema
