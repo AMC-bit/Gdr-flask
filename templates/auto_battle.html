@@ -66,12 +66,12 @@
                 </div>
                 <div class="card-body border-dark p-0">
                     <div class="p-3 text-center" style="max-height: 500px; overflow-y: auto; background-color: #f8f9fa;">
-                        {% for log in messaggi %}
-                            <p class="mb-2">{{ log }}</p>
-                        {% else %}
-                            <p class="text-muted">In attesa di eventi di combattimento...</p>
-                        {% endfor %}
-                    </div>
+    {% for log in messaggi %}
+        <p class="mb-2" style="font-size: 1.1em;">{{ log|safe }}</p>
+    {% else %}
+        <p class="text-muted">In attesa di eventi di combattimento...</p>
+    {% endfor %}
+</div>
                 </div>
             </div>
         </div>
