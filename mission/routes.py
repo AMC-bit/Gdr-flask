@@ -1,16 +1,18 @@
 import logging
 import json
 import os
+import config
+import uuid
 from copy import deepcopy
 from collections import defaultdict
 from flask import flash, render_template, request, session, redirect, url_for
 from utils.salvataggio import Json
 from . import mission_bp
-import config
 from gioco.oggetto import Oggetto
 from gioco.personaggio import Personaggio
 from gioco.ambiente import Ambiente
 from gioco.missione import Missione
+from gioco.strategy import Strategia
 from gioco.schemas.missione import MissioniSchema
 from config import DATA_DIR_SAVE
 
@@ -296,12 +298,11 @@ def state_mission():
 
 @mission_bp.route('/create_mission', methods=['GET', 'POST'])
 def create_mission():
-    from app import db
     # cattura dinamica di tutte le sottoclassi di Oggetto e Personaggio
     oggetti = {cls.__name__: cls for cls in Oggetto.__subclasses__()}
     ambienti = {cls.__name__: cls for cls in Ambiente.__subclasses__()}
     strategie = {cls.__name__: cls for cls in Strategia.__subclasses__()}
-    personaggi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
+    classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
 
     if request.method == 'POST':
         missione_id = str(uuid.uuid4())
@@ -309,7 +310,7 @@ def create_mission():
         oggetto_sel = request.form['oggetto']
         tipo_ambiente = request.form['ambiente']
         strategia_tipo = request.form['strategia']
-        personaggio_tipo = request.form['personaggio']
+        nemico_classe = request.form['classe_nemico']
 
         ogg = oggetti[oggetto_sel]()
         amb = ambienti[tipo_ambiente]()
@@ -329,7 +330,8 @@ def create_mission():
                     attacco_max,
                     destrezza
                 ) = riga.strip().split(':')
-                nemico = Personaggio(
+                classe_selezionata = classi[nemico_classe]
+                nemico = classe_selezionata(
                     nome.strip(),
                     int(salute),
                     int(salute_max),
@@ -415,6 +417,10 @@ def create_mission():
         logger.info(f"Missione personalizzata salvata in {path_file}")
         return redirect(url_for('mission.select_mission'))
 
-    return render_template('create_mission.html',
-        oggetti=list(oggetti.keys()), strategia=list(strategie.keys()),
-        ambienti=list(ambienti.keys()), personaggi=list(personaggi.keys()))
+    return render_template(
+        'create_mission.html',
+        oggetti=list(oggetti.keys()),
+        strategia=list(strategie.keys()),
+        ambienti=list(ambienti.keys()),
+        classi=list(classi.keys())
+        )
