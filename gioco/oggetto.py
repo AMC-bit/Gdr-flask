@@ -1,126 +1,96 @@
 from dataclasses import dataclass, field
 import uuid
+from enum import Enum
+from gioco.log import get_logger
 
+'''
+1 - TipoOggetto come Enum Se scrivi "Buff" invece di "buff", o "Ristorativo" invece di "Ristoravito"
+il codice con le stringhe non se ne accorge solo a runtime, invce cosi avvisa subito
+si puo cambiare il nome di un tipo (“Offensivo” “Attacco”), lo fai UNA volta nell’Enum e in tutto il codice cambi solo quell’istanza
+miglioramenti in logica
+con stringa
+if oggetto.tipo_oggetto == "Buff":  # funziona
+if oggetto.tipo_oggetto == "buff":  # non funziona
+con enum
+oggetto = PozioneCura()
+if oggetto.tipo_oggetto == TipoOggetto.RISTORATIVO:
+    print("È una pozione!")
+    
+2- super() per loggare informazioni base, e aggiungere logica extra
+'''
+
+logger = get_logger(__name__)
+
+# Enum per i tipi di oggetto
+class TipoOggetto(Enum):
+    RISTORATIVO = "Ristorativo"
+    OFFENSIVO = "Offensivo"
+    BUFF = "Buff"
 
 @dataclass
 class Oggetto:
-    """
-    Inizializza un oggetto con nome e tipo
-
-    Args:
-        nome (str): Nome dell'oggetto
-
-    Returns:
-        None
-
-    """
     nome: str
     usato: bool = False
     valore: int = 30
-    tipo_oggetto: str = ""
+    tipo_oggetto: TipoOggetto = TipoOggetto.BUFF
     id: uuid.UUID = field(default_factory=uuid.uuid4)
     classe: str = field(init=False)
 
     def __post_init__(self):
-        """
-        Imposta automaticamente il nome della classe se non è già impostato
-        """
-        if not hasattr(self, 'classe') or not self.classe:
-            self.classe = self.__class__.__name__
+        # Imposta automaticamente il nome della classe
+        self.classe = self.__class__.__name__
 
-    def usa(
-            self,
-            mod_ambiente: int = 0
-            ) -> int:
-        """
-        Metodo da implementare in ogni oggetto
-
-        Args:
-            mod_ambiente (int): variabile dell'Ambiente in cui si trova
-            l'oggetto
-
-        Returns:
-            int: Valore dell'oggetto usato
-        """
+    def usa(self, mod_ambiente: int = 0):
+        """Metodo astratto da sovrascrivere nelle sottoclassi."""
+        logger.info(f"{self.nome}: uso non implementato.")
         raise NotImplementedError("Questo oggetto non ha effetto definito.")
 
+# OGGETTI
 
 @dataclass
 class PozioneCura(Oggetto):
-    """
-    Cura il personaggio che la usa di un certo valore
-    """
     nome: str = "Pozione Rossa"
     valore: int = 30
-    classe: str = "PozioneCura"
-    tipo_oggetto: str = "Ristorativo"
+    tipo_oggetto: TipoOggetto = TipoOggetto.RISTORATIVO
 
     def usa(self, mod_ambiente: int = 0) -> int:
-        """
-        Cura il personaggio che la usa di un certo valore
-
-        Args:
-            mod_ambiente (int): variabile dell'Ambiente in cui si trova
-            l'oggetto
-
-        Returns:
-            int: Valore di cura della pozione
-        """
         self.usato = True
         cura = self.valore + mod_ambiente
+        logger.info(f"{self.nome} usata: cura {cura} HP.")
         return cura
-
 
 @dataclass
 class BombaAcida(Oggetto):
-    """
-    Infligge danno pari al valore(Proprietà)
-    """
     nome: str = "Bomba Acida"
     valore: int = 30
-    classe: str = "BombaAcida"
-    tipo_oggetto: str = "Offensivo"
+    tipo_oggetto: TipoOggetto = TipoOggetto.OFFENSIVO
 
     def usa(self, mod_ambiente: int = 0) -> int:
-        """
-        Infligge danno al bersaglio
-        !!!ATTENZIONE!!!
-        Il valore viene passato come un valore negativo!
-
-        Args:
-            mod_ambiente (int): variabile dell'Ambiente in cui si trova
-            l'oggetto
-
-        Returns:
-            int: Danno inflitto dalla bomba
-        """
         self.usato = True
         danno = - (self.valore + mod_ambiente)
+        logger.info(f"{self.nome} lanciata: infligge {abs(danno)} danni.")
         return danno
-
 
 @dataclass
 class Medaglione(Oggetto):
-    """
-    Incrementa l'attacco_max del personaggio che lo usa
-    """
     nome: str = "Medaglione"
     valore: int = 10
-    tipo_oggetto: str = "Buff"
-    classe: str = "Medaglione"
+    tipo_oggetto: TipoOggetto = TipoOggetto.BUFF
 
-    def usa(self, mod_ambiente: int = 0) -> None:
-        """
-        Incrementa l'attacco_max del personaggio che lo usa
-
-        Args:
-            mod_ambiente (int): variabile dell'Ambiente in cui si trova
-            l'oggetto
-
-        Returns:
-            None
-        """
-
+    def usa(self, mod_ambiente: int = 0) -> int:
         self.usato = True
-        mod = int(self.valore + mod_ambiente)
+        mod = self.valore + mod_ambiente
+        logger.info(f"{self.nome} attivato: bonus {mod} all'attacco_max.")
         return mod
+
+@dataclass
+class PozioneSuperCura(PozioneCura):
+    nome: str = "Super Pozione Rossa"
+    valore: int = 100
+
+    def usa(self, mod_ambiente: int = 0) -> int:
+        # Log base (PozioneCura)
+        cura = super().usa(mod_ambiente)
+        # Logica/Logging extra
+        logger.info(f"{self.nome}: È una super pozione! Effetto potenziato.")
+        return cura
