@@ -25,7 +25,7 @@ def sign_in():
         email = request.form['email'].strip()
         psw = request.form['psw']
         re_psw = request.form['re_psw']
-        ruolo_sel = request.form.get('ruolo', 'PLAYER') # Default = 'PLAYER'
+        ruolo_sel = request.form['ruolo'] if 'ruolo' in request.form else 'PLAYER'
 
         if not name:
             flash("Il nome è necessario", 'danger')

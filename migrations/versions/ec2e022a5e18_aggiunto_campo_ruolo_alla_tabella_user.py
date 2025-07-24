@@ -20,27 +20,124 @@ def upgrade():
     # Verifica se la colonna ruolo esiste già
     conn = op.get_bind()
     inspector = sa.inspect(conn)
+
+    # Controlla se la tabella user esiste
+    tables = inspector.get_table_names()
+    if 'user' not in tables:
+        # Se la tabella non esiste, creala da zero con la struttura completa
+        op.create_table('user',
+            sa.Column('id', sa.Integer, primary_key=True, autoincrement=True),
+            sa.Column('nome', sa.String(80), nullable=False),
+            sa.Column('email', sa.String(80), unique=True, nullable=False),
+            sa.Column('password_hash', sa.String(128), nullable=False),
+            sa.Column('crediti', sa.Float, nullable=False),
+            sa.Column('character_ids', sa.Text, nullable=False, server_default='[]'),
+            sa.Column('ruolo', sa.String(10), nullable=False, server_default='PLAYER'),
+        )
+        return
+
     columns = [col['name'] for col in inspector.get_columns('user')]
+    columns_info = {col['name']: col for col in inspector.get_columns('user')}
+    pk_constraint = inspector.get_pk_constraint('user')
+    unique_constraints = inspector.get_unique_constraints('user')
 
-    if 'ruolo' not in columns:
-        # 1. Aggiungi la colonna ruolo come nullable con default 'PLAYER'
-        with op.batch_alter_table('user', schema=None) as batch_op:
-            batch_op.add_column(sa.Column('ruolo', sa.String(10), nullable=True, server_default='PLAYER'))
+    ruolo_missing = 'ruolo' not in columns
 
-        # 2. Aggiorna tutti i record esistenti con 'PLAYER'
-        op.execute("UPDATE user SET ruolo = 'PLAYER' WHERE ruolo IS NULL OR ruolo = ''")
+    critical_columns_problems = False
+    missing_constraint = False
+    id_problems = False
 
-        # 3. Ora rendi la colonna NOT NULL (senza batch_alter per evitare problemi)
-        # SQLite accetterà questo perché tutti i valori sono già impostati
+    if 'id' in columns_info:
+        id_column = columns_info['id']
+        # Controlla PRIMARY KEY
+        id_is_pk = 'id' in pk_constraint.get('constrained_columns', [])
+        # Controlla se è nullable
+        id_nullable = id_column.get('nullable', True)
+
+        if not id_is_pk or id_nullable:
+            id_problems = True
+
+    critical_columns = ['nome', 'email', 'password_hash', 'crediti']
+    for col_name in critical_columns:
+        if col_name in columns_info:
+            if columns_info[col_name].get('nullable', True):  # Se nullable=True
+                critical_columns_problems = True
+                break
+
+    for constraint in unique_constraints:
+        if 'email' in constraint.get('column_names', []):
+            missing_constraint = True
+            break
+
+    if 'character_ids' in columns_info and not missing_constraint:
+        char_default= columns_info['character_ids'].get('server_default')
+        if char_default != '[]' and char_default != "'[]'":
+            missing_constraint = True
+
+    if 'ruolo' in columns_info and not missing_constraint:
+        ruolo_default = columns_info['ruolo'].get('server_default')
+        if ruolo_default != 'PLAYER' and ruolo_default != "'PLAYER'":
+            missing_constraint = True
+
+    needs_rebuild = (
+        ruolo_missing
+        or missing_constraint
+        or critical_columns_problems
+        or id_problems
+    )
+
+    if needs_rebuild:
         op.execute("PRAGMA foreign_keys=off")
+
+        # 1. Rinomino la tabella attuale
+        op.execute("ALTER TABLE user RENAME TO user_old")
+
+        # 2. Creo la nuova tabella con la struttura completa e corretta
         op.execute("""
-            CREATE TABLE user_new AS SELECT
-                id, nome, email, password_hash, crediti, character_ids,
-                CASE WHEN ruolo IS NULL OR ruolo = '' THEN 'PLAYER' ELSE ruolo END as ruolo
-            FROM user
+            CREATE TABLE user (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nome VARCHAR(80) NOT NULL,
+                email VARCHAR(80) NOT NULL UNIQUE,
+                password_hash VARCHAR(128) NOT NULL,
+                crediti FLOAT NOT NULL,
+                character_ids TEXT NOT NULL DEFAULT '[]',
+                ruolo VARCHAR(10) NOT NULL DEFAULT 'PLAYER'
+            )
         """)
-        op.execute("DROP TABLE user")
-        op.execute("ALTER TABLE user_new RENAME TO user")
+
+        # 3.1 Costruzione della query di inserimento dinamica
+        select_columns = []
+        for col in ['id', 'nome', 'email', 'password_hash', 'crediti']:
+            if col in columns:
+                select_columns.append(col)
+            else:
+                # Gestione delle colonne mancanti con valori di default
+                if col == 'crediti':
+                    select_columns.append('100 as crediti')
+                else:
+                    select_columns.append(f"'' as {col}")
+
+        # 3.2 Gestione di character_ids e ruolo
+        if 'character_ids' in columns:
+            select_columns.append("COALESCE(character_ids, '[]') as character_ids")
+        else:
+            select_columns.append("'[]' as character_ids")
+
+        if 'ruolo' in columns:
+            select_columns.append("COALESCE(ruolo, 'PLAYER') as ruolo")
+        else:
+            select_columns.append("'PLAYER' as ruolo")
+
+        # 4. Esecuzione dell'inserimento
+        op.execute(f"""
+            INSERT INTO user (id, nome, email, password_hash, crediti, character_ids, ruolo)
+            SELECT {', '.join(select_columns)}
+            FROM user_old
+        """)
+
+        # 5. Drop della tabella vecchia
+        op.execute("DROP TABLE user_old")
+
         op.execute("PRAGMA foreign_keys=on")
 
     # ### end Alembic commands ###
