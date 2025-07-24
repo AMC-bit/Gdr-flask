@@ -1,0 +1,17 @@
+{
+    "classe": "Ladro",
+    "id": "00032c37-2192-4a5e-ac27-e2fee152c23b",
+    "nome": "Rasputin",
+    "npc": false,
+    "salute_max": 120,
+    "salute": 35,
+    "attacco_min": 10,
+    "attacco_max": 85,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 25,
+    "storico_danni_subiti": [
+        1,
+        44
+    ]
+}

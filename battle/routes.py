@@ -76,10 +76,13 @@ def select_char():
             data_load["turno"] = 0
         Json.scrivi_dati(path_save, data_load)
 
+        """
         # inserisco l'id nella sessione
         session['personaggi_selezionati'] = [
             pg['id'] for pg in personaggi_selezionati]
         print("Personaggi selezionati", session['personaggi_selezionati'])
+        """
+
         # reindirizzo verso la pagina di destinazione
         return redirect(url_for('battle.auto_battle'))
     return render_template(
@@ -207,6 +210,10 @@ def auto_battle():
             if str(p.id) == ordine_turni[indice_turno] and not p.sconfitto():
                 personaggio_turno_corrente = p
                 break
+            else:
+                print (f"ORDINE_TURNI : {ordine_turni}\nP del ciclo for : {p.id} TYPE :{p.id}\nTUTTI PERRSONAGGI : {tutti_personaggi}\n")
+                print(f"PRIMO ELEMENTO DI ORDINE TURNI : {ordine_turni[0]} TYPE: {type(ordine_turni[0])}")
+
         save_data['messaggi_battaglia'].append(
             f"Turno {save_data['turno']} - è il turno di {personaggio_turno_corrente.nome}!"
             )
@@ -283,13 +290,13 @@ def auto_battle():
             pg_path = os.path.join(DATA_DIR_PGS, file_name)
             inv_path = os.path.join(DATA_DIR_INV, file_name)
             if pg.sconfitto():
-                print("MORTO", pg_path)
+                #print("MORTO", pg_path)
                 if os.path.exists(pg_path):
                     os.remove(pg_path)
                 if os.path.exists(inv_path):
                     os.remove(inv_path)
             else:
-                print("PATH", pg_path)
+                #print("PATH", pg_path)
                 Json.scrivi_dati(pg_path, PersonaggioSchema().dump(pg))
                 for inv in inventari_pg:
                     if isinstance(inv, Inventario) and inv.id_proprietario == pg.id:
