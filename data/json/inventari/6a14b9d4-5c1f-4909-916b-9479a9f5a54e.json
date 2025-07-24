@@ -1,0 +1,22 @@
+{
+    "id": "2c88abeb-2e9a-4948-97a4-5eea1e30785a",
+    "id_proprietario": "6a14b9d4-5c1f-4909-916b-9479a9f5a54e",
+    "oggetti": [
+        {
+            "id": "c5be39e8-4043-4a6e-8d37-8f3fd59218c8",
+            "nome": "Bomba Acida",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "Offensivo",
+            "classe": "BombaAcida"
+        },
+        {
+            "id": "576beb55-eba1-4d98-a2d2-d1efb28c677a",
+            "nome": "Medaglione",
+            "usato": false,
+            "valore": 10,
+            "tipo_oggetto": "Buff",
+            "classe": "Medaglione"
+        }
+    ]
+}

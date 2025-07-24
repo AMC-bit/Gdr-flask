@@ -1,0 +1,17 @@
+{
+    "classe": "Ladro",
+    "id": "6a14b9d4-5c1f-4909-916b-9479a9f5a54e",
+    "nome": "sora",
+    "npc": false,
+    "salute_max": 120,
+    "salute": 13,
+    "attacco_min": 10,
+    "attacco_max": 85,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 25,
+    "storico_danni_subiti": [
+        0,
+        107
+    ]
+}
