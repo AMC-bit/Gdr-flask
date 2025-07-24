@@ -404,7 +404,6 @@ def usa_inventario_automatico(
                 else:
                     txt += f", recuperando {value} HP."
             logger.info(txt)
-            return value, txt
         else:
             txt = f"{pg.nome} non utilizza oggetti in questo turno"
     return value, txt
