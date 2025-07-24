@@ -159,44 +159,46 @@ def assegna_premi(missione : Missione, messaggi_battaglia : list[str], personagg
 
 @battle_bp.route('/auto_battle', methods=['GET'])
 def auto_battle():
-    # --- SETUP DATI ---
-    setup = setup_battle()
-    missione_obj = setup[0]
-    personaggi_selezionati_obj = setup[1]
-    nemici_obj = setup[0].nemici
-    ambiente_obj = setup[0].ambiente
-    inventari_pg= setup[2]
-    inventari = []
-    inventari += setup[2]
-    inventari += missione_obj.inventari_nemici
-    save_data = Json.carica_dati(path_save)
-    tutti_personaggi = personaggi_selezionati_obj + nemici_obj
-    # setup per l'uso dell'inventario in maniera automatica
-    inventari = []
-    inventari_pg = setup[2]
-    inventari += setup[2]  # Riferimenti agli oggetti
-    inventari += missione_obj.inventari_nemici  # Riferimenti agli oggetti
-    inventario = None
+    if os.path.exists(path_save):
+        
+        # --- SETUP DATI ---
+        setup = setup_battle()
+        missione_obj = setup[0]
+        personaggi_selezionati_obj = setup[1]
+        nemici_obj = setup[0].nemici
+        ambiente_obj = setup[0].ambiente
+        inventari_pg= setup[2]
+        inventari = []
+        inventari += setup[2]
+        inventari += missione_obj.inventari_nemici
+        save_data = Json.carica_dati(path_save)
+        tutti_personaggi = personaggi_selezionati_obj + nemici_obj
+        # setup per l'uso dell'inventario in maniera automatica
+        inventari = []
+        inventari_pg = setup[2]
+        inventari += setup[2]  # Riferimenti agli oggetti
+        inventari += missione_obj.inventari_nemici  # Riferimenti agli oggetti
+        inventario = None
 
-    # Inizializza messaggi e ordine turni se non presenti
+        # Inizializza messaggi e ordine turni se non presenti
 
-    if 'ordine_turni' not in save_data:
-        ordine_turni = ordine_iniziativa(tutti_personaggi)
-        random.shuffle(ordine_turni)
-        save_data['ordine_turni'] = ordine_turni
-    if 'turno' not in save_data:
-        save_data['turno'] = 0
-    if 'indice_turno_corrente' not in save_data:
-        save_data['indice_turno_corrente'] = 0
+        if 'ordine_turni' not in save_data:
+            ordine_turni = ordine_iniziativa(tutti_personaggi)
+            random.shuffle(ordine_turni)
+            save_data['ordine_turni'] = ordine_turni
+        if 'turno' not in save_data:
+            save_data['turno'] = 0
+        if 'indice_turno_corrente' not in save_data:
+            save_data['indice_turno_corrente'] = 0
 
-    if 'messaggi_battaglia' not in save_data:
-        save_data['messaggi_battaglia'] = []
+        if 'messaggi_battaglia' not in save_data:
+            save_data['messaggi_battaglia'] = []
 
-    ordine_turni = save_data['ordine_turni']
-    indice_turno = save_data['indice_turno_corrente']
+        ordine_turni = save_data['ordine_turni']
+        indice_turno = save_data['indice_turno_corrente']
 
-    battaglia_finita = False
-    vittoria = False
+        battaglia_finita = False
+        vittoria = False
 
 
     if not battaglia_finita:
@@ -218,72 +220,72 @@ def auto_battle():
             f"Turno {save_data['turno']} - è il turno di {personaggio_turno_corrente.nome}!"
             )
 
-        #uso dell'inventario in maniera automatica
-        for inv in inventari:
-            if (
-                isinstance(inv, Inventario)
-                and inv.id_proprietario == personaggio_turno_corrente.id
-            ):
-                inventario = inv
-                break
+            #uso dell'inventario in maniera automatica
+            for inv in inventari:
+                if (
+                    isinstance(inv, Inventario)
+                    and inv.id_proprietario == personaggio_turno_corrente.id
+                ):
+                    inventario = inv
+                    break
 
-        result = usa_inventario_automatico(
-            inventario,
-            personaggio_turno_corrente,
-            missione_obj,
-            (nemici_obj + personaggi_selezionati_obj)
-            )
-        txt = result[1]
-        save_data['messaggi_battaglia'].append(txt)
+            result = usa_inventario_automatico(
+                inventario,
+                personaggio_turno_corrente,
+                missione_obj,
+                (nemici_obj + personaggi_selezionati_obj)
+                )
+            txt = result[1]
+            save_data['messaggi_battaglia'].append(txt)
 
-        if personaggio_turno_corrente.npc:
-            bersagli_validi = [p for p in personaggi_selezionati_obj if not p.sconfitto()]
-        else:
-            bersagli_validi = [n for n in nemici_obj if not n.sconfitto()]
+            if personaggio_turno_corrente.npc:
+                bersagli_validi = [p for p in personaggi_selezionati_obj if not p.sconfitto()]
+            else:
+                bersagli_validi = [n for n in nemici_obj if not n.sconfitto()]
 
-        if bersagli_validi:
-            bersaglio = random.choice(bersagli_validi)
-            danno, msg = personaggio_turno_corrente.attacca(ambiente_obj.mod_attacco)
-            if msg is None:
-                if danno <= 0:
-                    danno = 0
-                    msg = (
-                        f"{personaggio_turno_corrente.nome} prova ad attaccare"
-                        f" {bersaglio.nome} ma fallisce!"
-                    )
-                else:
-                    msg = (
-                        f"{personaggio_turno_corrente.nome} attacca"
-                        f" {bersaglio.nome} per {danno} danni!"
-                    )
+            if bersagli_validi:
+                bersaglio = random.choice(bersagli_validi)
+                danno, msg = personaggio_turno_corrente.attacca(ambiente_obj.mod_attacco)
+                if msg is None:
+                    if danno <= 0:
+                        danno = 0
+                        msg = (
+                            f"{personaggio_turno_corrente.nome} prova ad attaccare"
+                            f" {bersaglio.nome} ma fallisce!"
+                        )
+                    else:
+                        msg = (
+                            f"{personaggio_turno_corrente.nome} attacca"
+                            f" {bersaglio.nome} per {danno} danni!"
+                        )
 
-            bersaglio.subisci_danno(danno)
-            save_data['messaggi_battaglia'].append(msg)
+                bersaglio.subisci_danno(danno)
+                save_data['messaggi_battaglia'].append(msg)
 
-            if bersaglio.sconfitto():
-                # rimuove id dalla ordine turni
-                ordine_turni.remove(str(bersaglio.id))
-                save_data['messaggi_battaglia'].append(f"{bersaglio.nome} è stato sconfitto!")
+                if bersaglio.sconfitto():
+                    # rimuove id dalla ordine turni
+                    ordine_turni.remove(str(bersaglio.id))
+                    save_data['messaggi_battaglia'].append(f"{bersaglio.nome} è stato sconfitto!")
 
-        save_data['personaggi_selezionati'] = PersonaggioSchema(many=True).dump(personaggi_selezionati_obj)
-        missione_obj.nemici = nemici_obj
-        save_data['missione'] = MissioniSchema().dump(missione_obj)
-        
+            save_data['personaggi_selezionati'] = PersonaggioSchema(many=True).dump(personaggi_selezionati_obj)
+            missione_obj.nemici = nemici_obj
+            save_data['missione'] = MissioniSchema().dump(missione_obj)
+            
 
-        save_data['indice_turno_corrente'] = (indice_turno + 1) % len(ordine_turni)
-        Json.scrivi_dati(path_save, save_data)
-        pc_vivi = [p for p in personaggi_selezionati_obj if not p.sconfitto()]
-        npc_vivi = [p for p in nemici_obj if not p.sconfitto()]
-        if not pc_vivi:
-            battaglia_finita = True
-            vittoria = False
-            save_data['messaggi_battaglia'].append("Tutti i personaggi sono stati sconfitti!")
-        elif not npc_vivi:
-            battaglia_finita = True
-            vittoria = True
-            #Assegna i premi
-            assegna_premi(missione_obj,save_data['messaggi_battaglia'], personaggi_selezionati_obj, inventari_pg)
-            save_data['messaggi_battaglia'].append("Tutti i nemici sono stati sconfitti! Vittoria!")
+            save_data['indice_turno_corrente'] = (indice_turno + 1) % len(ordine_turni)
+            Json.scrivi_dati(path_save, save_data)
+            pc_vivi = [p for p in personaggi_selezionati_obj if not p.sconfitto()]
+            npc_vivi = [p for p in nemici_obj if not p.sconfitto()]
+            if not pc_vivi:
+                battaglia_finita = True
+                vittoria = False
+                save_data['messaggi_battaglia'].append("Tutti i personaggi sono stati sconfitti!")
+            elif not npc_vivi:
+                battaglia_finita = True
+                vittoria = True
+                #Assegna i premi
+                assegna_premi(missione_obj,save_data['messaggi_battaglia'], personaggi_selezionati_obj, inventari_pg)
+                save_data['messaggi_battaglia'].append("Tutti i nemici sono stati sconfitti! Vittoria!")
 
     for pg in personaggi_selezionati_obj:
             file_name = f"{pg.id}.json"
@@ -303,19 +305,28 @@ def auto_battle():
                         inventario = inv
                         Json.scrivi_dati(inv_path, InventarioSchema().dump(inventario))
 
-    # Salvataggio stato
-    save_data['missione'] = MissioniSchema().dump(missione_obj)
-    Json.scrivi_dati(path_save, save_data)
-    # ripristino stato nemici solo per scopo di testing
-    """
-    if battaglia_finita:
-        for n in nemici_obj:
-            n.salute = n.salute_max
-            n.storico_danni_subiti = []
-        missione_obj.nemici = nemici_obj
+        # Salvataggio stato
         save_data['missione'] = MissioniSchema().dump(missione_obj)
         Json.scrivi_dati(path_save, save_data)
-    """
+        # ripristino stato nemici solo per scopo di testing
+        """
+        if battaglia_finita:
+            for n in nemici_obj:
+                n.salute = n.salute_max
+                n.storico_danni_subiti = []
+            missione_obj.nemici = nemici_obj
+            save_data['missione'] = MissioniSchema().dump(missione_obj)
+            Json.scrivi_dati(path_save, save_data)
+        """
+        
+        if battaglia_finita == True:
+            os.remove(path_save)
+            # with open(path_save, 'w') as file:
+            #     file.write("{}") 
+    else:
+        flash('Non esiste il file di salvataggio', 'danger')
+        return redirect(url_for('mission.select_mission'))
+        
     return render_template(
         'auto_battle.html',
         battaglia_finita=battaglia_finita,
@@ -366,12 +377,12 @@ def usa_inventario_automatico(
             # Se il valore è negativo, significa che l'oggetto è offensivo
             bersaglio = random.choice(bersagli)
             txt = (f"{pg.nome} usa Bomba Acida su {bersaglio.nome} "
-                   f"infliggendo {-value} HP di danno")
+                f"infliggendo {-value} HP di danno")
             bersaglio.salute += value
         if value > 0:
             bersaglio = None
             txt = (f"{pg.nome} usa Pozione Curativa su se stesso "
-                   f"recuperando {value} HP")
+                f"recuperando {value} HP")
             pg.salute += value
             if pg.salute >= pg.salute_max:
                 pg.salute = pg.salute_max
@@ -390,7 +401,7 @@ def usa_inventario_automatico(
 
 
 
-    
+        
 # in ingresso lista di tutti i personaggi, e  sommo iniziativa + d20, ordino in base a qst, mettendo gli id
 def ordine_iniziativa(tutti_personaggi):
     """
