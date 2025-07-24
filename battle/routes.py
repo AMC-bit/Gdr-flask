@@ -358,6 +358,9 @@ def usa_inventario_automatico(
         Il risultato dell'uso dell'oggetto e un messaggio descrittivo.
     """
     ambiente = missione.ambiente
+    result = None
+    value = None
+    check = True
 
     if strategia is None:
         strategia = missione.strategia_nemici
@@ -369,38 +372,42 @@ def usa_inventario_automatico(
         and bersaglio.npc != pg.npc
     ]
 
-    result = strategia.uso_inventario_npc(pg.salute, inventario, ambiente)
-
-    if result is not None:
-        value = result[0]
-        tipo = result[1]
-        if tipo == TipoOggetto.BUFF:
-            bersaglio = None
-            txt = (f"{pg.nome} usa Medaglione su se stesso, ")
-            pg.attacco_max += value
-        elif tipo == TipoOggetto.OFFENSIVO:
-            bersaglio = random.choice(bersagli)
-            txt = (f"{pg.nome} usa Bomba Acida su {bersaglio.nome} "
-                f"infliggendo {-value} HP di danno")
-            bersaglio.salute += value
-        elif tipo == TipoOggetto.RISTORATIVO:
-            bersaglio = None
-            txt = (f"{pg.nome} usa Pozione Curativa su se stesso ")
-            pg.salute += value
-            if pg.salute >= pg.salute_max:
-                pg.salute = pg.salute_max
-                txt += ", che torna al massimo della salute."
-            else:
-                txt += f", recuperando {value} HP."
-        logger.info(txt)
-        return value, txt
     if inventario is None:
         txt = f"{pg.nome} non ha un inventario! Errore!!!!."
+        check = False
     elif inventario.oggetti is None:
-        txt = f"{pg.nome} non ha oggetti nell'inventario."
-    else:
-        txt = f"{pg.nome} non utilizza oggetti in questo turno"
-    return None, txt
+        txt = f"{pg.nome} non ha più oggetti nell'inventario."
+        check = False
+
+    if check:
+        result = strategia.uso_inventario_npc(pg.salute, inventario, ambiente)
+
+        if result is not None:
+            value = result[0]
+            tipo = result[1]
+            if tipo == TipoOggetto.BUFF:
+                bersaglio = None
+                txt = (f"{pg.nome} usa Medaglione su se stesso, ")
+                pg.attacco_max += value
+            elif tipo == TipoOggetto.OFFENSIVO:
+                bersaglio = random.choice(bersagli)
+                txt = (f"{pg.nome} usa Bomba Acida su {bersaglio.nome} "
+                    f"infliggendo {-value} HP di danno")
+                bersaglio.salute += value
+            elif tipo == TipoOggetto.RISTORATIVO:
+                bersaglio = None
+                txt = (f"{pg.nome} usa Pozione Curativa su se stesso ")
+                pg.salute += value
+                if pg.salute >= pg.salute_max:
+                    pg.salute = pg.salute_max
+                    txt += ", che torna al massimo della salute."
+                else:
+                    txt += f", recuperando {value} HP."
+            logger.info(txt)
+            return value, txt
+        else:
+            txt = f"{pg.nome} non utilizza oggetti in questo turno"
+    return value, txt
 
 
 
