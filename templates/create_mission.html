@@ -36,17 +36,27 @@
           <option value="{{ c }}">{{ c }}</option>
         {% endfor %}
       </select>
-
-    <div class="mb-3">
-      <label for="nemici" class="form-label">Nemici (uno per riga, formato: nome:salute:salute_max:att_min:att_max:destrezza)</label>
-      <textarea name="nemici" id="nemici" class="form-control" rows="4" placeholder="es. Goblin:30:40:5:10:8" required></textarea>
     </div>
 
     <div class="mb-3">
-      <label for="premi" class="form-label">Premi</label>
-      <select id="oggetto" name="oggetto" class="form-select" required>
+      <label for="nemici" class="form-label">Nemici (uno per riga, formato: nome:salute_max:salute:att_min:att_max:destrezza, Goblin:20:10:30:40:50)</label>
+      <textarea name="nemici" id="nemici" class="form-control" rows="4" placeholder="es. Goblin:20:10:30:40:50" required></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="oggetti_nemici" class="form-label">Oggetti nemici</label>
+      <select id="oggetti_nemici" name="oggetti_nemici" class="form-select" required>
         {% for o in oggetti %}
           <option value="{{ o }}">{{ o }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="premi_missione" class="form-label">Premi</label>
+      <select id="premi_missione" name="premi_missione" class="form-select" required>
+        {% for on in oggetti %}
+          <option value="{{ on }}">{{ on }}</option>
         {% endfor %}
       </select>
     </div>

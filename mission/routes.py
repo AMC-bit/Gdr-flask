@@ -305,16 +305,22 @@ def create_mission():
     classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
 
     if request.method == 'POST':
+        print("DEBUG FORM KEYS:", list(request.form.keys()))
         missione_id = str(uuid.uuid4())
         nome = request.form['nome'].strip()
-        oggetto_sel = request.form['oggetto']
         tipo_ambiente = request.form['ambiente']
         strategia_tipo = request.form['strategia']
         nemico_classe = request.form['classe_nemico']
+        oggetti_nemici = request.form['oggetti_nemici']
+        premi_missione = request.form['premi_missione']
 
-        ogg = oggetti[oggetto_sel]()
+        oggnem = oggetti[oggetti_nemici]()
+        oggnem.id = str(uuid.uuid4())
+        prem = oggetti[premi_missione]()
+        prem.id = str(uuid.uuid4())
         amb = ambienti[tipo_ambiente]()
         strat = strategie[strategia_tipo]()
+        strat.id = str(uuid.uuid4())
 
         nemici_input = request.form.get('nemici', '')
         premi_input = request.form.get('premi', '')
@@ -324,8 +330,8 @@ def create_mission():
             try:
                 (
                     nome,
-                    salute,
                     salute_max,
+                    salute,
                     attacco_min,
                     attacco_max,
                     destrezza
@@ -333,37 +339,26 @@ def create_mission():
                 classe_selezionata = classi[nemico_classe]
                 nemico = classe_selezionata(
                     nome.strip(),
-                    int(salute),
                     int(salute_max),
-                    int(destrezza),
+                    int(salute),
                     int(attacco_min),
-                    int(attacco_max)
+                    int(attacco_max),
+                    int(destrezza)
                 )
                 nemico.id = str(uuid.uuid4())
                 lista_nemici.append(nemico)
             except ValueError:
                 flash(f"Errore nella riga nemico: {riga}", 'error')
 
-        lista_premi = []
-        for riga in premi_input.strip().split('\n'):
-            try:
-                nome, valore, classe, tipo_oggetto = riga.strip().split(':')
-                premio = Oggetto(
-                    nome.strip(),
-                    classe.strip(),
-                    int(valore),
-                    tipo_oggetto.strip()
-                )
-                lista_premi.append(premio)
-            except ValueError:
-                flash(f"Errore nella riga premio: {riga}", 'error')
+        #lista_premi = [prem]
+
 
         ambiente = Ambiente(nome=tipo_ambiente)
         missione = Missione(
             nome=nome,
             ambiente=ambiente,
             nemici=lista_nemici,
-            premi=lista_premi,
+            premi=premi_missione,
             strategia_nemici=strategia_tipo
         )
         missione.id = missione_id
@@ -383,7 +378,7 @@ def create_mission():
             },
             "nemici": [
                 {
-                    "classe": p.__class__.__name__, #QUI NEL JSON VA CAMBIATA: NON DEVE DARE "PERSONAGGIO", MA "lADRO..."
+                    "classe": p.__class__.__name__,
                     "id": p.id,
                     "nome": p.nome,
                     "npc": True,
@@ -396,14 +391,30 @@ def create_mission():
                     "storico_danni_subiti": []
                 } for p in lista_nemici
             ],
+             "inventari_nemici":[
+                {
+                    "id": str(uuid.uuid4()),
+                    "id_proprietario": nemico.id,
+                    "oggetti": [
+                        {
+                            "id": oggnem.id,
+                            "nome": oggnem.nome,
+                            "usato": False,
+                            "valore": oggnem.valore,
+                            "tipo_oggetto": oggnem.tipo_oggetto,
+                            "classe": oggnem.__class__.__name__
+                        }
+                    ]
+                } for nemico in lista_nemici
+            ],
             "premi": [
                 {
-                    "id": o.id,
-                    "nome": o.nome,
-                    "valore": o.valore,
-                    "classe": o.__class__.__name__,
-                    "tipo_oggetto": o.tipo_oggetto
-                } for o in lista_premi
+                    "id": prem.id,
+                    "nome": prem.nome,
+                    "valore": prem.valore,
+                    "classe": prem.__class__.__name__,
+                    "tipo_oggetto": prem.tipo_oggetto
+                }
             ],
             "strategia_nemici": {
                 "nome": strategia_tipo.strip().lower()

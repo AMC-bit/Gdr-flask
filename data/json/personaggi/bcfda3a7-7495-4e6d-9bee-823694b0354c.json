@@ -1,0 +1,14 @@
+{
+    "classe": "Guerriero",
+    "id": "bcfda3a7-7495-4e6d-9bee-823694b0354c",
+    "nome": "dd",
+    "npc": false,
+    "salute_max": 130,
+    "salute": 130,
+    "attacco_min": 20,
+    "attacco_max": 100,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 20,
+    "storico_danni_subiti": []
+}

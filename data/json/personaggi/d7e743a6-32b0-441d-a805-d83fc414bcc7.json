@@ -1,0 +1,14 @@
+{
+    "classe": "Ladro",
+    "id": "d7e743a6-32b0-441d-a805-d83fc414bcc7",
+    "nome": "cc",
+    "npc": false,
+    "salute_max": 120,
+    "salute": 120,
+    "attacco_min": 10,
+    "attacco_max": 85,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 25,
+    "storico_danni_subiti": []
+}

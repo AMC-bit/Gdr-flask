@@ -1,9 +1,9 @@
 {
-    "id": "a4278274-5578-46a8-8df0-e9cafcd90c3d",
-    "id_proprietario": "10cb89ef-c1d4-467d-b7e7-cf0b7738286a",
+    "id": "b921d0f4-83fb-46c5-ae59-a3a5d23b3416",
+    "id_proprietario": "24e5b516-9ede-450b-8901-717246b66d6d",
     "oggetti": [
         {
-            "id": "b445a67c-21f6-4dac-9c1d-98801930fbfe",
+            "id": "c6649556-162a-4a41-9e43-d8bbd334d13c",
             "nome": "Pozione Rossa",
             "usato": false,
             "valore": 30,
@@ -11,7 +11,7 @@
             "classe": "PozioneCura"
         },
         {
-            "id": "ddcca599-c44b-464b-b173-27f0803b9413",
+            "id": "1a604281-7ad4-4dea-b81c-262fe34f278d",
             "nome": "Medaglione",
             "usato": false,
             "valore": 10,
