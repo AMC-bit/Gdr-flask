@@ -11,28 +11,12 @@
             "classe": "PozioneCura"
         },
         {
-            "id": "8ab349ed-7c69-492c-93b8-29bc0b2d92ba",
-            "nome": "Medaglione",
-            "usato": false,
-            "valore": 10,
-            "tipo_oggetto": "TipoOggetto.BUFF",
-            "classe": "Medaglione"
-        },
-        {
             "id": "70bed2fc-4e5b-40d1-9315-a4b272320d18",
             "nome": "Pozione Rossa",
             "usato": false,
             "valore": 30,
             "tipo_oggetto": "TipoOggetto.RISTORATIVO",
             "classe": "PozioneCura"
-        },
-        {
-            "id": "37bdb6b7-78bf-4794-9a3c-a8225fc429d2",
-            "nome": "Medaglione",
-            "usato": false,
-            "valore": 10,
-            "tipo_oggetto": "TipoOggetto.BUFF",
-            "classe": "Medaglione"
         },
         {
             "id": "c22aa96a-b73c-42d6-af3a-92f77952ba79",
@@ -44,6 +28,22 @@
         },
         {
             "id": "2a35a169-1c9b-47d6-813d-d40db25239d9",
+            "nome": "Medaglione",
+            "usato": false,
+            "valore": 10,
+            "tipo_oggetto": "TipoOggetto.BUFF",
+            "classe": "Medaglione"
+        },
+        {
+            "id": "dc42a51b-9688-419e-ae2a-c7d73da28a78",
+            "nome": "Medaglione",
+            "usato": false,
+            "valore": 10,
+            "tipo_oggetto": "TipoOggetto.BUFF",
+            "classe": "Medaglione"
+        },
+        {
+            "id": "b253ad7f-688c-4043-96d8-d8532b6263d8",
             "nome": "Medaglione",
             "usato": false,
             "valore": 10,
