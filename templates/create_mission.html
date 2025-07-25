@@ -4,7 +4,7 @@
 {% block content %}
 <div class="d-flex justify-content-center align-items-center flex-column py-5">
   <form method="post" class="card shadow-sm p-4 mb-4" style="max-width: 800px; width: 100%;">
-    <h3 class="h3 text-center mb-4">Crea una nuova missione</h3>
+    <h1 class="h4 text-center mb-4">Crea una nuova missione</h1>
 
     <div class="mb-3">
       <label for="nome" class="form-label">Nome Missione</label>
@@ -13,24 +13,50 @@
 
     <div class="mb-3">
       <label for="ambiente" class="form-label">Tipo di Ambiente</label>
-      <input type="text" name="ambiente" id="ambiente" class="form-control" placeholder="es. Deserto, Foresta, Dungeon" required>
+        <select id="ambiente" name="ambiente" class="form-select" required>
+        {% for s in ambienti %}
+          <option value="{{ s }}">{{ s }}</option>
+        {% endfor %}
+      </select>
     </div>
 
     <div class="mb-3">
       <label for="strategia_nemici" class="form-label">Strategia dei Nemici</label>
-      <input type="text" name="strategia_nemici" id="strategia_nemici" class="form-control" placeholder="es. Aggressiva, Difensiva, Randomica" required>
+      <select id="strategia" name="strategia" class="form-select" required>
+        {% for s in strategia %}
+          <option value="{{ s }}">{{ s }}</option>
+        {% endfor %}
+      </select>
     </div>
 
     <div class="mb-3">
-      <label for="nemici" class="form-label">Nemici (uno per riga, formato: nome:salute:salute_max:att_min:att_max:destrezza)</label>
-      <textarea name="nemici" id="nemici" class="form-control" rows="4" placeholder="es. Goblin:30:40:5:10:8" required></textarea>
+      <label for="classe_nemico" class="form-label">Classe nemico</label>
+      <select id="classe_nemico" name="classe_nemico" class="form-select" required>
+        {% for c in classi %}
+          <option value="{{ c }}">{{ c }}</option>
+        {% endfor %}
+      </select>
     </div>
 
     <div class="mb-3">
-      <label for="premi" class="form-label">Premi</label>
-      <select id="oggetto" name="oggetto" class="form-select" required>
+      <label for="nemici" class="form-label">Nemici (uno per riga, formato: nome:salute_max:salute:att_min:att_max:destrezza, Goblin:20:10:30:40:50)</label>
+      <textarea name="nemici" id="nemici" class="form-control" rows="4" placeholder="es. Goblin:20:10:30:40:50" required></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="oggetti_nemici" class="form-label">Oggetti nemici</label>
+      <select id="oggetti_nemici" name="oggetti_nemici" class="form-select" required>
         {% for o in oggetti %}
           <option value="{{ o }}">{{ o }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="premi_missione" class="form-label">Premi</label>
+      <select id="premi_missione" name="premi_missione" class="form-select" required>
+        {% for on in oggetti %}
+          <option value="{{ on }}">{{ on }}</option>
         {% endfor %}
       </select>
     </div>
