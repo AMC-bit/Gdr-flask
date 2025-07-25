@@ -103,7 +103,7 @@ def select_mission():
 
             msg = f"Missione selezionata: {missione_selezionata.nome}"
             logger.info(msg)
-            return redirect(url_for('mission.show_mission'))
+            return redirect(url_for('home.index'))
         else:
             msg = 'Missione non trovata.'
             flash(msg, 'danger')
