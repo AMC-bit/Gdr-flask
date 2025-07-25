@@ -197,8 +197,9 @@ def elimina_inventari_utente(character_ids):
 
 
 @auth_bp.route('/credit_refill', methods=['GET', 'POST'])
+@auth_bp.route('/credit_refill/<int:user_id>', methods=['GET', 'POST'])
 @login_required
-def credit_refill():
+def credit_refill(user_id=None):
     # Controllo se l'utente è un amministratore
     # altrimenti si viene ridiretti all'area personale
     # Solo gli amministratori possono ricaricare i crediti
@@ -206,6 +207,10 @@ def credit_refill():
         flash("Accesso negato", "danger")
         return redirect(url_for('auth.personal_area'))
 
+    if user_id:
+        target_user = User.query.get_or_404(user_id)
+    else:
+        target_user = current_user
     message = None
 
     if request.method == 'POST':
@@ -221,11 +226,15 @@ def credit_refill():
             message = "La quantità deve essere positiva."
             return redirect(url_for('auth.credit_refill', message=message))
         else:
-            user = User.query.get_or_404(current_user.id)
-            user.crediti += amount  # aggiunta dei crediti
+            target_user.crediti += amount  # aggiunta dei crediti
             db.session.commit()  # salvataggio in database
-            message = (f"Ricaricati {amount} crediti. ")
-            return redirect(url_for('auth.credit_refill', message=message))
+
+            if target_user.id != current_user.id:
+                message = f"Ricaricati {amount} crediti per {target_user.nome}."
+                return redirect(url_for('auth.admin_manager', message=message))
+            else:
+                message = f"Ricaricati {amount} crediti."
+                return redirect(url_for('auth.credit_refill', message=message))
 
     message = request.args.get('message')  # estrae il parametro message da URL
     return render_template('credit_refill.html', message=message)
