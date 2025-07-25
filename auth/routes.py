@@ -197,6 +197,55 @@ def elimina_inventari_utente(character_ids):
                 print(f"Errore durante la cancellazione dell'inventario {filename}: {e}")
 
 
+@auth_bp.route('/admin_manager')
+@login_required
+def admin_manager():
+    # Solo gli amministratori possono accedere a questa pagina
+    if not current_user.is_admin():
+        flash("Accesso negato", "danger")
+        return redirect(url_for('auth.personal_area'))
+
+    # Recupera tutti gli utenti dal database
+    users = User.query.all()
+    message = request.args.get('message')
+
+    return render_template('admin_manager.html', users=users, message=message)
+
+
+@auth_bp.route('/update_user_role', methods=['POST'])
+@login_required
+def update_user_role():
+    # Solo gli amministratori possono modificare i ruoli
+    if not current_user.is_admin():
+        flash("Accesso negato", "danger")
+        return redirect(url_for('auth.personal_area'))
+
+    user_id = request.form.get('user_id')
+    new_role = request.form.get('ruolo')
+
+    if not user_id or not new_role:
+        flash("Dati mancanti per l'aggiornamento del ruolo", "danger")
+        return redirect(url_for('auth.admin_manager'))
+
+    # Verifico che il nuovo ruolo sia valido
+    if new_role not in ['PLAYER', 'ADMIN']:
+        flash("Ruolo non valido", "danger")
+        return redirect(url_for('auth.admin_manager'))
+
+    # L'utente non può modificare il proprio ruolo
+    if int(user_id) == current_user.id:
+        flash("Non puoi modificare il tuo stesso ruolo", "danger")
+        return redirect(url_for('auth.admin_manager'))
+
+    # Aggiorno il ruolo dell'utente
+    user = User.query.get_or_404(user_id)
+    user.ruolo = UserRole[new_role]
+    db.session.commit()
+
+    flash(f"Ruolo di {user.nome} aggiornato a {new_role}", "success")
+    return redirect(url_for('auth.admin_manager'))
+
+
 @auth_bp.route('/credit_refill', methods=['GET', 'POST'])
 @auth_bp.route('/credit_refill/<int:user_id>', methods=['GET', 'POST'])
 @login_required
@@ -216,16 +265,27 @@ def credit_refill(user_id=None):
 
     if request.method == 'POST':
         try:
+            # Controlla se c'è un user_id nascosto nel form (per la gestione di altri utenti)
+            form_user_id = request.form.get('user_id')
+            if form_user_id:
+                target_user = User.query.get_or_404(form_user_id)
+
             # controllo per vedere se inserimento è int
             amount = int(request.form['amount'])
         # se non è int verrà sollevata un'eccezione
         except (KeyError, ValueError):
             message = "Inserisci un numero valido."
-            return redirect(url_for('auth.credit_refill', message=message))
+            if target_user.id != current_user.id:
+                return redirect(url_for('auth.credit_refill', user_id=target_user.id, message=message))
+            else:
+                return redirect(url_for('auth.credit_refill', message=message))
 
         if amount <= 0:  # controllo numero positivo
             message = "La quantità deve essere positiva."
-            return redirect(url_for('auth.credit_refill', message=message))
+            if target_user.id != current_user.id:
+                return redirect(url_for('auth.credit_refill', user_id=target_user.id, message=message))
+            else:
+                return redirect(url_for('auth.credit_refill', message=message))
         else:
             target_user.crediti += amount  # aggiunta dei crediti
             db.session.commit()  # salvataggio in database
@@ -235,10 +295,16 @@ def credit_refill(user_id=None):
                 return redirect(url_for('auth.admin_manager', message=message))
             else:
                 message = f"Ricaricati {amount} crediti."
-                return redirect(url_for('auth.credit_refill', message=message))
+                return redirect(url_for('auth.credit_refill', message=message, modified=True))
 
     message = request.args.get('message')  # estrae il parametro message da URL
-    return render_template('credit_refill.html', message=message)
+    modified = request.args.get('modified', False)  # controlla se è stata fatta una modifica
+    return render_template(
+        'credit_refill.html',
+        message=message,
+        target_user=target_user,
+        modified=modified
+    )
 
 
 @auth_bp.route('/logout')
