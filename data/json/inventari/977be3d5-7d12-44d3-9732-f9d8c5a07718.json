@@ -41,6 +41,14 @@
             "valore": 10,
             "tipo_oggetto": "TipoOggetto.BUFF",
             "classe": "Medaglione"
+        },
+        {
+            "id": "cb3d6fee-d0e1-43ad-bae4-31f5d1325180",
+            "nome": "Medaglione",
+            "usato": false,
+            "valore": 10,
+            "tipo_oggetto": "TipoOggetto.BUFF",
+            "classe": "Medaglione"
         }
     ]
 }

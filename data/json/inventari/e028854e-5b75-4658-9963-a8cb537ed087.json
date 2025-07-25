@@ -11,15 +11,7 @@
             "classe": "PozioneCura"
         },
         {
-            "id": "559a4d29-dee3-4aaf-b5d3-a9e18501772c",
-            "nome": "Medaglione",
-            "usato": false,
-            "valore": 10,
-            "tipo_oggetto": "TipoOggetto.BUFF",
-            "classe": "Medaglione"
-        },
-        {
-            "id": "521faa9a-7786-4930-abd4-dea41a41dd3d",
+            "id": "95fd5444-b5ec-4745-8b37-8d2550d340b5",
             "nome": "Medaglione",
             "usato": false,
             "valore": 10,
