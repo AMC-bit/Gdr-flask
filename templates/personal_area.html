@@ -12,7 +12,9 @@
     {#<a href="{{ url_for('mission.create_mission') }}" class="btn btn-success btn-lg">Crea Missione</a>#}
     <a href="{{ url_for('characters.show_chars') }}" class="btn btn-primary btn-lg">Lista personaggi</a>
     <a href="{{ url_for('auth.edit_user') }}" class="btn btn-warning btn-lg">Modifica informazione utente</a>
+    {%if is_admin %}
     <a href="{{ url_for('auth.credit_refill') }}" class="btn btn-warning btn-lg">Ricarica crediti</a>
+    {%endif%}
     {# Pulsante per l'eliminazione dell'utente. Al premere del bottone apparirà un messaggio di conferma se si vuole elminare l'utente#}
     <a href="{{ url_for('auth.delete_user', id=user.id) }}"
         class="btn btn-danger btn-lg"

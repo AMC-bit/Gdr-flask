@@ -1,5 +1,6 @@
 import os
 from flask import Flask
+from werkzeug.security import generate_password_hash
 from flask_session import Session
 from battle.routes import battle_bp
 from characters.routes import characters_bp
@@ -9,7 +10,7 @@ from mission.routes import mission_bp
 from home.routes import home_bp
 from auth.routes import auth_bp  # Importa il blueprint di autenticazione 1
 from flask_migrate import Migrate  # Importa il blueprint di autenticazione 2
-from auth.models import db, User
+from auth.models import db, User, UserRole
 from flask_login import LoginManager
 from config import CreateDirs
 from datetime import timedelta
@@ -36,6 +37,7 @@ def create_app():
     migrate = Migrate(app, db)  # Assegnata non utilizzata
     login_manager.init_app(app)
     Session(app)
+    
 
     # imposta la durata della sessione a 30 minuti
     app.permanent_session_lifetime = timedelta(minutes=30)
@@ -66,5 +68,20 @@ if __name__ == '__main__':
     app = create_app()
     with app.app_context():
         db.create_all()
+
+        #Aggiungo un utente Admin al DB se già non esiste
+        #Se l'utente Admin non è già presente nel DB lo creo da capo
+        if not  User.query.filter_by(email="admin@admin.it").first():
+            admin = User(
+                    nome = "Admin",
+                    email = "admin@admin.it",
+                    password_hash = generate_password_hash("1234"),
+                    crediti=10000000,
+                    character_ids=[],
+                    ruolo=UserRole.ADMIN
+                )
+            db.session.add(admin)
+            db.session.commit()
+
 
     app.run(debug=True, host="0.0.0.0", port=5001)
