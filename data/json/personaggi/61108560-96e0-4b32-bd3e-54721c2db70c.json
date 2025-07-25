@@ -1,0 +1,14 @@
+{
+    "classe": "Mago",
+    "id": "61108560-96e0-4b32-bd3e-54721c2db70c",
+    "nome": "ai cinese",
+    "npc": false,
+    "salute_max": 80,
+    "salute": 80,
+    "attacco_min": 0,
+    "attacco_max": 90,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 15,
+    "storico_danni_subiti": []
+}

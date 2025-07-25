@@ -2,11 +2,6 @@
 content %}
 <div class="container my-4">
   <div class="row">
-    <div class="col-12 text-center mb-4">
-      <h1>{{ missione.nome }}</h1>
-    </div>
-  </div>
-  <div class="row">
     <!-- card personaggi del giocatore -->
     <div class="col-md-3">
       <div class="card shadow mb-3">
@@ -56,8 +51,7 @@ content %}
       <div class="card shadow">
         <div class="card-header bg-dark text-white">
           <h5 class="mb-0 text-center">
-            <i class="bi bi-newspaper me-2"></i>
-            Log di Battaglia
+            - {{ missione.nome }} -
           </h5>
         </div>
         <div class="card-body border-dark p-0">
@@ -65,6 +59,7 @@ content %}
             class="p-3 text-center"
             style="
               max-height: 500px;
+              min-height: 500px;
               overflow-y: auto;
               background-color: #f8f9fa;
             "
@@ -75,6 +70,24 @@ content %}
             <p class="text-muted">In attesa di eventi di combattimento...</p>
             {% endfor %}
           </div>
+        </div>
+        <div class="card-footer bg-dark text-white">
+          <h5 class="mb-0 text-center">
+            {% if battaglia_finita%}
+              {% if vittoria %}
+                <i class="bi bi-emoji-sunglasses-fill"></i>
+                Vittoria
+                <i class="bi bi-emoji-sunglasses-fill"></i>
+              {% else %}
+                <i class="bi bi-emoji-dizzy-fill"></i>
+                Sconfitta
+                <i class="bi bi-emoji-dizzy-fill"></i>
+              {% endif %}
+            {% else %}
+              <i class="bi bi-question-circle"></i>
+              Battaglia in corso
+              <i class="bi bi-question-circle"></i>
+            {% endif %}
         </div>
       </div>
     </div>
@@ -89,7 +102,7 @@ content %}
           </h5>
         </div>
         <div
-        class="text-default"
+        class="card-body text-default"
         style="max-height: 500px; min-height: 500px; overflow-y: auto;">
           <ul class="list-group list-group-flush">
             {% for n in nemici %}
@@ -125,34 +138,7 @@ content %}
       </div>
     </div>
   </div>
-  {% if battaglia_finita %}
-  <div class="row">
-    <div class="col-12 text-center my-4">
-      {% if vittoria %}
-      <h1 class="h1">
-        <i class="bi bi-emoji-sunglasses-fill"></i>
-        Vittoria
-        <i class="bi bi-emoji-sunglasses-fill"></i>
-      </h1>
-      {% else %}
-      <h1 class="h1">
-        <i class="bi bi-emoji-dizzy-fill"></i>
-        Sconfitta
-        <i class="bi bi-emoji-dizzy-fill"></i>
-      </h1>
-      {% endif %}
-    </div>
-  </div>
-  {% else %}
-  <meta http-equiv="refresh" content="0.3" />
-  <div class="col-12 text-center my-4">
-    <div class="col-12 text-center mb-4">
-      <h3 class="h3">
-        <i class="bi bi-question-circle"></i>
-        Battaglia in corso
-        <i class="bi bi-question-circle"></i>
-      </h3>
-    </div>
-  </div>
+  {% if not battaglia_finita %}
+    <meta http-equiv="refresh" content="0.3" />
   {% endif %} {% endblock content %}
 </div>
