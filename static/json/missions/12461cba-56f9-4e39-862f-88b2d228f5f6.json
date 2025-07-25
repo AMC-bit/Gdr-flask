@@ -1,0 +1,53 @@
+{
+    "id": "12461cba-56f9-4e39-862f-88b2d228f5f6",
+    "nome": "Goblin",
+    "ambiente": {
+        "classe": "Foresta",
+        "nome": "Foresta",
+        "mod_attacco": 5,
+        "mod_cura": 5.0
+    },
+    "nemici": [
+        {
+            "classe": "Mago",
+            "id": "2e8abe90-e1fe-4446-a305-bc3b308246f7",
+            "nome": "Goblin",
+            "npc": true,
+            "salute_max": 200,
+            "salute": 100,
+            "attacco_min": 300,
+            "attacco_max": 400,
+            "livello": 1,
+            "destrezza": 500,
+            "storico_danni_subiti": []
+        }
+    ],
+    "inventari_nemici": [
+        {
+            "id": "eae42edf-4698-4140-9aac-fe14c04864c4",
+            "id_proprietario": "2e8abe90-e1fe-4446-a305-bc3b308246f7",
+            "oggetti": [
+                {
+                    "id": "ab4a6450-41d6-45e5-b247-20a1f0463a47",
+                    "nome": "Bomba Acida",
+                    "usato": false,
+                    "valore": 30,
+                    "tipo_oggetto": "OFFENSIVO",
+                    "classe": "BombaAcida"
+                }
+            ]
+        }
+    ],
+    "premi": [
+        {
+            "id": "bc68fa25-3a5b-423d-bf97-d6b6b52fdf01",
+            "nome": "Medaglione",
+            "valore": 10,
+            "classe": "Medaglione",
+            "tipo_oggetto": "BUFF"
+        }
+    ],
+    "strategia_nemici": {
+        "nome": "aggressiva"
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "classe": "Mago",
+    "id": "9f170ede-e57c-49cf-a03a-80e05b330336",
+    "nome": "ytytr",
+    "npc": false,
+    "salute_max": 80,
+    "salute": 7,
+    "attacco_min": 0,
+    "attacco_max": 90,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 15,
+    "storico_danni_subiti": [
+        73
+    ]
+}

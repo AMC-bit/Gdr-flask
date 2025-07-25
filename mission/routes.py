@@ -338,12 +338,16 @@ def create_mission():
                 ) = riga.strip().split(':')
                 classe_selezionata = classi[nemico_classe]
                 nemico = classe_selezionata(
-                    nome.strip(),
-                    int(salute_max),
-                    int(salute),
-                    int(attacco_min),
-                    int(attacco_max),
-                    int(destrezza)
+                    id=str(uuid.uuid4()),
+                    nome=nome.strip(),
+                    salute_max=int(salute_max),
+                    salute=int(salute),
+                    attacco_min=int(attacco_min),
+                    attacco_max=int(attacco_max),
+                    destrezza=int(destrezza),
+                    npc=True,
+                    livello=1,
+                    storico_danni_subiti=[]
                 )
                 nemico.id = str(uuid.uuid4())
                 lista_nemici.append(nemico)
@@ -366,6 +370,8 @@ def create_mission():
         directory = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'static', 'json', 'missions')
         os.makedirs(directory, exist_ok=True)
         path_file = os.path.join(directory, f"{missione_id}.json")
+
+        print("DEBUG tipo_oggetto:", prem.tipo_oggetto, type(prem.tipo_oggetto))
 
         missione_dict = {
             "id": missione.id,
@@ -401,7 +407,7 @@ def create_mission():
                             "nome": oggnem.nome,
                             "usato": False,
                             "valore": oggnem.valore,
-                            "tipo_oggetto": oggnem.tipo_oggetto,
+                            "tipo_oggetto": oggnem.tipo_oggetto.name,
                             "classe": oggnem.__class__.__name__
                         }
                     ]
@@ -413,7 +419,7 @@ def create_mission():
                     "nome": prem.nome,
                     "valore": prem.valore,
                     "classe": prem.__class__.__name__,
-                    "tipo_oggetto": prem.tipo_oggetto
+                    "tipo_oggetto": prem.tipo_oggetto.name
                 }
             ],
             "strategia_nemici": {

@@ -1,0 +1,59 @@
+{
+    "missione": {
+        "id": "4b10af40-8905-4911-b411-d36ccc27a822",
+        "nome": "Goblin",
+        "ambiente": {
+            "nome": "Foresta",
+            "mod_attacco": 5,
+            "mod_cura": 5.0,
+            "classe": "Foresta"
+        },
+        "nemici": [
+            {
+                "classe": "Mago",
+                "id": "90183f21-8a77-45bc-97c5-82b57a0fb18c",
+                "nome": "Goblin",
+                "npc": true,
+                "salute_max": 400,
+                "salute": 300,
+                "attacco_min": 500,
+                "attacco_max": 90,
+                "livello": 1,
+                "destrezza": 15,
+                "iniziativa": 15,
+                "storico_danni_subiti": []
+            }
+        ],
+        "inventari_nemici": [
+            {
+                "id": "3da689ae-4fdb-453b-bbf6-980c1473f56f",
+                "id_proprietario": "90183f21-8a77-45bc-97c5-82b57a0fb18c",
+                "oggetti": [
+                    {
+                        "id": "59596e97-8f3d-475a-8c44-40803045f146",
+                        "nome": "Pozione Rossa",
+                        "usato": false,
+                        "valore": 30,
+                        "tipo_oggetto": "RISTORATIVO",
+                        "classe": "PozioneCura"
+                    }
+                ]
+            }
+        ],
+        "premi": [
+            {
+                "id": "5ae12953-61e1-4b5f-9f33-ddb4ba3da659",
+                "nome": "Pozione Rossa",
+                "usato": false,
+                "valore": 30,
+                "tipo_oggetto": "RISTORATIVO",
+                "classe": "PozioneCura"
+            }
+        ],
+        "strategia_nemici": {
+            "nome": "Aggressiva"
+        },
+        "completata": false,
+        "attiva": false
+    }
+}
