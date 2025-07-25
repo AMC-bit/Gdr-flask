@@ -1,0 +1,17 @@
+{
+    "classe": "Ladro",
+    "id": "43eeced0-fdce-4120-b14e-d2f2e34d7cea",
+    "nome": "Dimitri",
+    "npc": false,
+    "salute_max": 120,
+    "salute": 90,
+    "attacco_min": 10,
+    "attacco_max": 85,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 25,
+    "storico_danni_subiti": [
+        30,
+        0
+    ]
+}

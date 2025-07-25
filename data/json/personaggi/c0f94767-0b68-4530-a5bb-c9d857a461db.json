@@ -1,0 +1,14 @@
+{
+    "classe": "Guerriero",
+    "id": "c0f94767-0b68-4530-a5bb-c9d857a461db",
+    "nome": "King",
+    "npc": false,
+    "salute_max": 130,
+    "salute": 130,
+    "attacco_min": 20,
+    "attacco_max": 100,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 20,
+    "storico_danni_subiti": []
+}
