@@ -70,6 +70,7 @@ def carica_inventario_da_json(personaggio_id):
 
 
 @inventory_bp.route('/inventory', methods=['GET', 'POST'])
+@login_required
 def inventory():
 
     owned_ids = load_char()
