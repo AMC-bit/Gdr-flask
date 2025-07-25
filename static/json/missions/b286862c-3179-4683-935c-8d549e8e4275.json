@@ -1,6 +1,6 @@
 {
-    "id": "12461cba-56f9-4e39-862f-88b2d228f5f6",
-    "nome": "Goblin",
+    "id": "b286862c-3179-4683-935c-8d549e8e4275",
+    "nome": "Goblin2",
     "ambiente": {
         "classe": "Foresta",
         "nome": "Foresta",
@@ -9,26 +9,26 @@
     },
     "nemici": [
         {
-            "classe": "Mago",
-            "id": "2e8abe90-e1fe-4446-a305-bc3b308246f7",
-            "nome": "Goblin",
+            "classe": "Guerriero",
+            "id": "faffa412-2202-408d-93b3-61a78a2aecb5",
+            "nome": "Goblin2",
             "npc": true,
             "salute_max": 200,
             "salute": 100,
             "attacco_min": 300,
             "attacco_max": 400,
             "livello": 1,
-            "destrezza": 500,
+            "destrezza": 10,
             "storico_danni_subiti": []
         }
     ],
     "inventari_nemici": [
         {
-            "id": "eae42edf-4698-4140-9aac-fe14c04864c4",
-            "id_proprietario": "2e8abe90-e1fe-4446-a305-bc3b308246f7",
+            "id": "0049375e-82fe-44f5-b455-a684ac5cbce9",
+            "id_proprietario": "faffa412-2202-408d-93b3-61a78a2aecb5",
             "oggetti": [
                 {
-                    "id": "ab4a6450-41d6-45e5-b247-20a1f0463a47",
+                    "id": "2d22e553-71fb-412c-a5ed-19a588b4cb69",
                     "nome": "Bomba Acida",
                     "usato": false,
                     "valore": 30,
@@ -40,7 +40,7 @@
     ],
     "premi": [
         {
-            "id": "bc68fa25-3a5b-423d-bf97-d6b6b52fdf01",
+            "id": "eead6a85-9ce2-46b1-a263-6164e9450df5",
             "nome": "Medaglione",
             "valore": 10,
             "classe": "Medaglione",
@@ -48,6 +48,6 @@
         }
     ],
     "strategia_nemici": {
-        "nome": "aggressiva"
+        "nome": "difensiva"
     }
 }

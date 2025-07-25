@@ -1,12 +1,13 @@
 from dataclasses import dataclass, field
 import uuid
 from enum import Enum
-from gioco.log import get_logger
+from utils.log import get_logger
 
 '''
 1 - TipoOggetto come Enum Se scrivi "Buff" invece di "buff", o "Ristorativo" invece di "Ristoravito"
 il codice con le stringhe non se ne accorge solo a runtime, invce cosi avvisa subito
-si puo cambiare il nome di un tipo (“Offensivo” “Attacco”), lo fai UNA volta nell’Enum e in tutto il codice cambi solo quell’istanza
+si puo cambiare il nome di un tipo (“Offensivo” “Attacco”), lo fai UNA volta
+nell'Enum e in tutto il codice cambi solo quell'istanza
 miglioramenti in logica
 con stringa
 if oggetto.tipo_oggetto == "Buff":  # funziona
@@ -15,7 +16,7 @@ con enum
 oggetto = PozioneCura()
 if oggetto.tipo_oggetto == TipoOggetto.RISTORATIVO:
     print("È una pozione!")
-    
+
 2- super() per loggare informazioni base, e aggiungere logica extra
 '''
 
@@ -65,11 +66,11 @@ class BombaAcida(Oggetto):
     valore: int = 30
     tipo_oggetto: TipoOggetto = TipoOggetto.OFFENSIVO
 
-    def usa(self, mod_ambiente: int = 0) -> int:
+    def usa(self, mod_ambiente: int = 0) -> tuple[int, TipoOggetto]:
         self.usato = True
         danno = - (self.valore + mod_ambiente)
         logger.info(f"{self.nome} lanciata: infligge {abs(danno)} danni.")
-        return danno
+        return danno, self.tipo_oggetto
 
 @dataclass
 class Medaglione(Oggetto):
@@ -77,20 +78,20 @@ class Medaglione(Oggetto):
     valore: int = 10
     tipo_oggetto: TipoOggetto = TipoOggetto.BUFF
 
-    def usa(self, mod_ambiente: int = 0) -> int:
+    def usa(self, mod_ambiente: int = 0) -> tuple[int, TipoOggetto]:
         self.usato = True
         mod = self.valore + mod_ambiente
         logger.info(f"{self.nome} attivato: bonus {mod} all'attacco_max.")
-        return mod
+        return mod, self.tipo_oggetto
 
 @dataclass
 class PozioneSuperCura(PozioneCura):
     nome: str = "Super Pozione Rossa"
     valore: int = 100
 
-    def usa(self, mod_ambiente: int = 0) -> int:
+    def usa(self, mod_ambiente: int = 0) -> tuple[int, TipoOggetto]:
         # Log base (PozioneCura)
         cura = super().usa(mod_ambiente)
         # Logica/Logging extra
         logger.info(f"{self.nome}: È una super pozione! Effetto potenziato.")
-        return cura
+        return cura, self.tipo_oggetto
