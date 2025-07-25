@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+{% block title %}Gestione utenti{% endblock %}
+
+{% block content %}
+
+<h1>Gestione utenti</h1>
+<p>Benvenuto nella sezione di gestione utenti.</p>
+
+<div class="container mt-4">
+    {% if message %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    {% endif %}
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Crediti</th>
+                    <th scope="col">Ruolo</th>
+                    <th scope="col">Azioni</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.nome }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        <span class="badge bg-primary">{{ user.crediti|int }}</span>
+                    </td>
+                    <td>
+                        {% if user.id == current_user.id %}
+                            <!-- Ruolo non modificabile per l'utente corrente -->
+                            <span class="badge {% if user.ruolo.value == 'ADMIN' %}bg-danger{% else %}bg-success{% endif %}">
+                                {{ user.ruolo.value }}
+                            </span>
+                        {% else %}
+                            <!-- Form per modificare il ruolo -->
+                            <form method="POST" action="{{ url_for('auth.update_user_role') }}" class="d-inline">
+                                <input type="hidden" name="user_id" value="{{ user.id }}">
+                                <div class="btn-group" role="group">
+                                    <input type="radio" class="btn-check" name="ruolo" id="player_{{ user.id }}"
+                                           value="PLAYER" {% if user.ruolo.value == 'PLAYER' %}checked{% endif %}
+                                           onchange="this.form.submit()">
+                                    <label class="btn btn-outline-success btn-sm" for="player_{{ user.id }}">Player</label>
+                                    <input type="radio" class="btn-check" name="ruolo" id="admin_{{ user.id }}"
+                                           value="ADMIN" {% if user.ruolo.value == 'ADMIN' %}checked{% endif %}
+                                           onchange="this.form.submit()">
+                                    <label class="btn btn-outline-danger btn-sm" for="admin_{{ user.id }}">Admin</label>
+                                </div>
+                            </form>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <!-- Bottone per gestire i crediti -->
+                        <a href="{{ url_for('auth.credit_refill', user_id=user.id) }}" 
+                           class="btn btn-primary btn-sm">
+                            <i class="bi bi-coin"></i> Gestisci Crediti
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if not users %}
+        <div class="alert alert-info text-center">
+            <h4>Nessun utente trovato</h4>
+            <p>Non ci sono utenti registrati nel sistema.</p>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}
