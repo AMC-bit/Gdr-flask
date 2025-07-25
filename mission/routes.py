@@ -1,19 +1,21 @@
 import logging
 import json
 import os
+import config
+import uuid
 from copy import deepcopy
 from collections import defaultdict
 from flask import flash, render_template, request, session, redirect, url_for
 from utils.salvataggio import Json
 from . import mission_bp
-import config
 from gioco.oggetto import Oggetto
 from gioco.personaggio import Personaggio
 from gioco.ambiente import Ambiente
 from gioco.missione import Missione
+from gioco.strategy import Strategia
 from gioco.schemas.missione import MissioniSchema
 from config import DATA_DIR_SAVE
-
+from flask_login import login_required
 
 path_missioni = os.path.join(
     os.path.dirname(os.path.dirname(__file__)), 'data', 'missioni_custom.json'
@@ -47,6 +49,7 @@ def prendi_Missione_Da_Json():
 
 
 @mission_bp.route('/select_mission', methods=['GET', 'POST'])
+@login_required
 def select_mission():
     """
     Gestisce la selezione di una missione da parte dell'utente.
@@ -110,6 +113,7 @@ def select_mission():
 
 
 @mission_bp.route('/show_mission')
+@login_required
 def show_mission():
     """
     Mostra i dettagli della missione selezionata.
@@ -270,3 +274,171 @@ def missione_attiva():
     logger.info(msg)
     flash(msg, 'warning')
     return redirect(url_for('mission.select_mission'))
+
+
+@mission_bp.route('/missioni/stato')
+def state_mission():
+    # recupero tutte le missioni presenti nella sessione (il gestore viene rimosso quindi si cercano solo le missioni presenti in sessione nella lista 'missioni')
+    missioni = session.get('missioni', [])
+    if not missioni:
+        flash("Nessuna missione disponibile.", 'warning')
+        return redirect(url_for('mission.select_mission'))
+    complete = True
+    for missione in missioni:
+        missione_obj = MissioniSchema().make_Missioni(missione)
+        if not missione_obj.verifica_completamento():
+            complete = False
+            break
+
+    if complete:
+        msg = "Tutte le missioni sono state completate."
+        logger.info(msg)
+    else:
+        msg = "Ci sono missioni ancora da completare."
+        logger.info(msg)
+
+
+@mission_bp.route('/create_mission', methods=['GET', 'POST'])
+def create_mission():
+    # cattura dinamica di tutte le sottoclassi di Oggetto e Personaggio
+    oggetti = {cls.__name__: cls for cls in Oggetto.__subclasses__()}
+    ambienti = {cls.__name__: cls for cls in Ambiente.__subclasses__()}
+    strategie = {cls.__name__: cls for cls in Strategia.__subclasses__()}
+    classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
+
+    if request.method == 'POST':
+        print("DEBUG FORM KEYS:", list(request.form.keys()))
+        missione_id = str(uuid.uuid4())
+        nome = request.form['nome'].strip()
+        tipo_ambiente = request.form['ambiente']
+        strategia_tipo = request.form['strategia']
+        nemico_classe = request.form['classe_nemico']
+        oggetti_nemici = request.form['oggetti_nemici']
+        premi_missione = request.form['premi_missione']
+
+        oggnem = oggetti[oggetti_nemici]()
+        oggnem.id = str(uuid.uuid4())
+        prem = oggetti[premi_missione]()
+        prem.id = str(uuid.uuid4())
+        amb = ambienti[tipo_ambiente]()
+        strat = strategie[strategia_tipo]()
+        strat.id = str(uuid.uuid4())
+
+        nemici_input = request.form.get('nemici', '')
+        premi_input = request.form.get('premi', '')
+
+        lista_nemici = []
+        for i in range(2):
+            try:
+                nome_nemico = request.form[f'nome_{i}'].strip()
+                salute_max = int(request.form[f'salute_max_{i}'])
+                salute = int(request.form[f'salute_{i}'])
+                att_min = int(request.form[f'att_min_{i}'])
+                att_max = int(request.form[f'att_max_{i}'])
+                destrezza = int(request.form[f'destrezza_{i}'])
+
+                classe_selezionata = classi[nemico_classe]
+                nemico = classe_selezionata(
+                    id=str(uuid.uuid4()),
+                    nome=nome_nemico,
+                    salute_max=salute_max,
+                    salute=salute,
+                    attacco_min=att_min,
+                    attacco_max=att_max,
+                    destrezza=destrezza,
+                    npc=True,
+                    livello=1,
+                    storico_danni_subiti=[]
+                )
+                nemico.id = str(uuid.uuid4())
+                lista_nemici.append(nemico)
+            except ValueError:
+                flash(f"Errore nella riga nemico: {riga}", 'error')
+
+        #lista_premi = [prem]
+
+
+        ambiente = Ambiente(nome=tipo_ambiente)
+        missione = Missione(
+            nome=nome,
+            ambiente=ambiente,
+            nemici=lista_nemici,
+            premi=premi_missione,
+            strategia_nemici=strategia_tipo
+        )
+        missione.id = missione_id
+
+        directory = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'static', 'json', 'missions')
+        os.makedirs(directory, exist_ok=True)
+        path_file = os.path.join(directory, f"{missione_id}.json")
+
+        print("DEBUG tipo_oggetto:", prem.tipo_oggetto, type(prem.tipo_oggetto))
+
+        missione_dict = {
+            "id": missione.id,
+            "nome": missione.nome,
+            "ambiente": {
+                "classe": amb.__class__.__name__,
+                "nome": tipo_ambiente,
+                "mod_attacco": amb.mod_attacco,
+                "mod_cura": amb.mod_cura
+            },
+            "nemici": [
+                {
+                    "classe": p.__class__.__name__,
+                    "id": p.id,
+                    "nome": p.nome,
+                    "npc": True,
+                    "salute_max": p.salute_max,
+                    "salute": p.salute,
+                    "attacco_min": p.attacco_min,
+                    "attacco_max": p.attacco_max,
+                    "livello": getattr(p, 'livello', 1),
+                    "destrezza": p.destrezza,
+                    "storico_danni_subiti": []
+                } for p in lista_nemici
+            ],
+             "inventari_nemici":[
+                {
+                    "id": str(uuid.uuid4()),
+                    "id_proprietario": nemico.id,
+                    "oggetti": [
+                        {
+                            "id": oggnem.id,
+                            "nome": oggnem.nome,
+                            "usato": False,
+                            "valore": oggnem.valore,
+                            "tipo_oggetto": oggnem.tipo_oggetto.name,
+                            "classe": oggnem.__class__.__name__
+                        }
+                    ]
+                } for nemico in lista_nemici
+            ],
+            "premi": [
+                {
+                    "id": prem.id,
+                    "nome": prem.nome,
+                    "valore": prem.valore,
+                    "classe": prem.__class__.__name__,
+                    "tipo_oggetto": prem.tipo_oggetto.name
+                }
+            ],
+            "strategia_nemici": {
+                "nome": strategia_tipo.strip().lower()
+            }
+        }
+
+        with open(path_file, 'w', encoding='utf-8') as f:
+            json.dump(missione_dict, f, indent=4, ensure_ascii=False)
+
+        flash(f"Missione '{nome}' salvata con successo!", 'success')
+        logger.info(f"Missione personalizzata salvata in {path_file}")
+        return redirect(url_for('mission.select_mission'))
+
+    return render_template(
+        'create_mission.html',
+        oggetti=list(oggetti.keys()),
+        strategia=list(strategie.keys()),
+        ambienti=list(ambienti.keys()),
+        classi=list(classi.keys())
+        )

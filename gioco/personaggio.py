@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 import uuid
 import random
-from gioco.log import get_logger
+from utils.log import get_logger
 
 '''
 1- La logica di attacca o recupera_salute nelle sottoclassi cambia solo un dettaglio, lasciando intatto il comportamento principale

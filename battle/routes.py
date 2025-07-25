@@ -2,10 +2,9 @@ from flask import redirect, render_template, session, url_for, request, flash, j
 import logging
 import random
 import os
-
+from flask_login import login_required
 from . import battle_bp
-from gioco.oggetto import Oggetto
-from gioco.ambiente import Ambiente
+from gioco.oggetto import Oggetto, TipoOggetto
 from gioco.missione import Missione
 from gioco.strategy import Strategia
 from gioco.inventario import Inventario
@@ -37,6 +36,7 @@ def bold(txt):
         return f"<b>{txt}</b>"
 
 @battle_bp.route('/select_char', methods=['GET', 'POST'])
+@login_required
 def select_char():
     # if request.method == 'POST':
     # prendo i dati da sessione:
@@ -159,6 +159,7 @@ def assegna_premi(missione : Missione, messaggi_battaglia : list[str], personagg
                     inventario.aggiungi_oggetto(nuova_istanza)
 
 @battle_bp.route('/auto_battle', methods=['GET'])
+@login_required
 def auto_battle():
     if os.path.exists(path_save):
         # --- SETUP DATI ---
@@ -356,6 +357,9 @@ def usa_inventario_automatico(
         Il risultato dell'uso dell'oggetto e un messaggio descrittivo.
     """
     ambiente = missione.ambiente
+    result = None
+    value = None
+    check = True
 
     if strategia is None:
         strategia = missione.strategia_nemici
@@ -367,44 +371,50 @@ def usa_inventario_automatico(
         and bersaglio.npc != pg.npc
     ]
 
-    value = strategia.uso_inventario_npc(pg.salute, inventario, ambiente)
-
-    if value is not None:
-        if value < 0:
-            # Se il valore è negativo, significa che l'oggetto è offensivo
-            bersaglio = random.choice(bersagli)
-            txt = (f"{bold(pg.nome)} usa Bomba Acida su {bold(bersaglio.nome)} "
-                f"infliggendo {-value} HP di danno")
-            bersaglio.salute += value
-        if value > 0:
-            bersaglio = None
-            txt = (f"{bold(pg.nome)} usa Pozione Curativa su se stesso "
-                f"recuperando{value} HP")
-            pg.salute += value
-            if pg.salute >= pg.salute_max:
-                pg.salute = pg.salute_max
-                txt += ", che torna al massimo della salute."
-            else:
-                txt += f", recuperando {value} HP."
-        logger.info(txt)
-        return value, txt
     if inventario is None:
-        txt = f"{bold(pg.nome)} non ha un inventario! Errore!!!!."
+        txt = f"{pg.nome} non ha un inventario! Errore!!!!."
+        check = False
     elif inventario.oggetti is None:
-        txt = f"{bold(pg.nome)} non ha oggetti nell'inventario."
-    else:
-        txt = f"{bold(pg.nome)} non utilizza oggetti in questo turno"
-    return None, txt
+        txt = f"{pg.nome} non ha più oggetti nell'inventario."
+        check = False
+    txt = ""
+    if check:
+        result = strategia.uso_inventario_npc(pg.salute, inventario, ambiente)
+
+        if result is not None:
+            print(f"Result: {result}")
+            value = result[0]
+            tipo = result[1]
+            if tipo == TipoOggetto.BUFF:
+                bersaglio = None
+                txt = (f"{pg.nome} usa Medaglione su se stesso, ")
+                pg.attacco_max += value
+            elif tipo == TipoOggetto.OFFENSIVO:
+                bersaglio = random.choice(bersagli)
+                txt = (f"{pg.nome} usa Bomba Acida su {bersaglio.nome} "
+                    f"infliggendo {-value} HP di danno")
+                bersaglio.salute += value
+            elif tipo == TipoOggetto.RISTORATIVO:
+                bersaglio = None
+                txt = (f"{pg.nome} usa Pozione Curativa su se stesso ")
+                pg.salute += value
+                if pg.salute >= pg.salute_max:
+                    pg.salute = pg.salute_max
+                    txt += ", che torna al massimo della salute."
+                else:
+                    txt += f", recuperando {value} HP."
+            logger.info(txt)
+        else:
+            txt = f"{pg.nome} non utilizza oggetti in questo turno"
+    return value, txt
 
 
-
-        
 # in ingresso lista di tutti i personaggi, e  sommo iniziativa + d20, ordino in base a qst, mettendo gli id
 def ordine_iniziativa(tutti_personaggi):
     """
     Calcola l'iniziativa per ogni personaggio sommando il valore di iniziativa al tiro di un d20.
     Ritorna una lista ordinata di ID in base all'iniziativa decrescente.
-    
+
     Args:
         personaggi (list): Lista di oggetti `Personaggio`.
 

@@ -3,7 +3,7 @@ from typing import Dict
 from dataclasses import dataclass
 from gioco.oggetto import BombaAcida, Oggetto, PozioneCura
 from gioco.personaggio import Guerriero, Ladro, Mago, Personaggio
-from gioco.log import get_logger
+from utils.log import get_logger
 
 '''
 1- Logger

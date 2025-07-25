@@ -48,6 +48,10 @@ class Aggressiva(Strategia):
 
     def uso_inventario_npc(self, salute_npc, inventario, ambiente=None):
         if inventario and inventario.oggetti:
+            ogg = next((o for o in inventario.oggetti if o.nome == "Medaglione"), None)
+            if ogg and random.random() < 0.34:  # 34%
+                logger.info("NPC usa Medaglione!")
+                return inventario.usa_oggetto(oggetto=ogg, ambiente=ambiente)
             ogg = next((o for o in inventario.oggetti if o.nome == "Bomba Acida"), None)
             if ogg and random.random() < 0.5:  # 50%
                 logger.info("NPC usa Bomba Acida!")
@@ -64,11 +68,22 @@ class Difensiva(Strategia):
         logger.info("NPC userà strategia DIFENSIVA: si cura se serve.")
 
     def uso_inventario_npc(self, salute_npc, inventario, ambiente=None):
-        if salute_npc < 60 and inventario and inventario.oggetti:
-            ogg = next((o for o in inventario.oggetti if o.nome == "Pozione Rossa"), None)
-            if ogg and random.random() < 0.5:
-                logger.info("NPC usa Pozione Rossa (Difensiva).")
-                return inventario.usa_oggetto(oggetto=ogg, ambiente=ambiente)
+        if inventario and inventario.oggetti:
+            if salute_npc < 60:
+                ogg = next((o for o in inventario.oggetti if o.nome == "Pozione Rossa"), None)
+                if ogg and random.random() < 0.5:
+                    logger.info("NPC usa Pozione Rossa (Difensiva).")
+                    return inventario.usa_oggetto(oggetto=ogg, ambiente=ambiente)
+            elif salute_npc < 30:
+                ogg = next((o for o in inventario.oggetti if o.nome == "Super Pozione Rossa"), None)
+                if ogg and random.random() < 0.25:
+                    logger.info("NPC usa Super Pozione Rossa (Difensiva).")
+                    return inventario.usa_oggetto(oggetto=ogg, ambiente=ambiente)
+            else:
+                ogg = next((o for o in inventario.oggetti if o.nome == "Medaglione"), None)
+                if ogg and random.random() < 0.15:
+                    logger.info("NPC usa Medaglione (Difensiva).")
+                    return inventario.usa_oggetto(oggetto=ogg, ambiente=ambiente)
         logger.info("NPC non usa oggetti (Difensiva).")
         return None
 
@@ -81,16 +96,21 @@ class Equilibrata(Strategia):
         logger.info("NPC userà strategia EQUILIBRATA.")
 
     def uso_inventario_npc(self, salute_npc, inventario, ambiente=None):
-        if salute_npc < 40:
-            ogg = next((o for o in inventario.oggetti if o.nome == "Pozione Rossa"), None)
-            if ogg and random.random() < 0.33:
-                logger.info("NPC usa Pozione Rossa (Equilibrata).")
+        if inventario and inventario.oggetti:
+            ogg = next((o for o in inventario.oggetti if o.nome == "Medaglione"), None)
+            if ogg and random.random() < 0.25:
+                logger.info("NPC usa Medaglione (Equilibrata).")
                 return inventario.usa_oggetto(oggetto=ogg, ambiente=ambiente)
-        else:
-            ogg = next((o for o in inventario.oggetti if o.nome == "Bomba Acida"), None)
-            if ogg and random.random() < 0.33:
-                logger.info("NPC usa Bomba Acida (Equilibrata).")
-                return inventario.usa_oggetto(oggetto=ogg, ambiente=ambiente)
+            if salute_npc < 40:
+                ogg = next((o for o in inventario.oggetti if o.nome == "Pozione Rossa"), None)
+                if ogg and random.random() < 0.33:
+                    logger.info("NPC usa Pozione Rossa (Equilibrata).")
+                    return inventario.usa_oggetto(oggetto=ogg, ambiente=ambiente)
+            else:
+                ogg = next((o for o in inventario.oggetti if o.nome == "Bomba Acida"), None)
+                if ogg and random.random() < 0.33:
+                    logger.info("NPC usa Bomba Acida (Equilibrata).")
+                    return inventario.usa_oggetto(oggetto=ogg, ambiente=ambiente)
         logger.info("NPC non usa oggetti (Equilibrata).")
         return None
 
