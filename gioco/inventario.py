@@ -1,5 +1,5 @@
 import uuid
-import logging
+from utils.log import get_logger
 from gioco.oggetto import Oggetto
 from gioco.ambiente import Ambiente
 from typing import List, Optional, Union
@@ -10,8 +10,7 @@ from dataclasses import dataclass, field
 1- Logger
 2- Rimozione oggetto via id Cerca oggetto sia per nome che per id
 '''
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
+logger = get_logger(__name__)
 
 @dataclass
 class Inventario:
