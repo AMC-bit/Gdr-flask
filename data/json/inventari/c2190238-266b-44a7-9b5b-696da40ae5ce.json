@@ -1,0 +1,126 @@
+{
+    "id": "ec79664d-e1e5-4128-ab5c-5138cb3e8b14",
+    "id_proprietario": "c2190238-266b-44a7-9b5b-696da40ae5ce",
+    "oggetti": [
+        {
+            "id": "1cd42887-7970-4b8f-8bc6-0b6a58e5e20e",
+            "nome": "Pozione Rossa",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "TipoOggetto.RISTORATIVO",
+            "classe": "PozioneCura"
+        },
+        {
+            "id": "c33f6b82-635e-4331-9ece-3d80511022db",
+            "nome": "Pozione Rossa",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "TipoOggetto.RISTORATIVO",
+            "classe": "PozioneCura"
+        },
+        {
+            "id": "034886a1-6ea1-4ddd-ab22-3be3d6d50012",
+            "nome": "Bomba Acida",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "TipoOggetto.OFFENSIVO",
+            "classe": "BombaAcida"
+        },
+        {
+            "id": "26a6912f-5a99-4ac5-ac0f-06675e80f57f",
+            "nome": "Pozione Rossa",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "TipoOggetto.RISTORATIVO",
+            "classe": "PozioneCura"
+        },
+        {
+            "id": "58534081-9a92-4077-8321-c22b143ad754",
+            "nome": "Bomba Acida",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "TipoOggetto.OFFENSIVO",
+            "classe": "BombaAcida"
+        },
+        {
+            "id": "3e1698a8-0cc9-4001-98b8-4f7493436170",
+            "nome": "Pozione Rossa",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "TipoOggetto.RISTORATIVO",
+            "classe": "PozioneCura"
+        },
+        {
+            "id": "177a223f-215c-4ce2-85f2-22a815455f9c",
+            "nome": "Bomba Acida",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "TipoOggetto.OFFENSIVO",
+            "classe": "BombaAcida"
+        },
+        {
+            "id": "1e81627b-efdc-428d-8225-f03f71d1defc",
+            "nome": "Pozione Rossa",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "TipoOggetto.RISTORATIVO",
+            "classe": "PozioneCura"
+        },
+        {
+            "id": "32807b0a-5b5f-46e1-97e6-1077abb326d3",
+            "nome": "Bomba Acida",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "TipoOggetto.OFFENSIVO",
+            "classe": "BombaAcida"
+        },
+        {
+            "id": "19ab5108-74da-4c47-8166-a0d24999daef",
+            "nome": "Pozione Rossa",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "TipoOggetto.RISTORATIVO",
+            "classe": "PozioneCura"
+        },
+        {
+            "id": "5eefbdc6-91dc-41ec-8cfd-e21b398b1be7",
+            "nome": "Bomba Acida",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "TipoOggetto.OFFENSIVO",
+            "classe": "BombaAcida"
+        },
+        {
+            "id": "3e133596-6ca1-4b56-b2d8-3af55012c6a3",
+            "nome": "Pozione Rossa",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "TipoOggetto.RISTORATIVO",
+            "classe": "PozioneCura"
+        },
+        {
+            "id": "8ba0ba17-cac0-4166-9fda-aa6c259a52fc",
+            "nome": "Bomba Acida",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "TipoOggetto.OFFENSIVO",
+            "classe": "BombaAcida"
+        },
+        {
+            "id": "a327f708-cc83-432e-ba10-26c26bd85802",
+            "nome": "Pozione Rossa",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "TipoOggetto.RISTORATIVO",
+            "classe": "PozioneCura"
+        },
+        {
+            "id": "cdd61109-e876-4fc1-990c-3254624b8352",
+            "nome": "Bomba Acida",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "TipoOggetto.OFFENSIVO",
+            "classe": "BombaAcida"
+        }
+    ]
+}

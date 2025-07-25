@@ -2,11 +2,6 @@
 content %}
 <div class="container my-4">
   <div class="row">
-    <div class="col-12 text-center mb-4">
-      <h1>{{ missione.nome }}</h1>
-    </div>
-  </div>
-  <div class="row">
     <!-- card personaggi del giocatore -->
     <div class="col-md-3">
       <div class="card shadow mb-3">
@@ -16,36 +11,46 @@ content %}
             Personaggi
           </h5>
         </div>
-        <ul class="list-group list-group-flush">
-          {% for pg in personaggi %}
-          <li class="list-group-item">
-            <h6>
-              {{ pg.nome }} {% if pg.sconfitto() %}
-              <span class="badge bg-danger ms-1">Morto</span>
-              {% else %}
-              <span class="badge bg-success ms-1">Vivo</span>
-              {% endif %}
-            </h6>
-            <p class="mb-1">Classe: {{ pg.classe }}</p>
-            <p class="mb-1">Salute: {{ pg.salute }} / {{ pg.salute_max }}</p>
-            <div class="progress">
-              <div
-                class="progress-bar {% if pg.salute > pg.salute_max / 2 %} bg-success {% elif pg.salute > pg.salute_max / 4 %} bg-warning {% else %} bg-danger {% endif %}"
-                role="progressbar"
-                style="width: {{ (pg.salute / pg.salute_max * 100) | round(0) }}%"
-                aria-valuenow="{{ pg.salute }}"
-                aria-valuemin="0"
-                aria-valuemax="{{ pg.salute_max }}"
-              ></div>
-            </div>
-            <p class="mb-1">
-              Attacco: {{ pg.attacco_min }} - {{ pg.attacco_max }}
-            </p>
-          </li>
-          {% else %}
-          <li class="list-group-item">Nessun personaggio presente</li>
-          {% endfor %}
-        </ul>
+        <div
+        class="card-body text-default"
+        style="max-height: 500px; overflow-y: auto;">
+          <ul class="list-group list-group-flush">
+            {% for pg in personaggi %}
+            <li class="list-group-item">
+              <h6>
+                {{ pg.nome }} {% if pg.sconfitto() %}
+                <span class="badge bg-danger ms-1">Morto</span>
+                {% else %}
+                <span class="badge bg-success ms-1">Vivo</span>
+                {% endif %}
+              </h6>
+              <p class="mb-1">Classe: {{ pg.classe }}</p>
+              <p class="mb-1">Salute: {{ pg.salute }} / {{ pg.salute_max }}</p>
+              <div class="progress">
+                <div
+                  class="progress-bar {% if pg.salute > pg.salute_max / 2 %} bg-success {% elif pg.salute > pg.salute_max / 4 %} bg-warning {% else %} bg-danger {% endif %}"
+                  role="progressbar"
+                  style="width: {{ (pg.salute / pg.salute_max * 100) | round(0) }}%"
+                  aria-valuenow="{{ pg.salute }}"
+                  aria-valuemin="0"
+                  aria-valuemax="{{ pg.salute_max }}"
+                >
+                </div>
+              </div>
+              <p class="mb-1">
+                Attacco: {{ pg.attacco_min }} - {{ pg.attacco_max }}
+              </p>
+            </li>
+            {% else %}
+            <li class="list-group-item">Nessun personaggio presente</li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="card-footer bg-primary text-white">
+          <h5 class="mb-0 text-center">
+            In vita: {{ pc_vivi|length }}
+          </h5>
+        </div>
       </div>
     </div>
 
@@ -54,8 +59,7 @@ content %}
       <div class="card shadow">
         <div class="card-header bg-dark text-white">
           <h5 class="mb-0 text-center">
-            <i class="bi bi-newspaper me-2"></i>
-            Log di Battaglia
+            - {{ missione.nome }} -
           </h5>
         </div>
         <div class="card-body border-dark p-0">
@@ -63,6 +67,7 @@ content %}
             class="p-3 text-center"
             style="
               max-height: 500px;
+              min-height: 500px;
               overflow-y: auto;
               background-color: #f8f9fa;
             "
@@ -73,6 +78,24 @@ content %}
             <p class="text-muted">In attesa di eventi di combattimento...</p>
             {% endfor %}
           </div>
+        </div>
+        <div class="card-footer bg-dark text-white">
+          <h5 class="mb-0 text-center">
+            {% if battaglia_finita%}
+              {% if vittoria %}
+                <i class="bi bi-emoji-sunglasses-fill"></i>
+                Vittoria
+                <i class="bi bi-emoji-sunglasses-fill"></i>
+              {% else %}
+                <i class="bi bi-emoji-dizzy-fill"></i>
+                Sconfitta
+                <i class="bi bi-emoji-dizzy-fill"></i>
+              {% endif %}
+            {% else %}
+              <i class="bi bi-question-circle"></i>
+              Battaglia in corso
+              <i class="bi bi-question-circle"></i>
+            {% endif %}
         </div>
       </div>
     </div>
@@ -86,67 +109,50 @@ content %}
             Nemici
           </h5>
         </div>
-        <ul class="list-group list-group-flush">
-          {% for n in nemici %}
-          <li class="list-group-item">
-            <h6>
-              {{ n.nome }} {% if n.sconfitto() %}
-              <span class="badge bg-danger ms-1">Morto</span>
-              {% else %}
-              <span class="badge bg-success ms-1">Vivo</span>
-              {% endif %}
-            </h6>
-            <p class="mb-1">Classe: {{ n.classe }}</p>
-            <p class="mb-1">Salute: {{ n.salute }} / {{ n.salute_max }}</p>
-            <div class="progress">
-              <div
-                class="progress-bar {% if n.salute > n.salute_max / 2 %} bg-success {% elif n.salute > n.salute_max / 4 %} bg-warning {% else %} bg-danger {% endif %}"
-                role="progressbar"
-                style="width: {{ (n.salute / n.salute_max * 100) | round(0) }}%"
-                aria-valuenow="{{ n.salute }}"
-                aria-valuemin="0"
-                aria-valuemax="{{ n.salute_max }}"
-              ></div>
-            </div>
-            <p class="mb-1">
-              Attacco: {{ n.attacco_min }} - {{ n.attacco_max }}
-            </p>
-          </li>
-          {% else %}
-          <li class="list-group-item">Nessun nemico presente</li>
-          {% endfor %}
-        </ul>
+        <div
+        class="card-body text-default"
+        style="max-height: 500px; min-height: 500px; overflow-y: auto;">
+          <ul class="list-group list-group-flush">
+            {% for n in nemici %}
+            <li class="list-group-item">
+              <h6>
+                {{ n.nome }} {% if n.sconfitto() %}
+                <span class="badge bg-danger ms-1">Morto</span>
+                {% else %}
+                <span class="badge bg-success ms-1">Vivo</span>
+                {% endif %}
+              </h6>
+              <p class="mb-1">Classe: {{ n.classe }}</p>
+              <p class="mb-1">Salute: {{ n.salute }} / {{ n.salute_max }}</p>
+              <div class="progress">
+                <div
+                  class="progress-bar {% if n.salute > n.salute_max / 2 %} bg-success {% elif n.salute > n.salute_max / 4 %} bg-warning {% else %} bg-danger {% endif %}"
+                  role="progressbar"
+                  style="width: {{ (n.salute / n.salute_max * 100) | round(0) }}%"
+                  aria-valuenow="{{ n.salute }}"
+                  aria-valuemin="0"
+                  aria-valuemax="{{ n.salute_max }}"
+                ></div>
+              </div>
+              <p class="mb-1">
+                Attacco: {{ n.attacco_min }} - {{ n.attacco_max }}
+              </p>
+            </li>
+            {% else %}
+            <li class="list-group-item">Nessun nemico presente</li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="card-footer bg-primary text-white">
+          <h5 class="mb-0 text-center">
+            In vita:
+            {{ npc_vivi|length }}
+          </h5>
+        </div>
       </div>
     </div>
   </div>
-  {% if battaglia_finita %}
-  <div class="row">
-    <div class="col-12 text-center my-4">
-      {% if vittoria %}
-      <h1 class="h1">
-        <i class="bi bi-emoji-sunglasses-fill"></i>
-        Vittoria
-        <i class="bi bi-emoji-sunglasses-fill"></i>
-      </h1>
-      {% else %}
-      <h1 class="h1">
-        <i class="bi bi-emoji-dizzy-fill"></i>
-        Sconfitta
-        <i class="bi bi-emoji-dizzy-fill"></i>
-      </h1>
-      {% endif %}
-    </div>
-  </div>
-  {% else %}
-  <meta http-equiv="refresh" content="0.3" />
-  <div class="col-12 text-center my-4">
-    <div class="col-12 text-center mb-4">
-      <h3 class="h3">
-        <i class="bi bi-question-circle"></i>
-        Battaglia in corso
-        <i class="bi bi-question-circle"></i>
-      </h3>
-    </div>
-  </div>
+  {% if not battaglia_finita %}
+    <meta http-equiv="refresh" content="0.3" />
   {% endif %} {% endblock content %}
 </div>

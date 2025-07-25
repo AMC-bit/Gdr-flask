@@ -1,0 +1,23 @@
+{
+    "classe": "Mago",
+    "id": "af8ee1ec-b839-4c18-a4d6-2dc3ff1104c0",
+    "nome": "defefef",
+    "npc": false,
+    "salute_max": 80,
+    "salute": 20,
+    "attacco_min": 0,
+    "attacco_max": 90,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 15,
+    "storico_danni_subiti": [
+        4,
+        0,
+        0,
+        8,
+        24,
+        23,
+        1,
+        0
+    ]
+}
