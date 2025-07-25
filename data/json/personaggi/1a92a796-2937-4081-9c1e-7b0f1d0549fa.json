@@ -1,16 +1,14 @@
 {
     "classe": "Mago",
-    "id": "9f170ede-e57c-49cf-a03a-80e05b330336",
-    "nome": "ytytr",
+    "id": "1a92a796-2937-4081-9c1e-7b0f1d0549fa",
+    "nome": "tryty",
     "npc": false,
     "salute_max": 80,
-    "salute": 7,
+    "salute": 80,
     "attacco_min": 0,
     "attacco_max": 90,
     "livello": 1,
     "destrezza": 15,
     "iniziativa": 15,
-    "storico_danni_subiti": [
-        73
-    ]
+    "storico_danni_subiti": []
 }

@@ -1,0 +1,22 @@
+{
+    "id": "41b2c34d-64d9-4341-822c-b4df67117349",
+    "id_proprietario": "977be3d5-7d12-44d3-9732-f9d8c5a07718",
+    "oggetti": [
+        {
+            "id": "1c8c8728-7337-45bd-a17e-79bf1aab311c",
+            "nome": "Pozione Rossa",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "TipoOggetto.RISTORATIVO",
+            "classe": "PozioneCura"
+        },
+        {
+            "id": "9898ef54-a657-4c1d-aa90-f9e0b207d240",
+            "nome": "Medaglione",
+            "usato": false,
+            "valore": 10,
+            "tipo_oggetto": "TipoOggetto.BUFF",
+            "classe": "Medaglione"
+        }
+    ]
+}
