@@ -8,11 +8,11 @@ from collections import defaultdict
 from flask import flash, render_template, request, session, redirect, url_for
 from utils.salvataggio import Json
 from . import mission_bp
-from gioco.oggetto import Oggetto
+from gioco.oggetto import Oggetto, PozioneCura
 from gioco.personaggio import Personaggio
 from gioco.ambiente import Ambiente
 from gioco.missione import Missione
-from gioco.strategy import Strategia
+from gioco.strategy import Strategia, Aggressiva
 from gioco.schemas.missione import MissioniSchema
 from config import DATA_DIR_SAVE
 from flask_login import login_required
@@ -363,70 +363,70 @@ def create_mission():
             nome=nome,
             ambiente=ambiente,
             nemici=lista_nemici,
-            premi=premi_missione,
-            strategia_nemici=strategia_tipo
+            strategia_nemici=Aggressiva()
         )
-        missione.id = missione_id
+        print(f"MISSIONEE {missione}, {type(missione)}")
 
         directory = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'static', 'json', 'missions')
         os.makedirs(directory, exist_ok=True)
         path_file = os.path.join(directory, f"{missione_id}.json")
 
         print("DEBUG tipo_oggetto:", prem.tipo_oggetto, type(prem.tipo_oggetto))
-
-        missione_dict = {
-            "id": missione.id,
-            "nome": missione.nome,
-            "ambiente": {
-                "classe": amb.__class__.__name__,
-                "nome": tipo_ambiente,
-                "mod_attacco": amb.mod_attacco,
-                "mod_cura": amb.mod_cura
-            },
-            "nemici": [
-                {
-                    "classe": p.__class__.__name__,
-                    "id": p.id,
-                    "nome": p.nome,
-                    "npc": True,
-                    "salute_max": p.salute_max,
-                    "salute": p.salute,
-                    "attacco_min": p.attacco_min,
-                    "attacco_max": p.attacco_max,
-                    "livello": getattr(p, 'livello', 1),
-                    "destrezza": p.destrezza,
-                    "storico_danni_subiti": []
-                } for p in lista_nemici
-            ],
-             "inventari_nemici":[
-                {
-                    "id": str(uuid.uuid4()),
-                    "id_proprietario": nemico.id,
-                    "oggetti": [
-                        {
-                            "id": oggnem.id,
-                            "nome": oggnem.nome,
-                            "usato": False,
-                            "valore": oggnem.valore,
-                            "tipo_oggetto": oggnem.tipo_oggetto.name,
-                            "classe": oggnem.__class__.__name__
-                        }
-                    ]
-                } for nemico in lista_nemici
-            ],
-            "premi": [
-                {
-                    "id": prem.id,
-                    "nome": prem.nome,
-                    "valore": prem.valore,
-                    "classe": prem.__class__.__name__,
-                    "tipo_oggetto": prem.tipo_oggetto.name
-                }
-            ],
-            "strategia_nemici": {
-                "nome": strategia_tipo.strip().lower()
-            }
-        }
+        missione_dict = MissioniSchema().dump(missione)
+        
+        # missione_dict = {
+        #     "id": missione.id,
+        #     "nome": missione.nome,
+        #     "ambiente": {
+        #         "classe": amb.__class__.__name__,
+        #         "nome": tipo_ambiente,
+        #         "mod_attacco": amb.mod_attacco,
+        #         "mod_cura": amb.mod_cura
+        #     },
+        #     "nemici": [
+        #         {
+        #             "classe": p.__class__.__name__,
+        #             "id": p.id,
+        #             "nome": p.nome,
+        #             "npc": True,
+        #             "salute_max": p.salute_max,
+        #             "salute": p.salute,
+        #             "attacco_min": p.attacco_min,
+        #             "attacco_max": p.attacco_max,
+        #             "livello": getattr(p, 'livello', 1),
+        #             "destrezza": p.destrezza,
+        #             "storico_danni_subiti": []
+        #         } for p in lista_nemici
+        #     ],
+        #      "inventari_nemici":[
+        #         {
+        #             "id": str(uuid.uuid4()),
+        #             "id_proprietario": nemico.id,
+        #             "oggetti": [
+        #                 {
+        #                     "id": oggnem.id,
+        #                     "nome": oggnem.nome,
+        #                     "usato": False,
+        #                     "valore": oggnem.valore,
+        #                     "tipo_oggetto": oggnem.tipo_oggetto.name,
+        #                     "classe": oggnem.__class__.__name__
+        #                 }
+        #             ]
+        #         } for nemico in lista_nemici
+        #     ],
+        #     "premi": [
+        #         {
+        #             "id": prem.id,
+        #             "nome": prem.nome,
+        #             "valore": prem.valore,
+        #             "classe": prem.__class__.__name__,
+        #             "tipo_oggetto": prem.tipo_oggetto.name
+        #         }
+        #     ],
+        #     "strategia_nemici": {
+        #         "nome": strategia_tipo.strip().lower()
+        #     }
+        # }
 
         with open(path_file, 'w', encoding='utf-8') as f:
             json.dump(missione_dict, f, indent=4, ensure_ascii=False)
