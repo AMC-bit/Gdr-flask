@@ -326,25 +326,24 @@ def create_mission():
         premi_input = request.form.get('premi', '')
 
         lista_nemici = []
-        for riga in nemici_input.strip().split('\n'):
+        for i in range(2):
             try:
-                (
-                    nome,
-                    salute_max,
-                    salute,
-                    attacco_min,
-                    attacco_max,
-                    destrezza
-                ) = riga.strip().split(':')
+                nome_nemico = request.form[f'nome_{i}'].strip()
+                salute_max = int(request.form[f'salute_max_{i}'])
+                salute = int(request.form[f'salute_{i}'])
+                att_min = int(request.form[f'att_min_{i}'])
+                att_max = int(request.form[f'att_max_{i}'])
+                destrezza = int(request.form[f'destrezza_{i}'])
+
                 classe_selezionata = classi[nemico_classe]
                 nemico = classe_selezionata(
                     id=str(uuid.uuid4()),
-                    nome=nome.strip(),
-                    salute_max=int(salute_max),
-                    salute=int(salute),
-                    attacco_min=int(attacco_min),
-                    attacco_max=int(attacco_max),
-                    destrezza=int(destrezza),
+                    nome=nome_nemico,
+                    salute_max=salute_max,
+                    salute=salute,
+                    attacco_min=att_min,
+                    attacco_max=att_max,
+                    destrezza=destrezza,
                     npc=True,
                     livello=1,
                     storico_danni_subiti=[]

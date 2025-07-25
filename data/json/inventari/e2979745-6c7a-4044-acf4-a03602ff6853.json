@@ -9,6 +9,22 @@
             "valore": 30,
             "tipo_oggetto": "TipoOggetto.RISTORATIVO",
             "classe": "PozioneCura"
+        },
+        {
+            "id": "46386b72-e692-4328-8fd8-b60311fb7b7d",
+            "nome": "Medaglione",
+            "usato": false,
+            "valore": 10,
+            "tipo_oggetto": "TipoOggetto.BUFF",
+            "classe": "Medaglione"
+        },
+        {
+            "id": "bb69c446-dd2b-4da9-8660-fcb595cd58dd",
+            "nome": "Medaglione",
+            "usato": false,
+            "valore": 10,
+            "tipo_oggetto": "TipoOggetto.BUFF",
+            "classe": "Medaglione"
         }
     ]
 }

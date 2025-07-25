@@ -38,10 +38,40 @@
       </select>
     </div>
 
-    <div class="mb-3">
-      <label for="nemici" class="form-label">Nemici (uno per riga, formato: nome:salute_max:salute:att_min:att_max:destrezza, Goblin:20:10:30:40:50)</label>
-      <textarea name="nemici" id="nemici" class="form-control" rows="4" placeholder="es. Goblin:20:10:30:40:50" required></textarea>
-    </div>
+    <h5 class="mt-4">Nemici</h5>
+
+    {% for i in range(2) %}
+      <div class="border rounded p-3 mb-3">
+        <h6>Nemico {{ i + 1 }}</h6>
+        <div class="row">
+          <div class="col-md-4 mb-2">
+            <label for="nome_{{ i }}">Nome</label>
+            <input type="text" name="nome_{{ i }}" class="form-control" required>
+          </div>
+          <div class="col-md-4 mb-2">
+            <label for="salute_max_{{ i }}">Salute Max</label>
+            <input type="number" name="salute_max_{{ i }}" class="form-control" required>
+          </div>
+          <div class="col-md-4 mb-2">
+            <label for="salute_{{ i }}">Salute</label>
+            <input type="number" name="salute_{{ i }}" class="form-control" required>
+          </div>
+          <div class="col-md-4 mb-2">
+            <label for="att_min_{{ i }}">Attacco Min</label>
+            <input type="number" name="att_min_{{ i }}" class="form-control" required>
+          </div>
+          <div class="col-md-4 mb-2">
+            <label for="att_max_{{ i }}">Attacco Max</label>
+            <input type="number" name="att_max_{{ i }}" class="form-control" required>
+          </div>
+          <div class="col-md-4 mb-2">
+            <label for="destrezza_{{ i }}">Destrezza</label>
+            <input type="number" name="destrezza_{{ i }}" class="form-control" required>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
 
     <div class="mb-3">
       <label for="oggetti_nemici" class="form-label">Oggetti nemici</label>
