@@ -176,6 +176,7 @@ def elimina_personaggi_utente(character_ids):
             except Exception as e:
                 print(f"Errore durante la verifica o cancellazione di {filename}: {e}")
 
+
 # funzione per eliminare gli inventari di un utente
 def elimina_inventari_utente(character_ids):
     cartella_inventari = os.path.join("data", "json", "inventari")
