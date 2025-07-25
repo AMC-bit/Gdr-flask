@@ -4,7 +4,6 @@ from werkzeug.security import generate_password_hash
 from flask_session import Session
 from battle.routes import battle_bp
 from characters.routes import characters_bp
-from environment.routes import environment_bp
 from inventory.routes import inventory_bp
 from mission.routes import mission_bp
 from home.routes import home_bp
@@ -44,7 +43,6 @@ def create_app():
 
     app.register_blueprint(battle_bp)
     app.register_blueprint(characters_bp)
-    app.register_blueprint(environment_bp)
     app.register_blueprint(inventory_bp)
     app.register_blueprint(mission_bp)
     app.register_blueprint(auth_bp)
