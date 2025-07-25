@@ -131,7 +131,7 @@ def create_char():
             f"id: {pg.id}, Oggetto iniziale: {oggetto_sel}"
             )
 
-        return redirect(url_for('characters.show_chars'))
+        return redirect(url_for('auth.personal_area'))
 
     return render_template(
         'create_char.html',
@@ -171,13 +171,14 @@ def edit_char(char_id):
 
         # otteniamo i valori dal form
         nuovo_nome = request.form['nome'].strip()
-        nuova_classe = request.form['classe']
 
         id = pg_dict['id']
-        pg_obj = classi[nuova_classe](
+        # manterremo la classe originale
+        classe = pg_dict['classe']
+        pg_obj = classi[classe](
             nome=nuovo_nome,
             id=id,
-            classe=nuova_classe
+            classe=classe
         )
 
         pg_dict = schema.dump(pg_obj)
@@ -186,7 +187,6 @@ def edit_char(char_id):
         logger.info(
             f"Modificato personaggio id={char_id}: "
             f"Nome: da '{vecchio_nome}' a '{nuovo_nome}', "
-            f"Nuova classe: '{nuova_classe}'"
         )
 
         # conferma di avvenuto aggiornamento
