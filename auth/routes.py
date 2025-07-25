@@ -100,6 +100,7 @@ def personal_area():
     return render_template(
         "personal_area.html",
         user=current_user,
+        is_admin=current_user.is_admin(),
         message=message)
 
 

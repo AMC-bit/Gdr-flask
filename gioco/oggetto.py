@@ -58,7 +58,7 @@ class PozioneCura(Oggetto):
         self.usato = True
         cura = self.valore + mod_ambiente
         logger.info(f"{self.nome} usata: cura {cura} HP.")
-        return cura
+        return cura, self.tipo_oggetto 
 
 @dataclass
 class BombaAcida(Oggetto):
