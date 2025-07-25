@@ -25,7 +25,6 @@ def sign_in():
         email = request.form['email'].strip()
         psw = request.form['psw']
         re_psw = request.form['re_psw']
-        ruolo_sel = request.form['ruolo'] if 'ruolo' in request.form else 'PLAYER'
 
         if not name:
             flash("Il nome è necessario", 'danger')
@@ -57,7 +56,7 @@ def sign_in():
             password_hash=hash_psw,
             crediti=100,
             character_ids=[],
-            ruolo=UserRole[ruolo_sel] if ruolo_sel in UserRole.__members__ else UserRole.PLAYER
+            ruolo=UserRole.PLAYER
         )
         db.session.add(nuovo_utente)
         db.session.commit()
