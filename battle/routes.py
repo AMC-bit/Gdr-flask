@@ -4,8 +4,7 @@ import random
 import os
 
 from . import battle_bp
-from gioco.oggetto import Oggetto
-from gioco.ambiente import Ambiente
+from gioco.oggetto import Oggetto, TipoOggetto
 from gioco.missione import Missione
 from gioco.strategy import Strategia
 from gioco.inventario import Inventario
@@ -33,7 +32,8 @@ schema_inv = InventarioSchema()
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-
+def bold(txt):
+        return f"<b>{txt}</b>"
 
 @battle_bp.route('/select_char', methods=['GET', 'POST'])
 def select_char():
@@ -154,7 +154,7 @@ def assegna_premi(missione : Missione, messaggi_battaglia : list[str], personagg
                     }
                     oggetto_cls = oggetti_map[premio.classe]
                     nuova_istanza = oggetto_cls()
-                    messaggi_battaglia.append(f"{pg.nome} ha ricevuto in premio {nuova_istanza.nome}")
+                    messaggi_battaglia.append(f"{bold(pg.nome)} ha ricevuto in premio {bold(nuova_istanza.nome)}")
                     inventario.aggiungi_oggetto(nuova_istanza)
 
 @battle_bp.route('/auto_battle', methods=['GET'])
@@ -166,21 +166,14 @@ def auto_battle():
         personaggi_selezionati_obj = setup[1]
         nemici_obj = setup[0].nemici
         ambiente_obj = setup[0].ambiente
-        inventari_pg= setup[2]
+        inventari_pg = setup[2]
         inventari = []
         inventari += setup[2]
         inventari += missione_obj.inventari_nemici
         save_data = Json.carica_dati(path_save)
         tutti_personaggi = personaggi_selezionati_obj + nemici_obj
-        # setup per l'uso dell'inventario in maniera automatica
-        inventari = []
-        inventari_pg = setup[2]
-        inventari += setup[2]  # Riferimenti agli oggetti
-        inventari += missione_obj.inventari_nemici  # Riferimenti agli oggetti
-        inventario = None
 
         # Inizializza messaggi e ordine turni se non presenti
-
         if 'ordine_turni' not in save_data:
             ordine_turni = ordine_iniziativa(tutti_personaggi)
             random.shuffle(ordine_turni)
@@ -199,27 +192,36 @@ def auto_battle():
         battaglia_finita = False
         vittoria = False
 
-
         if not battaglia_finita:
             save_data['turno'] += 1
             save_data['ordine_turni'] = ordine_turni
             if indice_turno >= len(ordine_turni):
                 indice_turno = 0
                 save_data['indice_turno_corrente'] = indice_turno
+
+            # ----- SEPARATORE DI TURNO -----
+            save_data['messaggi_battaglia'].append(
+                f"<hr><div class='text-center text-primary fw-bold my-2'>------- TURNO {save_data['turno']} -------</div>"
+            )
+
             personaggio_turno_corrente = None
             for p in tutti_personaggi:
                 if str(p.id) == ordine_turni[indice_turno] and not p.sconfitto():
                     personaggio_turno_corrente = p
                     break
-                else:
-                    print (f"ORDINE_TURNI : {ordine_turni}\nP del ciclo for : {p.id} TYPE :{p.id}\nTUTTI PERRSONAGGI : {tutti_personaggi}\n")
-                    print(f"PRIMO ELEMENTO DI ORDINE TURNI : {ordine_turni[0]} TYPE: {type(ordine_turni[0])}")
+
+            if not personaggio_turno_corrente:
+                # Nessun personaggio disponibile, skip turno
+                save_data['indice_turno_corrente'] = (indice_turno + 1) % len(ordine_turni)
+                Json.scrivi_dati(path_save, save_data)
+                return redirect(url_for('battle.auto_battle'))
 
             save_data['messaggi_battaglia'].append(
-                f"Turno {save_data['turno']} - è il turno di {personaggio_turno_corrente.nome}!"
-                )
+                f"È il turno di {bold(personaggio_turno_corrente.nome)}"
+            )
 
-            #uso dell'inventario in maniera automatica
+            # Uso dell'inventario in maniera automatica
+            inventario = None
             for inv in inventari:
                 if (
                     isinstance(inv, Inventario)
@@ -233,9 +235,10 @@ def auto_battle():
                 personaggio_turno_corrente,
                 missione_obj,
                 (nemici_obj + personaggi_selezionati_obj)
-                )
+            )
             txt = result[1]
-            save_data['messaggi_battaglia'].append(txt)
+            if txt:
+                save_data['messaggi_battaglia'].append(txt)
 
             if personaggio_turno_corrente.npc:
                 bersagli_validi = [p for p in personaggi_selezionati_obj if not p.sconfitto()]
@@ -245,31 +248,35 @@ def auto_battle():
             if bersagli_validi:
                 bersaglio = random.choice(bersagli_validi)
                 danno, msg = personaggio_turno_corrente.attacca(ambiente_obj.mod_attacco)
-                if msg is None:
-                    if danno <= 0:
-                        danno = 0
-                        msg = (
-                            f"{personaggio_turno_corrente.nome} prova ad attaccare"
-                            f" {bersaglio.nome} ma fallisce!"
-                        )
-                    else:
-                        msg = (
-                            f"{personaggio_turno_corrente.nome} attacca"
-                            f" {bersaglio.nome} per {danno} danni!"
-                        )
+                if danno > 0:
+                    msg = (
+                        f"{bold(personaggio_turno_corrente.nome)} attacca "
+                        f"{bold(bersaglio.nome)} per "
+                        f"<span class='text-danger fw-bold'>{danno}</span> danni!"
+                    )
+                elif danno == 0:
+                    msg = (
+                        f"{bold(personaggio_turno_corrente.nome)} attacca "
+                        f"{bold(bersaglio.nome)} ma non infligge danni!"
+                    )
+                else:
+                    msg = (
+                        f"{bold(personaggio_turno_corrente.nome)} tenta di attaccare "
+                        f"{bold(bersaglio.nome)} ma fallisce!"
+                    )
 
                 bersaglio.subisci_danno(danno)
                 save_data['messaggi_battaglia'].append(msg)
 
                 if bersaglio.sconfitto():
-                    # rimuove id dalla ordine turni
                     ordine_turni.remove(str(bersaglio.id))
-                    save_data['messaggi_battaglia'].append(f"{bersaglio.nome} è stato sconfitto!")
+                    save_data['messaggi_battaglia'].append(
+                        f"{bold(bersaglio.nome)} è stato <span class='text-danger fw-bold'>sconfitto!</span>"
+                    )
 
             save_data['personaggi_selezionati'] = PersonaggioSchema(many=True).dump(personaggi_selezionati_obj)
             missione_obj.nemici = nemici_obj
             save_data['missione'] = MissioniSchema().dump(missione_obj)
-
 
             save_data['indice_turno_corrente'] = (indice_turno + 1) % len(ordine_turni)
             Json.scrivi_dati(path_save, save_data)
@@ -278,50 +285,40 @@ def auto_battle():
             if not pc_vivi:
                 battaglia_finita = True
                 vittoria = False
-                save_data['messaggi_battaglia'].append("Tutti i personaggi sono stati sconfitti!")
+                save_data['messaggi_battaglia'].append(
+                    "<span class='text-danger fw-bold'>Tutti i personaggi sono stati sconfitti!</span>"
+                )
             elif not npc_vivi:
                 battaglia_finita = True
                 vittoria = True
-                #Assegna i premi
-                assegna_premi(missione_obj,save_data['messaggi_battaglia'], personaggi_selezionati_obj, inventari_pg)
-                save_data['messaggi_battaglia'].append("Tutti i nemici sono stati sconfitti! Vittoria!")
+                assegna_premi(missione_obj, save_data['messaggi_battaglia'], personaggi_selezionati_obj, inventari_pg)
+                save_data['messaggi_battaglia'].append(
+                    "<span class='text-success fw-bold'>Tutti i nemici sono stati sconfitti! Vittoria!</span>"
+                )
 
+        # Salva stato, aggiorna file
         for pg in personaggi_selezionati_obj:
             file_name = f"{pg.id}.json"
             pg_path = os.path.join(DATA_DIR_PGS, file_name)
             inv_path = os.path.join(DATA_DIR_INV, file_name)
             if pg.sconfitto():
-                #print("MORTO", pg_path)
                 if os.path.exists(pg_path):
                     os.remove(pg_path)
                 if os.path.exists(inv_path):
                     os.remove(inv_path)
             else:
-                #print("PATH", pg_path)
                 Json.scrivi_dati(pg_path, PersonaggioSchema().dump(pg))
                 for inv in inventari_pg:
                     if isinstance(inv, Inventario) and inv.id_proprietario == pg.id:
                         inventario = inv
                         Json.scrivi_dati(inv_path, InventarioSchema().dump(inventario))
 
-        # Salvataggio stato
         save_data['missione'] = MissioniSchema().dump(missione_obj)
         Json.scrivi_dati(path_save, save_data)
-        # ripristino stato nemici solo per scopo di testing
-        """
-        if battaglia_finita:
-            for n in nemici_obj:
-                n.salute = n.salute_max
-                n.storico_danni_subiti = []
-            missione_obj.nemici = nemici_obj
-            save_data['missione'] = MissioniSchema().dump(missione_obj)
-            Json.scrivi_dati(path_save, save_data)
-        """
-        
-        if battaglia_finita == True:
+
+        if battaglia_finita is True:
             os.remove(path_save)
-            # with open(path_save, 'w') as file:
-            #     file.write("{}") 
+
     else:
         flash('Non esiste il file di salvataggio', 'danger')
         return redirect(url_for('mission.select_mission'))
@@ -358,6 +355,9 @@ def usa_inventario_automatico(
         Il risultato dell'uso dell'oggetto e un messaggio descrittivo.
     """
     ambiente = missione.ambiente
+    result = None
+    value = None
+    check = True
 
     if strategia is None:
         strategia = missione.strategia_nemici
@@ -369,44 +369,49 @@ def usa_inventario_automatico(
         and bersaglio.npc != pg.npc
     ]
 
-    value = strategia.uso_inventario_npc(pg.salute, inventario, ambiente)
-
-    if value is not None:
-        if value < 0:
-            # Se il valore è negativo, significa che l'oggetto è offensivo
-            bersaglio = random.choice(bersagli)
-            txt = (f"{pg.nome} usa Bomba Acida su {bersaglio.nome} "
-                f"infliggendo {-value} HP di danno")
-            bersaglio.salute += value
-        if value > 0:
-            bersaglio = None
-            txt = (f"{pg.nome} usa Pozione Curativa su se stesso "
-                f"recuperando {value} HP")
-            pg.salute += value
-            if pg.salute >= pg.salute_max:
-                pg.salute = pg.salute_max
-                txt += ", che torna al massimo della salute."
-            else:
-                txt += f", recuperando {value} HP."
-        logger.info(txt)
-        return value, txt
     if inventario is None:
         txt = f"{pg.nome} non ha un inventario! Errore!!!!."
+        check = False
     elif inventario.oggetti is None:
-        txt = f"{pg.nome} non ha oggetti nell'inventario."
-    else:
-        txt = f"{pg.nome} non utilizza oggetti in questo turno"
-    return None, txt
+        txt = f"{pg.nome} non ha più oggetti nell'inventario."
+        check = False
+
+    if check:
+        result = strategia.uso_inventario_npc(pg.salute, inventario, ambiente)
+
+        if result is not None:
+            value = result[0]
+            tipo = result[1]
+            if tipo == TipoOggetto.BUFF:
+                bersaglio = None
+                txt = (f"{pg.nome} usa Medaglione su se stesso, ")
+                pg.attacco_max += value
+            elif tipo == TipoOggetto.OFFENSIVO:
+                bersaglio = random.choice(bersagli)
+                txt = (f"{pg.nome} usa Bomba Acida su {bersaglio.nome} "
+                    f"infliggendo {-value} HP di danno")
+                bersaglio.salute += value
+            elif tipo == TipoOggetto.RISTORATIVO:
+                bersaglio = None
+                txt = (f"{pg.nome} usa Pozione Curativa su se stesso ")
+                pg.salute += value
+                if pg.salute >= pg.salute_max:
+                    pg.salute = pg.salute_max
+                    txt += ", che torna al massimo della salute."
+                else:
+                    txt += f", recuperando {value} HP."
+            logger.info(txt)
+        else:
+            txt = f"{pg.nome} non utilizza oggetti in questo turno"
+    return value, txt
 
 
-
-        
 # in ingresso lista di tutti i personaggi, e  sommo iniziativa + d20, ordino in base a qst, mettendo gli id
 def ordine_iniziativa(tutti_personaggi):
     """
     Calcola l'iniziativa per ogni personaggio sommando il valore di iniziativa al tiro di un d20.
     Ritorna una lista ordinata di ID in base all'iniziativa decrescente.
-    
+
     Args:
         personaggi (list): Lista di oggetti `Personaggio`.
 
