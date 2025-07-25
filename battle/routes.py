@@ -2,7 +2,7 @@ from flask import redirect, render_template, session, url_for, request, flash, j
 import logging
 import random
 import os
-
+from flask_login import login_required
 from . import battle_bp
 from gioco.oggetto import Oggetto, TipoOggetto
 from gioco.missione import Missione
@@ -36,6 +36,7 @@ def bold(txt):
         return f"<b>{txt}</b>"
 
 @battle_bp.route('/select_char', methods=['GET', 'POST'])
+@login_required
 def select_char():
     # if request.method == 'POST':
     # prendo i dati da sessione:
@@ -158,6 +159,7 @@ def assegna_premi(missione : Missione, messaggi_battaglia : list[str], personagg
                     inventario.aggiungi_oggetto(nuova_istanza)
 
 @battle_bp.route('/auto_battle', methods=['GET'])
+@login_required
 def auto_battle():
     if os.path.exists(path_save):
         # --- SETUP DATI ---
@@ -377,10 +379,10 @@ def usa_inventario_automatico(
     elif inventario.oggetti is None:
         txt = f"{pg.nome} non ha più oggetti nell'inventario."
         check = False
-
+    txt = ""
     if check:
         result = strategia.uso_inventario_npc(pg.salute, inventario, ambiente)
-        txt = ""
+
         if result is not None:
             print(f"Result: {result}")
             value = result[0]
