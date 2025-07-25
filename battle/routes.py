@@ -378,8 +378,9 @@ def usa_inventario_automatico(
 
     if check:
         result = strategia.uso_inventario_npc(pg.salute, inventario, ambiente)
-
+        txt = ""
         if result is not None:
+            print(f"Result: {result}")
             value = result[0]
             tipo = result[1]
             if tipo == TipoOggetto.BUFF:
