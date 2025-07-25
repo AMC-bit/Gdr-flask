@@ -67,7 +67,11 @@
         <a
         href="{% if target_user and target_user.id != current_user.id %}{{ url_for('auth.admin_manager') }}{% else %}{{ url_for('auth.personal_area') }}{% endif %}"
         class="btn btn-outline-secondary btn-sm mt-3 w-50 d-block mx-auto rounded">
-        Annulla
+        {% if modified %}
+            Ritorna all'area personale
+        {% else %}
+            Annulla
+        {% endif %}
         </a>
     </form>
 </div>
