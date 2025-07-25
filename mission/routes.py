@@ -97,8 +97,8 @@ def select_mission():
 
         if missione_selezionata:
             # Salva missione e ambiente in sessione
-            if  not missione_selezionata.completata:
-                #Qua non ci sarebbe da porre la missione come attiva ?
+            if not missione_selezionata.completata:
+                # Qua non ci sarebbe da porre la missione come attiva ?
                 missione = {"missione": MissioniSchema().dump(missione_selezionata)}
                 Json.scrivi_dati(path_save, missione)
 
@@ -256,7 +256,7 @@ def description(ambiente: Ambiente = None):
 
 @mission_bp.route('/missione/attiva')
 def missione_attiva():
-        # Controlla se esiste già una missione attiva in sessione
+    # Controlla se esiste già una missione attiva in sessione
     missione_sessione = session.get('missione')
     if missione_sessione:
         return render_template('missione_attiva.html', missione=missione_sessione)

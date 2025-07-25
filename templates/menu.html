@@ -14,11 +14,6 @@
             <button class="btn btn-primary btn-lg" disabled>Mostra Missione (Missione non selezionata)</button>
         {% endif %}
 
-        {#
-        <a href="{{ url_for('environment.select_environment') }}" class="btn btn-danger btn-lg">Seleziona Ambiente</a>
-        <a href="{{ url_for('environment.show_environment') }}" class="btn btn-warning btn-lg">Mostra Ambiente</a>
-        #}
-
         {% if can_select_char %}
             <a href="{{ url_for('battle.select_char') }}" class="btn btn-dark btn-lg">Inizia Battaglia</a>
         {% else %}
