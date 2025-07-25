@@ -28,6 +28,11 @@
         </span>
         {% endif %}
         <a class="btn btn-primary" href="{{ url_for('auth.personal_area') }}">Area Personale</a>
+        {% if current_user.is_admin() %}
+        <a class="btn btn-warning" href="{{ url_for('auth.admin_manager') }}">
+          <i class="bi bi-people-fill"></i> Gestione Utenti
+        </a>
+        {% endif %}
         <a class="btn btn-outline-danger" href="{{ url_for('auth.logout') }}">Logout</a>
       </div>
       {% endif %}
