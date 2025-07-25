@@ -1,0 +1,80 @@
+{
+    "id": "0bf5d9bd-389d-43b3-b8e2-dcf68504af88",
+    "nome": "eee",
+    "ambiente": {
+        "classe": "Foresta",
+        "nome": "Foresta",
+        "mod_attacco": 5,
+        "mod_cura": 5.0
+    },
+    "nemici": [
+        {
+            "classe": "Mago",
+            "id": "70488038-29e4-4acd-b20c-484224787f8e",
+            "nome": "aaa",
+            "npc": true,
+            "salute_max": 7,
+            "salute": 6,
+            "attacco_min": 5,
+            "attacco_max": 45,
+            "livello": 1,
+            "destrezza": 25,
+            "storico_danni_subiti": []
+        },
+        {
+            "classe": "Mago",
+            "id": "b88614c9-d3e1-41b4-9d49-69ada198dd4c",
+            "nome": "rrr",
+            "npc": true,
+            "salute_max": 56,
+            "salute": 54,
+            "attacco_min": 5,
+            "attacco_max": 25,
+            "livello": 1,
+            "destrezza": 21,
+            "storico_danni_subiti": []
+        }
+    ],
+    "inventari_nemici": [
+        {
+            "id": "d640f3be-2467-4e5d-802e-bc5e150f1b4c",
+            "id_proprietario": "70488038-29e4-4acd-b20c-484224787f8e",
+            "oggetti": [
+                {
+                    "id": "9467b562-9462-4862-8e8e-3af562e86666",
+                    "nome": "Bomba Acida",
+                    "usato": false,
+                    "valore": 30,
+                    "tipo_oggetto": "OFFENSIVO",
+                    "classe": "BombaAcida"
+                }
+            ]
+        },
+        {
+            "id": "ebb57655-4754-48aa-9b27-6e7966a2f4c9",
+            "id_proprietario": "b88614c9-d3e1-41b4-9d49-69ada198dd4c",
+            "oggetti": [
+                {
+                    "id": "9467b562-9462-4862-8e8e-3af562e86666",
+                    "nome": "Bomba Acida",
+                    "usato": false,
+                    "valore": 30,
+                    "tipo_oggetto": "OFFENSIVO",
+                    "classe": "BombaAcida"
+                }
+            ]
+        }
+    ],
+    "premi": [
+        {
+            "id": "0dff42e9-5daf-4c47-9575-256b1e892be5",
+            "nome": "Medaglione",
+            "valore": 10,
+            "classe": "Medaglione",
+            "tipo_oggetto": "BUFF"
+        }
+    ],
+    "strategia_nemici": {
+        "nome": "aggressiva"
+    }
+}

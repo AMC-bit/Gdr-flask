@@ -15,7 +15,7 @@ from gioco.missione import Missione
 from gioco.strategy import Strategia
 from gioco.schemas.missione import MissioniSchema
 from config import DATA_DIR_SAVE
-
+from flask_login import login_required
 
 path_missioni = os.path.join(
     os.path.dirname(os.path.dirname(__file__)), 'data', 'missioni_custom.json'
@@ -49,6 +49,7 @@ def prendi_Missione_Da_Json():
 
 
 @mission_bp.route('/select_mission', methods=['GET', 'POST'])
+@login_required
 def select_mission():
     """
     Gestisce la selezione di una missione da parte dell'utente.
@@ -112,6 +113,7 @@ def select_mission():
 
 
 @mission_bp.route('/show_mission')
+@login_required
 def show_mission():
     """
     Mostra i dettagli della missione selezionata.
@@ -326,25 +328,24 @@ def create_mission():
         premi_input = request.form.get('premi', '')
 
         lista_nemici = []
-        for riga in nemici_input.strip().split('\n'):
+        for i in range(2):
             try:
-                (
-                    nome,
-                    salute_max,
-                    salute,
-                    attacco_min,
-                    attacco_max,
-                    destrezza
-                ) = riga.strip().split(':')
+                nome_nemico = request.form[f'nome_{i}'].strip()
+                salute_max = int(request.form[f'salute_max_{i}'])
+                salute = int(request.form[f'salute_{i}'])
+                att_min = int(request.form[f'att_min_{i}'])
+                att_max = int(request.form[f'att_max_{i}'])
+                destrezza = int(request.form[f'destrezza_{i}'])
+
                 classe_selezionata = classi[nemico_classe]
                 nemico = classe_selezionata(
                     id=str(uuid.uuid4()),
-                    nome=nome.strip(),
-                    salute_max=int(salute_max),
-                    salute=int(salute),
-                    attacco_min=int(attacco_min),
-                    attacco_max=int(attacco_max),
-                    destrezza=int(destrezza),
+                    nome=nome_nemico,
+                    salute_max=salute_max,
+                    salute=salute,
+                    attacco_min=att_min,
+                    attacco_max=att_max,
+                    destrezza=destrezza,
                     npc=True,
                     livello=1,
                     storico_danni_subiti=[]

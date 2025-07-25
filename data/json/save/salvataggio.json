@@ -1,0 +1,161 @@
+{
+    "missione": {
+        "id": "0bf5d9bd-389d-43b3-b8e2-dcf68504af88",
+        "nome": "eee",
+        "ambiente": {
+            "nome": "Foresta",
+            "mod_attacco": 5,
+            "mod_cura": 5.0,
+            "classe": "Foresta"
+        },
+        "nemici": [
+            {
+                "classe": "Mago",
+                "id": "70488038-29e4-4acd-b20c-484224787f8e",
+                "nome": "aaa",
+                "npc": true,
+                "salute_max": 7,
+                "salute": 6,
+                "attacco_min": 5,
+                "attacco_max": 45,
+                "livello": 1,
+                "destrezza": 25,
+                "iniziativa": 15,
+                "storico_danni_subiti": []
+            },
+            {
+                "classe": "Mago",
+                "id": "b88614c9-d3e1-41b4-9d49-69ada198dd4c",
+                "nome": "rrr",
+                "npc": true,
+                "salute_max": 56,
+                "salute": 54,
+                "attacco_min": 5,
+                "attacco_max": 25,
+                "livello": 1,
+                "destrezza": 21,
+                "iniziativa": 15,
+                "storico_danni_subiti": []
+            }
+        ],
+        "inventari_nemici": [
+            {
+                "id": "d640f3be-2467-4e5d-802e-bc5e150f1b4c",
+                "id_proprietario": "70488038-29e4-4acd-b20c-484224787f8e",
+                "oggetti": [
+                    {
+                        "id": "9467b562-9462-4862-8e8e-3af562e86666",
+                        "nome": "Bomba Acida",
+                        "usato": false,
+                        "valore": 30,
+                        "tipo_oggetto": "OFFENSIVO",
+                        "classe": "BombaAcida"
+                    }
+                ]
+            },
+            {
+                "id": "ebb57655-4754-48aa-9b27-6e7966a2f4c9",
+                "id_proprietario": "b88614c9-d3e1-41b4-9d49-69ada198dd4c",
+                "oggetti": [
+                    {
+                        "id": "9467b562-9462-4862-8e8e-3af562e86666",
+                        "nome": "Bomba Acida",
+                        "usato": false,
+                        "valore": 30,
+                        "tipo_oggetto": "OFFENSIVO",
+                        "classe": "BombaAcida"
+                    }
+                ]
+            }
+        ],
+        "premi": [
+            {
+                "id": "0dff42e9-5daf-4c47-9575-256b1e892be5",
+                "nome": "Medaglione",
+                "usato": false,
+                "valore": 10,
+                "tipo_oggetto": "BUFF",
+                "classe": "Medaglione"
+            }
+        ],
+        "strategia_nemici": {
+            "nome": "Aggressiva"
+        },
+        "completata": false,
+        "attiva": false
+    },
+    "personaggi_selezionati": [
+        {
+            "classe": "Mago",
+            "id": "1a92a796-2937-4081-9c1e-7b0f1d0549fa",
+            "nome": "tryty",
+            "npc": false,
+            "salute_max": 80,
+            "salute": 64,
+            "attacco_min": 0,
+            "attacco_max": 90,
+            "livello": 1,
+            "destrezza": 15,
+            "iniziativa": 15,
+            "storico_danni_subiti": [
+                16
+            ]
+        },
+        {
+            "classe": "Mago",
+            "id": "977be3d5-7d12-44d3-9732-f9d8c5a07718",
+            "nome": "wrtt",
+            "npc": false,
+            "salute_max": 80,
+            "salute": 80,
+            "attacco_min": 0,
+            "attacco_max": 90,
+            "livello": 1,
+            "destrezza": 15,
+            "iniziativa": 15,
+            "storico_danni_subiti": []
+        },
+        {
+            "classe": "Mago",
+            "id": "d9761b7f-5b75-4495-83c0-1c9f90b33911",
+            "nome": "rty",
+            "npc": false,
+            "salute_max": 80,
+            "salute": 80,
+            "attacco_min": 0,
+            "attacco_max": 90,
+            "livello": 1,
+            "destrezza": 15,
+            "iniziativa": 15,
+            "storico_danni_subiti": []
+        },
+        {
+            "classe": "Mago",
+            "id": "e028854e-5b75-4658-9963-a8cb537ed087",
+            "nome": "ty",
+            "npc": false,
+            "salute_max": 80,
+            "salute": 80,
+            "attacco_min": 0,
+            "attacco_max": 90,
+            "livello": 1,
+            "destrezza": 15,
+            "iniziativa": 15,
+            "storico_danni_subiti": []
+        },
+        {
+            "classe": "Mago",
+            "id": "e2979745-6c7a-4044-acf4-a03602ff6853",
+            "nome": "rty",
+            "npc": false,
+            "salute_max": 80,
+            "salute": 80,
+            "attacco_min": 0,
+            "attacco_max": 90,
+            "livello": 1,
+            "destrezza": 15,
+            "iniziativa": 15,
+            "storico_danni_subiti": []
+        }
+    ]
+}
