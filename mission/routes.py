@@ -13,7 +13,7 @@ from gioco.ambiente import Ambiente
 from gioco.missione import Missione
 from gioco.schemas.missione import MissioniSchema
 from config import DATA_DIR_SAVE
-
+from flask_login import login_required
 
 path_missioni = os.path.join(
     os.path.dirname(os.path.dirname(__file__)), 'data', 'missioni_custom.json'
@@ -47,6 +47,7 @@ def prendi_Missione_Da_Json():
 
 
 @mission_bp.route('/select_mission', methods=['GET', 'POST'])
+@login_required
 def select_mission():
     """
     Gestisce la selezione di una missione da parte dell'utente.
@@ -110,6 +111,7 @@ def select_mission():
 
 
 @mission_bp.route('/show_mission')
+@login_required
 def show_mission():
     """
     Mostra i dettagli della missione selezionata.
