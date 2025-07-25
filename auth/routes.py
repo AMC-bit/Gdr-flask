@@ -197,12 +197,17 @@ def elimina_inventari_utente(character_ids):
                 print(f"Errore durante la cancellazione dell'inventario {filename}: {e}")
 
 
-@auth_bp.route('/admin_manager')
+# Admin manager
+@auth_bp.route('/manage_users')
 @login_required
 def admin_manager():
-    # Solo gli amministratori possono accedere a questa pagina
+    # Controllo: solo admin può accedere
     if not current_user.is_admin():
-        flash("Accesso negato", "danger")
+        flash(
+            "Accesso negato. "
+            "Solo gli amministratori possono gestire gli utenti.",
+            "danger"
+        )
         return redirect(url_for('auth.personal_area'))
 
     # Recupera tutti gli utenti dal database
@@ -211,39 +216,40 @@ def admin_manager():
 
     return render_template('admin_manager.html', users=users, message=message)
 
-
 @auth_bp.route('/update_user_role', methods=['POST'])
 @login_required
 def update_user_role():
-    # Solo gli amministratori possono modificare i ruoli
+    # Controllo: solo admin può accedere
     if not current_user.is_admin():
-        flash("Accesso negato", "danger")
+        flash("Accesso negato. Solo gli amministratori possono modificare i ruoli.", "danger")
         return redirect(url_for('auth.personal_area'))
 
-    user_id = request.form.get('user_id')
-    new_role = request.form.get('ruolo')
+    try:
+        # Estrazione dati dal form
+        user_id = int(request.form['user_id'])
+        new_role = request.form['ruolo']
+    except (KeyError, ValueError):
+        flash("Dati del form non validi.", "danger")
+        return redirect(url_for('auth.manage_users'))
 
-    if not user_id or not new_role:
-        flash("Dati mancanti per l'aggiornamento del ruolo", "danger")
-        return redirect(url_for('auth.admin_manager'))
+    # Blocco: impedisce a un admin di modificare il proprio ruolo
+    if user_id == current_user.id:
+        flash("Non puoi modificare il tuo stesso ruolo.", "warning")
+        return redirect(url_for('auth.manage_users'))
 
-    # Verifico che il nuovo ruolo sia valido
-    if new_role not in ['PLAYER', 'ADMIN']:
-        flash("Ruolo non valido", "danger")
-        return redirect(url_for('auth.admin_manager'))
-
-    # L'utente non può modificare il proprio ruolo
-    if int(user_id) == current_user.id:
-        flash("Non puoi modificare il tuo stesso ruolo", "danger")
-        return redirect(url_for('auth.admin_manager'))
-
-    # Aggiorno il ruolo dell'utente
+    # Recupero utente dal DB
     user = User.query.get_or_404(user_id)
-    user.ruolo = UserRole[new_role]
-    db.session.commit()
 
-    flash(f"Ruolo di {user.nome} aggiornato a {new_role}", "success")
-    return redirect(url_for('auth.admin_manager'))
+    try:
+        user.ruolo = UserRole[new_role]
+    except KeyError:
+        flash("Ruolo selezionato non valido.", "danger")
+        return redirect(url_for('auth.manage_users'))
+
+    # Salvataggio nel DB
+    db.session.commit()
+    flash(f"Ruolo aggiornato a {new_role} per {user.nome}.", "success")
+    return redirect(url_for('auth.manage_users'))
 
 
 @auth_bp.route('/credit_refill', methods=['GET', 'POST'])
