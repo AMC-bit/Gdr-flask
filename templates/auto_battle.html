@@ -11,7 +11,9 @@ content %}
             Personaggi
           </h5>
         </div>
-        <div class="text-default" style="max-height: 500px; overflow-y: auto;">
+        <div
+        class="card-body text-default"
+        style="max-height: 500px; overflow-y: auto;">
           <ul class="list-group list-group-flush">
             {% for pg in personaggi %}
             <li class="list-group-item">
@@ -32,7 +34,8 @@ content %}
                   aria-valuenow="{{ pg.salute }}"
                   aria-valuemin="0"
                   aria-valuemax="{{ pg.salute_max }}"
-                ></div>
+                >
+                </div>
               </div>
               <p class="mb-1">
                 Attacco: {{ pg.attacco_min }} - {{ pg.attacco_max }}
@@ -42,6 +45,11 @@ content %}
             <li class="list-group-item">Nessun personaggio presente</li>
             {% endfor %}
           </ul>
+        </div>
+        <div class="card-footer bg-primary text-white">
+          <h5 class="mb-0 text-center">
+            In vita: {{ pc_vivi|length }}
+          </h5>
         </div>
       </div>
     </div>
@@ -134,6 +142,12 @@ content %}
             <li class="list-group-item">Nessun nemico presente</li>
             {% endfor %}
           </ul>
+        </div>
+        <div class="card-footer bg-primary text-white">
+          <h5 class="mb-0 text-center">
+            In vita:
+            {{ npc_vivi|length }}
+          </h5>
         </div>
       </div>
     </div>

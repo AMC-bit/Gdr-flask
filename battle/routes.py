@@ -330,7 +330,9 @@ def auto_battle():
         messaggi=save_data['messaggi_battaglia'],
         personaggi=personaggi_selezionati_obj,
         nemici=nemici_obj,
-        missione=missione_obj
+        missione=missione_obj,
+        pc_vivi=pc_vivi,
+        npc_vivi=npc_vivi
     )
 
 

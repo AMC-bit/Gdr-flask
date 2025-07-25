@@ -4,7 +4,7 @@
     "nome": "defefef",
     "npc": false,
     "salute_max": 80,
-    "salute": 76,
+    "salute": 20,
     "attacco_min": 0,
     "attacco_max": 90,
     "livello": 1,
@@ -13,6 +13,11 @@
     "storico_danni_subiti": [
         4,
         0,
+        0,
+        8,
+        24,
+        23,
+        1,
         0
     ]
 }
