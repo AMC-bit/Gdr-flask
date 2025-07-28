@@ -40,7 +40,6 @@ def bold(txt):
 def select_char():
     # if request.method == 'POST':
     # prendo i dati da sessione:
-
     missione_corrente = Json.carica_dati(path_save)['missione']
     pg_id_list = load_char()
     pg_list = get_owned_chars(pg_id_list)
@@ -75,6 +74,8 @@ def select_char():
             data_load["indice_turno_corrente"] = 0
         if "turno" in data_load:
             data_load["turno"] = 0
+        if "nemici_generati" not in data_load:
+            data_load["nemici_generati"] = False
         Json.scrivi_dati(path_save, data_load)
 
         """
@@ -97,19 +98,20 @@ def generate_random_enemy(number:int =1)-> list[tuple[Personaggio, Inventario]] 
     Returns:
         Personaggio: Ritorna un personaggio non giocante istanziato
     """
-    personaggi_inventari = []
+    nemici = []
+    inventari_nemici = []
     for i in range(number):
-        tipi_di_classi = get_all_subclasses(Personaggio)
-        tipi_di_oggetti = get_all_subclasses(Oggetto)
-        classe_sel = tipi_di_classi.pop()
-        oggetto_sel = tipi_di_oggetti.pop()
+        tipi_di_classi = list(get_all_subclasses(Personaggio))
+        tipi_di_oggetti = list(get_all_subclasses(Oggetto))
+        classe_sel = random.choice(tipi_di_classi)
+        oggetto_sel = random.choice(tipi_di_oggetti)
         oggetto_obj = oggetto_sel()
-        personaggio_obj = classe_sel(nome=f"Nemico {i}")
-        inventario_obj = Inventario(id_proprietario = personaggio_obj.id)
+        nemico_obj = classe_sel(nome=f"Nemico {i}")
+        inventario_obj = Inventario(id_proprietario = nemico_obj.id)
         inventario_obj.aggiungi_oggetto(oggetto_obj)
-        personaggio_inventario = (personaggio_obj, inventario_obj)
-        personaggi_inventari.append(personaggio_inventario)
-    return personaggi_inventari
+        inventari_nemici.append(inventario_obj)
+        nemici.append(nemico_obj)
+    return nemici, inventari_nemici
 
 def setup_battle():
     """Fa il setup dei dati prendendoli dai file json data/ save, inventari, personaggi
@@ -125,6 +127,7 @@ def setup_battle():
     """
     # --- SETUP DATI ---
     save_data = Json.carica_dati(path_save)
+    
     missione = save_data['missione']
     #print(f"MISSIONE DICT :{missione}")
     personaggi_selezionati = Json.carica_dati(path_save)['personaggi_selezionati']
@@ -145,15 +148,14 @@ def setup_battle():
             inventario_pg = Json.carica_dati(pg_inv_path)
             inventario_pg_obj = inventario_schema.load(inventario_pg)
             inventari_pg_obj.append(inventario_pg_obj)
-    num_nemici_da_generare = len(personaggi_selezionati) - len(missione_obj.nemici)
-    if len(missione_obj.nemici) > len(personaggi_selezionati):
-        pass
-    else:
-        for pg in range(num_nemici_da_generare):
-            # Funzione che genererà nemici pari alla quantità di personaggi
-            # Prenderà i nemici statici in missione e genererà nemici random
-            missione_obj.nemici.append(genera_nemici_casuali(missione_obj.nemici))
-    
+    if save_data["nemici_generati"] is  False:
+            nemici_casuali = generate_random_enemy(len(personaggi_selezionati))
+            missione_obj.nemici = nemici_casuali[0]
+            print("NEMICI CASUALI",missione_obj.nemici)
+            missione_obj.inventari_nemici = nemici_casuali[1]
+            print("INVENTARI NEMICI",missione_obj.inventari_nemici)
+            save_data["nemici_generati"] = True
+    Json.scrivi_dati(path_save, save_data)
     return missione_obj, personaggi_selezionati_obj, inventari_pg_obj
 
 def assegna_premi(missione : Missione, messaggi_battaglia : list[str], personaggi_selezionati : list[Personaggio]  ,inventari : list[Inventario]):
@@ -168,12 +170,10 @@ def assegna_premi(missione : Missione, messaggi_battaglia : list[str], personagg
         None
     """
     for inventario in inventari:
-        print(f"INVENTARIO:{inventari}")
         for pg in personaggi_selezionati:
             print(f"PG:{pg}")
             if inventario.id_proprietario == pg.id:
                 for premio in missione.premi:
-                    print(f"PREMIO:{premio}")
                     #QUESTA è una PORCATA , cè da rimettere mano nella lista premi di ogni missione
                     oggetti_map = {
                     subcls.__name__: subcls
@@ -200,7 +200,6 @@ def auto_battle():
         inventari += missione_obj.inventari_nemici
         save_data = Json.carica_dati(path_save)
         tutti_personaggi = personaggi_selezionati_obj + nemici_obj
-        print("NEMICI", nemici_obj)
         # Inizializza messaggi e ordine turni se non presenti
         if 'ordine_turni' not in save_data:
             ordine_turni = ordine_iniziativa(tutti_personaggi)
