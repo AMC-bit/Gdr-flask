@@ -1,4 +1,6 @@
 import os
+import json
+from auth.models import User
 
 # cartella root
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -15,12 +17,13 @@ DATA_DIR_SAVE = os.path.join(BASE_DIR, 'data', 'json', 'save')
 # directory file JSON delle missioni
 DATA_DIR_MIS = os.path.join(BASE_DIR, 'static', 'json', 'missions')
 
-# Numero di giocatori massimo per ogni singolo utente
-NUMERO_MAX_PGS = 5
+# file JSON con classifica
+LEADERBOARD_FILE = os.path.join(BASE_DIR, 'data', 'json', 'leaderboard.json')
+
 
 def CreateDirs():
     """
-    Crea directory per i file JSON per i personaggi e gli inventari
+    Crea directory per i file JSON necessarie allo svolgimento del gioco
     se non sono esistenti
     """
     for d in (DATA_DIR_PGS, DATA_DIR_INV, DATA_DIR_SAVE, DATA_DIR_MIS):
@@ -32,3 +35,68 @@ def CreateDirs():
             open(gitkeep, 'a').close()
 
 
+def add_user_leaderboard(user_id):
+    """
+    Funzione di aggiunta di un utente al file JSON della classifica
+    """
+    user_id = str(user_id)
+
+    leaderboard = load_leaderboard()
+
+    if user_id not in leaderboard:
+        leaderboard[user_id] = {
+            "nome": User.query.get(user_id).nome,
+            "partite_giocate": 0,
+            "partite_vinte": 0,
+            "punteggio": 0
+        }
+
+        with open(LEADERBOARD_FILE, 'w', encoding='utf-8') as f:
+            json.dump(leaderboard, f, ensure_ascii=False, indent=4)
+
+
+def remove_user_leaderboard(user_id):
+    """
+    Funzione di rimozione di un utente dal file JSON della classifica
+    """
+    leaderboard = load_leaderboard()
+
+    user_id = str(user_id)
+    if user_id in leaderboard:
+        del leaderboard[user_id]
+
+        with open(LEADERBOARD_FILE, 'w', encoding='utf-8') as f:
+            json.dump(leaderboard, f, ensure_ascii=False, indent=4)
+
+
+def update_leaderboard():
+    """
+    Funzione di aggiornamento della classifica per ogni utente
+    presente in database
+    """
+    for user in User.query.all():
+        add_user_leaderboard(user.id)
+
+
+def load_leaderboard():
+    """
+    Funzione di caricamento del contenuto del file JSON della classifica.
+    Questa funzione è necessaria per evitare errori in caso di
+    file JSON vuoto o corrotto
+    """
+    if not os.path.exists(LEADERBOARD_FILE):
+        return {}
+
+    try:
+        with open(LEADERBOARD_FILE, 'r', encoding='utf-8') as f:
+            # .strip() rimuove eventuali spazi bianchi all'inizio e alla fine
+            # .read() legge il contenuto del file
+            content = f.read().strip()
+            if not content:
+                return {}  # se non c'è contenuto, ritorna dizionario vuoto
+            # carica il contenuto trovato
+            return json.loads(content)
+
+    except json.JSONDecodeError:
+        # se il file è vuoto o corrotto, ritorna comunque un dizionario vuoto
+        return {}
