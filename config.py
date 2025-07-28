@@ -17,8 +17,11 @@ DATA_DIR_SAVE = os.path.join(BASE_DIR, 'data', 'json', 'save')
 # directory file JSON delle missioni
 DATA_DIR_MIS = os.path.join(BASE_DIR, 'static', 'json', 'missions')
 
+# directory file JSON classifica
+DATA_DIR_LEADERBOARD = os.path.join(BASE_DIR, 'data', 'json', 'leaderboard')
+
 # file JSON con classifica
-LEADERBOARD_FILE = os.path.join(BASE_DIR, 'data', 'json', 'leaderboard.json')
+LEADERBOARD_FILE = os.path.join(DATA_DIR_LEADERBOARD, 'leaderboard.json')
 
 # Numero di giocatori massimo per ogni singolo utente
 NUMERO_MAX_PGS = 5
@@ -29,7 +32,13 @@ def CreateDirs():
     Crea directory per i file JSON necessarie allo svolgimento del gioco
     se non sono esistenti
     """
-    for d in (DATA_DIR_PGS, DATA_DIR_INV, DATA_DIR_SAVE, DATA_DIR_MIS):
+    for d in (
+        DATA_DIR_PGS,
+        DATA_DIR_INV,
+        DATA_DIR_SAVE,
+        DATA_DIR_MIS,
+        DATA_DIR_LEADERBOARD
+        ):
         os.makedirs(d, exist_ok=True)
 
         # crea file gitkeep se non esiste
