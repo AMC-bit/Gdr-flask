@@ -4,6 +4,7 @@ from gioco.oggetto import Oggetto
 from utils.salvataggio import Json
 from gioco.inventario import Inventario
 from gioco.schemas.inventario import InventarioSchema
+from gioco.schemas.helper import get_all_subclasses
 from characters.routes import load_char, get_owned_chars
 from flask_login import login_required
 from marshmallow import ValidationError
@@ -103,7 +104,7 @@ def inventory():
 @inventory_bp.route('/add_object', methods=['GET', 'POST'])
 @login_required
 def add_object():
-    oggetti_classes = {cls.__name__: cls for cls in Oggetto.__subclasses__()}
+    oggetti_classes = {cls.__name__: cls for cls in get_all_subclasses(Oggetto)}
     inventario_schema = InventarioSchema()
 
     personaggio_id = request.args.get('personaggio_id') or request.form.get('personaggio_id')
