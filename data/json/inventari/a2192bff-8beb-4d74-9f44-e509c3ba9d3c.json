@@ -1,9 +1,9 @@
 {
-    "id": "f6262460-6ad7-425f-91e6-c9c65e3cccfc",
-    "id_proprietario": "86dea0fe-d70a-47b7-ab1d-adad4e7636a8",
+    "id": "d9d153c6-712e-4cf9-87cd-6a6bd378215a",
+    "id_proprietario": "a2192bff-8beb-4d74-9f44-e509c3ba9d3c",
     "oggetti": [
         {
-            "id": "0a104b97-8dfe-42ba-ac9a-9fab6ca89045",
+            "id": "3338c4d7-bdc0-4f25-bf95-68d870b115c7",
             "nome": "Pozione Rossa",
             "usato": false,
             "valore": 30,
