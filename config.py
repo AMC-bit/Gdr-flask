@@ -20,6 +20,9 @@ DATA_DIR_MIS = os.path.join(BASE_DIR, 'static', 'json', 'missions')
 # file JSON con classifica
 LEADERBOARD_FILE = os.path.join(BASE_DIR, 'data', 'json', 'leaderboard.json')
 
+# Numero di giocatori massimo per ogni singolo utente
+NUMERO_MAX_PGS = 5
+
 
 def CreateDirs():
     """
