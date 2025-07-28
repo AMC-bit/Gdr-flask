@@ -15,6 +15,8 @@ DATA_DIR_SAVE = os.path.join(BASE_DIR, 'data', 'json', 'save')
 # directory file JSON delle missioni
 DATA_DIR_MIS = os.path.join(BASE_DIR, 'static', 'json', 'missions')
 
+# Numero di giocatori massimo per ogni singolo utente
+NUMERO_MAX_PGS = 5
 
 def CreateDirs():
     """

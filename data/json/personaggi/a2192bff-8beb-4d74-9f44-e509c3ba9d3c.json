@@ -1,0 +1,14 @@
+{
+    "classe": "Mago",
+    "id": "a2192bff-8beb-4d74-9f44-e509c3ba9d3c",
+    "nome": "Anelka",
+    "npc": false,
+    "salute_max": 80,
+    "salute": 80,
+    "attacco_min": 0,
+    "attacco_max": 90,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 15,
+    "storico_danni_subiti": []
+}
