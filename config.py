@@ -27,6 +27,8 @@ LEADERBOARD_FILE = os.path.join(DATA_DIR_LEADERBOARD, 'leaderboard.json')
 NUMERO_MAX_PGS = 5
 
 
+NUMERO_MAX_PGS = 5  # Numero massimo di personaggi che un utente può usare in una battaglia
+
 def CreateDirs():
     """
     Crea directory per i file JSON necessarie allo svolgimento del gioco
