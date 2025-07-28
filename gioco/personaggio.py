@@ -4,16 +4,21 @@ import random
 from utils.log import get_logger
 
 '''
-1- La logica di attacca o recupera_salute nelle sottoclassi cambia solo un dettaglio, lasciando intatto il comportamento principale
-Quindi conviene usare super() per richiamare la logica di base e poi modificare solo il messaggio o il calcolo del danno.
+1- La logica di attacca o recupera_salute nelle sottoclassi cambia solo un
+dettaglio, lasciando intatto il comportamento principale
+Quindi conviene usare super() per richiamare la logica di base e poi
+modificare solo il messaggio o il calcolo del danno.
 
-2- Il calcolo del danno è separato in un metodo calcola_danno, che può essere personalizzato dalle sottoclassi
-per cambiare il modo in cui viene calcolato il danno, ma mantiene la logica di base di Personaggio.
-Override completo se la logica della classe figlia è molto diversa (es. ladro recupera in modo casuale, mago percentuale diversa, ecc.)
+2- Il calcolo del danno è separato in un metodo calcola_danno, che può essere
+personalizzato dalle sottoclassi per cambiare il modo in cui viene calcolato
+il danno, ma mantiene la logica di base di Personaggio.
+Override completo se la logica della classe figlia è molto diversa
+(es. ladro recupera in modo casuale, mago percentuale diversa, ecc.)
 
 3 - Costanti sempre coerenti usando properties della classe Personaggio
 
-4 - logger in un file separato con una sola configurazione centralizzata, personalizzabile facilmente, senza duplicare codice in ogni modulo
+4 - logger in un file separato con una sola configurazione centralizzata,
+personalizzabile facilmente, senza duplicare codice in ogni modulo
 name serve per avere il nome del modulo che usa il logger (__name__)
 level puo essere messo a WARNING per la produzione
 logger = get_logger(__name__)
@@ -23,6 +28,7 @@ logger.error("Errore grave!")
 '''
 
 logger = get_logger(__name__)
+
 
 @dataclass
 class Personaggio:
@@ -51,8 +57,13 @@ class Personaggio:
         return successo
 
     def calcola_danno(self, mod_ambiente: int = 0) -> int:
-        """Metodo separato per il calcolo del danno, personalizzabile dalle sottoclassi."""
-        return random.randint(self.attacco_min, self.attacco_max) + mod_ambiente
+        """
+        Metodo separato per il calcolo del danno,
+        personalizzabile dalle sottoclassi.
+        """
+        return (
+            random.randint(self.attacco_min, self.attacco_max) + mod_ambiente
+        )
 
     def attacca(self, mod_ambiente: int = 0) -> tuple[int, str]:
         if self.esegui_azione():
@@ -76,7 +87,6 @@ class Personaggio:
     def sconfitto(self) -> bool:
         return self.salute <= 0
 
-
     def migliora_statistiche(self) -> None:
         self.livello += 1
         self.attacco_max = int(self.attacco_max * 1.02)
@@ -95,13 +105,17 @@ class Mago(Personaggio):
 
     def calcola_danno(self, mod_ambiente: int = 0) -> int:
         # Calcolo danno personalizzato che estende la logica di personaggio
-        return random.randint(self.attacco_min, self.attacco_max) + mod_ambiente
+        return (
+            random.randint(self.attacco_min, self.attacco_max) + mod_ambiente
+        )
 
     def attacca(self, mod_ambiente: int = 0) -> tuple[int, str]:
         danno, _ = super().attacca(mod_ambiente)
         # Cambia solo il messaggio, non la logica
         if danno > 0:
-            msg = f"{self.nome} lancia un incantesimo infliggendo {danno} danni!"
+            msg = (
+                f"{self.nome} lancia un incantesimo infliggendo {danno} danni!"
+            )
         else:
             msg = f"{self.nome} lancia un incantesimo, ma non infligge danni!"
         logger.info(msg)
@@ -116,7 +130,10 @@ class Mago(Personaggio):
             nuova_salute = min(self.salute + recupero, self.salute_max)
             effettivo = nuova_salute - self.salute
             self.salute = nuova_salute
-            msg = f"{self.nome} medita e recupera {effettivo} HP. Salute attuale: {self.salute}"
+            msg = (
+                f"{self.nome} medita e recupera {effettivo} HP."
+                f" Salute attuale: {self.salute}"
+            )
         logger.info(msg)
         return msg
 
@@ -133,7 +150,9 @@ class Guerriero(Personaggio):
     def attacca(self, mod_ambiente: int = 0) -> tuple[int, str]:
         danno, _ = super().attacca(mod_ambiente)
         if danno > 0:
-            msg = f"{self.nome} colpisce con la spada infliggendo {danno} danni!"
+            msg = (
+                f"{self.nome} colpisce con la spada infliggendo {danno} danni!"
+            )
         else:
             msg = f"{self.nome} colpisce, ma non infligge danni!"
         logger.info(msg)
@@ -148,7 +167,10 @@ class Guerriero(Personaggio):
             nuova_salute = min(self.salute + recupero, self.salute_max)
             effettivo = nuova_salute - self.salute
             self.salute = nuova_salute
-            msg = f"{self.nome} si fascia le ferite e recupera {effettivo} HP. Salute attuale: {self.salute}"
+            msg = (
+                f"{self.nome} si fascia le ferite e recupera {effettivo} HP."
+                f" Salute attuale: {self.salute}"
+            )
         logger.info(msg)
         return msg
 
@@ -165,7 +187,9 @@ class Ladro(Personaggio):
     def attacca(self, mod_ambiente: int = 0) -> tuple[int, str]:
         danno, _ = super().attacca(mod_ambiente)
         if danno > 0:
-            msg = f"{self.nome} colpisce furtivamente infliggendo {danno} danni!"
+            msg = (
+                f"{self.nome} colpisce furtivamente infliggendo {danno} danni!"
+            )
         else:
             msg = f"{self.nome} colpisce, ma non infligge danni!"
         logger.info(msg)
@@ -180,6 +204,9 @@ class Ladro(Personaggio):
             nuova_salute = min(self.salute + recupero, 140)
             effettivo = nuova_salute - self.salute
             self.salute = nuova_salute
-            msg = f"{self.nome} si cura rapidamente e recupera {effettivo} HP. Salute attuale: {self.salute}"
+            msg = (
+                f"{self.nome} si cura rapidamente e recupera {effettivo} HP."
+                f" Salute attuale: {self.salute}"
+            )
         logger.info(msg)
         return msg

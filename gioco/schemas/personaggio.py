@@ -3,6 +3,7 @@ import uuid
 from gioco.schemas.helper import get_all_subclasses
 from gioco.personaggio import Personaggio
 
+
 class PersonaggioSchema(Schema):
     """
     Schema per la serializzazione/deserializzazione dei personaggi.
@@ -33,5 +34,3 @@ class PersonaggioSchema(Schema):
 
         personaggio_cls = classe_map[classe_nome]
         return personaggio_cls(**data)
-
-
