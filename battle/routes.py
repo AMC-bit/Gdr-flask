@@ -294,12 +294,14 @@ def auto_battle():
             if not pc_vivi:
                 battaglia_finita = True
                 vittoria = False
+                punteggio -= 5 * len(npc_vivi)
                 save_data['messaggi_battaglia'].append(
                     "<span class='text-danger fw-bold'>Tutti i personaggi sono stati sconfitti!</span>"
                 )
             elif not npc_vivi:
                 battaglia_finita = True
                 vittoria = True
+                punteggio += 10 * len(pc_vivi) # Bonus per vittoria
                 assegna_premi(missione_obj, save_data['messaggi_battaglia'], personaggi_selezionati_obj, inventari_pg)
                 save_data['messaggi_battaglia'].append(
                     "<span class='text-success fw-bold'>Tutti i nemici sono stati sconfitti! Vittoria!</span>"
@@ -367,9 +369,8 @@ def calcola_punteggio(pg: Personaggio) -> int:
     if pg.npc:
         punteggio_negativo = - punti
         punti = punteggio_negativo
-    else:
-        punti += 2
     return punti
+
 
 def usa_inventario_automatico(
     inventario: Inventario,
