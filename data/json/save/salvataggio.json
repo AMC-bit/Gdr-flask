@@ -1,0 +1,87 @@
+{
+    "missione": {
+        "id": "d0be82c8-fe52-41ab-8fc3-7548c68b423a",
+        "nome": "Sgomina il culto di Pdor figlio di Kmer",
+        "ambiente": {
+            "nome": "Vulcano",
+            "mod_attacco": 10,
+            "mod_cura": -5.0,
+            "classe": "Vulcano"
+        },
+        "nemici": [
+            {
+                "classe": "Mago",
+                "id": "866f1744-8a23-438d-927b-8743dc8c52e8",
+                "nome": "Pdor",
+                "npc": true,
+                "salute_max": 30,
+                "salute": 25,
+                "attacco_min": 4,
+                "attacco_max": 8,
+                "livello": 1,
+                "destrezza": 1,
+                "iniziativa": 15,
+                "storico_danni_subiti": []
+            },
+            {
+                "classe": "Guerriero",
+                "id": "b2c1f3d8-4e5a-4f9b-8c0d-6f7e8a9b0c8d",
+                "nome": "Blaine",
+                "npc": true,
+                "salute_max": 180,
+                "salute": 170,
+                "attacco_min": 40,
+                "attacco_max": 120,
+                "livello": 1,
+                "destrezza": 25,
+                "iniziativa": 20,
+                "storico_danni_subiti": []
+            }
+        ],
+        "inventari_nemici": [
+            {
+                "id": "e373a5eb-244f-4cda-832b-04e3fdfdfcc1",
+                "id_proprietario": "866f1744-8a23-438d-927b-8743dc8c52e8",
+                "oggetti": [
+                    {
+                        "id": "aef17f9f-f158-4308-bc11-786b6818b19e",
+                        "nome": "Bomba Acida",
+                        "usato": false,
+                        "valore": 30,
+                        "tipo_oggetto": "Offensivo",
+                        "classe": "BombaAcida"
+                    }
+                ]
+            },
+            {
+                "id": "6ab8ce89-0a16-4953-a9f5-cd0892a6bd96",
+                "id_proprietario": "b2c1f3d8-4e5a-4f9b-8c0d-6f7e8a9b0c8d",
+                "oggetti": [
+                    {
+                        "id": "8f0f45be-bc36-463c-913c-c1c314b029b4",
+                        "nome": "Bomba Acida",
+                        "usato": false,
+                        "valore": 30,
+                        "tipo_oggetto": "Offensivo",
+                        "classe": "BombaAcida"
+                    }
+                ]
+            }
+        ],
+        "premi": [
+            {
+                "id": "7e2b1c8a-2e3d-4b7a-9e2a-1c3f4b5d6e8f",
+                "nome": "Medaglione",
+                "usato": false,
+                "valore": 10,
+                "tipo_oggetto": "Buff",
+                "classe": "Medaglione"
+            }
+        ],
+        "strategia_nemici": {
+            "nome": "Aggressiva"
+        },
+        "completata": false,
+        "attiva": false
+    }
+}
