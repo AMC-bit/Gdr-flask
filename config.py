@@ -92,7 +92,7 @@ def update_leaderboard():
         add_user_leaderboard(user.id)
 
 
-def load_leaderboard():
+def load_leaderboard(user_id: str = None):
     """
     Funzione di caricamento del contenuto del file JSON della classifica.
     Questa funzione è necessaria per evitare errori in caso di
@@ -106,8 +106,15 @@ def load_leaderboard():
             # .strip() rimuove eventuali spazi bianchi all'inizio e alla fine
             # .read() legge il contenuto del file
             content = f.read().strip()
+
             if not content:
                 return {}  # se non c'è contenuto, ritorna dizionario vuoto
+
+            if user_id:
+                # se è specificato user_id, ritorna solo i dati di quell'utente
+                # json.loads ritorna un dizionario dal contenuto del JSON
+                return {user_id: json.loads(content).get(user_id, {})}
+
             # carica il contenuto trovato
             return json.loads(content)
 
