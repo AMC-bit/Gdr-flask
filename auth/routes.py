@@ -230,12 +230,12 @@ def update_user_role():
         new_role = request.form['ruolo']
     except (KeyError, ValueError):
         flash("Dati del form non validi.", "danger")
-        return redirect(url_for('auth.manage_users'))
+        return redirect(url_for('auth.admin_manager'))
 
     # Blocco: impedisce a un admin di modificare il proprio ruolo
     if user_id == current_user.id:
         flash("Non puoi modificare il tuo stesso ruolo.", "warning")
-        return redirect(url_for('auth.manage_users'))
+        return redirect(url_for('auth.admin_manager'))
 
     # Recupero utente dal DB
     user = User.query.get_or_404(user_id)
@@ -244,12 +244,12 @@ def update_user_role():
         user.ruolo = UserRole[new_role]
     except KeyError:
         flash("Ruolo selezionato non valido.", "danger")
-        return redirect(url_for('auth.manage_users'))
+        return redirect(url_for('auth.admin_manager'))
 
     # Salvataggio nel DB
     db.session.commit()
     flash(f"Ruolo aggiornato a {new_role} per {user.nome}.", "success")
-    return redirect(url_for('auth.manage_users'))
+    return redirect(url_for('auth.admin_manager'))
 
 
 @auth_bp.route('/credit_refill', methods=['GET', 'POST'])
