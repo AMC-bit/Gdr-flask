@@ -91,8 +91,9 @@ def select_char():
         personaggi=pg_list,
         missione_corrente=missione_corrente
         )
-
-
+def genera_nemici_casuali(nemici: list[Personaggio]) -> Personaggio:
+    # TODO
+    return random.choice(nemici)
 def setup_battle():
     """Fa il setup dei dati prendendoli dai file json data/ save, inventari, personaggi
     Deserializza i dati dai json e ritorna gli oggetti
@@ -127,7 +128,15 @@ def setup_battle():
             inventario_pg = Json.carica_dati(pg_inv_path)
             inventario_pg_obj = inventario_schema.load(inventario_pg)
             inventari_pg_obj.append(inventario_pg_obj)
-
+    num_nemici_da_generare = len(personaggi_selezionati) - len(missione_obj.nemici)
+    if len(missione_obj.nemici) > len(personaggi_selezionati):
+        pass
+    else:
+        for pg in range(num_nemici_da_generare):
+            # Funzione che genererà nemici pari alla quantità di personaggi
+            # Prenderà i nemici statici in missione e genererà nemici random
+            missione_obj.nemici.append(genera_nemici_casuali(missione_obj.nemici))
+    
     return missione_obj, personaggi_selezionati_obj, inventari_pg_obj
 
 def assegna_premi(missione : Missione, messaggi_battaglia : list[str], personaggi_selezionati : list[Personaggio]  ,inventari : list[Inventario]):
@@ -174,7 +183,7 @@ def auto_battle():
         inventari += missione_obj.inventari_nemici
         save_data = Json.carica_dati(path_save)
         tutti_personaggi = personaggi_selezionati_obj + nemici_obj
-
+        print("NEMICI", nemici_obj)
         # Inizializza messaggi e ordine turni se non presenti
         if 'ordine_turni' not in save_data:
             ordine_turni = ordine_iniziativa(tutti_personaggi)
