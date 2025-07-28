@@ -247,14 +247,16 @@ def auto_battle():
 
             # ----- SEPARATORE DI TURNO -----
             save_data['messaggi_battaglia'].append(
-                f"<hr><div class='text-center text-primary fw-bold my-2'>------- TURNO {save_data['turno']} -------</div>"
+                f"<hr><div class='text-center text-primary fw-bold my-2'>"
+                f"------- TURNO {save_data['turno']} -------</div>"
             )
 
             personaggio_turno_corrente = None
             for p in tutti_personaggi:
-                if str(p.id) == ordine_turni[indice_turno] and not p.sconfitto():
-                    personaggio_turno_corrente = p
-                    break
+                if str(p.id) == ordine_turni[indice_turno]:
+                    if not p.sconfitto():
+                        personaggio_turno_corrente = p
+                        break
 
             if not personaggio_turno_corrente:
                 # Nessun personaggio disponibile, skip turno
@@ -304,7 +306,8 @@ def auto_battle():
                     msg = (
                         f"{bold(personaggio_turno_corrente.nome)} attacca "
                         f"{bold(bersaglio.nome)} per "
-                        f"<span class='text-danger fw-bold'>{danno}</span> danni!"
+                        f"<span class='text-danger fw-bold'>{danno}</span> "
+                        f"danni!"
                     )
                 elif danno == 0:
                     msg = (
@@ -325,7 +328,8 @@ def auto_battle():
                     punteggio += calcola_punteggio(bersaglio)
                     ordine_turni.remove(str(bersaglio.id))
                     save_data['messaggi_battaglia'].append(
-                        f"{bold(bersaglio.nome)} è stato <span class='text-danger fw-bold'>sconfitto!</span>"
+                        f"{bold(bersaglio.nome)} è stato <span "
+                        f"class='text-danger fw-bold'>sconfitto!</span>"
                     )
 
             save_data['personaggi_selezionati'] = PersonaggioSchema(
@@ -347,12 +351,13 @@ def auto_battle():
                 vittoria = False
                 punteggio -= 5 * len(npc_vivi)
                 save_data['messaggi_battaglia'].append(
-                    "<span class='text-danger fw-bold'>Tutti i personaggi sono stati sconfitti!</span>"
+                    "<span class='text-danger fw-bold'>Tutti i personaggi "
+                    "sono stati sconfitti!</span>"
                 )
             elif not npc_vivi:
                 battaglia_finita = True
                 vittoria = True
-                punteggio += 10 * len(pc_vivi) # Bonus per vittoria
+                punteggio += 10 * len(pc_vivi)  # Bonus per vittoria
                 assegna_premi(
                     missione_obj,
                     save_data['messaggi_battaglia'],
@@ -363,7 +368,8 @@ def auto_battle():
                     mod_ambiente = ambiente_obj.modifica_cura(char)
                     char.recupera_salute(mod_ambiente)
                 save_data['messaggi_battaglia'].append(
-                    "<span class='text-success fw-bold'>Tutti i nemici sono stati sconfitti! Vittoria!</span>"
+                    "<span class='text-success fw-bold'>Tutti i nemici sono "
+                    "stati sconfitti! Vittoria!</span>"
                 )
 
         # Salva stato, aggiorna file
@@ -379,11 +385,12 @@ def auto_battle():
             else:
                 Json.scrivi_dati(pg_path, PersonaggioSchema().dump(pg))
                 for inv in inventari_pg:
-                    if isinstance(inv, Inventario) and inv.id_proprietario == pg.id:
-                        inventario = inv
-                        Json.scrivi_dati(
-                            inv_path, InventarioSchema().dump(inventario)
-                        )
+                    if isinstance(inv, Inventario):
+                        if inv.id_proprietario == pg.id:
+                            inventario = inv
+                            Json.scrivi_dati(
+                                inv_path, InventarioSchema().dump(inventario)
+                            )
 
         save_data['missione'] = MissioniSchema().dump(missione_obj)
         Json.scrivi_dati(path_save, save_data)
