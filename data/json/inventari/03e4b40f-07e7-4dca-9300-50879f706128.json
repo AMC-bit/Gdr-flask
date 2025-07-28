@@ -1,0 +1,14 @@
+{
+    "id": "666de4a7-c5c6-4833-8ced-e085226403fa",
+    "id_proprietario": "03e4b40f-07e7-4dca-9300-50879f706128",
+    "oggetti": [
+        {
+            "id": "05474c61-c427-43ee-87fa-e639cc28dd19",
+            "nome": "Pozione Rossa",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "TipoOggetto.RISTORATIVO",
+            "classe": "PozioneCura"
+        }
+    ]
+}

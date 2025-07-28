@@ -12,7 +12,7 @@ from gioco.inventario import Inventario
 from flask_login import login_required, current_user
 from auth.models import db, User
 from auth.credits import credits_to_create, credits_to_refund
-from config import DATA_DIR_PGS, DATA_DIR_INV
+from config import DATA_DIR_PGS, DATA_DIR_INV, NUMERO_MAX_PGS
 from utils.salvataggio import Json
 
 
@@ -84,6 +84,15 @@ def create_char():
         nome = request.form['nome'].strip().capitalize()
         classe_sel = request.form['classe']
         oggetto_sel = request.form['oggetto']
+
+        # Controllo se il numero di personaggi posseduti è inferiore al massimo consentito
+        owned_ids = load_char()
+        if len(owned_ids) >= NUMERO_MAX_PGS:
+            flash(
+                f"Hai raggiunto il numero massimo di personaggi ({NUMERO_MAX_PGS}).",
+                "danger"
+            )
+            return redirect(url_for('auth.personal_area'))
 
         pg = classi[classe_sel]()
         pg.nome = nome

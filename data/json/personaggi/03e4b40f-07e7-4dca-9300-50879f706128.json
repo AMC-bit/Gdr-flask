@@ -1,0 +1,14 @@
+{
+    "classe": "Mago",
+    "id": "03e4b40f-07e7-4dca-9300-50879f706128",
+    "nome": "Zoro",
+    "npc": false,
+    "salute_max": 80,
+    "salute": 80,
+    "attacco_min": 0,
+    "attacco_max": 90,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 15,
+    "storico_danni_subiti": []
+}
