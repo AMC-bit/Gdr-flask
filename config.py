@@ -83,7 +83,7 @@ def remove_user_leaderboard(user_id):
             json.dump(leaderboard, f, ensure_ascii=False, indent=4)
 
 
-def update_leaderboard():
+def create_leaderboard():
     """
     Funzione di aggiornamento della classifica per ogni utente
     presente in database
@@ -113,7 +113,7 @@ def load_leaderboard(user_id: str = None):
             if user_id:
                 # se è specificato user_id, ritorna solo i dati di quell'utente
                 # json.loads ritorna un dizionario dal contenuto del JSON
-                return {user_id: json.loads(content).get(user_id, {})}
+                return json.loads(content).get(user_id, {})
 
             # carica il contenuto trovato
             return json.loads(content)

@@ -208,9 +208,9 @@ def auto_battle():
         save_data = Json.carica_dati(path_save)
         tutti_personaggi = personaggi_selezionati_obj + nemici_obj
         punteggio = punteggio_iniziale
-        partite_giocate = # TODO da impostare su auto_battle
+        partite_giocate = leaderboard_data.get("partite_giocate", 0)
         partite_giocate += 1
-        partite_vinte = 
+        partite_vinte = leaderboard_data.get("partite_vinte", 0)  # 0 default
 
         # Inizializza messaggi e ordine turni se non presenti
         if 'ordine_turni' not in save_data:
@@ -338,6 +338,13 @@ def auto_battle():
                 save_data['messaggi_battaglia'].append(
                     "<span class='text-success fw-bold'>Tutti i nemici sono stati sconfitti! Vittoria!</span>"
                 )
+
+        # update dei valori della leaderboard
+        leaderboard_data["partite_giocate"] = partite_giocate
+        leaderboard_data["partite_vinte"] = partite_vinte
+        leaderboard_data["punteggio"] += punteggio
+
+        
 
         # Salva stato, aggiorna file
         for pg in personaggi_selezionati_obj:

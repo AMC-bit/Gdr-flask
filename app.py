@@ -11,7 +11,7 @@ from auth.routes import auth_bp
 from flask_migrate import Migrate
 from auth.models import db, User, UserRole
 from flask_login import LoginManager
-from config import CreateDirs, update_leaderboard
+from config import CreateDirs, create_leaderboard
 from datetime import timedelta
 
 
@@ -67,7 +67,7 @@ if __name__ == '__main__':
     with app.app_context():
         db.create_all()
 
-        update_leaderboard()  # aggiorna classifica all'avvio
+        create_leaderboard()  # aggiorna classifica all'avvio
 
         # Aggiungo un utente Admin al DB se già non esiste
         # Se l'utente Admin non è già presente nel DB lo creo da capo
