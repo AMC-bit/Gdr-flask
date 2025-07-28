@@ -4,6 +4,7 @@
 {% block content %}
 
 <h2 class="text-center mb-4">Benvenuto nel gioco GDR</h2>
+
 <div class="d-grid gap-2 col-6 mx-auto m-3">
 
     {% if current_user.is_authenticated %}
@@ -26,11 +27,47 @@
     {% else %}
         <a href="{{ url_for('auth.login') }}" class="btn btn-info btn-lg">Login</a>
         <a href="{{ url_for('auth.sign_in') }}" class="btn btn-secondary btn-lg">Registrati</a>
+
+        <!-- Tabella classifica utenti -->
+        <div class="mt-5">
+            <h4 class="text-center mb-3">🏆 Classifica Generale</h4>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nome Utente</th>
+                            <th scope="col">Partite Vinte</th>
+                            <th scope="col">Punteggio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user_id, user_data in users_stats.items() %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>
+                                <i class="bi bi-person-circle"></i>
+                                {{ user_data.nome }}
+                            </td>
+                            <td>
+                                <span class="badge bg-success">{{ user_data.vittorie }}</span>
+                            </td>
+                            <td>
+                                <span class="badge bg-primary">{{ user_data.punteggio }}</span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% if not users_stats %}
+                <div class="alert alert-info text-center">
+                    <i class="bi bi-info-circle"></i> Nessun utente registrato ancora!
+                </div>
+            {% endif %}
+        </div>
     {% endif %}
 
 </div>
 
-{% endblock %}
-
-{% block scripts %}
 {% endblock %}
