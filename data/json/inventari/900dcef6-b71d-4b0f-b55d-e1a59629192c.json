@@ -1,0 +1,14 @@
+{
+    "id": "3ed17b86-d1cd-420f-8777-7a4bafea115a",
+    "id_proprietario": "900dcef6-b71d-4b0f-b55d-e1a59629192c",
+    "oggetti": [
+        {
+            "id": "774eead6-0d87-4efb-a9f6-b7db62e3d787",
+            "nome": "Medaglione",
+            "usato": false,
+            "valore": 10,
+            "tipo_oggetto": "TipoOggetto.BUFF",
+            "classe": "Medaglione"
+        }
+    ]
+}

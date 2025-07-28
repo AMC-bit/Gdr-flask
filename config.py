@@ -21,6 +21,8 @@ DATA_DIR_MIS = os.path.join(BASE_DIR, 'static', 'json', 'missions')
 LEADERBOARD_FILE = os.path.join(BASE_DIR, 'data', 'json', 'leaderboard.json')
 
 
+NUMERO_MAX_PGS = 5  # Numero massimo di personaggi che un utente può usare in una battaglia
+
 def CreateDirs():
     """
     Crea directory per i file JSON necessarie allo svolgimento del gioco
