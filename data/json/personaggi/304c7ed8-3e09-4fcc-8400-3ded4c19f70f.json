@@ -1,7 +1,7 @@
 {
     "classe": "Guerriero",
-    "id": "dd94e394-e900-4af2-902d-eaacaf12d1eb",
-    "nome": "werwrewrerwerwe",
+    "id": "304c7ed8-3e09-4fcc-8400-3ded4c19f70f",
+    "nome": "Carolina",
     "npc": false,
     "salute_max": 130,
     "salute": 130,
@@ -10,8 +10,5 @@
     "livello": 1,
     "destrezza": 15,
     "iniziativa": 20,
-    "storico_danni_subiti": [
-        0,
-        0
-    ]
+    "storico_danni_subiti": []
 }
