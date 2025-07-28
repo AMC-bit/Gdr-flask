@@ -325,4 +325,4 @@ def logout():
     logout_user()
     session.clear()
     flash("Logout effettuato con successo", "success")
-    return render_template('menu.html')
+    return redirect(url_for('home.index'))  # Invece di render_template('menu.html'))
