@@ -89,7 +89,9 @@ def inventory():
             logger.info(f"Inventario di {nome_per_id.get(id_personaggio, 'sconosciuto')} caricato da JSON.")
         else:
             flash("Inventario non trovato o errore nel file.", "warning")
-
+    #print(f" INVENTARIO : {inventario_selezionato} TYPE: {type(inventario_selezionato)}")
+    #for oggetto in inventario_selezionato.oggetti :
+        #print(f"OGGETTO : {oggetto} , TYPE:{type(oggetto)}")
     return render_template(
         'inventory.html',
         personaggi=personaggi,

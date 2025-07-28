@@ -95,6 +95,24 @@ def select_char():
         missione_corrente=missione_corrente
         )
 
+def generate_random_enemy(number:int =1)-> list[tuple[Personaggio, Inventario]] :
+    """Genera randomicamente un nemico
+    Returns:
+        Personaggio: Ritorna un personaggio non giocante istanziato
+    """
+    personaggi_inventari = []
+    for i in range(number):
+        tipi_di_classi = get_all_subclasses(Personaggio)
+        tipi_di_oggetti = get_all_subclasses(Oggetto)
+        classe_sel = tipi_di_classi.pop()
+        oggetto_sel = tipi_di_oggetti.pop()
+        oggetto_obj = oggetto_sel()
+        personaggio_obj = classe_sel(nome=f"Nemico {i}")
+        inventario_obj = Inventario(id_proprietario = personaggio_obj.id)
+        inventario_obj.aggiungi_oggetto(oggetto_obj)
+        personaggio_inventario = (personaggio_obj, inventario_obj)
+        personaggi_inventari.append(personaggio_inventario)
+    return personaggi_inventari
 
 def setup_battle():
     """Fa il setup dei dati prendendoli dai file json data/ save, inventari, personaggi
