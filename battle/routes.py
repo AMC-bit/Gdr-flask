@@ -1,4 +1,4 @@
-from flask import redirect, render_template, session, url_for, request, flash, jsonify
+from flask import redirect, render_template, url_for, request, flash
 import logging
 import random
 import os
@@ -16,8 +16,7 @@ from gioco.schemas.helper import get_all_subclasses
 from characters.routes import load_char, get_owned_chars
 from config import DATA_DIR_SAVE, DATA_DIR_INV, DATA_DIR_PGS
 from utils.salvataggio import Json
-from gioco.schemas.oggetto import get_all_subclasses
-from config import DATA_DIR_SAVE, DATA_DIR_INV
+
 path_save = os.path.join(
     DATA_DIR_SAVE, "salvataggio.json"
 )
@@ -25,15 +24,19 @@ path_inv = os.path.join(
     DATA_DIR_INV, "inventario.json"
 )
 
-classi = {cls.__name__: cls for cls in Personaggio.__subclasses__()}
+nome_classi = [cls.__name__ for cls in get_all_subclasses(Personaggio)]
+classi = {cls.__name__: cls for cls in get_all_subclasses(Personaggio)}
 schema = PersonaggioSchema()
 schema_inv = InventarioSchema()
+punteggio_iniziale = 0
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
+
 def bold(txt):
         return f"<b>{txt}</b>"
+
 
 @battle_bp.route('/select_char', methods=['GET', 'POST'])
 @login_required
@@ -130,8 +133,9 @@ def setup_battle():
 
     return missione_obj, personaggi_selezionati_obj, inventari_pg_obj
 
+
 def assegna_premi(missione : Missione, messaggi_battaglia : list[str], personaggi_selezionati : list[Personaggio]  ,inventari : list[Inventario]):
-    """Da chiamare a fine scontro in caso di vittoria per assegnare 
+    """Da chiamare a fine scontro in caso di vittoria per assegnare
     i premi della missione agli inventari dei personaggi
 
     Args:
@@ -158,6 +162,7 @@ def assegna_premi(missione : Missione, messaggi_battaglia : list[str], personagg
                     messaggi_battaglia.append(f"{bold(pg.nome)} ha ricevuto in premio {bold(nuova_istanza.nome)}")
                     inventario.aggiungi_oggetto(nuova_istanza)
 
+
 @battle_bp.route('/auto_battle', methods=['GET'])
 @login_required
 def auto_battle():
@@ -174,6 +179,7 @@ def auto_battle():
         inventari += missione_obj.inventari_nemici
         save_data = Json.carica_dati(path_save)
         tutti_personaggi = personaggi_selezionati_obj + nemici_obj
+        punteggio = punteggio_iniziale
 
         # Inizializza messaggi e ordine turni se non presenti
         if 'ordine_turni' not in save_data:
@@ -271,6 +277,7 @@ def auto_battle():
                 save_data['messaggi_battaglia'].append(msg)
 
                 if bersaglio.sconfitto():
+                    punteggio += calcola_punteggio(bersaglio)
                     ordine_turni.remove(str(bersaglio.id))
                     save_data['messaggi_battaglia'].append(
                         f"{bold(bersaglio.nome)} è stato <span class='text-danger fw-bold'>sconfitto!</span>"
@@ -287,12 +294,14 @@ def auto_battle():
             if not pc_vivi:
                 battaglia_finita = True
                 vittoria = False
+                punteggio -= 5 * len(npc_vivi)
                 save_data['messaggi_battaglia'].append(
                     "<span class='text-danger fw-bold'>Tutti i personaggi sono stati sconfitti!</span>"
                 )
             elif not npc_vivi:
                 battaglia_finita = True
                 vittoria = True
+                punteggio += 10 * len(pc_vivi) # Bonus per vittoria
                 assegna_premi(missione_obj, save_data['messaggi_battaglia'], personaggi_selezionati_obj, inventari_pg)
                 save_data['messaggi_battaglia'].append(
                     "<span class='text-success fw-bold'>Tutti i nemici sono stati sconfitti! Vittoria!</span>"
@@ -336,6 +345,31 @@ def auto_battle():
         pc_vivi=pc_vivi,
         npc_vivi=npc_vivi
     )
+
+
+def calcola_punteggio(pg: Personaggio) -> int:
+    """
+    Calcola il punteggio ottenuto o perso per la sconfitta del personaggio.
+    Args:
+        pg (Personaggio): Il personaggio sconfitto.
+    Returns:
+        int: Il punteggio ottenuto o perso per la sconfitta del pg.
+    """
+    punti = punteggio_iniziale
+    classe = type(pg).__name__
+    if classe in nome_classi:
+        if classe == 'Guerriero':
+            punti += 10
+        elif classe == 'Ladro':
+            punti += 8
+        elif classe == 'Mago':
+            punti += 5
+        else:
+            punti += 2
+    if pg.npc:
+        punteggio_negativo = - punti
+        punti = punteggio_negativo
+    return punti
 
 
 def usa_inventario_automatico(
@@ -435,9 +469,3 @@ def ordine_iniziativa(tutti_personaggi):
         id = tupla[0]
         lista_ordinata_id.append(str(id))
     return lista_ordinata_id
-
-
-
-@battle_bp.route('/TEMPLATE', methods=['GET', 'POST'])
-def test_battle_v2():
-    return render_template("TEMPLATE.html")

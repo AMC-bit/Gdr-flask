@@ -41,7 +41,17 @@ def index():
                 has_missioni = False
             can_select_char = has_personaggi and has_missioni #and has_missione
             return render_template('menu.html', can_select_char=can_select_char, has_missioni=has_missioni)
-    return render_template('menu.html')
+    # Esempio, da modificare
+    # Per utenti non autenticati, recupera la classifica degli utenti ordinata per punteggio
+    users_stats = {}
+    # for user in dati_utenti:
+    #     users_stats[str(user.id)] = {
+    #         "nome": user.nome,
+    #         "vittorie": user.partite_vinte or 0,
+    #         "punteggio": user.punteggio or 0
+    #     }
+
+    return render_template('menu.html', users_stats=users_stats)
 
 @home_bp.route('/clear')
 def clear():
