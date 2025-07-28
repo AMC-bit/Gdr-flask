@@ -81,7 +81,7 @@ def create_char():
 
     if request.method == 'POST':
         # lettura valori dal form
-        nome = request.form['nome'].strip()
+        nome = request.form['nome'].strip().capitalize()
         classe_sel = request.form['classe']
         oggetto_sel = request.form['oggetto']
 
@@ -170,7 +170,7 @@ def edit_char(char_id):
         vecchio_nome = pg_dict['nome']
 
         # otteniamo i valori dal form
-        nuovo_nome = request.form['nome'].strip()
+        nuovo_nome = request.form['nome'].strip().capitalize()
 
         id = pg_dict['id']
         # manterremo la classe originale

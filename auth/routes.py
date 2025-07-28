@@ -21,7 +21,7 @@ def protect_psw_hash(psw):
 @auth_bp.route('/sign_in', methods=['GET', 'POST'])
 def sign_in():
     if request.method == 'POST':
-        name = request.form['name'].strip()
+        name = request.form['name'].strip().capitalize()
         email = request.form['email'].strip()
         psw = request.form['psw']
         re_psw = request.form['re_psw']
@@ -110,9 +110,9 @@ def edit_user():
 
     if request.method == 'POST':
         # catturo i dati inseriti nel form per la modifica dell'utente
-        new_name = request.form['new_username']
-        new_email = request.form['new_email']
-        new_psw = request.form['new_password']
+        new_name = request.form['new_username'].strip().capitalize()
+        new_email = request.form['new_email'].strip()
+        new_psw = request.form['new_password'].strip()
 
         if not email_check(new_email):
             flash("Email does not match an email pattern", "danger")
