@@ -49,7 +49,7 @@
                                 {% set obj_ambiente = descrizione_ambiente.var_amb.Oggetto[nome_obj] %}
                                 <tr>
                                     <td><strong>{{ nome_obj }}</strong></td>
-                                    <td>{{ obj_standard.tipo_oggetto }}</td>
+                                    <td>{{ obj_standard.tipo_oggetto.value }}</td>
                                     <td>{{ obj_standard.valore }}</td>
                                     <td>
                                         {% if obj_standard.valore != obj_ambiente.valore %}
