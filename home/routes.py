@@ -46,7 +46,8 @@ def index():
             return render_template(
                 'menu.html',
                 can_select_char=can_select_char,
-                has_missioni=has_missioni
+                has_missioni=has_missioni,
+                users_stats=load_leaderboard()
                 )
 
     return render_template('menu.html', users_stats=load_leaderboard())
