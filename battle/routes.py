@@ -313,9 +313,9 @@ def auto_battle():
         if battaglia_finita is True:
             os.remove(path_save)
 
-        else:
-            flash('Non esiste il file di salvataggio', 'danger')
-            return redirect(url_for('mission.select_mission'))
+    else:
+        flash('Non esiste il file di salvataggio', 'danger')
+        return redirect(url_for('mission.select_mission'))
 
     return render_template(
         'auto_battle.html',
@@ -412,7 +412,7 @@ def calcola_punteggio(pg: Personaggio) -> int:
             punti += 5
         else:
             punti += 2
-    if pg.npc:
+    if not pg.npc:
         punteggio_negativo = - punti
         punti = punteggio_negativo
     return punti

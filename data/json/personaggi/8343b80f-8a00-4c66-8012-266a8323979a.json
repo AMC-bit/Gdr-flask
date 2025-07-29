@@ -1,0 +1,16 @@
+{
+    "classe": "Guerriero",
+    "id": "8343b80f-8a00-4c66-8012-266a8323979a",
+    "nome": "Kebab",
+    "npc": false,
+    "salute_max": 130,
+    "salute": 130,
+    "attacco_min": 20,
+    "attacco_max": 100,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 20,
+    "storico_danni_subiti": [
+        0
+    ]
+}

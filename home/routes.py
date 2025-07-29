@@ -13,6 +13,18 @@ gioco = Blueprint('gioco', __name__, template_folder=template_dir)
 # Home / menu principale
 @home_bp.route('/')
 def index():
+
+    users_stats = load_leaderboard()
+    # utilizzo di 'sorted'
+    # - un elemento iterabile ad esempio 'content.items'
+    # - con 'content.items' ottengo una lista di tuple dal dizionario
+    # - 'key=lambda x: x[1]['punteggio']' vuol dire per ogni
+    # elemento x, prendi il punteggio corrispondente
+    users_stats_sorted = sorted(
+        users_stats.items(),
+        key=lambda x: x[1]['punteggio'],
+        reverse=True
+        )
     if current_user.is_authenticated:
         has_personaggi = False
         has_missioni = False
@@ -43,20 +55,13 @@ def index():
                 print(f"Errore nel caricamento del file di salvataggio: {e}")
                 has_missioni = False
 
-            users_stats = load_leaderboard()
-            # utilizzo di 'sorted'
-            # - un elemento iterabile ad esempio 'content.items'
-            # - con 'content.items' ottengo una lista di tuple dal dizionario
-            # - 'key=lambda x: x[1]['punteggio']' vuol dire per ogni
-            # elemento x, prendi il punteggio corrispondente
-            users_stats_sorted = sorted(users_stats.items(), key=lambda x: x[1]['punteggio'], reverse=True)
-
             can_select_char = has_personaggi and has_missioni
+
             return render_template(
                 'menu.html',
                 can_select_char=can_select_char,
                 has_missioni=has_missioni,
-                users_stats=load_leaderboard()
+                users_stats_sorted=users_stats_sorted
                 )
 
     return render_template('menu.html', users_stats_sorted=users_stats_sorted)
