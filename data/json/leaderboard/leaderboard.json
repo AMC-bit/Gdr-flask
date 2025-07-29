@@ -7,9 +7,9 @@
     },
     "2": {
         "nome": "Konrad",
-        "partite_giocate": 0,
-        "partite_vinte": 0,
-        "punteggio": 0
+        "partite_giocate": 2,
+        "partite_vinte": 1,
+        "punteggio": -3
     },
     "3": {
         "nome": "Enrico",

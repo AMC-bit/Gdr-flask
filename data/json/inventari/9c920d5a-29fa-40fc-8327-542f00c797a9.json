@@ -1,9 +1,9 @@
 {
-    "id": "624e28a7-2752-4536-bc9a-b705bf5ae3da",
-    "id_proprietario": "08933c3a-220a-458f-b395-5cecb9eeaf10",
+    "id": "43efa100-c089-44e7-8e8b-a8c010f3baa8",
+    "id_proprietario": "9c920d5a-29fa-40fc-8327-542f00c797a9",
     "oggetti": [
         {
-            "id": "3358e95b-702d-4320-83b0-5498e2afb9b4",
+            "id": "2bfc2657-7dfa-4a3e-b649-651e722f92e2",
             "nome": "Pozione Rossa",
             "usato": false,
             "valore": 30,
@@ -11,7 +11,7 @@
             "classe": "PozioneCura"
         },
         {
-            "id": "fb59a2a3-75a0-48c2-bb24-fdec2f73a451",
+            "id": "a51ab206-47cf-42e4-ba5d-199c29636e93",
             "nome": "Pozione Rossa",
             "usato": false,
             "valore": 30,
@@ -19,7 +19,15 @@
             "classe": "PozioneCura"
         },
         {
-            "id": "496f58ec-d225-4716-84a3-16a1d090037e",
+            "id": "831d2491-eb24-4911-8a9c-5e75ecc7dd73",
+            "nome": "Super Pozione Rossa",
+            "usato": false,
+            "valore": 100,
+            "tipo_oggetto": "TipoOggetto.RISTORATIVO",
+            "classe": "PozioneSuperCura"
+        },
+        {
+            "id": "3e8095d8-7fd5-4c2a-b6bf-b546231b0787",
             "nome": "Medaglione",
             "usato": false,
             "valore": 10,
@@ -27,7 +35,7 @@
             "classe": "Medaglione"
         },
         {
-            "id": "2cccf4ff-7510-4887-b116-0ebe9d351042",
+            "id": "b7bb472e-cf00-4ede-aa8b-8892207cfe39",
             "nome": "Bomba Acida",
             "usato": false,
             "valore": 30,
@@ -35,7 +43,15 @@
             "classe": "BombaAcida"
         },
         {
-            "id": "dbbac6ba-a9ed-41ad-9825-50452808d360",
+            "id": "a01fa0e7-dae6-4336-8c36-eb8260c0a77f",
+            "nome": "Pozione Rossa",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "TipoOggetto.RISTORATIVO",
+            "classe": "PozioneCura"
+        },
+        {
+            "id": "052aed64-185e-42ac-bf4a-1f8cf6328fcf",
             "nome": "Bomba Acida",
             "usato": false,
             "valore": 30,
