@@ -117,7 +117,6 @@ def auto_battle():
         save_data = Json.carica_dati(path_save)
         punteggio = punteggio_iniziale
         partite_giocate = leaderboard_data.get("partite_giocate", 0)
-        partite_giocate += 1
         partite_vinte = leaderboard_data.get("partite_vinte", 0)
 
         # Inizializza messaggi e ordine turni se non presenti
@@ -251,6 +250,7 @@ def auto_battle():
                 battaglia_finita = True
                 vittoria = False
                 punteggio -= 5 * len(npc_vivi)
+                partite_giocate += 1
                 save_data['messaggi_battaglia'].append(
                     "<span class='text-danger fw-bold'>Tutti i personaggi "
                     "sono stati sconfitti!</span>"
@@ -260,6 +260,7 @@ def auto_battle():
                 vittoria = True
                 punteggio += 10 * len(pc_vivi)  # Bonus per vittoria
                 partite_vinte += 1
+                partite_giocate += 1
                 assegna_premi(
                     missione_obj,
                     save_data['messaggi_battaglia'],
