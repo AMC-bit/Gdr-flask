@@ -100,20 +100,24 @@ def auto_battle():
         # --- SETUP DATI ---
         setup = setup_battle()
         missione_obj = setup[0]
+        ambiente_obj = missione_obj.ambiente
+        nemici_obj = missione_obj.nemici
+
         personaggi_selezionati_obj = setup[1]
-        nemici_obj = setup[0].nemici
-        ambiente_obj = setup[0].ambiente
-        inventari_pg = setup[2]
-        inventari = []
-        inventari += setup[2]
-        leaderboard_data = setup[3]
-        inventari += missione_obj.inventari_nemici
-        save_data = Json.carica_dati(path_save)
+
         tutti_personaggi = personaggi_selezionati_obj + nemici_obj
+
+        inventari = []
+        inventari_pg = setup[2]
+        inventari += inventari_pg
+        inventari += missione_obj.inventari_nemici
+
+        leaderboard_data = setup[3]
+        save_data = Json.carica_dati(path_save)
         punteggio = punteggio_iniziale
         partite_giocate = leaderboard_data.get("partite_giocate", 0)
         partite_giocate += 1
-        partite_vinte = leaderboard_data.get("partite_vinte", 0)  # 0 default
+        partite_vinte = leaderboard_data.get("partite_vinte", 0)
 
         # Inizializza messaggi e ordine turni se non presenti
         if 'ordine_turni' not in save_data:
