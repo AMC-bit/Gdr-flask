@@ -14,7 +14,8 @@ from gioco.schemas.inventario import InventarioSchema
 from gioco.schemas.personaggio import PersonaggioSchema
 from utils.helper import get_all_subclasses
 from characters.routes import load_char, get_owned_chars
-from config import DATA_DIR_SAVE, DATA_DIR_INV, DATA_DIR_PGS, load_leaderboard
+from config import DATA_DIR_SAVE, DATA_DIR_INV, DATA_DIR_PGS
+from config import load_leaderboard, update_leaderboard
 from utils.salvataggio import Json
 
 path_save = os.path.join(
@@ -277,8 +278,8 @@ def auto_battle():
         leaderboard_data["partite_giocate"] = partite_giocate
         leaderboard_data["partite_vinte"] = partite_vinte
         leaderboard_data["punteggio"] += punteggio
-
-        
+        user_id = str(session.get('_user_id', ''))
+        update_leaderboard(user_id, leaderboard_data)
 
         # Salva stato, aggiorna file
         for pg in personaggi_selezionati_obj:

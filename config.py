@@ -121,3 +121,19 @@ def load_leaderboard(user_id: str = None):
     except json.JSONDecodeError:
         # se il file è vuoto o corrotto, ritorna comunque un dizionario vuoto
         return {}
+
+
+def update_leaderboard(user_id: str, data: dict):
+    """
+    Funzione per aggiornare il file JSON della classifica
+    con i dati passati come argomento.
+    """
+    leaderboard = load_leaderboard()
+
+    if user_id in leaderboard:
+        leaderboard[user_id].update(data)
+    else:
+        leaderboard[user_id] = data
+
+    with open(LEADERBOARD_FILE, 'w', encoding='utf-8') as f:
+        json.dump(leaderboard, f, ensure_ascii=False, indent=4)
