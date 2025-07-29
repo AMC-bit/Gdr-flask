@@ -1,6 +1,6 @@
 from marshmallow import Schema, fields, post_load
 import uuid
-from gioco.schemas.helper import get_all_subclasses
+from utils.helper import get_all_subclasses
 from gioco.personaggio import Personaggio
 
 
