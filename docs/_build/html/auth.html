@@ -1,0 +1,374 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>auth package &mdash; gdr 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="battle package" href="battle.html" />
+    <link rel="prev" title="gioco.schemas namespace" href="gioco.schemas.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            gdr
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Moduli</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="gioco.html">gioco namespace</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">auth package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-auth.credits">auth.credits module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#auth.credits.credits_to_create"><code class="docutils literal notranslate"><span class="pre">credits_to_create()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auth.credits.credits_to_refund"><code class="docutils literal notranslate"><span class="pre">credits_to_refund()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-auth.models">auth.models module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#auth.models.User"><code class="docutils literal notranslate"><span class="pre">User</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#auth.models.User.character_ids"><code class="docutils literal notranslate"><span class="pre">User.character_ids</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth.models.User.crediti"><code class="docutils literal notranslate"><span class="pre">User.crediti</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth.models.User.email"><code class="docutils literal notranslate"><span class="pre">User.email</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth.models.User.has_role"><code class="docutils literal notranslate"><span class="pre">User.has_role()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth.models.User.id"><code class="docutils literal notranslate"><span class="pre">User.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth.models.User.is_admin"><code class="docutils literal notranslate"><span class="pre">User.is_admin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth.models.User.is_player"><code class="docutils literal notranslate"><span class="pre">User.is_player()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth.models.User.nome"><code class="docutils literal notranslate"><span class="pre">User.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth.models.User.password_hash"><code class="docutils literal notranslate"><span class="pre">User.password_hash</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth.models.User.query"><code class="docutils literal notranslate"><span class="pre">User.query</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth.models.User.ruolo"><code class="docutils literal notranslate"><span class="pre">User.ruolo</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#auth.models.UserRole"><code class="docutils literal notranslate"><span class="pre">UserRole</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#auth.models.UserRole.ADMIN"><code class="docutils literal notranslate"><span class="pre">UserRole.ADMIN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth.models.UserRole.PLAYER"><code class="docutils literal notranslate"><span class="pre">UserRole.PLAYER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auth.models.UserRole.TESTER"><code class="docutils literal notranslate"><span class="pre">UserRole.TESTER</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-auth.routes">auth.routes module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#auth.routes.admin_manager"><code class="docutils literal notranslate"><span class="pre">admin_manager()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auth.routes.credit_refill"><code class="docutils literal notranslate"><span class="pre">credit_refill()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auth.routes.delete_user"><code class="docutils literal notranslate"><span class="pre">delete_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auth.routes.edit_user"><code class="docutils literal notranslate"><span class="pre">edit_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auth.routes.elimina_inventari_utente"><code class="docutils literal notranslate"><span class="pre">elimina_inventari_utente()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auth.routes.elimina_personaggi_utente"><code class="docutils literal notranslate"><span class="pre">elimina_personaggi_utente()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auth.routes.email_check"><code class="docutils literal notranslate"><span class="pre">email_check()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auth.routes.login"><code class="docutils literal notranslate"><span class="pre">login()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auth.routes.logout"><code class="docutils literal notranslate"><span class="pre">logout()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auth.routes.personal_area"><code class="docutils literal notranslate"><span class="pre">personal_area()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auth.routes.protect_psw_hash"><code class="docutils literal notranslate"><span class="pre">protect_psw_hash()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auth.routes.sign_in"><code class="docutils literal notranslate"><span class="pre">sign_in()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auth.routes.update_user_role"><code class="docutils literal notranslate"><span class="pre">update_user_role()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-auth">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="battle.html">battle package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="characters.html">characters package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gioco.schemas.html">gioco.schemas namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="home.html">home package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inventory.html">inventory package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mission.html">mission package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">gdr</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">auth package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/auth.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="auth-package">
+<h1>auth package<a class="headerlink" href="#auth-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-auth.credits">
+<span id="auth-credits-module"></span><h2>auth.credits module<a class="headerlink" href="#module-auth.credits" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="auth.credits.credits_to_create">
+<span class="sig-prename descclassname"><span class="pre">auth.credits.</span></span><span class="sig-name descname"><span class="pre">credits_to_create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">personaggio</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#auth.credits.credits_to_create" title="Link to this definition"></a></dt>
+<dd><p>Restituisce il numero di crediti necessari per creare un personaggio.
+I costi cambiano a secondo della classe del personaggio che si vuole creare.
+(“Mago” costa 20 crediti, “Guerriero” 25 crediti, “Ladro” 50 crediti)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>personaggio</strong> (<a class="reference internal" href="gioco.html#gioco.personaggio.Personaggio" title="gioco.personaggio.Personaggio"><em>Personaggio</em></a>) – oggetto della classe Personaggio</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>crediti necessari alla creazione del personaggio</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="auth.credits.credits_to_refund">
+<span class="sig-prename descclassname"><span class="pre">auth.credits.</span></span><span class="sig-name descname"><span class="pre">credits_to_refund</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">personaggio</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#auth.credits.credits_to_refund" title="Link to this definition"></a></dt>
+<dd><p>Restituisce il numero di crediti rimborsati all’utente in caso di cancellazione
+del personaggio. Il rimborso è un valore fisso in base alla classe del personaggio.</p>
+<p>(“Mago” rimborsa 20 crediti, “Guerriero” 25 crediti, “Ladro” 50 crediti)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>personaggio</strong> (<a class="reference internal" href="gioco.html#gioco.personaggio.Personaggio" title="gioco.personaggio.Personaggio"><em>Personaggio</em></a>) – oggetto della classe Personaggio</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>crediti rimborsati all’utente</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-auth.models">
+<span id="auth-models-module"></span><h2>auth.models module<a class="headerlink" href="#module-auth.models" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="auth.models.User">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">auth.models.</span></span><span class="sig-name descname"><span class="pre">User</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#auth.models.User" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">UserMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="auth.models.User.character_ids">
+<span class="sig-name descname"><span class="pre">character_ids</span></span><a class="headerlink" href="#auth.models.User.character_ids" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="auth.models.User.crediti">
+<span class="sig-name descname"><span class="pre">crediti</span></span><a class="headerlink" href="#auth.models.User.crediti" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="auth.models.User.email">
+<span class="sig-name descname"><span class="pre">email</span></span><a class="headerlink" href="#auth.models.User.email" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="auth.models.User.has_role">
+<span class="sig-name descname"><span class="pre">has_role</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">role</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#auth.models.User.has_role" title="Link to this definition"></a></dt>
+<dd><p>Verifica se l’utente ha un ruolo specifico</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="auth.models.User.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#auth.models.User.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="auth.models.User.is_admin">
+<span class="sig-name descname"><span class="pre">is_admin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#auth.models.User.is_admin" title="Link to this definition"></a></dt>
+<dd><p>Verifica se l’utente è un amministratore</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="auth.models.User.is_player">
+<span class="sig-name descname"><span class="pre">is_player</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#auth.models.User.is_player" title="Link to this definition"></a></dt>
+<dd><p>Verifica se l’utente è un giocatore</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="auth.models.User.nome">
+<span class="sig-name descname"><span class="pre">nome</span></span><a class="headerlink" href="#auth.models.User.nome" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="auth.models.User.password_hash">
+<span class="sig-name descname"><span class="pre">password_hash</span></span><a class="headerlink" href="#auth.models.User.password_hash" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="auth.models.User.query">
+<span class="sig-name descname"><span class="pre">query</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">t.ClassVar[Query]</span></em><a class="headerlink" href="#auth.models.User.query" title="Link to this definition"></a></dt>
+<dd><p>A SQLAlchemy query for a model. Equivalent to <code class="docutils literal notranslate"><span class="pre">db.session.query(Model)</span></code>. Can be
+customized per-model by overriding <code class="xref py py-attr docutils literal notranslate"><span class="pre">query_class</span></code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The query interface is considered legacy in SQLAlchemy. Prefer using
+<code class="docutils literal notranslate"><span class="pre">session.execute(select())</span></code> instead.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="auth.models.User.ruolo">
+<span class="sig-name descname"><span class="pre">ruolo</span></span><a class="headerlink" href="#auth.models.User.ruolo" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="auth.models.UserRole">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">auth.models.</span></span><span class="sig-name descname"><span class="pre">UserRole</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#auth.models.UserRole" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="auth.models.UserRole.ADMIN">
+<span class="sig-name descname"><span class="pre">ADMIN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ADMIN'</span></em><a class="headerlink" href="#auth.models.UserRole.ADMIN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="auth.models.UserRole.PLAYER">
+<span class="sig-name descname"><span class="pre">PLAYER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'PLAYER'</span></em><a class="headerlink" href="#auth.models.UserRole.PLAYER" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="auth.models.UserRole.TESTER">
+<span class="sig-name descname"><span class="pre">TESTER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'TESTER'</span></em><a class="headerlink" href="#auth.models.UserRole.TESTER" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-auth.routes">
+<span id="auth-routes-module"></span><h2>auth.routes module<a class="headerlink" href="#module-auth.routes" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="auth.routes.admin_manager">
+<span class="sig-prename descclassname"><span class="pre">auth.routes.</span></span><span class="sig-name descname"><span class="pre">admin_manager</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#auth.routes.admin_manager" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="auth.routes.credit_refill">
+<span class="sig-prename descclassname"><span class="pre">auth.routes.</span></span><span class="sig-name descname"><span class="pre">credit_refill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#auth.routes.credit_refill" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="auth.routes.delete_user">
+<span class="sig-prename descclassname"><span class="pre">auth.routes.</span></span><span class="sig-name descname"><span class="pre">delete_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#auth.routes.delete_user" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="auth.routes.edit_user">
+<span class="sig-prename descclassname"><span class="pre">auth.routes.</span></span><span class="sig-name descname"><span class="pre">edit_user</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#auth.routes.edit_user" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="auth.routes.elimina_inventari_utente">
+<span class="sig-prename descclassname"><span class="pre">auth.routes.</span></span><span class="sig-name descname"><span class="pre">elimina_inventari_utente</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">character_ids</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#auth.routes.elimina_inventari_utente" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="auth.routes.elimina_personaggi_utente">
+<span class="sig-prename descclassname"><span class="pre">auth.routes.</span></span><span class="sig-name descname"><span class="pre">elimina_personaggi_utente</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">character_ids</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#auth.routes.elimina_personaggi_utente" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="auth.routes.email_check">
+<span class="sig-prename descclassname"><span class="pre">auth.routes.</span></span><span class="sig-name descname"><span class="pre">email_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">email</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#auth.routes.email_check" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="auth.routes.login">
+<span class="sig-prename descclassname"><span class="pre">auth.routes.</span></span><span class="sig-name descname"><span class="pre">login</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#auth.routes.login" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="auth.routes.logout">
+<span class="sig-prename descclassname"><span class="pre">auth.routes.</span></span><span class="sig-name descname"><span class="pre">logout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#auth.routes.logout" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="auth.routes.personal_area">
+<span class="sig-prename descclassname"><span class="pre">auth.routes.</span></span><span class="sig-name descname"><span class="pre">personal_area</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#auth.routes.personal_area" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="auth.routes.protect_psw_hash">
+<span class="sig-prename descclassname"><span class="pre">auth.routes.</span></span><span class="sig-name descname"><span class="pre">protect_psw_hash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">psw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#auth.routes.protect_psw_hash" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="auth.routes.sign_in">
+<span class="sig-prename descclassname"><span class="pre">auth.routes.</span></span><span class="sig-name descname"><span class="pre">sign_in</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#auth.routes.sign_in" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="auth.routes.update_user_role">
+<span class="sig-prename descclassname"><span class="pre">auth.routes.</span></span><span class="sig-name descname"><span class="pre">update_user_role</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#auth.routes.update_user_role" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-auth">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-auth" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="gioco.schemas.html" class="btn btn-neutral float-left" title="gioco.schemas namespace" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="battle.html" class="btn btn-neutral float-right" title="battle package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, ..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
