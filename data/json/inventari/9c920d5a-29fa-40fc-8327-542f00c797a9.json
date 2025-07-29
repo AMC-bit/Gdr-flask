@@ -27,14 +27,6 @@
             "classe": "PozioneSuperCura"
         },
         {
-            "id": "3e8095d8-7fd5-4c2a-b6bf-b546231b0787",
-            "nome": "Medaglione",
-            "usato": false,
-            "valore": 10,
-            "tipo_oggetto": "TipoOggetto.BUFF",
-            "classe": "Medaglione"
-        },
-        {
             "id": "b7bb472e-cf00-4ede-aa8b-8892207cfe39",
             "nome": "Bomba Acida",
             "usato": false,
@@ -52,6 +44,22 @@
         },
         {
             "id": "052aed64-185e-42ac-bf4a-1f8cf6328fcf",
+            "nome": "Bomba Acida",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "TipoOggetto.OFFENSIVO",
+            "classe": "BombaAcida"
+        },
+        {
+            "id": "dddf86b2-40dd-4639-b2b8-894882793532",
+            "nome": "Pozione Rossa",
+            "usato": false,
+            "valore": 30,
+            "tipo_oggetto": "TipoOggetto.RISTORATIVO",
+            "classe": "PozioneCura"
+        },
+        {
+            "id": "7f7ab076-dbac-4e5c-8283-37a3a026bbb0",
             "nome": "Bomba Acida",
             "usato": false,
             "valore": 30,

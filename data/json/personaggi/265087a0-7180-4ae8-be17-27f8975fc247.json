@@ -1,0 +1,17 @@
+{
+    "classe": "Mago",
+    "id": "265087a0-7180-4ae8-be17-27f8975fc247",
+    "nome": "Sir pentious",
+    "npc": false,
+    "salute_max": 80,
+    "salute": 25,
+    "attacco_min": 0,
+    "attacco_max": 100,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 15,
+    "storico_danni_subiti": [
+        76,
+        16
+    ]
+}
