@@ -203,7 +203,6 @@ def auto_battle():
         # Inizializza messaggi e ordine turni se non presenti
         if 'ordine_turni' not in save_data:
             ordine_turni = ordine_iniziativa(tutti_personaggi)
-            random.shuffle(ordine_turni)
             save_data['ordine_turni'] = ordine_turni
         if 'turno' not in save_data:
             save_data['turno'] = 0
@@ -220,23 +219,19 @@ def auto_battle():
         vittoria = False
 
         if not battaglia_finita:
-            save_data['turno'] += 1
+            
             save_data['ordine_turni'] = ordine_turni
-            if indice_turno >= len(ordine_turni):
-                indice_turno = 0
-                save_data['indice_turno_corrente'] = indice_turno
-
-            # ----- SEPARATORE DI TURNO -----
-            save_data['messaggi_battaglia'].append(
-                f"<hr><div class='text-center text-primary fw-bold my-2'>------- TURNO {save_data['turno']} -------</div>"
-            )
-
+            save_data['indice_turno_corrente'] = indice_turno
             personaggio_turno_corrente = None
             for p in tutti_personaggi:
                 if str(p.id) == ordine_turni[indice_turno] and not p.sconfitto():
                     personaggio_turno_corrente = p
+                    save_data['turno'] += 1
+                    # ----- SEPARATORE DI TURNO -----
+                    save_data['messaggi_battaglia'].append(
+                        f"<hr><div class='text-center text-primary fw-bold my-2'>------- TURNO {save_data['turno']} -------</div>"
+                    )
                     break
-
             if not personaggio_turno_corrente:
                 # Nessun personaggio disponibile, skip turno
                 save_data['indice_turno_corrente'] = (indice_turno + 1) % len(ordine_turni)
@@ -296,7 +291,7 @@ def auto_battle():
                 save_data['messaggi_battaglia'].append(msg)
 
                 if bersaglio.sconfitto():
-                    ordine_turni.remove(str(bersaglio.id))
+                    #ordine_turni.remove(str(bersaglio.id))
                     save_data['messaggi_battaglia'].append(
                         f"{bold(bersaglio.nome)} è stato <span class='text-danger fw-bold'>sconfitto!</span>"
                     )
