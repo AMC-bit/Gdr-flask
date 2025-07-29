@@ -130,23 +130,6 @@
             "storico_danni_subiti": []
         },
         {
-            "classe": "Mago",
-            "id": "37f53027-44eb-4a9a-a4c0-9e9faf2e8b26",
-            "nome": "Zestial",
-            "npc": false,
-            "salute_max": 80,
-            "salute": 10,
-            "attacco_min": 0,
-            "attacco_max": 90,
-            "livello": 1,
-            "destrezza": 15,
-            "iniziativa": 15,
-            "storico_danni_subiti": [
-                0,
-                70
-            ]
-        },
-        {
             "classe": "Guerriero",
             "id": "900dcef6-b71d-4b0f-b55d-e1a59629192c",
             "nome": "Alastor",
@@ -161,23 +144,39 @@
             "storico_danni_subiti": [
                 0
             ]
+        },
+        {
+            "classe": "Guerriero",
+            "id": "e18d89ea-72f4-440e-93ad-2f3a3c7a1f64",
+            "nome": "Carmilla",
+            "npc": false,
+            "salute_max": 130,
+            "salute": 75,
+            "attacco_min": 20,
+            "attacco_max": 100,
+            "livello": 1,
+            "destrezza": 15,
+            "iniziativa": 20,
+            "storico_danni_subiti": [
+                55
+            ]
         }
     ],
     "nemici_generati": true,
-    "ordine_turni": [
-        "08933c3a-220a-458f-b395-5cecb9eeaf10",
-        "9b91e185-f7a6-4fa5-95bb-83cb70fcf2bc",
-        "70b95326-5b90-46ba-9961-50c50d61196b",
-        "900dcef6-b71d-4b0f-b55d-e1a59629192c",
-        "060964b7-3496-4ed3-87b0-a4b45dbc8abd",
-        "37f53027-44eb-4a9a-a4c0-9e9faf2e8b26"
-    ],
     "turno": 1,
     "indice_turno_corrente": 1,
+    "ordine_turni": [
+        "70b95326-5b90-46ba-9961-50c50d61196b",
+        "08933c3a-220a-458f-b395-5cecb9eeaf10",
+        "e18d89ea-72f4-440e-93ad-2f3a3c7a1f64",
+        "900dcef6-b71d-4b0f-b55d-e1a59629192c",
+        "060964b7-3496-4ed3-87b0-a4b45dbc8abd",
+        "9b91e185-f7a6-4fa5-95bb-83cb70fcf2bc"
+    ],
     "messaggi_battaglia": [
         "<hr><div class='text-center text-primary fw-bold my-2'>------- TURNO 1 -------</div>",
-        "\u00c8 il turno di <b>Cherrybomb</b>",
-        "Cherrybomb non utilizza oggetti in questo turno",
-        "<b>Cherrybomb</b> attacca <b>Nemico 0</b> per <span class='text-danger fw-bold'>91</span> danni!"
+        "\u00c8 il turno di <b>Nemico 0</b>",
+        "Nemico 0 non utilizza oggetti in questo turno",
+        "<b>Nemico 0</b> attacca <b>Carmilla</b> per <span class='text-danger fw-bold'>55</span> danni!"
     ]
 }

@@ -125,6 +125,7 @@ def auto_battle():
         if 'ordine_turni' not in save_data:
             ordine_turni = ordine_iniziativa(tutti_personaggi)
             save_data['ordine_turni'] = ordine_turni
+            partite_giocate += 1  # Incrementa solo all'inizio di una nuova battaglia
         if 'turno' not in save_data:
             save_data['turno'] = 0
         if 'indice_turno_corrente' not in save_data:
@@ -313,21 +314,20 @@ def auto_battle():
         if battaglia_finita is True:
             os.remove(path_save)
 
-        else:
-            flash('Non esiste il file di salvataggio', 'danger')
-            return redirect(url_for('mission.select_mission'))
-
-    return render_template(
-        'auto_battle.html',
-        battaglia_finita=battaglia_finita,
-        vittoria=vittoria,
-        messaggi=save_data['messaggi_battaglia'],
-        personaggi=personaggi_selezionati_obj,
-        nemici=nemici_obj,
-        missione=missione_obj,
-        pc_vivi=pc_vivi,
-        npc_vivi=npc_vivi
-    )
+        return render_template(
+            'auto_battle.html',
+            battaglia_finita=battaglia_finita,
+            vittoria=vittoria,
+            messaggi=save_data['messaggi_battaglia'],
+            personaggi=personaggi_selezionati_obj,
+            nemici=nemici_obj,
+            missione=missione_obj,
+            pc_vivi=pc_vivi,
+            npc_vivi=npc_vivi
+        )
+    else:
+        flash('Non esiste il file di salvataggio', 'danger')
+        return redirect(url_for('mission.select_mission'))
 
 
 def setup_battle():
