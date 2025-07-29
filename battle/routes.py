@@ -407,16 +407,16 @@ def usa_inventario_automatico(
             print(f"Result: {result}")
             value = result[0]
             tipo = result[1]
-            if tipo == TipoOggetto.BUFF:
+            if tipo == 'TipoOggetto.BUFF':
                 bersaglio = None
                 txt = (f"{bold(pg.nome)} usa Medaglione su se stesso, ")
                 pg.attacco_max += value
-            elif tipo == TipoOggetto.OFFENSIVO:
+            elif tipo == "TipoOggetto.OFFENSIVO":
                 bersaglio = random.choice(bersagli)
                 txt = (f"{bold(pg.nome)} usa Bomba Acida su {bold(bersaglio.nome)} "
                     f"infliggendo {-value} HP di danno")
                 bersaglio.salute += value
-            elif tipo == TipoOggetto.RISTORATIVO:
+            elif tipo == "TipoOggetto.RISTORATIVO":
                 bersaglio = None
                 txt = (f"{bold(pg.nome)} usa Pozione Curativa su se stesso ")
                 pg.salute += value
@@ -424,7 +424,7 @@ def usa_inventario_automatico(
                     pg.salute = pg.salute_max
                     txt += ", che torna al massimo della salute."
                 else:
-                    txt += f", recuperando {value} HP."
+                    txt += f", recuperando <span class='text-success fw-bold'> {value}</span> HP."
             logger.info(txt)
         else:
             txt = f"{bold(pg.nome)} non utilizza oggetti in questo turno"
