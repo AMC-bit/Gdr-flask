@@ -17,8 +17,14 @@ DATA_DIR_SAVE = os.path.join(BASE_DIR, 'data', 'json', 'save')
 # directory file JSON delle missioni
 DATA_DIR_MIS = os.path.join(BASE_DIR, 'static', 'json', 'missions')
 
+# directory file JSON classifica
+DATA_DIR_LEADERBOARD = os.path.join(BASE_DIR, 'data', 'json', 'leaderboard')
+
 # file JSON con classifica
-LEADERBOARD_FILE = os.path.join(BASE_DIR, 'data', 'json', 'leaderboard.json')
+LEADERBOARD_FILE = os.path.join(DATA_DIR_LEADERBOARD, 'leaderboard.json')
+
+# Numero di giocatori massimo per ogni singolo utente
+NUMERO_MAX_PGS = 5
 
 
 NUMERO_MAX_PGS = 5  # Numero massimo di personaggi che un utente può usare in una battaglia
@@ -28,7 +34,13 @@ def CreateDirs():
     Crea directory per i file JSON necessarie allo svolgimento del gioco
     se non sono esistenti
     """
-    for d in (DATA_DIR_PGS, DATA_DIR_INV, DATA_DIR_SAVE, DATA_DIR_MIS):
+    for d in (
+        DATA_DIR_PGS,
+        DATA_DIR_INV,
+        DATA_DIR_SAVE,
+        DATA_DIR_MIS,
+        DATA_DIR_LEADERBOARD
+        ):
         os.makedirs(d, exist_ok=True)
 
         # crea file gitkeep se non esiste
@@ -71,7 +83,7 @@ def remove_user_leaderboard(user_id):
             json.dump(leaderboard, f, ensure_ascii=False, indent=4)
 
 
-def update_leaderboard():
+def create_leaderboard():
     """
     Funzione di aggiornamento della classifica per ogni utente
     presente in database
@@ -80,7 +92,7 @@ def update_leaderboard():
         add_user_leaderboard(user.id)
 
 
-def load_leaderboard():
+def load_leaderboard(user_id: str = None):
     """
     Funzione di caricamento del contenuto del file JSON della classifica.
     Questa funzione è necessaria per evitare errori in caso di
@@ -94,8 +106,15 @@ def load_leaderboard():
             # .strip() rimuove eventuali spazi bianchi all'inizio e alla fine
             # .read() legge il contenuto del file
             content = f.read().strip()
+
             if not content:
                 return {}  # se non c'è contenuto, ritorna dizionario vuoto
+
+            if user_id:
+                # se è specificato user_id, ritorna solo i dati di quell'utente
+                # json.loads ritorna un dizionario dal contenuto del JSON
+                return json.loads(content).get(user_id, {})
+
             # carica il contenuto trovato
             return json.loads(content)
 

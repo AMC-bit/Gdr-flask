@@ -14,7 +14,7 @@ from gioco.schemas.inventario import InventarioSchema
 from gioco.schemas.personaggio import PersonaggioSchema
 from utils.helper import get_all_subclasses
 from characters.routes import load_char, get_owned_chars
-from config import DATA_DIR_SAVE, DATA_DIR_INV, DATA_DIR_PGS
+from config import DATA_DIR_SAVE, DATA_DIR_INV, DATA_DIR_PGS, load_leaderboard
 from utils.salvataggio import Json
 
 path_save = os.path.join(
@@ -160,7 +160,16 @@ def setup_battle():
             inventario_pg_obj = inventario_schema.load(inventario_pg)
             inventari_pg_obj.append(inventario_pg_obj)
 
-    return missione_obj, personaggi_selezionati_obj, inventari_pg_obj
+    # caricamento dati leaderboard user corrente
+    user_id = str(current_user.id)
+    user_leaderboard = load_leaderboard(user_id)
+
+    return (
+        missione_obj,
+        personaggi_selezionati_obj,
+        inventari_pg_obj,
+        user_leaderboard
+    )
 
 
 def assegna_premi(
@@ -214,10 +223,14 @@ def auto_battle():
         inventari_pg = setup[2]
         inventari = []
         inventari += setup[2]
+        leaderboard_data = setup[3]
         inventari += missione_obj.inventari_nemici
         save_data = Json.carica_dati(path_save)
         tutti_personaggi = personaggi_selezionati_obj + nemici_obj
         punteggio = punteggio_iniziale
+        partite_giocate = leaderboard_data.get("partite_giocate", 0)
+        partite_giocate += 1
+        partite_vinte = leaderboard_data.get("partite_vinte", 0)  # 0 default
 
         # Inizializza messaggi e ordine turni se non presenti
         if 'ordine_turni' not in save_data:
@@ -358,6 +371,7 @@ def auto_battle():
                 battaglia_finita = True
                 vittoria = True
                 punteggio += 10 * len(pc_vivi)  # Bonus per vittoria
+                partite_vinte += 1
                 assegna_premi(
                     missione_obj,
                     save_data['messaggi_battaglia'],
@@ -371,6 +385,13 @@ def auto_battle():
                     "<span class='text-success fw-bold'>Tutti i nemici sono "
                     "stati sconfitti! Vittoria!</span>"
                 )
+
+        # update dei valori della leaderboard
+        leaderboard_data["partite_giocate"] = partite_giocate
+        leaderboard_data["partite_vinte"] = partite_vinte
+        leaderboard_data["punteggio"] += punteggio
+
+        
 
         # Salva stato, aggiorna file
         for pg in personaggi_selezionati_obj:
