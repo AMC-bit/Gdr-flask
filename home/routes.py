@@ -13,6 +13,9 @@ gioco = Blueprint('gioco', __name__, template_folder=template_dir)
 # Home / menu principale
 @home_bp.route('/')
 def index():
+    """
+    Funzione di ritorno della pagina principale
+    """
 
     users_stats = load_leaderboard()
     # utilizzo di 'sorted'
@@ -69,5 +72,8 @@ def index():
 
 @home_bp.route('/clear')
 def clear():
+    """
+    Funzione di pulizia della sessione
+    """
     session.clear()
     return redirect(url_for('home.index'))

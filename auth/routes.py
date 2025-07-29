@@ -11,16 +11,40 @@ import json
 
 
 def email_check(email):
+    """Controlla che l'email inserita sia corretta
+
+    Args:
+        email (str): email
+
+    Returns:
+        bool: True se corrisponde al pattern
+    """
     pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
     return re.match(pattern, email)
 
 
 def protect_psw_hash(psw):
+    """Funzione di protezione della password
+
+    Args:
+        psw (str): password
+
+    Returns:
+        str: password hash
+    """
     return generate_password_hash(psw)
 
 
 @auth_bp.route('/sign_in', methods=['GET', 'POST'])
 def sign_in():
+    """Registrazione nuovo utente.
+    Metodo GET: ritorna il template alla pagina di registrazione
+    Metodo POST: esegue i vari controlli e registra l'utente in database
+    mostrando un messaggio di successo e reindirizzando alla pagina di login
+
+    Returns:
+        flask.Response: template HTML di registrazione oppure login
+    """
     if request.method == 'POST':
         name = request.form['name'].strip().capitalize()
         email = request.form['email'].strip()
