@@ -1,4 +1,4 @@
-from flask import redirect, render_template, url_for, request, flash
+from flask import redirect, render_template, session, url_for, request, flash
 import logging
 import random
 import os
@@ -32,10 +32,6 @@ punteggio_iniziale = 0
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
-
-
-def bold(txt):
-    return f"<b>{txt}</b>"
 
 
 @battle_bp.route('/select_char', methods=['GET', 'POST'])
@@ -95,119 +91,6 @@ def select_char():
         personaggi=pg_list,
         missione_corrente=missione_corrente
         )
-
-
-def generate_random_enemy(
-    number: int = 1
-) -> list[tuple[Personaggio, Inventario]]:
-    """Genera randomicamente un nemico
-    Returns:
-        Personaggio: Ritorna un personaggio non giocante istanziato
-    """
-    personaggi_inventari = []
-    for i in range(number):
-        tipi_di_classi = get_all_subclasses(Personaggio)
-        tipi_di_oggetti = get_all_subclasses(Oggetto)
-        classe_sel = tipi_di_classi.pop()
-        oggetto_sel = tipi_di_oggetti.pop()
-        oggetto_obj = oggetto_sel()
-        personaggio_obj = classe_sel(nome=f"Nemico {i}")
-        inventario_obj = Inventario(id_proprietario=personaggio_obj.id)
-        inventario_obj.aggiungi_oggetto(oggetto_obj)
-        personaggio_inventario = (personaggio_obj, inventario_obj)
-        personaggi_inventari.append(personaggio_inventario)
-    return personaggi_inventari
-
-
-def setup_battle():
-    """Fa il setup dei dati prendendoli dai file json data/ save, inventari,
-    personaggi
-    Deserializza i dati dai json e ritorna gli oggetti
-
-    Returns:
-        Missione: La missione deserializzata con dentro i suoi campi la lista
-        dei nemici, l'ambiente, la lista degli inventari dei nemici e la lista
-        dei premi.
-
-        List[Personaggio]: La lista dei personaggi selezionati dei giocatori.
-
-        List[Inventario]: La lista degli inventari dei giocatori.
-    """
-    # --- SETUP DATI ---
-    save_data = Json.carica_dati(path_save)
-    missione = save_data['missione']
-    # print(f"MISSIONE DICT :{missione}")
-    personaggi_selezionati = Json.carica_dati(path_save)[
-        'personaggi_selezionati'
-    ]
-    # print(f"PERSONAGGI SELEZIONATI DICT :{personaggi_selezionati}")
-
-    # Deserializzazione oggetti
-    missione_obj = MissioniSchema().load(missione)
-    personaggio_schema = PersonaggioSchema(many=True)
-    personaggi_selezionati_obj = personaggio_schema.load(
-        personaggi_selezionati
-    )
-    # print(f"PERSONAGGI_OBJ : {personaggi_selezionati_obj}")
-
-    # Carico gli inventari dei personaggi:
-    inventari_pg_obj = []
-    inventario_schema = InventarioSchema()
-    for pg in personaggi_selezionati_obj:
-        if not pg.sconfitto():
-            pg_inv_path = os.path.join(DATA_DIR_INV, f"{str(pg.id)}.json")
-            inventario_pg = Json.carica_dati(pg_inv_path)
-            inventario_pg_obj = inventario_schema.load(inventario_pg)
-            inventari_pg_obj.append(inventario_pg_obj)
-
-    # caricamento dati leaderboard user corrente
-    user_id = str(current_user.id)
-    user_leaderboard = load_leaderboard(user_id)
-
-    return (
-        missione_obj,
-        personaggi_selezionati_obj,
-        inventari_pg_obj,
-        user_leaderboard
-    )
-
-
-def assegna_premi(
-    missione: Missione,
-    messaggi_battaglia: list[str],
-    personaggi_selezionati: list[Personaggio],
-    inventari: list[Inventario]
-):
-    """Da chiamare a fine scontro in caso di vittoria per assegnare
-    i premi della missione agli inventari dei personaggi
-
-    Args:
-        missione (Missione): La missione corrente
-        inventari (list[Inventario]): Inventari dei personaggi giocanti
-
-    Returns:
-        None
-    """
-    for inventario in inventari:
-        print(f"INVENTARIO:{inventari}")
-        for pg in personaggi_selezionati:
-            print(f"PG:{pg}")
-            if inventario.id_proprietario == pg.id:
-                for premio in missione.premi:
-                    print(f"PREMIO:{premio}")
-                    # QUESTA è una PORCATA , cè da rimettere mano nella lista
-                    # premi di ogni missione
-                    oggetti_map = {
-                        subcls.__name__: subcls
-                        for subcls in get_all_subclasses(Oggetto)
-                    }
-                    oggetto_cls = oggetti_map[premio.classe]
-                    nuova_istanza = oggetto_cls()
-                    messaggi_battaglia.append(
-                        f"{bold(pg.nome)} ha ricevuto in premio "
-                        f"{bold(nuova_istanza.nome)}"
-                        )
-                    inventario.aggiungi_oggetto(nuova_istanza)
 
 
 @battle_bp.route('/auto_battle', methods=['GET'])
@@ -436,6 +319,60 @@ def auto_battle():
     )
 
 
+def setup_battle():
+    """
+    Fa il setup dei dati prendendoli dai file json data/ save, inventari,
+    personaggi
+    Deserializza i dati dai json e ritorna gli oggetti
+
+    Returns:
+        Missione: La missione deserializzata con dentro i suoi campi la lista
+        dei nemici, l'ambiente, la lista degli inventari dei nemici e la lista
+        dei premi.
+
+        List[Personaggio]: La lista dei personaggi selezionati dei giocatori.
+
+        List[Inventario]: La lista degli inventari dei giocatori.
+    """
+    # --- SETUP DATI ---
+    save_data = Json.carica_dati(path_save)
+    missione = save_data['missione']
+    # print(f"MISSIONE DICT :{missione}")
+    personaggi_selezionati = Json.carica_dati(path_save)[
+        'personaggi_selezionati'
+    ]
+    # print(f"PERSONAGGI SELEZIONATI DICT :{personaggi_selezionati}")
+
+    # Deserializzazione oggetti
+    missione_obj = MissioniSchema().load(missione)
+    personaggio_schema = PersonaggioSchema(many=True)
+    personaggi_selezionati_obj = personaggio_schema.load(
+        personaggi_selezionati
+    )
+    # print(f"PERSONAGGI_OBJ : {personaggi_selezionati_obj}")
+
+    # Carico gli inventari dei personaggi:
+    inventari_pg_obj = []
+    inventario_schema = InventarioSchema()
+    for pg in personaggi_selezionati_obj:
+        if not pg.sconfitto():
+            pg_inv_path = os.path.join(DATA_DIR_INV, f"{str(pg.id)}.json")
+            inventario_pg = Json.carica_dati(pg_inv_path)
+            inventario_pg_obj = inventario_schema.load(inventario_pg)
+            inventari_pg_obj.append(inventario_pg_obj)
+
+    # caricamento dati leaderboard user corrente
+    user_id = str(session.get('_user_id', ''))
+    user_leaderboard = load_leaderboard(user_id)
+
+    return (
+        missione_obj,
+        personaggi_selezionati_obj,
+        inventari_pg_obj,
+        user_leaderboard
+    )
+
+
 def calcola_punteggio(pg: Personaggio) -> int:
     """
     Calcola il punteggio ottenuto o perso per la sconfitta del personaggio.
@@ -536,6 +473,28 @@ def usa_inventario_automatico(
     return value, txt
 
 
+def generate_random_enemy(
+    number: int = 1
+) -> list[tuple[Personaggio, Inventario]]:
+    """Genera randomicamente un nemico
+    Returns:
+        Personaggio: Ritorna un personaggio non giocante istanziato
+    """
+    personaggi_inventari = []
+    for i in range(number):
+        tipi_di_classi = get_all_subclasses(Personaggio)
+        tipi_di_oggetti = get_all_subclasses(Oggetto)
+        classe_sel = tipi_di_classi.pop()
+        oggetto_sel = tipi_di_oggetti.pop()
+        oggetto_obj = oggetto_sel()
+        personaggio_obj = classe_sel(nome=f"Nemico {i}")
+        inventario_obj = Inventario(id_proprietario=personaggio_obj.id)
+        inventario_obj.aggiungi_oggetto(oggetto_obj)
+        personaggio_inventario = (personaggio_obj, inventario_obj)
+        personaggi_inventari.append(personaggio_inventario)
+    return personaggi_inventari
+
+
 # in ingresso lista di tutti i personaggi, e  sommo iniziativa + d20, ordino
 # in base a qst, mettendo gli id
 
@@ -563,3 +522,45 @@ def ordine_iniziativa(tutti_personaggi):
         id = tupla[0]
         lista_ordinata_id.append(str(id))
     return lista_ordinata_id
+
+
+def assegna_premi(
+    missione: Missione,
+    messaggi_battaglia: list[str],
+    personaggi_selezionati: list[Personaggio],
+    inventari: list[Inventario]
+):
+    """Da chiamare a fine scontro in caso di vittoria per assegnare
+    i premi della missione agli inventari dei personaggi
+
+    Args:
+        missione (Missione): La missione corrente
+        inventari (list[Inventario]): Inventari dei personaggi giocanti
+
+    Returns:
+        None
+    """
+    for inventario in inventari:
+        print(f"INVENTARIO:{inventari}")
+        for pg in personaggi_selezionati:
+            print(f"PG:{pg}")
+            if inventario.id_proprietario == pg.id:
+                for premio in missione.premi:
+                    print(f"PREMIO:{premio}")
+                    # QUESTA è una PORCATA , cè da rimettere mano nella lista
+                    # premi di ogni missione
+                    oggetti_map = {
+                        subcls.__name__: subcls
+                        for subcls in get_all_subclasses(Oggetto)
+                    }
+                    oggetto_cls = oggetti_map[premio.classe]
+                    nuova_istanza = oggetto_cls()
+                    messaggi_battaglia.append(
+                        f"{bold(pg.nome)} ha ricevuto in premio "
+                        f"{bold(nuova_istanza.nome)}"
+                        )
+                    inventario.aggiungi_oggetto(nuova_istanza)
+
+
+def bold(txt):
+    return f"<b>{txt}</b>"
