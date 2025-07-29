@@ -1,10 +1,13 @@
 import logging
 
+
 def get_logger(name: str = None, level: int = logging.INFO) -> logging.Logger:
     logger = logging.getLogger(name)
     logger.setLevel(level)
     if not logger.handlers:
         ch = logging.StreamHandler()
-        ch.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+        ch.setFormatter(
+            logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+        )
         logger.addHandler(ch)
     return logger

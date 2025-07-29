@@ -120,7 +120,6 @@ def auto_battle():
         partite_giocate = leaderboard_data.get("partite_giocate", 0)
         partite_vinte = leaderboard_data.get("partite_vinte", 0)
 
-
         # Inizializza messaggi e ordine turni se non presenti
         if 'ordine_turni' not in save_data:
             ordine_turni = ordine_iniziativa(tutti_personaggi)
@@ -146,7 +145,6 @@ def auto_battle():
             if indice_turno >= len(ordine_turni):
                 indice_turno = 0
 
-
             save_data['indice_turno_corrente'] = indice_turno
             personaggio_turno_corrente = None
             for p in tutti_personaggi:
@@ -161,7 +159,6 @@ def auto_battle():
                             f" -------</div>"
                         )
                         break
-
 
             if not personaggio_turno_corrente:
                 # Nessun personaggio disponibile, skip turno
@@ -204,8 +201,12 @@ def auto_battle():
 
             if bersagli_validi:
                 bersaglio = random.choice(bersagli_validi)
+                mod_attacco = ambiente_obj.modifica_attacco(
+                    personaggio_turno_corrente.__class__.__name__,
+                    personaggio_turno_corrente.nome
+                )
                 danno, msg = personaggio_turno_corrente.attacca(
-                    ambiente_obj.mod_attacco
+                    mod_attacco
                 )
                 if danno > 0:
                     msg = (
@@ -273,13 +274,18 @@ def auto_battle():
                     inventari_pg
                 )
                 for char in pc_vivi:
-                    mod_ambiente = ambiente_obj.modifica_cura(char)
+                    mod_ambiente = ambiente_obj.modifica_cura(
+                        char.__class__.__name__,
+                        char.nome
+                    )
+
                     salute = char.salute
                     char.recupera_salute(mod_ambiente)
                     salute = char.salute - salute
                     if char.salute < char.salute_max:
                         save_data['messaggi_battaglia'].append(
-                            f"{bold(char.nome)} recupera {salute} punti salute!"
+                            f"{bold(char.nome)} recupera "
+                            f"{salute} punti salute!"
                         )
                     else:
                         save_data['messaggi_battaglia'].append(
@@ -386,12 +392,12 @@ def setup_battle():
     user_id = str(session.get('_user_id', ''))
     user_leaderboard = load_leaderboard(user_id)
 
-    if save_data["nemici_generati"] is  False:
+    if save_data["nemici_generati"] is False:
         nemici_casuali = generate_random_enemy(len(personaggi_selezionati))
         missione_obj.nemici = nemici_casuali[0]
-        print("NEMICI CASUALI",missione_obj.nemici)
+        print("NEMICI CASUALI", missione_obj.nemici)
         missione_obj.inventari_nemici = nemici_casuali[1]
-        print("INVENTARI NEMICI",missione_obj.inventari_nemici)
+        print("INVENTARI NEMICI", missione_obj.inventari_nemici)
         save_data["nemici_generati"] = True
     Json.scrivi_dati(path_save, save_data)
 
@@ -499,7 +505,10 @@ def usa_inventario_automatico(
                     pg.salute = pg.salute_max
                     txt += ", che torna al massimo della salute."
                 else:
-                    txt += f", recuperando <span class='text-success fw-bold'> {value}</span> HP."
+                    txt += (
+                        f", recuperando <span class='text-success fw-bold'>"
+                        f"{value}</span> HP."
+                    )
             logger.info(txt)
         else:
             txt = f"{bold(pg.nome)} non utilizza oggetti in questo turno"
@@ -522,7 +531,7 @@ def generate_random_enemy(
         oggetto_sel = random.choice(tipi_di_oggetti)
         oggetto_obj = oggetto_sel()
         nemico_obj = classe_sel(nome=f"Nemico {i}")
-        inventario_obj = Inventario(id_proprietario = nemico_obj.id)
+        inventario_obj = Inventario(id_proprietario=nemico_obj.id)
         inventario_obj.aggiungi_oggetto(oggetto_obj)
         inventari_nemici.append(inventario_obj)
         nemici.append(nemico_obj)
@@ -530,6 +539,7 @@ def generate_random_enemy(
 
 # in ingresso lista di tutti i personaggi, e  sommo iniziativa + d20, ordino
 # in base a qst, mettendo gli id
+
 
 def ordine_iniziativa(tutti_personaggi):
     """
