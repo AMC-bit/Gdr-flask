@@ -1,0 +1,16 @@
+{
+    "classe": "Guerriero",
+    "id": "490ca2db-86ab-4e48-a793-1724064e7508",
+    "nome": "Franco",
+    "npc": false,
+    "salute_max": 130,
+    "salute": 93,
+    "attacco_min": 20,
+    "attacco_max": 100,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 20,
+    "storico_danni_subiti": [
+        37
+    ]
+}

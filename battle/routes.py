@@ -394,10 +394,10 @@ def usa_inventario_automatico(
     ]
 
     if inventario is None:
-        txt = f"{pg.nome} non ha un inventario! Errore!!!!."
+        txt = f"{bold(pg.nome)} non ha un inventario! Errore!!!!."
         check = False
     elif inventario.oggetti is None:
-        txt = f"{pg.nome} non ha più oggetti nell'inventario."
+        txt = f"{bold(pg.nome)} non ha più oggetti nell'inventario."
         check = False
     txt = ""
     if check:
@@ -409,16 +409,16 @@ def usa_inventario_automatico(
             tipo = result[1]
             if tipo == TipoOggetto.BUFF:
                 bersaglio = None
-                txt = (f"{pg.nome} usa Medaglione su se stesso, ")
+                txt = (f"{bold(pg.nome)} usa Medaglione su se stesso, ")
                 pg.attacco_max += value
             elif tipo == TipoOggetto.OFFENSIVO:
                 bersaglio = random.choice(bersagli)
-                txt = (f"{pg.nome} usa Bomba Acida su {bersaglio.nome} "
+                txt = (f"{bold(pg.nome)} usa Bomba Acida su {bold(bersaglio.nome)} "
                     f"infliggendo {-value} HP di danno")
                 bersaglio.salute += value
             elif tipo == TipoOggetto.RISTORATIVO:
                 bersaglio = None
-                txt = (f"{pg.nome} usa Pozione Curativa su se stesso ")
+                txt = (f"{bold(pg.nome)} usa Pozione Curativa su se stesso ")
                 pg.salute += value
                 if pg.salute >= pg.salute_max:
                     pg.salute = pg.salute_max
