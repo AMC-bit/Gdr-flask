@@ -4,7 +4,7 @@ from gioco.oggetto import Oggetto
 from utils.salvataggio import Json
 from gioco.inventario import Inventario
 from gioco.schemas.inventario import InventarioSchema
-from gioco.schemas.helper import get_all_subclasses
+from utils.helper import get_all_subclasses
 from characters.routes import load_char, get_owned_chars
 from flask_login import login_required
 from marshmallow import ValidationError
@@ -89,7 +89,9 @@ def inventory():
             logger.info(f"Inventario di {nome_per_id.get(id_personaggio, 'sconosciuto')} caricato da JSON.")
         else:
             flash("Inventario non trovato o errore nel file.", "warning")
-
+    #print(f" INVENTARIO : {inventario_selezionato} TYPE: {type(inventario_selezionato)}")
+    #for oggetto in inventario_selezionato.oggetti :
+        #print(f"OGGETTO : {oggetto} , TYPE:{type(oggetto)}")
     return render_template(
         'inventory.html',
         personaggi=personaggi,

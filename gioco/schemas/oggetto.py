@@ -1,5 +1,5 @@
 from marshmallow import fields, Schema, post_load
-from gioco.schemas.helper import get_all_subclasses
+from utils.helper import get_all_subclasses
 import uuid
 
 class OggettoSchema(Schema):

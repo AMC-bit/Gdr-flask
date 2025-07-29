@@ -1,14 +1,17 @@
 {
     "classe": "Mago",
-    "id": "00404d76-d5a6-4d42-9656-706c3d4e8540",
-    "nome": "Alberto",
+    "id": "37f53027-44eb-4a9a-a4c0-9e9faf2e8b26",
+    "nome": "Zestial",
     "npc": false,
     "salute_max": 80,
-    "salute": 80,
+    "salute": 10,
     "attacco_min": 0,
     "attacco_max": 90,
     "livello": 1,
     "destrezza": 15,
     "iniziativa": 15,
-    "storico_danni_subiti": []
+    "storico_danni_subiti": [
+        0,
+        70
+    ]
 }

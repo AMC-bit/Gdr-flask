@@ -34,7 +34,7 @@
                   <strong>{{ oggetto.nome }}</strong> ({{ oggetto.classe }})
                   <br>
                   <small class="text-muted">
-                    {% if oggetto.tipo_oggetto %}Tipo: {{ oggetto.tipo_oggetto }}{% endif %}
+                    {% if oggetto.tipo_oggetto %}Tipo: {{ oggetto.tipo_oggetto.split(".")[1] }}{% endif %}
                     {% if oggetto.usato %} - Usato{% else %} - Non usato{% endif %}
                   </small>
                 </div>

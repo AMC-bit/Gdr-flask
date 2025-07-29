@@ -4,6 +4,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from auth.models import User, UserRole, db
 from . import auth_bp
 from characters.routes import load_char
+from config import add_user_leaderboard, remove_user_leaderboard
 import re
 import os
 import json
@@ -60,6 +61,8 @@ def sign_in():
         )
         db.session.add(nuovo_utente)
         db.session.commit()
+
+        add_user_leaderboard(nuovo_utente.id) # aggiunge utente a classifica
 
         flash("Sei registrato. Ora effettua il login", "success")
         return redirect(url_for('auth.login'))
@@ -148,6 +151,9 @@ def delete_user(id):
 
     db.session.delete(utente)
     db.session.commit()
+
+    remove_user_leaderboard(utente.id)
+
     return redirect(url_for('auth.sign_in'))
 
 
@@ -319,4 +325,4 @@ def logout():
     logout_user()
     session.clear()
     flash("Logout effettuato con successo", "success")
-    return render_template('menu.html')
+    return redirect(url_for('home.index'))  # Invece di render_template('menu.html'))
