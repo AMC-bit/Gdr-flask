@@ -274,7 +274,17 @@ def auto_battle():
                 )
                 for char in pc_vivi:
                     mod_ambiente = ambiente_obj.modifica_cura(char)
+                    salute = char.salute
                     char.recupera_salute(mod_ambiente)
+                    salute = char.salute - salute
+                    if char.salute < char.salute_max:
+                        save_data['messaggi_battaglia'].append(
+                            f"{bold(char.nome)} recupera {salute} punti salute!"
+                        )
+                    else:
+                        save_data['messaggi_battaglia'].append(
+                            f"{bold(char.nome)} torna al massimo della salute!"
+                        )
                 save_data['messaggi_battaglia'].append(
                     "<span class='text-success fw-bold'>Tutti i nemici sono "
                     "stati sconfitti! Vittoria!</span>"
