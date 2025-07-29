@@ -40,7 +40,6 @@ logger.setLevel(logging.INFO)
 def select_char():
     # if request.method == 'POST':
     # prendo i dati da sessione:
-
     missione_corrente = Json.carica_dati(path_save)['missione']
     pg_id_list = load_char()
     pg_list = get_owned_chars(pg_id_list)
@@ -76,6 +75,8 @@ def select_char():
             data_load["indice_turno_corrente"] = 0
         if "turno" in data_load:
             data_load["turno"] = 0
+        if "nemici_generati" not in data_load:
+            data_load["nemici_generati"] = False
         Json.scrivi_dati(path_save, data_load)
 
         """
@@ -119,10 +120,10 @@ def auto_battle():
         partite_giocate = leaderboard_data.get("partite_giocate", 0)
         partite_vinte = leaderboard_data.get("partite_vinte", 0)
 
+
         # Inizializza messaggi e ordine turni se non presenti
         if 'ordine_turni' not in save_data:
             ordine_turni = ordine_iniziativa(tutti_personaggi)
-            random.shuffle(ordine_turni)
             save_data['ordine_turni'] = ordine_turni
         if 'turno' not in save_data:
             save_data['turno'] = 0
@@ -139,24 +140,28 @@ def auto_battle():
         vittoria = False
 
         if not battaglia_finita:
-            save_data['turno'] += 1
+
             save_data['ordine_turni'] = ordine_turni
+
             if indice_turno >= len(ordine_turni):
                 indice_turno = 0
-                save_data['indice_turno_corrente'] = indice_turno
 
-            # ----- SEPARATORE DI TURNO -----
-            save_data['messaggi_battaglia'].append(
-                f"<hr><div class='text-center text-primary fw-bold my-2'>"
-                f"------- TURNO {save_data['turno']} -------</div>"
-            )
 
+            save_data['indice_turno_corrente'] = indice_turno
             personaggio_turno_corrente = None
             for p in tutti_personaggi:
                 if str(p.id) == ordine_turni[indice_turno]:
                     if not p.sconfitto():
                         personaggio_turno_corrente = p
+                        save_data['turno'] += 1
+                        # ----- SEPARATORE DI TURNO -----
+                        save_data['messaggi_battaglia'].append(
+                            f"<hr><div class='text-center text-primary "
+                            f"fw-bold my-2'>------- TURNO {save_data['turno']}"
+                            f" -------</div>"
+                        )
                         break
+
 
             if not personaggio_turno_corrente:
                 # Nessun personaggio disponibile, skip turno
@@ -308,9 +313,9 @@ def auto_battle():
         if battaglia_finita is True:
             os.remove(path_save)
 
-    else:
-        flash('Non esiste il file di salvataggio', 'danger')
-        return redirect(url_for('mission.select_mission'))
+        else:
+            flash('Non esiste il file di salvataggio', 'danger')
+            return redirect(url_for('mission.select_mission'))
 
     return render_template(
         'auto_battle.html',
@@ -370,6 +375,15 @@ def setup_battle():
     # caricamento dati leaderboard user corrente
     user_id = str(session.get('_user_id', ''))
     user_leaderboard = load_leaderboard(user_id)
+
+    if save_data["nemici_generati"] is  False:
+        nemici_casuali = generate_random_enemy(len(personaggi_selezionati))
+        missione_obj.nemici = nemici_casuali[0]
+        print("NEMICI CASUALI",missione_obj.nemici)
+        missione_obj.inventari_nemici = nemici_casuali[1]
+        print("INVENTARI NEMICI",missione_obj.inventari_nemici)
+        save_data["nemici_generati"] = True
+    Json.scrivi_dati(path_save, save_data)
 
     return (
         missione_obj,
@@ -440,10 +454,10 @@ def usa_inventario_automatico(
     ]
 
     if inventario is None:
-        txt = f"{pg.nome} non ha un inventario! Errore!!!!."
+        txt = f"{bold(pg.nome)} non ha un inventario! Errore!!!!."
         check = False
     elif inventario.oggetti is None:
-        txt = f"{pg.nome} non ha più oggetti nell'inventario."
+        txt = f"{bold(pg.nome)} non ha più oggetti nell'inventario."
         check = False
     txt = ""
     if check:
@@ -455,18 +469,21 @@ def usa_inventario_automatico(
             tipo = result[1]
             if tipo == TipoOggetto.BUFF:
                 bersaglio = None
-                txt = (f"{pg.nome} usa Medaglione su se stesso, ")
+                txt = (f"{bold(pg.nome)} usa Medaglione su se stesso, ")
                 pg.attacco_max += value
             elif tipo == TipoOggetto.OFFENSIVO:
                 bersaglio = random.choice(bersagli)
+
                 txt = (
-                    f"{pg.nome} usa Bomba Acida su {bersaglio.nome} "
+                    f"{bold(pg.nome)} usa Bomba Acida su "
+                    f"{bold(bersaglio.nome)} "
                     f"infliggendo {-value} HP di danno"
                 )
+
                 bersaglio.salute += value
             elif tipo == TipoOggetto.RISTORATIVO:
                 bersaglio = None
-                txt = (f"{pg.nome} usa Pozione Curativa su se stesso ")
+                txt = (f"{bold(pg.nome)} usa Pozione Curativa su se stesso ")
                 pg.salute += value
                 if pg.salute >= pg.salute_max:
                     pg.salute = pg.salute_max
@@ -486,20 +503,20 @@ def generate_random_enemy(
     Returns:
         Personaggio: Ritorna un personaggio non giocante istanziato
     """
-    personaggi_inventari = []
+    nemici = []
+    inventari_nemici = []
     for i in range(number):
-        tipi_di_classi = get_all_subclasses(Personaggio)
-        tipi_di_oggetti = get_all_subclasses(Oggetto)
-        classe_sel = tipi_di_classi.pop()
-        oggetto_sel = tipi_di_oggetti.pop()
+        tipi_di_classi = list(get_all_subclasses(Personaggio))
+        tipi_di_oggetti = list(get_all_subclasses(Oggetto))
+        classe_sel = random.choice(tipi_di_classi)
+        oggetto_sel = random.choice(tipi_di_oggetti)
         oggetto_obj = oggetto_sel()
-        personaggio_obj = classe_sel(nome=f"Nemico {i}")
-        inventario_obj = Inventario(id_proprietario=personaggio_obj.id)
+        nemico_obj = classe_sel(nome=f"Nemico {i}")
+        inventario_obj = Inventario(id_proprietario = nemico_obj.id)
         inventario_obj.aggiungi_oggetto(oggetto_obj)
-        personaggio_inventario = (personaggio_obj, inventario_obj)
-        personaggi_inventari.append(personaggio_inventario)
-    return personaggi_inventari
-
+        inventari_nemici.append(inventario_obj)
+        nemici.append(nemico_obj)
+    return nemici, inventari_nemici
 
 # in ingresso lista di tutti i personaggi, e  sommo iniziativa + d20, ordino
 # in base a qst, mettendo gli id
@@ -547,12 +564,9 @@ def assegna_premi(
         None
     """
     for inventario in inventari:
-        print(f"INVENTARIO:{inventari}")
         for pg in personaggi_selezionati:
-            print(f"PG:{pg}")
             if inventario.id_proprietario == pg.id:
                 for premio in missione.premi:
-                    print(f"PREMIO:{premio}")
                     # QUESTA è una PORCATA , cè da rimettere mano nella lista
                     # premi di ogni missione
                     oggetti_map = {
