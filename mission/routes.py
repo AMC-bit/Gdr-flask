@@ -194,15 +194,18 @@ def description(ambiente: Ambiente = None):
 
     # Crea il mapping dinamico delle classi
     classi_map = {cls.__name__: cls for cls in get_all_subclasses(Personaggio)}
-    classi = {nome: classi_map[nome]("temp") for nome in classi_data.keys()}
+    classi = {
+        nome_cls: classi_map[nome_cls]("temp")
+        for nome_cls in classi_data.keys()
+    }
     oggetti = [cls() for cls in get_all_subclasses(Oggetto)]
 
     # valori standard
     val_standard = {}
     x = {}
-    for nome, classe in classi.items():
-        data = classi_data[nome]
-        x[nome] = {
+    for nome_cls, classe in classi.items():
+        data = classi_data[nome_cls]
+        x[nome_cls] = {
             'attacco': {
                 'da': classe.attacco_min,
                 'a': classe.attacco_max
@@ -224,16 +227,16 @@ def description(ambiente: Ambiente = None):
     var_amb = deepcopy(val_standard)
 
     # Calcolo delle modifiche ambiente per i personaggi
-    for nome, classe in classi.items():
-        mod_att = int(ambiente.modifica_attacco(nome, classe.nome))
-        mod_cura = int(ambiente.modifica_cura(nome, classe.nome))
+    for nome_cls, classe in classi.items():
+        mod_att = int(ambiente.modifica_attacco(nome_cls, classe.nome))
+        mod_cura = int(ambiente.modifica_cura(nome_cls, classe.nome))
 
         # print(f"DEBUG - {nome}: attacco={mod_att}, cura={mod_cura}")
 
         if mod_att != 0:
-            if nome != 'Guerriero':
-                var_amb['Chars'][nome]['attacco']['da'] += mod_att
-            var_amb['Chars'][nome]['attacco']['a'] += mod_att
+            if nome_cls != 'Guerriero':
+                var_amb['Chars'][nome_cls]['attacco']['da'] += mod_att
+            var_amb['Chars'][nome_cls]['attacco']['a'] += mod_att
 
         if mod_cura != 0:
             segno = '+' if mod_cura > 0 else '-'
@@ -242,14 +245,16 @@ def description(ambiente: Ambiente = None):
                 'Ladro': f"da {10 + mod_cura} a {40 + mod_cura}",
                 'Guerriero': f"{30 + mod_cura}"
             }
-            var_amb['Chars'][nome]['cura']['recupero salute'] = cura_str[nome]
+            var_amb['Chars'][nome_cls]['cura']['recupero salute'] = (
+                cura_str[nome_cls]
+            )
 
     # Modifica del campo valore degli oggetti
     for obj in oggetti:
-        nome_classe = obj.__class__.__name__
-        mod_obj = ambiente.modifica_effetto_oggetto(nome_classe, obj.valore)
+        nome_cls = obj.__class__.__name__
+        mod_obj = ambiente.modifica_effetto_oggetto(nome_cls, obj.valore)
         if mod_obj != 0:
-            var_amb['Oggetto'][nome_classe]['valore'] += mod_obj
+            var_amb['Oggetto'][nome_cls]['valore'] += mod_obj
 
     # Debugging output
     # print(f"val_standard: {val_standard}"
@@ -365,7 +370,7 @@ def create_mission():
                 nemico.id = str(uuid.uuid4())
                 lista_nemici.append(nemico)
             except ValueError:
-                flash(f"Errore nella riga nemico: {riga}", 'error')
+                flash(f"Errore nella riga nemico: {i}", 'error')
 
         #lista_premi = [prem]
 
