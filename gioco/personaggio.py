@@ -46,6 +46,11 @@ class Personaggio:
     classe: str = ""
 
     def esegui_azione(self) -> bool:
+        """ Esegue un'azione basata sulla destrezza del personaggio.
+
+        Returns:
+            bool: True se l'azione ha successo, False altrimenti.
+        """
         tiro = random.randint(1, 20)
         successo = tiro <= self.destrezza
         msg = (
@@ -58,14 +63,27 @@ class Personaggio:
 
     def calcola_danno(self, mod_ambiente: int = 0) -> int:
         """
-        Metodo separato per il calcolo del danno,
-        personalizzabile dalle sottoclassi.
+        Metodo separato per il calcolo del danno, personalizzabile dalle sottoclassi.
+
+        Args:
+            mod_ambiente (int, optional): Modificatore di danno basato sull'ambiente. Defaults to 0.
+
+        Returns:
+            int: Danno calcolato.
         """
         return (
             random.randint(self.attacco_min, self.attacco_max) + mod_ambiente
         )
 
     def attacca(self, mod_ambiente: int = 0) -> tuple[int, str]:
+        """ Esegue un attacco e calcola il danno. Ritorna il danno e un messaggio.
+
+        Args:
+            mod_ambiente (int, optional): Modificatore di danno basato sull'ambiente. Defaults to 0.
+
+        Returns:
+            tuple[int, str]: Il danno inflitto e un messaggio di log.
+        """
         if self.esegui_azione():
             danno = max(0, self.calcola_danno(mod_ambiente))
             msg = (
@@ -80,14 +98,25 @@ class Personaggio:
         return danno, msg
 
     def subisci_danno(self, danno: int) -> None:
+        """ Subisce danno e aggiorna la salute del personaggio.
+
+        Args:
+            danno (int): Il danno subito dal personaggio.
+        """
         self.salute = max(0, self.salute - danno)
         self.storico_danni_subiti.append(danno)
         logger.info(f"Salute di {self.nome}: {self.salute}")
 
     def sconfitto(self) -> bool:
+        """ Verifica se il personaggio è sconfitto (salute <= 0).
+
+        Returns:
+            bool: True se il personaggio è sconfitto, False altrimenti.
+        """
         return self.salute <= 0
 
     def migliora_statistiche(self) -> None:
+        """ Aumenta le statistiche del personaggio al livello successivo. """
         self.livello += 1
         self.attacco_max = int(self.attacco_max * 1.02)
         self.salute_max = int(self.salute_max * 1.01)
@@ -96,6 +125,7 @@ class Personaggio:
 
 @dataclass
 class Mago(Personaggio):
+    """ Classe per il personaggio Mago, con logica di attacco e recupero salute specifica. """
     salute_max: int = 80
     salute: int = 80
     attacco_min: int = 0
@@ -104,12 +134,29 @@ class Mago(Personaggio):
     classe: str = "Mago"
 
     def calcola_danno(self, mod_ambiente: int = 0) -> int:
-        # Calcolo danno personalizzato che estende la logica di personaggio
+        """ Calcola il danno per il mago, che può essere diverso dagli altri personaggi
+        in base alla logica del gioco.
+
+        Args:
+            mod_ambiente (int, optional): Modificatore di danno basato sull'ambiente. Defaults to 0.
+
+        Returns:
+            int: Danno calcolato per il mago.
+        """
         return (
             random.randint(self.attacco_min, self.attacco_max) + mod_ambiente
         )
 
     def attacca(self, mod_ambiente: int = 0) -> tuple[int, str]:
+        """ Attacca un nemico lanciando un incantesimo. Infligge danni se il valore
+        del danno è maggiore di 0, altrimenti non infligge danni.
+
+        Args:
+            mod_ambiente (int, optional): Modificatore di danno basato sull'ambiente. Defaults to 0.
+
+        Returns:
+            tuple[int, str]: Il danno inflitto e un messaggio di log.
+        """
         danno, _ = super().attacca(mod_ambiente)
         # Cambia solo il messaggio, non la logica
         if danno > 0:
@@ -122,6 +169,15 @@ class Mago(Personaggio):
         return danno, msg
 
     def recupera_salute(self, mod_ambiente: int = 0) -> str:
+        """ Recupera una percentuale di salute in base al valore attuale e al modificatore dell'ambiente.
+        Se la salute è già al massimo, non recupera nulla.
+
+        Args:
+            mod_ambiente (int, optional): Modificatore di salute basato sull'ambiente. Defaults to 0.
+
+        Returns:
+            str: Messaggio che indica il recupero di salute o se la salute è già al massimo.
+        """
         # Cambia solo la percentuale di recupero (20%)
         if self.salute >= self.salute_max:
             msg = f"{self.nome} ha già la salute piena."
@@ -140,6 +196,7 @@ class Mago(Personaggio):
 
 @dataclass
 class Guerriero(Personaggio):
+    """ Classe per il personaggio Guerriero, con logica di attacco e recupero salute specifica. """
     salute_max: int = 130
     salute: int = 130
     attacco_min: int = 20
@@ -148,6 +205,15 @@ class Guerriero(Personaggio):
     classe: str = "Guerriero"
 
     def attacca(self, mod_ambiente: int = 0) -> tuple[int, str]:
+        """ Attacca un nemico con un valore specifico di danno in base all'ambiente.
+        Ritorna il danno inflitto e un messaggio.
+
+        Args:
+            mod_ambiente (int, optional): Valore di modificatore dell'ambiente. Defaults to 0.
+
+        Returns:
+            tuple[int, str]: Il danno inflitto e un messaggio di log.
+        """
         danno, _ = super().attacca(mod_ambiente)
         if danno > 0:
             msg = (
@@ -159,6 +225,14 @@ class Guerriero(Personaggio):
         return danno, msg
 
     def recupera_salute(self, mod_ambiente: int = 0) -> str:
+        """ Recupera salute in modo fisso, aumentando la salute del personaggio.
+
+        Args:
+            mod_ambiente (int, optional): Modificatore di salute basato sull'ambiente. Defaults to 0.
+
+        Returns:
+            str: Messaggio che indica il recupero di salute o se la salute è già al massimo.
+        """
         # Recupero fisso di 30
         if self.salute >= self.salute_max:
             msg = f"{self.nome} ha già la salute piena."
@@ -177,6 +251,7 @@ class Guerriero(Personaggio):
 
 @dataclass
 class Ladro(Personaggio):
+    """ Classe per il personaggio Ladro, con logica di attacco e recupero salute specifica. """
     salute_max: int = 120
     salute: int = 120
     attacco_min: int = 10
@@ -185,6 +260,14 @@ class Ladro(Personaggio):
     classe: str = "Ladro"
 
     def attacca(self, mod_ambiente: int = 0) -> tuple[int, str]:
+        """ Attacca con un colpo furtivo, infliggendo danni in base al modificatore dell'ambiente.
+
+        Args:
+            mod_ambiente (int, optional): valore di modificatore dell'ambiente. Defaults to 0.
+
+        Returns:
+            tuple[int, str]: Il danno inflitto e un messaggio di log.
+        """
         danno, _ = super().attacca(mod_ambiente)
         if danno > 0:
             msg = (
@@ -196,6 +279,14 @@ class Ladro(Personaggio):
         return danno, msg
 
     def recupera_salute(self, mod_ambiente: int = 0) -> str:
+        """Recupera salute in modo casuale tra 10 e 40, modificato dal valore dell'ambiente.
+
+        Args:
+            mod_ambiente (int, optional): Modificatore di salute basato sull'ambiente. Defaults to 0.
+
+        Returns:
+            str: Messaggio che indica il recupero di salute o se la salute è già al massimo.
+        """
         # Recupero casuale tra 10-40 (+ mod_ambiente)
         if self.salute >= 140:
             msg = f"{self.nome} ha già la salute piena."
