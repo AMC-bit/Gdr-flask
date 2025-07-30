@@ -13,7 +13,7 @@
 - [Update futuri](#update-futuri)
 - [Come contribuire](#come-contribuire)
 - [License](#license)
-
+ 
 ## Cos'è Saltatio Mortis?
 **Saltatio Mortis** è un gioco di ruolo web based a turni di tipo _text-based_, dove il giocatore interagisce con personaggi non giocanti *(NPC)*, completa missioni e utilizza oggetti strategici per progredire nel gioco. Il sistema prevede una gestione avanzata di personaggi, oggetti, missioni e strategie comportamentali degli NPC.
 
