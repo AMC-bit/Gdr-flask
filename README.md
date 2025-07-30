@@ -2,6 +2,7 @@
 
 <p align='center'>
 	<img alt="Static Badge" src="https://img.shields.io/badge/Version-1.0-blue?style=for-the-badge">
+    <img alt="Last Commit" src="https://img.shields.io/github/last-commit/delectablerec/Gdr-flask?style=for-the-badge">
 </p>
 
 ## Table of Contents
@@ -42,11 +43,22 @@ Abbiamo trovato tutto ciò un validissimo esercizio che ci ha permesso innanzitu
 
 
 ## Come contribuire
-Il tuo contributo è importante
+Il tuo contributo è importante! Se vuoi supportare lo sviluppo e le implementazioni future, dimostraci il tuo sostegno tramite i bottoni qui sotto
 
-![GitHub Stars](https://img.shields.io/github/stars/delectablerec/Gdr-flask?style=for-the-badge)
+[![Star](https://img.shields.io/github/stars/delectablerec/Gdr-flask?style=for-the-badge)](https://github.com/delectablerec/Gdr-flask/stargazers)
+[![Fork](https://img.shields.io/github/forks/delectablerec/Gdr-flask?style=for-the-badge)](https://github.com/delectablerec/Gdr-flask/network/members)
+[![Watch](https://img.shields.io/github/watchers/delectablerec/Gdr-flask?style=for-the-badge)](https://github.com/delectablerec/Gdr-flask/watchers)
 
-![GitHub Forks](https://img.shields.io/github/forks/delectablerec/Gdr-flask?style=for-the-badge)
+Oppure segui [il creatore del progetto](https://github.com/delectablerec)
+
+[![Followers](https://img.shields.io/github/followers/delectablerec?style=for-the-badge)](https://github.com/delectablerec)
+
+
+
+
+
+
+
 
 
 
