@@ -18,7 +18,7 @@ logger = get_logger(__name__)
 class TipoStrategia(Enum):
     """Tipi di strategie per gli NPC.
 
-    Attributi:
+    Attributes:
         Enum (str): La descrizione della strategia.
     """
     AGGRESSIVA = "aggressiva"
@@ -32,14 +32,12 @@ class Strategia:
     gli NPC possono usare per prendere decisioni sull'uso dell'inventario e
     le modifiche agli attributi.
 
-    Attributi:
+    Attributes:
         nome (str): Il nome della strategia, qui predefinito a "Strategia base".
 
-    Metodi:
+    Methods:
         uso_inventario_npc: Determina come un NPC usa gli oggetti
             del proprio inventario.
-        bonus_destrezza: Applica modifiche positive all'attributo destrezza.
-        malus_destrezza: Applica modifiche negative all'attributo destrezza.
     """
 
     nome = "Strategia base"
@@ -75,22 +73,10 @@ class Strategia:
         )
         raise NotImplementedError("Implementare nelle sottoclassi.")
 
-    def bonus_destrezza(self, destrezza: int) -> int:
-        return destrezza
-
-    def malus_destrezza(self, destrezza: int) -> int:
-        return destrezza
-
 
 class Aggressiva(Strategia):
     """
     Strategia aggressiva per gli NPC.
-
-    Attributi:
-        nome (str): Il nome della strategia, qui predefinito a "Aggressiva".
-
-    Metodi:
-        uso_inventario_npc: Determina come un NPC usa gli oggetti
     """
     nome = "Aggressiva"
 
@@ -137,13 +123,8 @@ class Aggressiva(Strategia):
 
 
 class Difensiva(Strategia):
-    """Strategia difensiva per gli NPC.
-
-    Attributi:
-        nome (str): Il nome della strategia, qui predefinito a "Difensiva".
-
-    Metodi:
-        uso_inventario_npc: Determina come un NPC usa gli oggetti
+    """
+    Strategia difensiva per gli NPC.
     """
     nome = "Difensiva"
 
@@ -214,13 +195,8 @@ class Difensiva(Strategia):
 
 
 class Equilibrata(Strategia):
-    """Strategia equilibrata per gli NPC.
-
-    Attributi:
-        nome (str): Il nome della strategia, qui predefinito a "Equilibrata".
-
-    Metodi:
-        uso_inventario_npc: Determina come un NPC usa gli oggetti
+    """
+    Strategia equilibrata per gli NPC.
     """
     nome = "Equilibrata"
 
@@ -287,11 +263,13 @@ class Equilibrata(Strategia):
 class StrategiaFactory:
     """
     Factory per creare istanze di strategie basate su tipo.
+    i suoi metodi statici permettono di ottenere una strategia
+    casuale o una strategia specifica basata su un tipo fornito.
 
-    Attributi:
+    Attributes:
         _mappa (dict): Mappa dei tipi di strategia a classi concrete.
 
-    Metodi statici:
+    Methods:
         strategia_random: Restituisce una strategia casuale tra quelle
             contenute in _mappa.
         usa_strategia: Restituisce una strategia basata sul tipo fornito.

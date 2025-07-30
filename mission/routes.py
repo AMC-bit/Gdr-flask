@@ -225,8 +225,8 @@ def description(ambiente: Ambiente = None):
 
     # Calcolo delle modifiche ambiente per i personaggi
     for nome, classe in classi.items():
-        mod_att = int(ambiente.modifica_attacco(classe.__name__, classe.nome))
-        mod_cura = int(ambiente.modifica_cura(classe.__name__, classe.nome))
+        mod_att = int(ambiente.modifica_attacco(nome, classe.nome))
+        mod_cura = int(ambiente.modifica_cura(nome, classe.nome))
 
         # print(f"DEBUG - {nome}: attacco={mod_att}, cura={mod_cura}")
 
