@@ -171,7 +171,7 @@ def assegna_premi(missione : Missione, messaggi_battaglia : list[str], personagg
     """
     for inventario in inventari:
         for pg in personaggi_selezionati:
-            print(f"PG:{pg}")
+            #print(f"PG:{pg}")
             if inventario.id_proprietario == pg.id:
                 for premio in missione.premi:
                     #QUESTA è una PORCATA , cè da rimettere mano nella lista premi di ogni missione
@@ -219,7 +219,6 @@ def auto_battle():
         vittoria = False
 
         if not battaglia_finita:
-            
             save_data['ordine_turni'] = ordine_turni
             save_data['indice_turno_corrente'] = indice_turno
             personaggio_turno_corrente = None
@@ -404,7 +403,7 @@ def usa_inventario_automatico(
         result = strategia.uso_inventario_npc(pg.salute, inventario, ambiente)
 
         if result is not None:
-            print(f"Result: {result}")
+            #print(f"Result: {result}")
             value = result[0]
             tipo = result[1]
             if tipo == 'TipoOggetto.BUFF':
