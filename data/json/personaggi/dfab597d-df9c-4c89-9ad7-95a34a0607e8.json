@@ -1,14 +1,17 @@
 {
     "classe": "Ladro",
-    "id": "258f3c52-beae-4fe2-a666-d8f949fa81b1",
-    "nome": "Zoro",
+    "id": "dfab597d-df9c-4c89-9ad7-95a34a0607e8",
+    "nome": "Anelka",
     "npc": false,
     "salute_max": 120,
-    "salute": 120,
+    "salute": 9,
     "attacco_min": 10,
     "attacco_max": 85,
     "livello": 1,
     "destrezza": 15,
     "iniziativa": 25,
-    "storico_danni_subiti": []
+    "storico_danni_subiti": [
+        55,
+        56
+    ]
 }
