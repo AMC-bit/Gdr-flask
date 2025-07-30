@@ -40,10 +40,14 @@ Abbiamo trovato tutto ciò un validissimo esercizio che ci ha permesso innanzitu
 - Aggiunta di elementi di equipaggiamento dei personaggi (armature, armi)
 - Aggiunta nuovi oggetti
 - Sistema di recupero dei crediti in base al punteggio ottenuto (+ bonus in caso di vittoria)
+- Interfaccia utente migliorata e possibilità di multiplayer
+- Engine grafico 2D
 
 
 ## Come contribuire
-Il tuo contributo è importante! Se vuoi supportare lo sviluppo e le implementazioni future, dimostraci il tuo sostegno tramite i bottoni qui sotto
+Il tuo contributo è importante! Sentiti libero di far crescere il nostro progetto con una pull request con nuove funzionalità, correzioni di bug o miglioramenti.
+
+Se vuoi supportare lo sviluppo e le implementazioni future, dimostraci il tuo sostegno tramite i bottoni qui sotto
 
 [![Star](https://img.shields.io/github/stars/delectablerec/Gdr-flask?style=for-the-badge)](https://github.com/delectablerec/Gdr-flask/stargazers)
 [![Fork](https://img.shields.io/github/forks/delectablerec/Gdr-flask?style=for-the-badge)](https://github.com/delectablerec/Gdr-flask/network/members)
@@ -52,6 +56,11 @@ Il tuo contributo è importante! Se vuoi supportare lo sviluppo e le implementaz
 Oppure segui [il creatore del progetto](https://github.com/delectablerec)
 
 [![Followers](https://img.shields.io/github/followers/delectablerec?style=for-the-badge)](https://github.com/delectablerec)
+
+## License
+
+Questo progetto è distribuito sotto licenza MIT.
+Vedi il file LICENSE per i dettagli.
 
 
 
