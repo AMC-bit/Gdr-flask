@@ -1,0 +1,14 @@
+{
+    "1": {
+        "nome": "Admin",
+        "partite_giocate": 0,
+        "partite_vinte": 0,
+        "punteggio": 0
+    },
+    "2": {
+        "nome": "Fabrice",
+        "partite_giocate": 0,
+        "partite_vinte": 0,
+        "punteggio": 0
+    }
+}
