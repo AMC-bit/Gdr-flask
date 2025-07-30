@@ -14,14 +14,6 @@ gioco.schemas.ambiente module
    :show-inheritance:
    :undoc-members:
 
-gioco.schemas.helper module
----------------------------
-
-.. automodule:: gioco.schemas.helper
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
 gioco.schemas.inventario module
 -------------------------------
 

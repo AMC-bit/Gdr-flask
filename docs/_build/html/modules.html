@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>utils &mdash; gdr 1.0 documentation</title>
+  <title>gioco &mdash; gdr 1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -67,7 +67,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">utils</li>
+      <li class="breadcrumb-item active">gioco</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/modules.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -77,9 +77,248 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="utils">
-<h1>utils<a class="headerlink" href="#utils" title="Link to this heading"></a></h1>
+  <section id="gioco">
+<h1>gioco<a class="headerlink" href="#gioco" title="Link to this heading"></a></h1>
 <div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="gioco.html">gioco namespace</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gioco.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gioco.schemas.html">gioco.schemas namespace</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.schemas.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.schemas.html#module-gioco.schemas.ambiente">gioco.schemas.ambiente module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.schemas.html#module-gioco.schemas.inventario">gioco.schemas.inventario module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.schemas.html#module-gioco.schemas.missione">gioco.schemas.missione module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.schemas.html#module-gioco.schemas.oggetto">gioco.schemas.oggetto module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.schemas.html#module-gioco.schemas.personaggio">gioco.schemas.personaggio module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.schemas.html#module-gioco.schemas.strategy">gioco.schemas.strategy module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gioco.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gioco.html#module-gioco.ambiente">gioco.ambiente module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gioco.html#gioco.ambiente.Ambiente"><code class="docutils literal notranslate"><span class="pre">Ambiente</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.Ambiente.mod_attacco"><code class="docutils literal notranslate"><span class="pre">Ambiente.mod_attacco</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.Ambiente.mod_cura"><code class="docutils literal notranslate"><span class="pre">Ambiente.mod_cura</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.Ambiente.modifica_attacco"><code class="docutils literal notranslate"><span class="pre">Ambiente.modifica_attacco()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.Ambiente.modifica_cura"><code class="docutils literal notranslate"><span class="pre">Ambiente.modifica_cura()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.Ambiente.modifica_effetto_oggetto"><code class="docutils literal notranslate"><span class="pre">Ambiente.modifica_effetto_oggetto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.Ambiente.nome"><code class="docutils literal notranslate"><span class="pre">Ambiente.nome</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gioco.html#gioco.ambiente.AmbienteFactory"><code class="docutils literal notranslate"><span class="pre">AmbienteFactory</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.AmbienteFactory.ambiente_random"><code class="docutils literal notranslate"><span class="pre">AmbienteFactory.ambiente_random()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.AmbienteFactory.get_opzioni"><code class="docutils literal notranslate"><span class="pre">AmbienteFactory.get_opzioni()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.AmbienteFactory.usa_ambiente"><code class="docutils literal notranslate"><span class="pre">AmbienteFactory.usa_ambiente()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gioco.html#gioco.ambiente.Foresta"><code class="docutils literal notranslate"><span class="pre">Foresta</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.Foresta.mod_attacco"><code class="docutils literal notranslate"><span class="pre">Foresta.mod_attacco</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.Foresta.mod_cura"><code class="docutils literal notranslate"><span class="pre">Foresta.mod_cura</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.Foresta.modifica_attacco"><code class="docutils literal notranslate"><span class="pre">Foresta.modifica_attacco()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.Foresta.modifica_cura"><code class="docutils literal notranslate"><span class="pre">Foresta.modifica_cura()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.Foresta.modifica_effetto_oggetto"><code class="docutils literal notranslate"><span class="pre">Foresta.modifica_effetto_oggetto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.Foresta.nome"><code class="docutils literal notranslate"><span class="pre">Foresta.nome</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gioco.html#gioco.ambiente.Palude"><code class="docutils literal notranslate"><span class="pre">Palude</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.Palude.mod_attacco"><code class="docutils literal notranslate"><span class="pre">Palude.mod_attacco</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.Palude.mod_cura"><code class="docutils literal notranslate"><span class="pre">Palude.mod_cura</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.Palude.modifica_attacco"><code class="docutils literal notranslate"><span class="pre">Palude.modifica_attacco()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.Palude.modifica_cura"><code class="docutils literal notranslate"><span class="pre">Palude.modifica_cura()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.Palude.modifica_effetto_oggetto"><code class="docutils literal notranslate"><span class="pre">Palude.modifica_effetto_oggetto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.Palude.nome"><code class="docutils literal notranslate"><span class="pre">Palude.nome</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gioco.html#gioco.ambiente.Vulcano"><code class="docutils literal notranslate"><span class="pre">Vulcano</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.Vulcano.mod_attacco"><code class="docutils literal notranslate"><span class="pre">Vulcano.mod_attacco</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.Vulcano.mod_cura"><code class="docutils literal notranslate"><span class="pre">Vulcano.mod_cura</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.Vulcano.modifica_attacco"><code class="docutils literal notranslate"><span class="pre">Vulcano.modifica_attacco()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.Vulcano.modifica_cura"><code class="docutils literal notranslate"><span class="pre">Vulcano.modifica_cura()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.Vulcano.modifica_effetto_oggetto"><code class="docutils literal notranslate"><span class="pre">Vulcano.modifica_effetto_oggetto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.ambiente.Vulcano.nome"><code class="docutils literal notranslate"><span class="pre">Vulcano.nome</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gioco.html#module-gioco.inventario">gioco.inventario module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gioco.html#gioco.inventario.Inventario"><code class="docutils literal notranslate"><span class="pre">Inventario</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.inventario.Inventario.aggiungi_oggetto"><code class="docutils literal notranslate"><span class="pre">Inventario.aggiungi_oggetto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.inventario.Inventario.cerca_oggetto_per_id"><code class="docutils literal notranslate"><span class="pre">Inventario.cerca_oggetto_per_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.inventario.Inventario.cerca_oggetto_per_nome"><code class="docutils literal notranslate"><span class="pre">Inventario.cerca_oggetto_per_nome()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.inventario.Inventario.id"><code class="docutils literal notranslate"><span class="pre">Inventario.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.inventario.Inventario.id_proprietario"><code class="docutils literal notranslate"><span class="pre">Inventario.id_proprietario</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.inventario.Inventario.mostra_inventario"><code class="docutils literal notranslate"><span class="pre">Inventario.mostra_inventario()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.inventario.Inventario.mostra_lista_inventario"><code class="docutils literal notranslate"><span class="pre">Inventario.mostra_lista_inventario()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.inventario.Inventario.oggetti"><code class="docutils literal notranslate"><span class="pre">Inventario.oggetti</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.inventario.Inventario.rimuovi_oggetto"><code class="docutils literal notranslate"><span class="pre">Inventario.rimuovi_oggetto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.inventario.Inventario.usa_oggetto"><code class="docutils literal notranslate"><span class="pre">Inventario.usa_oggetto()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gioco.html#module-gioco.missione">gioco.missione module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gioco.html#gioco.missione.Missione"><code class="docutils literal notranslate"><span class="pre">Missione</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.missione.Missione.ambiente"><code class="docutils literal notranslate"><span class="pre">Missione.ambiente</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.missione.Missione.attiva"><code class="docutils literal notranslate"><span class="pre">Missione.attiva</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.missione.Missione.completata"><code class="docutils literal notranslate"><span class="pre">Missione.completata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.missione.Missione.get_nemici"><code class="docutils literal notranslate"><span class="pre">Missione.get_nemici()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.missione.Missione.id"><code class="docutils literal notranslate"><span class="pre">Missione.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.missione.Missione.inventari_nemici"><code class="docutils literal notranslate"><span class="pre">Missione.inventari_nemici</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.missione.Missione.nemici"><code class="docutils literal notranslate"><span class="pre">Missione.nemici</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.missione.Missione.nome"><code class="docutils literal notranslate"><span class="pre">Missione.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.missione.Missione.premi"><code class="docutils literal notranslate"><span class="pre">Missione.premi</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.missione.Missione.rimuovi_nemici_sconfitti"><code class="docutils literal notranslate"><span class="pre">Missione.rimuovi_nemici_sconfitti()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.missione.Missione.rimuovi_nemico"><code class="docutils literal notranslate"><span class="pre">Missione.rimuovi_nemico()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.missione.Missione.strategia_nemici"><code class="docutils literal notranslate"><span class="pre">Missione.strategia_nemici</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.missione.Missione.verifica_completamento"><code class="docutils literal notranslate"><span class="pre">Missione.verifica_completamento()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gioco.html#module-gioco.oggetto">gioco.oggetto module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gioco.html#gioco.oggetto.BombaAcida"><code class="docutils literal notranslate"><span class="pre">BombaAcida</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.oggetto.BombaAcida.nome"><code class="docutils literal notranslate"><span class="pre">BombaAcida.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.oggetto.BombaAcida.tipo_oggetto"><code class="docutils literal notranslate"><span class="pre">BombaAcida.tipo_oggetto</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.oggetto.BombaAcida.usa"><code class="docutils literal notranslate"><span class="pre">BombaAcida.usa()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.oggetto.BombaAcida.valore"><code class="docutils literal notranslate"><span class="pre">BombaAcida.valore</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gioco.html#gioco.oggetto.Medaglione"><code class="docutils literal notranslate"><span class="pre">Medaglione</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.oggetto.Medaglione.nome"><code class="docutils literal notranslate"><span class="pre">Medaglione.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.oggetto.Medaglione.tipo_oggetto"><code class="docutils literal notranslate"><span class="pre">Medaglione.tipo_oggetto</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.oggetto.Medaglione.usa"><code class="docutils literal notranslate"><span class="pre">Medaglione.usa()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.oggetto.Medaglione.valore"><code class="docutils literal notranslate"><span class="pre">Medaglione.valore</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gioco.html#gioco.oggetto.Oggetto"><code class="docutils literal notranslate"><span class="pre">Oggetto</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.oggetto.Oggetto.classe"><code class="docutils literal notranslate"><span class="pre">Oggetto.classe</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.oggetto.Oggetto.id"><code class="docutils literal notranslate"><span class="pre">Oggetto.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.oggetto.Oggetto.nome"><code class="docutils literal notranslate"><span class="pre">Oggetto.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.oggetto.Oggetto.tipo_oggetto"><code class="docutils literal notranslate"><span class="pre">Oggetto.tipo_oggetto</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.oggetto.Oggetto.usa"><code class="docutils literal notranslate"><span class="pre">Oggetto.usa()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.oggetto.Oggetto.usato"><code class="docutils literal notranslate"><span class="pre">Oggetto.usato</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.oggetto.Oggetto.valore"><code class="docutils literal notranslate"><span class="pre">Oggetto.valore</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gioco.html#gioco.oggetto.PozioneCura"><code class="docutils literal notranslate"><span class="pre">PozioneCura</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.oggetto.PozioneCura.nome"><code class="docutils literal notranslate"><span class="pre">PozioneCura.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.oggetto.PozioneCura.tipo_oggetto"><code class="docutils literal notranslate"><span class="pre">PozioneCura.tipo_oggetto</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.oggetto.PozioneCura.usa"><code class="docutils literal notranslate"><span class="pre">PozioneCura.usa()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.oggetto.PozioneCura.valore"><code class="docutils literal notranslate"><span class="pre">PozioneCura.valore</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gioco.html#gioco.oggetto.PozioneSuperCura"><code class="docutils literal notranslate"><span class="pre">PozioneSuperCura</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.oggetto.PozioneSuperCura.nome"><code class="docutils literal notranslate"><span class="pre">PozioneSuperCura.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.oggetto.PozioneSuperCura.usa"><code class="docutils literal notranslate"><span class="pre">PozioneSuperCura.usa()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.oggetto.PozioneSuperCura.valore"><code class="docutils literal notranslate"><span class="pre">PozioneSuperCura.valore</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gioco.html#gioco.oggetto.TipoOggetto"><code class="docutils literal notranslate"><span class="pre">TipoOggetto</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.oggetto.TipoOggetto.BUFF"><code class="docutils literal notranslate"><span class="pre">TipoOggetto.BUFF</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.oggetto.TipoOggetto.OFFENSIVO"><code class="docutils literal notranslate"><span class="pre">TipoOggetto.OFFENSIVO</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.oggetto.TipoOggetto.RISTORATIVO"><code class="docutils literal notranslate"><span class="pre">TipoOggetto.RISTORATIVO</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gioco.html#module-gioco.personaggio">gioco.personaggio module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gioco.html#gioco.personaggio.Guerriero"><code class="docutils literal notranslate"><span class="pre">Guerriero</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Guerriero.attacca"><code class="docutils literal notranslate"><span class="pre">Guerriero.attacca()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Guerriero.attacco_max"><code class="docutils literal notranslate"><span class="pre">Guerriero.attacco_max</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Guerriero.attacco_min"><code class="docutils literal notranslate"><span class="pre">Guerriero.attacco_min</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Guerriero.classe"><code class="docutils literal notranslate"><span class="pre">Guerriero.classe</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Guerriero.iniziativa"><code class="docutils literal notranslate"><span class="pre">Guerriero.iniziativa</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Guerriero.recupera_salute"><code class="docutils literal notranslate"><span class="pre">Guerriero.recupera_salute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Guerriero.salute"><code class="docutils literal notranslate"><span class="pre">Guerriero.salute</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Guerriero.salute_max"><code class="docutils literal notranslate"><span class="pre">Guerriero.salute_max</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gioco.html#gioco.personaggio.Ladro"><code class="docutils literal notranslate"><span class="pre">Ladro</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Ladro.attacca"><code class="docutils literal notranslate"><span class="pre">Ladro.attacca()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Ladro.attacco_max"><code class="docutils literal notranslate"><span class="pre">Ladro.attacco_max</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Ladro.attacco_min"><code class="docutils literal notranslate"><span class="pre">Ladro.attacco_min</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Ladro.classe"><code class="docutils literal notranslate"><span class="pre">Ladro.classe</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Ladro.iniziativa"><code class="docutils literal notranslate"><span class="pre">Ladro.iniziativa</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Ladro.recupera_salute"><code class="docutils literal notranslate"><span class="pre">Ladro.recupera_salute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Ladro.salute"><code class="docutils literal notranslate"><span class="pre">Ladro.salute</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Ladro.salute_max"><code class="docutils literal notranslate"><span class="pre">Ladro.salute_max</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gioco.html#gioco.personaggio.Mago"><code class="docutils literal notranslate"><span class="pre">Mago</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Mago.attacca"><code class="docutils literal notranslate"><span class="pre">Mago.attacca()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Mago.attacco_max"><code class="docutils literal notranslate"><span class="pre">Mago.attacco_max</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Mago.attacco_min"><code class="docutils literal notranslate"><span class="pre">Mago.attacco_min</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Mago.calcola_danno"><code class="docutils literal notranslate"><span class="pre">Mago.calcola_danno()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Mago.classe"><code class="docutils literal notranslate"><span class="pre">Mago.classe</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Mago.iniziativa"><code class="docutils literal notranslate"><span class="pre">Mago.iniziativa</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Mago.recupera_salute"><code class="docutils literal notranslate"><span class="pre">Mago.recupera_salute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Mago.salute"><code class="docutils literal notranslate"><span class="pre">Mago.salute</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Mago.salute_max"><code class="docutils literal notranslate"><span class="pre">Mago.salute_max</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gioco.html#gioco.personaggio.Personaggio"><code class="docutils literal notranslate"><span class="pre">Personaggio</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Personaggio.attacca"><code class="docutils literal notranslate"><span class="pre">Personaggio.attacca()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Personaggio.attacco_max"><code class="docutils literal notranslate"><span class="pre">Personaggio.attacco_max</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Personaggio.attacco_min"><code class="docutils literal notranslate"><span class="pre">Personaggio.attacco_min</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Personaggio.calcola_danno"><code class="docutils literal notranslate"><span class="pre">Personaggio.calcola_danno()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Personaggio.classe"><code class="docutils literal notranslate"><span class="pre">Personaggio.classe</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Personaggio.destrezza"><code class="docutils literal notranslate"><span class="pre">Personaggio.destrezza</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Personaggio.esegui_azione"><code class="docutils literal notranslate"><span class="pre">Personaggio.esegui_azione()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Personaggio.id"><code class="docutils literal notranslate"><span class="pre">Personaggio.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Personaggio.iniziativa"><code class="docutils literal notranslate"><span class="pre">Personaggio.iniziativa</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Personaggio.livello"><code class="docutils literal notranslate"><span class="pre">Personaggio.livello</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Personaggio.migliora_statistiche"><code class="docutils literal notranslate"><span class="pre">Personaggio.migliora_statistiche()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Personaggio.nome"><code class="docutils literal notranslate"><span class="pre">Personaggio.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Personaggio.npc"><code class="docutils literal notranslate"><span class="pre">Personaggio.npc</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Personaggio.salute"><code class="docutils literal notranslate"><span class="pre">Personaggio.salute</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Personaggio.salute_max"><code class="docutils literal notranslate"><span class="pre">Personaggio.salute_max</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Personaggio.sconfitto"><code class="docutils literal notranslate"><span class="pre">Personaggio.sconfitto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Personaggio.storico_danni_subiti"><code class="docutils literal notranslate"><span class="pre">Personaggio.storico_danni_subiti</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.personaggio.Personaggio.subisci_danno"><code class="docutils literal notranslate"><span class="pre">Personaggio.subisci_danno()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gioco.html#module-gioco.strategy">gioco.strategy module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gioco.html#gioco.strategy.Aggressiva"><code class="docutils literal notranslate"><span class="pre">Aggressiva</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.strategy.Aggressiva.nome"><code class="docutils literal notranslate"><span class="pre">Aggressiva.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.strategy.Aggressiva.uso_inventario_npc"><code class="docutils literal notranslate"><span class="pre">Aggressiva.uso_inventario_npc()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gioco.html#gioco.strategy.Difensiva"><code class="docutils literal notranslate"><span class="pre">Difensiva</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.strategy.Difensiva.nome"><code class="docutils literal notranslate"><span class="pre">Difensiva.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.strategy.Difensiva.uso_inventario_npc"><code class="docutils literal notranslate"><span class="pre">Difensiva.uso_inventario_npc()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gioco.html#gioco.strategy.Equilibrata"><code class="docutils literal notranslate"><span class="pre">Equilibrata</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.strategy.Equilibrata.nome"><code class="docutils literal notranslate"><span class="pre">Equilibrata.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.strategy.Equilibrata.uso_inventario_npc"><code class="docutils literal notranslate"><span class="pre">Equilibrata.uso_inventario_npc()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gioco.html#gioco.strategy.Strategia"><code class="docutils literal notranslate"><span class="pre">Strategia</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.strategy.Strategia.bonus_destrezza"><code class="docutils literal notranslate"><span class="pre">Strategia.bonus_destrezza()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.strategy.Strategia.malus_destrezza"><code class="docutils literal notranslate"><span class="pre">Strategia.malus_destrezza()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.strategy.Strategia.nome"><code class="docutils literal notranslate"><span class="pre">Strategia.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.strategy.Strategia.uso_inventario_npc"><code class="docutils literal notranslate"><span class="pre">Strategia.uso_inventario_npc()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gioco.html#gioco.strategy.StrategiaFactory"><code class="docutils literal notranslate"><span class="pre">StrategiaFactory</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.strategy.StrategiaFactory.strategia_random"><code class="docutils literal notranslate"><span class="pre">StrategiaFactory.strategia_random()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.strategy.StrategiaFactory.usa_strategia"><code class="docutils literal notranslate"><span class="pre">StrategiaFactory.usa_strategia()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="gioco.html#gioco.strategy.TipoStrategia"><code class="docutils literal notranslate"><span class="pre">TipoStrategia</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.strategy.TipoStrategia.AGGRESSIVA"><code class="docutils literal notranslate"><span class="pre">TipoStrategia.AGGRESSIVA</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.strategy.TipoStrategia.DIFENSIVA"><code class="docutils literal notranslate"><span class="pre">TipoStrategia.DIFENSIVA</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.html#gioco.strategy.TipoStrategia.EQUILIBRATA"><code class="docutils literal notranslate"><span class="pre">TipoStrategia.EQUILIBRATA</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 </div>
 </section>
 
