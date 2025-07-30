@@ -13,8 +13,9 @@ class MissioniSchema(Schema):
     nome = fields.String(required=True)
     ambiente = fields.Nested(AmbienteSchema, required=True)
     nemici = fields.List(fields.Nested(PersonaggioSchema), required=True)
-    #
-    inventari_nemici = fields.List(fields.Nested(InventarioSchema), required = True)
+    inventari_nemici = fields.List(
+        fields.Nested(InventarioSchema), required=True
+    )
     premi = fields.List(fields.Nested(OggettoSchema), required=True)
     strategia_nemici = fields.Nested(StrategiaSchema, allow_none=True)
     completata = fields.Bool()

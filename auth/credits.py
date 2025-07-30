@@ -5,7 +5,8 @@ from gioco.personaggio import Personaggio
 def credits_to_create(personaggio: Personaggio) -> int:
     """
     Restituisce il numero di crediti necessari per creare un personaggio.
-    I costi cambiano a secondo della classe del personaggio che si vuole creare.
+    I costi cambiano a secondo della classe del personaggio che si vuole
+    creare.
     ("Mago" costa 20 crediti, "Guerriero" 25 crediti, "Ladro" 50 crediti)
 
     Args:
@@ -13,6 +14,9 @@ def credits_to_create(personaggio: Personaggio) -> int:
 
     Returns:
         int: crediti necessari alla creazione del personaggio
+
+    Raises:
+        ValueError: se la classe del personaggio non è riconosciuta
     """
 
     classe = personaggio.__class__.__name__
@@ -29,8 +33,9 @@ def credits_to_create(personaggio: Personaggio) -> int:
 @staticmethod
 def credits_to_refund(personaggio: Personaggio) -> int:
     """
-    Restituisce il numero di crediti rimborsati all'utente in caso di cancellazione
-    del personaggio. Il rimborso è un valore fisso in base alla classe del personaggio.
+    Restituisce il numero di crediti rimborsati all'utente in caso di
+    cancellazione del personaggio. Il rimborso è un valore fisso in base
+    alla classe del personaggio.
 
     ("Mago" rimborsa 20 crediti, "Guerriero" 25 crediti, "Ladro" 50 crediti)
 
@@ -39,6 +44,9 @@ def credits_to_refund(personaggio: Personaggio) -> int:
 
     Returns:
         int: crediti rimborsati all'utente
+
+    Raises:
+        ValueError: se la classe del personaggio non è riconosciuta
     """
 
     classe = personaggio.__class__.__name__
