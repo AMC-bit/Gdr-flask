@@ -10,8 +10,9 @@ import os
 import json
 
 
-def email_check(email):
-    """Controlla che l'email inserita sia corretta
+def email_check(email: str) -> bool:
+    """
+    Controlla che l'email inserita sia corretta
 
     Args:
         email (str): email
@@ -23,8 +24,9 @@ def email_check(email):
     return re.match(pattern, email)
 
 
-def protect_psw_hash(psw):
-    """Funzione di protezione della password
+def protect_psw_hash(psw: str) -> str:
+    """
+    Funzione di protezione della password
 
     Args:
         psw (str): password
@@ -37,7 +39,8 @@ def protect_psw_hash(psw):
 
 @auth_bp.route('/sign_in', methods=['GET', 'POST'])
 def sign_in():
-    """Registrazione nuovo utente.
+    """
+    Registrazione nuovo utente.
     Metodo GET: ritorna il template alla pagina di registrazione
     Metodo POST: esegue i vari controlli e registra l'utente in database
     mostrando un messaggio di successo e reindirizzando alla pagina di login
@@ -96,6 +99,16 @@ def sign_in():
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
+    """
+    Login utente.
+    Metodo GET: ritorna il template alla pagina di login
+    Metodo POST: esegue il login dell'utente, mostrando un messaggio di
+        errore se non riesce
+
+    Returns:
+        flask.Response: template HTML di login
+            oppure reindirizza all'area personale dell'utente
+    """
     if request.method == 'POST':
         email = request.form['email'].strip()
         password = request.form['password']
@@ -118,6 +131,14 @@ def login():
 
 @auth_bp.route('/personal_area')
 def personal_area():
+    """
+    Area personale dell'utente.
+    Mostra i dati dell'utente e un messaggio se presente.
+    Metodo GET: ritorna il template dell'area personale
+
+    Returns:
+        flask.Response: template HTML dell'area personale
+    """
     load_char()
     message = ""
     message1 = request.args.get('message', '')
@@ -133,6 +154,15 @@ def personal_area():
 @auth_bp.route('/edit_user', methods=['GET', 'POST'])
 @login_required
 def edit_user():
+    """
+    Modifica i dati dell'utente.
+    Metodo GET: ritorna il template per la modifica dell'utente
+    Metodo POST: esegue i vari controlli e modifica i dati dell'utente
+        mostrando un messaggio di successo e reindirizzando all'area personale
+
+    Returns:
+        flask.Response: template HTML per la modifica dell'utente
+    """
     user = current_user
 
     if request.method == 'POST':
@@ -166,6 +196,17 @@ def edit_user():
 @auth_bp.route('/delete_user/<int:id>')
 @login_required
 def delete_user(id):
+    """
+    Elimina un utente.
+    Metodo GET: elimina l'utente con l'id specificato, rimuovendo i suoi
+    personaggi e inventari associati, e reindirizza alla pagina di login
+
+    Args:
+        id (int): ID dell'utente da eliminare
+
+    Returns:
+        flask.Response: reindirizza alla pagina di login
+    """
     utente = User.query.get(id)
 
     # elimina i personaggi dell'utente
@@ -182,7 +223,21 @@ def delete_user(id):
 
 
 # funzione per eliminare tutti i personaggi di un utente
-def elimina_personaggi_utente(character_ids):
+def elimina_personaggi_utente(character_ids: list):
+    """
+    Elimina tutti i personaggi di un utente.
+    Controlla se esistono file JSON dei personaggi e li elimina
+    se gli ID corrispondono a quelli della lista dell'utente che si vuole
+    rimuovere.
+
+    Args:
+        character_ids (list): Lista degli ID dei personaggi da eliminare.
+    Returns:
+        None: Non ritorna nulla, ma elimina i file JSON dei personaggi
+    Raises:
+        Exception: Se si verifica un errore durante la lettura o
+            la cancellazione dei file
+    """
     cartella_personaggi = os.path.join("data", "json", "personaggi")
     if not os.path.exists(cartella_personaggi):
         return
@@ -207,7 +262,24 @@ def elimina_personaggi_utente(character_ids):
 
 
 # funzione per eliminare gli inventari di un utente
-def elimina_inventari_utente(character_ids):
+def elimina_inventari_utente(character_ids: list):
+    """
+    Elimina gli inventari dei personaggi di un utente.
+    Controlla se esistono file JSON degli inventari e li elimina
+    se gli ID corrispondono a quelli della lista dell'utente che si vuole
+    rimuovere.
+
+    Args:
+        character_ids (list): Lista degli ID dei personaggi di cui
+            eliminare gli inventari.
+
+    Returns:
+        None: Non ritorna nulla, ma elimina i file JSON degli inventari
+
+    Raises:
+        Exception: Se si verifica un errore durante la lettura o
+            la cancellazione dei file
+    """
     cartella_inventari = os.path.join("data", "json", "inventari")
     if not os.path.exists(cartella_inventari):
         return
@@ -231,6 +303,18 @@ def elimina_inventari_utente(character_ids):
 @auth_bp.route('/manage_users')
 @login_required
 def admin_manager():
+    """
+    Gestisce gli utenti del sistema.
+    Se l'utente è un amministratore, mostra la lista degli utenti
+    e permette di modificare i loro ruoli e ricaricare i loro crediti.
+    Altrimenti, reindirizza all'area personale dell'utente.
+    Metodo GET: mostra la lista degli utenti e permette di modificare i loro
+    ruoli e ricaricare i loro crediti.
+
+    Returns:
+        flask.Response: template HTML per la gestione degli utenti o se non
+        si è amministratori, reindirizza all'area personale dell'utente.
+    """
     # Controllo: solo admin può accedere
     if not current_user.is_admin():
         flash(
@@ -249,9 +333,30 @@ def admin_manager():
 @auth_bp.route('/update_user_role', methods=['POST'])
 @login_required
 def update_user_role():
+    """
+    Aggiorna il ruolo di un utente.
+    Metodo POST: aggiorna il ruolo dell'utente selezionato
+    e reindirizza alla pagina di gestione degli utenti.
+    Se l'utente non è un amministratore,
+    mostra un messaggio di accesso negato ed è reindirizzato
+    all'area personale.
+    C'è un controllo per impedire a un amministratore
+    di modificare il proprio ruolo.
+
+    Raises:
+        KeyError: Se i dati del form non sono validi.
+    Returns:
+        flask.Response: reindirizza alla pagina di gestione degli utenti se
+            l'utente è un amministratore, altrimenti reindirizza all'area 
+            personale.
+    """
     # Controllo: solo admin può accedere
     if not current_user.is_admin():
-        flash("Accesso negato. Solo gli amministratori possono modificare i ruoli.", "danger")
+        flash(
+            "Accesso negato. Solo gli amministratori possono "
+            "modificare i ruoli.",
+            "danger"
+            )
         return redirect(url_for('auth.personal_area'))
 
     try:
@@ -286,6 +391,26 @@ def update_user_role():
 @auth_bp.route('/credit_refill/<int:user_id>', methods=['GET', 'POST'])
 @login_required
 def credit_refill(user_id=None):
+    """
+    Ricarica i crediti di un utente.
+    Metodo GET: mostra il form per la ricarica dei crediti
+    Metodo POST: esegue la ricarica dei crediti per l'utente specificato
+        o per l'utente corrente se non viene specificato un user_id.
+    Se l'utente non è un amministratore, mostra un messaggio di accesso
+    negato e reindirizza all'area personale dell'utente.
+
+    Args:
+        user_id (int, optional): ID dell'utente per cui ricaricare i crediti.
+            Se non specificato, ricarica i crediti dell'utente corrente.
+
+    Raises:
+        KeyError: Se i dati del form non sono validi.
+        ValueError: Se l'importo inserito non è un numero valido.
+
+    Returns:
+        flask.Response: template HTML per la ricarica dei crediti o se
+        non si è amministratori, reindirizza all'area personale dell'utente.
+    """
     # Controllo se l'utente è un amministratore
     # altrimenti si viene ridiretti all'area personale
     # Solo gli amministratori possono ricaricare i crediti
@@ -312,14 +437,26 @@ def credit_refill(user_id=None):
         except (KeyError, ValueError):
             message = "Inserisci un numero valido."
             if target_user.id != current_user.id:
-                return redirect(url_for('auth.credit_refill', user_id=target_user.id, message=message))
-            else:
-                return redirect(url_for('auth.credit_refill', message=message))
+                return redirect(
+                    url_for(
+                        'auth.credit_refill',
+                        user_id=target_user.id,
+                        message=message
+                    )
+                )
+        else:
+            return redirect(url_for('auth.credit_refill', message=message))
 
         if amount <= 0:  # controllo numero positivo
             message = "La quantità deve essere positiva."
             if target_user.id != current_user.id:
-                return redirect(url_for('auth.credit_refill', user_id=target_user.id, message=message))
+                return redirect(
+                    url_for(
+                        'auth.credit_refill',
+                        user_id=target_user.id,
+                        message=message
+                    )
+                )
             else:
                 return redirect(url_for('auth.credit_refill', message=message))
         else:
@@ -327,14 +464,23 @@ def credit_refill(user_id=None):
             db.session.commit()  # salvataggio in database
 
             if target_user.id != current_user.id:
-                message = f"Ricaricati {amount} crediti per {target_user.nome}."
+                message = (
+                    f"Ricaricati {amount} crediti per {target_user.nome}."
+                )
                 return redirect(url_for('auth.admin_manager', message=message))
             else:
                 message = f"Ricaricati {amount} crediti."
-                return redirect(url_for('auth.credit_refill', message=message, modified=True))
-
-    message = request.args.get('message')  # estrae il parametro message da URL
-    modified = request.args.get('modified', False)  # controlla se è stata fatta una modifica
+                return redirect(
+                    url_for(
+                        'auth.credit_refill',
+                        message=message,
+                        modified=True
+                    )
+                )
+    # estrae il parametro message da URL
+    message = request.args.get('message')
+    # controlla se è stata fatta una modifica
+    modified = request.args.get('modified', False)
     return render_template(
         'credit_refill.html',
         message=message,
@@ -346,7 +492,16 @@ def credit_refill(user_id=None):
 @auth_bp.route('/logout')
 @login_required
 def logout():
+    """
+    Effettua il logout dell'utente.
+    Metodo GET: effettua il logout dell'utente, rimuovendo i dati di sessione.
+    Mostra un messaggio di successo e reindirizza alla pagina di login.
+    Returns:
+        flask.Response: reindirizza alla pagina di login con un messaggio di
+            successo.
+    """
     logout_user()
     session.clear()
     flash("Logout effettuato con successo", "success")
-    return redirect(url_for('home.index'))  # Invece di render_template('menu.html'))
+    # Invece di render_template('menu.html'))
+    return redirect(url_for('home.index'))
