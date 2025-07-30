@@ -4,22 +4,47 @@ from flask_login import login_user, logout_user, login_required, current_user
 from auth.models import User, UserRole, db
 from . import auth_bp
 from characters.routes import load_char
+from config import add_user_leaderboard, remove_user_leaderboard
 import re
 import os
 import json
 
 
 def email_check(email):
+    """Controlla che l'email inserita sia corretta
+
+    Args:
+        email (str): email
+
+    Returns:
+        bool: True se corrisponde al pattern
+    """
     pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
     return re.match(pattern, email)
 
 
 def protect_psw_hash(psw):
+    """Funzione di protezione della password
+
+    Args:
+        psw (str): password
+
+    Returns:
+        str: password hash
+    """
     return generate_password_hash(psw)
 
 
 @auth_bp.route('/sign_in', methods=['GET', 'POST'])
 def sign_in():
+    """Registrazione nuovo utente.
+    Metodo GET: ritorna il template alla pagina di registrazione
+    Metodo POST: esegue i vari controlli e registra l'utente in database
+    mostrando un messaggio di successo e reindirizzando alla pagina di login
+
+    Returns:
+        flask.Response: template HTML di registrazione oppure login
+    """
     if request.method == 'POST':
         name = request.form['name'].strip().capitalize()
         email = request.form['email'].strip()
@@ -60,6 +85,8 @@ def sign_in():
         )
         db.session.add(nuovo_utente)
         db.session.commit()
+
+        add_user_leaderboard(nuovo_utente.id) # aggiunge utente a classifica
 
         flash("Sei registrato. Ora effettua il login", "success")
         return redirect(url_for('auth.login'))
@@ -148,6 +175,9 @@ def delete_user(id):
 
     db.session.delete(utente)
     db.session.commit()
+
+    remove_user_leaderboard(utente.id)
+
     return redirect(url_for('auth.sign_in'))
 
 
@@ -319,4 +349,4 @@ def logout():
     logout_user()
     session.clear()
     flash("Logout effettuato con successo", "success")
-    return render_template('menu.html')
+    return redirect(url_for('home.index'))  # Invece di render_template('menu.html'))

@@ -4,7 +4,7 @@ from gioco.oggetto import Oggetto
 from utils.salvataggio import Json
 from gioco.inventario import Inventario
 from gioco.schemas.inventario import InventarioSchema
-from gioco.schemas.helper import get_all_subclasses
+from utils.helper import get_all_subclasses
 from characters.routes import load_char, get_owned_chars
 from flask_login import login_required
 from marshmallow import ValidationError
