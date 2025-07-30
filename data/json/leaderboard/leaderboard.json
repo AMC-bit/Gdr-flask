@@ -10,5 +10,9 @@
         "partite_giocate": 0,
         "partite_vinte": 0,
         "punteggio": 0
+        "nome": "Konrad",
+        "partite_giocate": 1,
+        "partite_vinte": 0,
+        "punteggio": 0
     }
 }
