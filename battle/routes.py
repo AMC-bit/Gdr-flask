@@ -179,7 +179,7 @@ def auto_battle():
                     isinstance(inv, Inventario)
                     and inv.id_proprietario == personaggio_turno_corrente.id
                 ):
-                    inventario = inv
+                    inventario = inv 
                     break
 
             result = usa_inventario_automatico(
