@@ -8,7 +8,7 @@ from collections import defaultdict
 from flask import flash, render_template, request, session, redirect, url_for
 from utils.salvataggio import Json
 from . import mission_bp
-from gioco.oggetto import Oggetto, PozioneCura
+from gioco.oggetto import Oggetto
 from gioco.personaggio import Personaggio
 from gioco.ambiente import Ambiente
 from gioco.missione import Missione
@@ -72,7 +72,8 @@ def select_mission():
     """
     # Recupero dal json Static\json\missions tutte le missioni
     missioni = prendi_Missione_Da_Json()
-    # Se c'è già una missione in sessione, la passo all'Html per presettare il form
+    # Se c'è già una missione in sessione, la passo all'Html per presettare
+    # il form
 
     # Recupero dal form post l'id della missione selezionata
     if request.method == 'POST':
@@ -99,7 +100,9 @@ def select_mission():
             # Salva missione e ambiente in sessione
             if not missione_selezionata.completata:
                 # Qua non ci sarebbe da porre la missione come attiva ?
-                missione = {"missione": MissioniSchema().dump(missione_selezionata)}
+                missione = {
+                    "missione": MissioniSchema().dump(missione_selezionata)
+                }
                 Json.scrivi_dati(path_save, missione)
 
             msg = f"Missione selezionata: {missione_selezionata.nome}"
@@ -109,7 +112,7 @@ def select_mission():
             msg = 'Missione non trovata.'
             flash(msg, 'danger')
             logger.info(msg)
-    return render_template('select_mission.html', missioni = missioni )
+    return render_template('select_mission.html', missioni=missioni)
 
 
 @mission_bp.route('/show_mission')
@@ -222,8 +225,8 @@ def description(ambiente: Ambiente = None):
 
     # Calcolo delle modifiche ambiente per i personaggi
     for nome, classe in classi.items():
-        mod_att = int(ambiente.modifica_attacco(classe))
-        mod_cura = int(ambiente.modifica_cura(classe))
+        mod_att = int(ambiente.modifica_attacco(classe.__name__, classe.nome))
+        mod_cura = int(ambiente.modifica_cura(classe.__name__, classe.nome))
 
         # print(f"DEBUG - {nome}: attacco={mod_att}, cura={mod_cura}")
 
@@ -243,9 +246,10 @@ def description(ambiente: Ambiente = None):
 
     # Modifica del campo valore degli oggetti
     for obj in oggetti:
-        mod_obj = ambiente.modifica_effetto_oggetto(obj)
+        nome_classe = obj.__class__.__name__
+        mod_obj = ambiente.modifica_effetto_oggetto(nome_classe, obj.valore)
         if mod_obj != 0:
-            var_amb['Oggetto'][obj.__class__.__name__]['valore'] += mod_obj
+            var_amb['Oggetto'][nome_classe]['valore'] += mod_obj
 
     # Debugging output
     # print(f"val_standard: {val_standard}"
@@ -259,7 +263,10 @@ def missione_attiva():
     # Controlla se esiste già una missione attiva in sessione
     missione_sessione = session.get('missione')
     if missione_sessione:
-        return render_template('missione_attiva.html', missione=missione_sessione)
+        return render_template(
+            'missione_attiva.html',
+            missione=missione_sessione
+        )
 
     missioni = session.get('missioni', [])
 
@@ -278,7 +285,12 @@ def missione_attiva():
 
 @mission_bp.route('/missioni/stato')
 def state_mission():
-    # recupero tutte le missioni presenti nella sessione (il gestore viene rimosso quindi si cercano solo le missioni presenti in sessione nella lista 'missioni')
+    """Controlla lo stato delle missioni attive.
+    Recupero tutte le missioni presenti nella sessione (il gestore viene
+    rimosso quindi si cercano solo le missioni presenti in sessione nella
+    lista 'missioni')
+
+    """
     missioni = session.get('missioni', [])
     if not missioni:
         flash("Nessuna missione disponibile.", 'warning')
@@ -373,7 +385,7 @@ def create_mission():
 
         print("DEBUG tipo_oggetto:", prem.tipo_oggetto, type(prem.tipo_oggetto))
         missione_dict = MissioniSchema().dump(missione)
-        
+
         # missione_dict = {
         #     "id": missione.id,
         #     "nome": missione.nome,

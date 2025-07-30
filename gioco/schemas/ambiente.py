@@ -1,6 +1,6 @@
 from marshmallow import fields, Schema, post_load
 from gioco.ambiente import Ambiente
-from gioco.schemas.helper import get_all_subclasses
+from utils.helper import get_all_subclasses
 
 class AmbienteSchema(Schema):
     classe = fields.String(required=True)

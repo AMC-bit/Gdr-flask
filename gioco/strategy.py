@@ -1,10 +1,12 @@
-import random, logging
+import random
+import logging
 from gioco.ambiente import Ambiente
 from gioco.inventario import Inventario
 from enum import Enum
 
 '''
-1- dataclass per le strategie non serve, non ci sono campi dinamici da serializzare (basta l’attributo nome)
+1- dataclass per le strategie non serve, non ci sono campi dinamici da
+serializzare (basta l'attributo nome)
 2- il logger è già configurato in gioco/__init__.py, non serve ripeterlo qui
 3- Costruttori con super() per logging coerente e possibilità di parametri
 4- Enum
@@ -13,10 +15,12 @@ from enum import Enum
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
+
 class TipoStrategia(Enum):
     AGGRESSIVA = "aggressiva"
     DIFENSIVA = "difensiva"
     EQUILIBRATA = "equilibrata"
+
 
 class Strategia:
     nome = "Strategia base"
@@ -30,7 +34,9 @@ class Strategia:
         inventario: Inventario,
         ambiente: Ambiente = None,
     ) -> int | None:
-        logger.info(f"[Strategia {self.nome}] Nessun comportamento specificato.")
+        logger.info(
+            f"[Strategia {self.nome}] Nessun comportamento specificato."
+        )
         raise NotImplementedError("Implementare nelle sottoclassi.")
 
     def bonus_destrezza(self, destrezza: int) -> int:
@@ -38,6 +44,7 @@ class Strategia:
 
     def malus_destrezza(self, destrezza: int) -> int:
         return destrezza
+
 
 class Aggressiva(Strategia):
     nome = "Aggressiva"
@@ -48,11 +55,17 @@ class Aggressiva(Strategia):
 
     def uso_inventario_npc(self, salute_npc, inventario, ambiente=None):
         if inventario and inventario.oggetti:
-            ogg = next((o for o in inventario.oggetti if o.nome == "Medaglione"), None)
+            ogg = next(
+                (o for o in inventario.oggetti if o.nome == "Medaglione"),
+                None
+            )
             if ogg and random.random() < 0.34:  # 34%
                 logger.info("NPC usa Medaglione!")
                 return inventario.usa_oggetto(oggetto=ogg, ambiente=ambiente)
-            ogg = next((o for o in inventario.oggetti if o.nome == "Bomba Acida"), None)
+            ogg = next(
+                (o for o in inventario.oggetti if o.nome == "Bomba Acida"),
+                None
+            )
             if ogg and random.random() < 0.5:  # 50%
                 logger.info("NPC usa Bomba Acida!")
                 return inventario.usa_oggetto(oggetto=ogg, ambiente=ambiente)
@@ -70,20 +83,41 @@ class Difensiva(Strategia):
     def uso_inventario_npc(self, salute_npc, inventario, ambiente=None):
         if inventario and inventario.oggetti:
             if salute_npc < 60:
-                ogg = next((o for o in inventario.oggetti if o.nome == "Pozione Rossa"), None)
+                ogg = next(
+                    (
+                        o for o in inventario.oggetti
+                        if o.nome == "Pozione Rossa"
+                    ),
+                    None
+                )
                 if ogg and random.random() < 0.5:
                     logger.info("NPC usa Pozione Rossa (Difensiva).")
-                    return inventario.usa_oggetto(oggetto=ogg, ambiente=ambiente)
+                    return inventario.usa_oggetto(
+                        oggetto=ogg, ambiente=ambiente
+                    )
             elif salute_npc < 30:
-                ogg = next((o for o in inventario.oggetti if o.nome == "Super Pozione Rossa"), None)
+                ogg = next(
+                    (
+                        o for o in inventario.oggetti
+                        if o.nome == "Super Pozione Rossa"
+                    ),
+                    None
+                )
                 if ogg and random.random() < 0.25:
                     logger.info("NPC usa Super Pozione Rossa (Difensiva).")
-                    return inventario.usa_oggetto(oggetto=ogg, ambiente=ambiente)
+                    return inventario.usa_oggetto(
+                        oggetto=ogg, ambiente=ambiente
+                    )
             else:
-                ogg = next((o for o in inventario.oggetti if o.nome == "Medaglione"), None)
+                ogg = next(
+                    (o for o in inventario.oggetti if o.nome == "Medaglione"),
+                    None
+                )
                 if ogg and random.random() < 0.15:
                     logger.info("NPC usa Medaglione (Difensiva).")
-                    return inventario.usa_oggetto(oggetto=ogg, ambiente=ambiente)
+                    return inventario.usa_oggetto(
+                        oggetto=ogg, ambiente=ambiente
+                    )
         logger.info("NPC non usa oggetti (Difensiva).")
         return None
 
@@ -97,24 +131,41 @@ class Equilibrata(Strategia):
 
     def uso_inventario_npc(self, salute_npc, inventario, ambiente=None):
         if inventario and inventario.oggetti:
-            ogg = next((o for o in inventario.oggetti if o.nome == "Medaglione"), None)
+            ogg = next(
+                (o for o in inventario.oggetti if o.nome == "Medaglione"),
+                None
+            )
             if ogg and random.random() < 0.25:
                 logger.info("NPC usa Medaglione (Equilibrata).")
                 return inventario.usa_oggetto(oggetto=ogg, ambiente=ambiente)
             if salute_npc < 40:
-                ogg = next((o for o in inventario.oggetti if o.nome == "Pozione Rossa"), None)
+                ogg = next(
+                    (
+                        o for o in inventario.oggetti
+                        if o.nome == "Pozione Rossa"
+                    ),
+                    None
+                )
                 if ogg and random.random() < 0.33:
                     logger.info("NPC usa Pozione Rossa (Equilibrata).")
-                    return inventario.usa_oggetto(oggetto=ogg, ambiente=ambiente)
+                    return inventario.usa_oggetto(
+                        oggetto=ogg, ambiente=ambiente
+                    )
             else:
-                ogg = next((o for o in inventario.oggetti if o.nome == "Bomba Acida"), None)
+                ogg = next(
+                    (o for o in inventario.oggetti if o.nome == "Bomba Acida"),
+                    None
+                )
                 if ogg and random.random() < 0.33:
                     logger.info("NPC usa Bomba Acida (Equilibrata).")
-                    return inventario.usa_oggetto(oggetto=ogg, ambiente=ambiente)
+                    return inventario.usa_oggetto(
+                        oggetto=ogg, ambiente=ambiente
+                    )
         logger.info("NPC non usa oggetti (Equilibrata).")
         return None
 
 # --------- FACTORY ------------
+
 
 class StrategiaFactory:
     _mappa = {
@@ -135,6 +186,3 @@ class StrategiaFactory:
             return StrategiaFactory._mappa[tipo_enum]()
         except (ValueError, KeyError):
             raise ValueError(f"Tipo di strategia sconosciuto: {tipo}")
-
-
-

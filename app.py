@@ -7,11 +7,11 @@ from characters.routes import characters_bp
 from inventory.routes import inventory_bp
 from mission.routes import mission_bp
 from home.routes import home_bp
-from auth.routes import auth_bp  # Importa il blueprint di autenticazione 1
-from flask_migrate import Migrate  # Importa il blueprint di autenticazione 2
+from auth.routes import auth_bp
+from flask_migrate import Migrate
 from auth.models import db, User, UserRole
 from flask_login import LoginManager
-from config import CreateDirs
+from config import CreateDirs, create_leaderboard
 from datetime import timedelta
 
 
@@ -36,7 +36,6 @@ def create_app():
     migrate = Migrate(app, db)  # Assegnata non utilizzata
     login_manager.init_app(app)
     Session(app)
-    
 
     # imposta la durata della sessione a 30 minuti
     app.permanent_session_lifetime = timedelta(minutes=30)
@@ -47,6 +46,7 @@ def create_app():
     app.register_blueprint(mission_bp)
     app.register_blueprint(auth_bp)
     app.register_blueprint(home_bp)
+
     return app
 
 # Imposta una SECRET_KEY sicura (meglio via variabile d'ambiente)
@@ -67,9 +67,11 @@ if __name__ == '__main__':
     with app.app_context():
         db.create_all()
 
-        #Aggiungo un utente Admin al DB se già non esiste
-        #Se l'utente Admin non è già presente nel DB lo creo da capo
-        if not  User.query.filter_by(email="admin@admin.it").first():
+        create_leaderboard()  # aggiorna classifica all'avvio
+
+        # Aggiungo un utente Admin al DB se già non esiste
+        # Se l'utente Admin non è già presente nel DB lo creo da capo
+        if not User.query.filter_by(email="admin@admin.it").first():
             admin = User(
                     nome = "Admin",
                     email = "admin@admin.it",
@@ -80,6 +82,5 @@ if __name__ == '__main__':
                 )
             db.session.add(admin)
             db.session.commit()
-
 
     app.run(debug=True, host="0.0.0.0", port=5001)

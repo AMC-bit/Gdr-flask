@@ -394,10 +394,10 @@ def usa_inventario_automatico(
     ]
 
     if inventario is None:
-        txt = f"{bold(pg.nome)} non ha un inventario! Errore!!!!."
+        txt = f"{pg.nome} non ha un inventario! Errore!!!!."
         check = False
     elif inventario.oggetti is None:
-        txt = f"{bold(pg.nome)} non ha più oggetti nell'inventario."
+        txt = f"{pg.nome} non ha più oggetti nell'inventario."
         check = False
     txt = ""
     if check:
@@ -407,27 +407,30 @@ def usa_inventario_automatico(
             print(f"Result: {result}")
             value = result[0]
             tipo = result[1]
-            if tipo == 'TipoOggetto.BUFF':
+            print("TIPO", tipo)
+            if tipo == TipoOggetto.BUFF:
                 bersaglio = None
-                txt = (f"{bold(pg.nome)} usa Medaglione su se stesso, ")
+                txt = (f"{pg.nome} usa Medaglione su se stesso, ")
                 pg.attacco_max += value
-            elif tipo == "TipoOggetto.OFFENSIVO":
+            elif tipo == TipoOggetto.OFFENSIVO:
                 bersaglio = random.choice(bersagli)
-                txt = (f"{bold(pg.nome)} usa Bomba Acida su {bold(bersaglio.nome)} "
+                txt = (f"{pg.nome} usa Bomba Acida su {bersaglio.nome} "
                     f"infliggendo {-value} HP di danno")
                 bersaglio.salute += value
-            elif tipo == "TipoOggetto.RISTORATIVO":
+            elif tipo == TipoOggetto.RISTORATIVO:
                 bersaglio = None
-                txt = (f"{bold(pg.nome)} usa Pozione Curativa su se stesso ")
+                txt = (f"{pg.nome} usa Pozione Curativa su se stesso ")
                 pg.salute += value
                 if pg.salute >= pg.salute_max:
                     pg.salute = pg.salute_max
                     txt += ", che torna al massimo della salute."
                 else:
-                    txt += f", recuperando <span class='text-success fw-bold'> {value}</span> HP."
+                    txt += f", recuperando {value} HP."
+            else:
+                txt = "Non va un cazzo"
             logger.info(txt)
         else:
-            txt = f"{bold(pg.nome)} non utilizza oggetti in questo turno"
+            txt = f"{pg.nome} non utilizza oggetti in questo turno"
     return value, txt
 
 

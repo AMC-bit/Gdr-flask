@@ -1,0 +1,32 @@
+{
+    "1": {
+        "nome": "Admin",
+        "partite_giocate": 0,
+        "partite_vinte": 0,
+        "punteggio": 0
+    },
+    "2": {
+        "nome": "Konrad",
+        "partite_giocate": 3,
+        "partite_vinte": 2,
+        "punteggio": 65
+    },
+    "3": {
+        "nome": "Enrico",
+        "partite_giocate": 36,
+        "partite_vinte": 2,
+        "punteggio": 29
+    },
+    "4": {
+        "nome": "I",
+        "partite_giocate": 2,
+        "partite_vinte": 1,
+        "punteggio": 30
+    },
+    "5": {
+        "nome": "Enrico1",
+        "partite_giocate": 1,
+        "partite_vinte": 0,
+        "punteggio": -30
+    }
+}
