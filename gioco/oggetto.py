@@ -185,12 +185,25 @@ class PozioneSuperCura(PozioneCura):
     Classe derivata da PozioneCura per le super pozioni curative.
     Questa classe rappresenta una pozione che può essere utilizzata
     per curare il personaggio, ripristinando una grande quantità di salute,
-    potenzialmente curando  l'intera salute del personaggio.
+    potenzialmente curando l'intera salute del personaggio.
     """
     nome: str = "Super Pozione Rossa"
     valore: int = 100
 
     def usa(self, mod_ambiente: int = 0) -> tuple[int, TipoOggetto]:
+        """
+        Usa la super pozione per curare un personaggio.
+        Al valore della super pozione aggiunge il modificatore ambientale.
+
+        Args:
+            mod_ambiente (int, optional): Modificatore ambientale che può influenzare
+                l'effetto della super pozione. Di defaults è pari a 0.
+
+        Returns:
+            tuple[int, TipoOggetto]:
+            La quantità di salute curata e il tipo di oggetto
+                (in questo caso RISTORATIVO).
+        """
         # Log base (PozioneCura)
         cura = super().usa(mod_ambiente)
         # Logica/Logging extra
