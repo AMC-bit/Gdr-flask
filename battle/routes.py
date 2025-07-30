@@ -249,7 +249,7 @@ def auto_battle():
                     isinstance(inv, Inventario)
                     and inv.id_proprietario == personaggio_turno_corrente.id
                 ):
-                    inventario = inv
+                    inventario = inv 
                     break
 
             result = usa_inventario_automatico(
@@ -404,7 +404,7 @@ def usa_inventario_automatico(
         result = strategia.uso_inventario_npc(pg.salute, inventario, ambiente)
 
         if result is not None:
-            print(f"Result: {result}")
+            #print(f"Result: {result}")
             value = result[0]
             tipo = result[1]
             print("TIPO", tipo)
