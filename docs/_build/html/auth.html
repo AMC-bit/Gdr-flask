@@ -99,6 +99,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gioco.schemas.html">gioco.schemas namespace</a></li>
 <li class="toctree-l1"><a class="reference internal" href="home.html">home package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inventory.html">inventory package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">utils namespace</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mission.html">mission package</a></li>
 </ul>
 
@@ -302,7 +303,19 @@ customized per-model by overriding <code class="xref py py-attr docutils literal
 <dl class="py function">
 <dt class="sig sig-object py" id="auth.routes.email_check">
 <span class="sig-prename descclassname"><span class="pre">auth.routes.</span></span><span class="sig-name descname"><span class="pre">email_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">email</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#auth.routes.email_check" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Controlla che l’email inserita sia corretta</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>email</strong> (<em>str</em>) – email</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True se corrisponde al pattern</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="auth.routes.login">
@@ -322,12 +335,36 @@ customized per-model by overriding <code class="xref py py-attr docutils literal
 <dl class="py function">
 <dt class="sig sig-object py" id="auth.routes.protect_psw_hash">
 <span class="sig-prename descclassname"><span class="pre">auth.routes.</span></span><span class="sig-name descname"><span class="pre">protect_psw_hash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">psw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#auth.routes.protect_psw_hash" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Funzione di protezione della password</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>psw</strong> (<em>str</em>) – password</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>password hash</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="auth.routes.sign_in">
 <span class="sig-prename descclassname"><span class="pre">auth.routes.</span></span><span class="sig-name descname"><span class="pre">sign_in</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#auth.routes.sign_in" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Registrazione nuovo utente.
+Metodo GET: ritorna il template alla pagina di registrazione
+Metodo POST: esegue i vari controlli e registra l’utente in database
+mostrando un messaggio di successo e reindirizzando alla pagina di login</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>template HTML di registrazione oppure login</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>flask.Response</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="auth.routes.update_user_role">

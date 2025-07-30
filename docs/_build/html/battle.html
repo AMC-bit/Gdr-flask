@@ -48,18 +48,7 @@
 <li class="toctree-l1"><a class="reference internal" href="auth.html">auth package</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">battle package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-battle.routes">battle.routes module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#battle.routes.assegna_premi"><code class="docutils literal notranslate"><span class="pre">assegna_premi()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#battle.routes.auto_battle"><code class="docutils literal notranslate"><span class="pre">auto_battle()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#battle.routes.bold"><code class="docutils literal notranslate"><span class="pre">bold()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#battle.routes.generate_random_enemy"><code class="docutils literal notranslate"><span class="pre">generate_random_enemy()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#battle.routes.ordine_iniziativa"><code class="docutils literal notranslate"><span class="pre">ordine_iniziativa()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#battle.routes.select_char"><code class="docutils literal notranslate"><span class="pre">select_char()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#battle.routes.setup_battle"><code class="docutils literal notranslate"><span class="pre">setup_battle()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#battle.routes.test_battle_v2"><code class="docutils literal notranslate"><span class="pre">test_battle_v2()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#battle.routes.usa_inventario_automatico"><code class="docutils literal notranslate"><span class="pre">usa_inventario_automatico()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#battle-routes-module">battle.routes module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-battle">Module contents</a></li>
 </ul>
 </li>
@@ -67,6 +56,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gioco.schemas.html">gioco.schemas namespace</a></li>
 <li class="toctree-l1"><a class="reference internal" href="home.html">home package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inventory.html">inventory package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">utils namespace</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mission.html">mission package</a></li>
 </ul>
 
@@ -99,113 +89,8 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 </section>
-<section id="module-battle.routes">
-<span id="battle-routes-module"></span><h2>battle.routes module<a class="headerlink" href="#module-battle.routes" title="Link to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="battle.routes.assegna_premi">
-<span class="sig-prename descclassname"><span class="pre">battle.routes.</span></span><span class="sig-name descname"><span class="pre">assegna_premi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">missione</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">messaggi_battaglia</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">personaggi_selezionati</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inventari</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#battle.routes.assegna_premi" title="Link to this definition"></a></dt>
-<dd><p>Da chiamare a fine scontro in caso di vittoria per assegnare
-i premi della missione agli inventari dei personaggi</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>missione</strong> (<a class="reference internal" href="gioco.html#gioco.missione.Missione" title="gioco.missione.Missione"><em>Missione</em></a>) – La missione corrente</p></li>
-<li><p><strong>inventari</strong> (<em>list</em><em>[</em><a class="reference internal" href="gioco.html#gioco.inventario.Inventario" title="gioco.inventario.Inventario"><em>Inventario</em></a><em>]</em>) – Inventari dei personaggi giocanti</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="battle.routes.auto_battle">
-<span class="sig-prename descclassname"><span class="pre">battle.routes.</span></span><span class="sig-name descname"><span class="pre">auto_battle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#battle.routes.auto_battle" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="battle.routes.bold">
-<span class="sig-prename descclassname"><span class="pre">battle.routes.</span></span><span class="sig-name descname"><span class="pre">bold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">txt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#battle.routes.bold" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="battle.routes.generate_random_enemy">
-<span class="sig-prename descclassname"><span class="pre">battle.routes.</span></span><span class="sig-name descname"><span class="pre">generate_random_enemy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#battle.routes.generate_random_enemy" title="Link to this definition"></a></dt>
-<dd><p>Genera randomicamente un nemico
-:returns: Ritorna un personaggio non giocante istanziato
-:rtype: Personaggio</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="battle.routes.ordine_iniziativa">
-<span class="sig-prename descclassname"><span class="pre">battle.routes.</span></span><span class="sig-name descname"><span class="pre">ordine_iniziativa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tutti_personaggi</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#battle.routes.ordine_iniziativa" title="Link to this definition"></a></dt>
-<dd><p>Calcola l’iniziativa per ogni personaggio sommando il valore di iniziativa al tiro di un d20.
-Ritorna una lista ordinata di ID in base all’iniziativa decrescente.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>personaggi</strong> (<em>list</em>) – Lista di oggetti <cite>Personaggio</cite>.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Lista ordinata di ID in base al punteggio iniziativa.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="battle.routes.select_char">
-<span class="sig-prename descclassname"><span class="pre">battle.routes.</span></span><span class="sig-name descname"><span class="pre">select_char</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#battle.routes.select_char" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="battle.routes.setup_battle">
-<span class="sig-prename descclassname"><span class="pre">battle.routes.</span></span><span class="sig-name descname"><span class="pre">setup_battle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#battle.routes.setup_battle" title="Link to this definition"></a></dt>
-<dd><p>Fa il setup dei dati prendendoli dai file json data/ save, inventari, personaggi
-Deserializza i dati dai json e ritorna gli oggetti</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><p>La missione deserializzata con dentro i suoi campi la lista dei
-nemici, l’ambiente, la lista degli inventari dei nemici e la lista dei premi.</p>
-<p>List[Personaggio]: La lista dei personaggi selezionati dei giocatori.</p>
-<p>List[Inventario]: La lista degli inventari dei giocatori.</p>
-</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="gioco.html#gioco.missione.Missione" title="gioco.missione.Missione">Missione</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="battle.routes.test_battle_v2">
-<span class="sig-prename descclassname"><span class="pre">battle.routes.</span></span><span class="sig-name descname"><span class="pre">test_battle_v2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#battle.routes.test_battle_v2" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="battle.routes.usa_inventario_automatico">
-<span class="sig-prename descclassname"><span class="pre">battle.routes.</span></span><span class="sig-name descname"><span class="pre">usa_inventario_automatico</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inventario</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">missione</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bersagli</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategia</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#battle.routes.usa_inventario_automatico" title="Link to this definition"></a></dt>
-<dd><p>Utilizza un oggetto dall’inventario in modo automatico.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>inventario</strong> (<a class="reference internal" href="gioco.html#gioco.inventario.Inventario" title="gioco.inventario.Inventario"><em>Inventario</em></a>) – L’inventario da cui utilizzare l’oggetto.</p></li>
-<li><p><strong>pg</strong> (<a class="reference internal" href="gioco.html#gioco.personaggio.Personaggio" title="gioco.personaggio.Personaggio"><em>Personaggio</em></a>) – Il personaggio che utilizza l’oggetto.</p></li>
-<li><p><strong>ambiente</strong> (<a class="reference internal" href="gioco.html#gioco.ambiente.Ambiente" title="gioco.ambiente.Ambiente"><em>Ambiente</em></a>) – L’ambiente in cui si trova il personaggio.</p></li>
-<li><p><strong>bersagli</strong> (<em>list</em><em>[</em><a class="reference internal" href="gioco.html#gioco.personaggio.Personaggio" title="gioco.personaggio.Personaggio"><em>Personaggio</em></a><em>]</em>) – I bersagli dell’effetto dell’oggetto.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Il risultato dell’uso dell’oggetto e un messaggio descrittivo.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple[int | None, str]</p>
-</dd>
-</dl>
-</dd></dl>
-
+<section id="battle-routes-module">
+<h2>battle.routes module<a class="headerlink" href="#battle-routes-module" title="Link to this heading"></a></h2>
 </section>
 <section id="module-battle">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-battle" title="Link to this heading"></a></h2>

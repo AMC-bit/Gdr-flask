@@ -278,6 +278,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gioco.schemas.html">gioco.schemas namespace</a></li>
 <li class="toctree-l1"><a class="reference internal" href="home.html">home package</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inventory.html">inventory package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">utils namespace</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mission.html">mission package</a></li>
 </ul>
 
@@ -322,10 +323,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="gioco.schemas.html#module-gioco.schemas.helper">gioco.schemas.helper module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="gioco.schemas.html#gioco.schemas.helper.get_all_subclasses"><code class="docutils literal notranslate"><span class="pre">get_all_subclasses()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="gioco.schemas.html#gioco-schemas-helper-module">gioco.schemas.helper module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="gioco.schemas.html#module-gioco.schemas.inventario">gioco.schemas.inventario module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="gioco.schemas.html#gioco.schemas.inventario.InventarioSchema"><code class="docutils literal notranslate"><span class="pre">InventarioSchema</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="gioco.schemas.html#gioco.schemas.inventario.InventarioSchema.Meta"><code class="docutils literal notranslate"><span class="pre">InventarioSchema.Meta</span></code></a></li>
@@ -394,7 +392,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gioco.ambiente.Ambiente.modifica_attacco">
-<span class="sig-name descname"><span class="pre">modifica_attacco</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attaccante</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Ambiente.modifica_attacco" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">modifica_attacco</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classe_attaccante</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome_attaccante</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Ambiente.modifica_attacco" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
@@ -404,7 +402,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gioco.ambiente.Ambiente.modifica_cura">
-<span class="sig-name descname"><span class="pre">modifica_cura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">soggetto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Ambiente.modifica_cura" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">modifica_cura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classe_soggetto</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome_soggetto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Ambiente.modifica_cura" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
@@ -414,7 +412,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gioco.ambiente.Ambiente.modifica_effetto_oggetto">
-<span class="sig-name descname"><span class="pre">modifica_effetto_oggetto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oggetto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Ambiente.modifica_effetto_oggetto" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">modifica_effetto_oggetto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classe_oggetto</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valore_oggetto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Ambiente.modifica_effetto_oggetto" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
@@ -482,7 +480,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gioco.ambiente.Foresta.modifica_attacco">
-<span class="sig-name descname"><span class="pre">modifica_attacco</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attaccante</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Foresta.modifica_attacco" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">modifica_attacco</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classe_attaccante</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome_attaccante</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Foresta.modifica_attacco" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
@@ -492,7 +490,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gioco.ambiente.Foresta.modifica_cura">
-<span class="sig-name descname"><span class="pre">modifica_cura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">soggetto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Foresta.modifica_cura" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">modifica_cura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classe_soggetto</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome_soggetto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Foresta.modifica_cura" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
@@ -502,7 +500,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gioco.ambiente.Foresta.modifica_effetto_oggetto">
-<span class="sig-name descname"><span class="pre">modifica_effetto_oggetto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oggetto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Foresta.modifica_effetto_oggetto" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">modifica_effetto_oggetto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classe_oggetto</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valore_oggetto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Foresta.modifica_effetto_oggetto" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
@@ -533,7 +531,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gioco.ambiente.Palude.modifica_attacco">
-<span class="sig-name descname"><span class="pre">modifica_attacco</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attaccante</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Palude.modifica_attacco" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">modifica_attacco</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classe_attaccante</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome_attaccante</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Palude.modifica_attacco" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
@@ -543,7 +541,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gioco.ambiente.Palude.modifica_cura">
-<span class="sig-name descname"><span class="pre">modifica_cura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">soggetto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Palude.modifica_cura" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">modifica_cura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classe_soggetto</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome_soggetto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Palude.modifica_cura" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
@@ -553,7 +551,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gioco.ambiente.Palude.modifica_effetto_oggetto">
-<span class="sig-name descname"><span class="pre">modifica_effetto_oggetto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oggetto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Palude.modifica_effetto_oggetto" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">modifica_effetto_oggetto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classe_oggetto</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valore_oggetto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Palude.modifica_effetto_oggetto" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
@@ -584,7 +582,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gioco.ambiente.Vulcano.modifica_attacco">
-<span class="sig-name descname"><span class="pre">modifica_attacco</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attaccante</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Vulcano.modifica_attacco" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">modifica_attacco</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classe_attaccante</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome_attaccante</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Vulcano.modifica_attacco" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
@@ -594,7 +592,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gioco.ambiente.Vulcano.modifica_cura">
-<span class="sig-name descname"><span class="pre">modifica_cura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">soggetto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Vulcano.modifica_cura" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">modifica_cura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classe_soggetto</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome_soggetto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Vulcano.modifica_cura" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
@@ -604,7 +602,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="gioco.ambiente.Vulcano.modifica_effetto_oggetto">
-<span class="sig-name descname"><span class="pre">modifica_effetto_oggetto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oggetto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Vulcano.modifica_effetto_oggetto" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">modifica_effetto_oggetto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classe_oggetto</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valore_oggetto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Vulcano.modifica_effetto_oggetto" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
@@ -1159,7 +1157,8 @@ Rappresenta una missione, composta da un ambiente, nemici e premi.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gioco.personaggio.Mago.calcola_danno">
 <span class="sig-name descname"><span class="pre">calcola_danno</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod_ambiente</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.personaggio.Mago.calcola_danno" title="Link to this definition"></a></dt>
-<dd><p>Metodo separato per il calcolo del danno, personalizzabile dalle sottoclassi.</p>
+<dd><p>Metodo separato per il calcolo del danno,
+personalizzabile dalle sottoclassi.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
@@ -1226,7 +1225,8 @@ Rappresenta una missione, composta da un ambiente, nemici e premi.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="gioco.personaggio.Personaggio.calcola_danno">
 <span class="sig-name descname"><span class="pre">calcola_danno</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod_ambiente</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.personaggio.Personaggio.calcola_danno" title="Link to this definition"></a></dt>
-<dd><p>Metodo separato per il calcolo del danno, personalizzabile dalle sottoclassi.</p>
+<dd><p>Metodo separato per il calcolo del danno,
+personalizzabile dalle sottoclassi.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
