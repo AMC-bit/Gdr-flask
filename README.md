@@ -19,7 +19,7 @@ pip install Flask-Session
 ## Aggiungere la folder static e templates
 ```bash
 mkdir static templates
-```
+``` 
 ## Blueprint
 
 In Flask un Blueprint è un modo per suddividere la tua applicazione in componenti riutilizzabili e indipendenti, ognuno con le proprie route, template e file statici.
