@@ -1,0 +1,1501 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>gioco namespace &mdash; gdr 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="gioco.schemas namespace" href="gioco.schemas.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            gdr
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Moduli</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">gioco namespace</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gioco.schemas.html">gioco.schemas namespace</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-gioco.ambiente">gioco.ambiente module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gioco.ambiente.Ambiente"><code class="docutils literal notranslate"><span class="pre">Ambiente</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.Ambiente.mod_attacco"><code class="docutils literal notranslate"><span class="pre">Ambiente.mod_attacco</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.Ambiente.mod_cura"><code class="docutils literal notranslate"><span class="pre">Ambiente.mod_cura</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.Ambiente.modifica_attacco"><code class="docutils literal notranslate"><span class="pre">Ambiente.modifica_attacco()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.Ambiente.modifica_cura"><code class="docutils literal notranslate"><span class="pre">Ambiente.modifica_cura()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.Ambiente.modifica_effetto_oggetto"><code class="docutils literal notranslate"><span class="pre">Ambiente.modifica_effetto_oggetto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.Ambiente.nome"><code class="docutils literal notranslate"><span class="pre">Ambiente.nome</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gioco.ambiente.AmbienteFactory"><code class="docutils literal notranslate"><span class="pre">AmbienteFactory</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.AmbienteFactory.ambiente_random"><code class="docutils literal notranslate"><span class="pre">AmbienteFactory.ambiente_random()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.AmbienteFactory.get_opzioni"><code class="docutils literal notranslate"><span class="pre">AmbienteFactory.get_opzioni()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.AmbienteFactory.usa_ambiente"><code class="docutils literal notranslate"><span class="pre">AmbienteFactory.usa_ambiente()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gioco.ambiente.Foresta"><code class="docutils literal notranslate"><span class="pre">Foresta</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.Foresta.mod_attacco"><code class="docutils literal notranslate"><span class="pre">Foresta.mod_attacco</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.Foresta.mod_cura"><code class="docutils literal notranslate"><span class="pre">Foresta.mod_cura</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.Foresta.modifica_attacco"><code class="docutils literal notranslate"><span class="pre">Foresta.modifica_attacco()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.Foresta.modifica_cura"><code class="docutils literal notranslate"><span class="pre">Foresta.modifica_cura()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.Foresta.modifica_effetto_oggetto"><code class="docutils literal notranslate"><span class="pre">Foresta.modifica_effetto_oggetto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.Foresta.nome"><code class="docutils literal notranslate"><span class="pre">Foresta.nome</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gioco.ambiente.Palude"><code class="docutils literal notranslate"><span class="pre">Palude</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.Palude.mod_attacco"><code class="docutils literal notranslate"><span class="pre">Palude.mod_attacco</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.Palude.mod_cura"><code class="docutils literal notranslate"><span class="pre">Palude.mod_cura</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.Palude.modifica_attacco"><code class="docutils literal notranslate"><span class="pre">Palude.modifica_attacco()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.Palude.modifica_cura"><code class="docutils literal notranslate"><span class="pre">Palude.modifica_cura()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.Palude.modifica_effetto_oggetto"><code class="docutils literal notranslate"><span class="pre">Palude.modifica_effetto_oggetto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.Palude.nome"><code class="docutils literal notranslate"><span class="pre">Palude.nome</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gioco.ambiente.Vulcano"><code class="docutils literal notranslate"><span class="pre">Vulcano</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.Vulcano.mod_attacco"><code class="docutils literal notranslate"><span class="pre">Vulcano.mod_attacco</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.Vulcano.mod_cura"><code class="docutils literal notranslate"><span class="pre">Vulcano.mod_cura</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.Vulcano.modifica_attacco"><code class="docutils literal notranslate"><span class="pre">Vulcano.modifica_attacco()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.Vulcano.modifica_cura"><code class="docutils literal notranslate"><span class="pre">Vulcano.modifica_cura()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.Vulcano.modifica_effetto_oggetto"><code class="docutils literal notranslate"><span class="pre">Vulcano.modifica_effetto_oggetto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.ambiente.Vulcano.nome"><code class="docutils literal notranslate"><span class="pre">Vulcano.nome</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-gioco.inventario">gioco.inventario module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gioco.inventario.Inventario"><code class="docutils literal notranslate"><span class="pre">Inventario</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.inventario.Inventario.aggiungi_oggetto"><code class="docutils literal notranslate"><span class="pre">Inventario.aggiungi_oggetto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.inventario.Inventario.cerca_oggetto_per_id"><code class="docutils literal notranslate"><span class="pre">Inventario.cerca_oggetto_per_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.inventario.Inventario.cerca_oggetto_per_nome"><code class="docutils literal notranslate"><span class="pre">Inventario.cerca_oggetto_per_nome()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.inventario.Inventario.id"><code class="docutils literal notranslate"><span class="pre">Inventario.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.inventario.Inventario.id_proprietario"><code class="docutils literal notranslate"><span class="pre">Inventario.id_proprietario</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.inventario.Inventario.mostra_inventario"><code class="docutils literal notranslate"><span class="pre">Inventario.mostra_inventario()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.inventario.Inventario.mostra_lista_inventario"><code class="docutils literal notranslate"><span class="pre">Inventario.mostra_lista_inventario()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.inventario.Inventario.oggetti"><code class="docutils literal notranslate"><span class="pre">Inventario.oggetti</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.inventario.Inventario.rimuovi_oggetto"><code class="docutils literal notranslate"><span class="pre">Inventario.rimuovi_oggetto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.inventario.Inventario.usa_oggetto"><code class="docutils literal notranslate"><span class="pre">Inventario.usa_oggetto()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-gioco.missione">gioco.missione module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gioco.missione.Missione"><code class="docutils literal notranslate"><span class="pre">Missione</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.missione.Missione.ambiente"><code class="docutils literal notranslate"><span class="pre">Missione.ambiente</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.missione.Missione.attiva"><code class="docutils literal notranslate"><span class="pre">Missione.attiva</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.missione.Missione.completata"><code class="docutils literal notranslate"><span class="pre">Missione.completata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.missione.Missione.get_nemici"><code class="docutils literal notranslate"><span class="pre">Missione.get_nemici()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.missione.Missione.id"><code class="docutils literal notranslate"><span class="pre">Missione.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.missione.Missione.inventari_nemici"><code class="docutils literal notranslate"><span class="pre">Missione.inventari_nemici</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.missione.Missione.nemici"><code class="docutils literal notranslate"><span class="pre">Missione.nemici</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.missione.Missione.nome"><code class="docutils literal notranslate"><span class="pre">Missione.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.missione.Missione.premi"><code class="docutils literal notranslate"><span class="pre">Missione.premi</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.missione.Missione.rimuovi_nemici_sconfitti"><code class="docutils literal notranslate"><span class="pre">Missione.rimuovi_nemici_sconfitti()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.missione.Missione.rimuovi_nemico"><code class="docutils literal notranslate"><span class="pre">Missione.rimuovi_nemico()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.missione.Missione.strategia_nemici"><code class="docutils literal notranslate"><span class="pre">Missione.strategia_nemici</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.missione.Missione.verifica_completamento"><code class="docutils literal notranslate"><span class="pre">Missione.verifica_completamento()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-gioco.oggetto">gioco.oggetto module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gioco.oggetto.BombaAcida"><code class="docutils literal notranslate"><span class="pre">BombaAcida</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.oggetto.BombaAcida.nome"><code class="docutils literal notranslate"><span class="pre">BombaAcida.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.oggetto.BombaAcida.tipo_oggetto"><code class="docutils literal notranslate"><span class="pre">BombaAcida.tipo_oggetto</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.oggetto.BombaAcida.usa"><code class="docutils literal notranslate"><span class="pre">BombaAcida.usa()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.oggetto.BombaAcida.valore"><code class="docutils literal notranslate"><span class="pre">BombaAcida.valore</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gioco.oggetto.Medaglione"><code class="docutils literal notranslate"><span class="pre">Medaglione</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.oggetto.Medaglione.nome"><code class="docutils literal notranslate"><span class="pre">Medaglione.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.oggetto.Medaglione.tipo_oggetto"><code class="docutils literal notranslate"><span class="pre">Medaglione.tipo_oggetto</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.oggetto.Medaglione.usa"><code class="docutils literal notranslate"><span class="pre">Medaglione.usa()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.oggetto.Medaglione.valore"><code class="docutils literal notranslate"><span class="pre">Medaglione.valore</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gioco.oggetto.Oggetto"><code class="docutils literal notranslate"><span class="pre">Oggetto</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.oggetto.Oggetto.classe"><code class="docutils literal notranslate"><span class="pre">Oggetto.classe</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.oggetto.Oggetto.id"><code class="docutils literal notranslate"><span class="pre">Oggetto.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.oggetto.Oggetto.nome"><code class="docutils literal notranslate"><span class="pre">Oggetto.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.oggetto.Oggetto.tipo_oggetto"><code class="docutils literal notranslate"><span class="pre">Oggetto.tipo_oggetto</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.oggetto.Oggetto.usa"><code class="docutils literal notranslate"><span class="pre">Oggetto.usa()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.oggetto.Oggetto.usato"><code class="docutils literal notranslate"><span class="pre">Oggetto.usato</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.oggetto.Oggetto.valore"><code class="docutils literal notranslate"><span class="pre">Oggetto.valore</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gioco.oggetto.PozioneCura"><code class="docutils literal notranslate"><span class="pre">PozioneCura</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.oggetto.PozioneCura.nome"><code class="docutils literal notranslate"><span class="pre">PozioneCura.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.oggetto.PozioneCura.tipo_oggetto"><code class="docutils literal notranslate"><span class="pre">PozioneCura.tipo_oggetto</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.oggetto.PozioneCura.usa"><code class="docutils literal notranslate"><span class="pre">PozioneCura.usa()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.oggetto.PozioneCura.valore"><code class="docutils literal notranslate"><span class="pre">PozioneCura.valore</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gioco.oggetto.PozioneSuperCura"><code class="docutils literal notranslate"><span class="pre">PozioneSuperCura</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.oggetto.PozioneSuperCura.nome"><code class="docutils literal notranslate"><span class="pre">PozioneSuperCura.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.oggetto.PozioneSuperCura.usa"><code class="docutils literal notranslate"><span class="pre">PozioneSuperCura.usa()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.oggetto.PozioneSuperCura.valore"><code class="docutils literal notranslate"><span class="pre">PozioneSuperCura.valore</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gioco.oggetto.TipoOggetto"><code class="docutils literal notranslate"><span class="pre">TipoOggetto</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.oggetto.TipoOggetto.BUFF"><code class="docutils literal notranslate"><span class="pre">TipoOggetto.BUFF</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.oggetto.TipoOggetto.OFFENSIVO"><code class="docutils literal notranslate"><span class="pre">TipoOggetto.OFFENSIVO</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.oggetto.TipoOggetto.RISTORATIVO"><code class="docutils literal notranslate"><span class="pre">TipoOggetto.RISTORATIVO</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-gioco.personaggio">gioco.personaggio module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gioco.personaggio.Guerriero"><code class="docutils literal notranslate"><span class="pre">Guerriero</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Guerriero.attacca"><code class="docutils literal notranslate"><span class="pre">Guerriero.attacca()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Guerriero.attacco_max"><code class="docutils literal notranslate"><span class="pre">Guerriero.attacco_max</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Guerriero.attacco_min"><code class="docutils literal notranslate"><span class="pre">Guerriero.attacco_min</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Guerriero.classe"><code class="docutils literal notranslate"><span class="pre">Guerriero.classe</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Guerriero.iniziativa"><code class="docutils literal notranslate"><span class="pre">Guerriero.iniziativa</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Guerriero.recupera_salute"><code class="docutils literal notranslate"><span class="pre">Guerriero.recupera_salute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Guerriero.salute"><code class="docutils literal notranslate"><span class="pre">Guerriero.salute</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Guerriero.salute_max"><code class="docutils literal notranslate"><span class="pre">Guerriero.salute_max</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gioco.personaggio.Ladro"><code class="docutils literal notranslate"><span class="pre">Ladro</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Ladro.attacca"><code class="docutils literal notranslate"><span class="pre">Ladro.attacca()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Ladro.attacco_max"><code class="docutils literal notranslate"><span class="pre">Ladro.attacco_max</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Ladro.attacco_min"><code class="docutils literal notranslate"><span class="pre">Ladro.attacco_min</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Ladro.classe"><code class="docutils literal notranslate"><span class="pre">Ladro.classe</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Ladro.iniziativa"><code class="docutils literal notranslate"><span class="pre">Ladro.iniziativa</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Ladro.recupera_salute"><code class="docutils literal notranslate"><span class="pre">Ladro.recupera_salute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Ladro.salute"><code class="docutils literal notranslate"><span class="pre">Ladro.salute</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Ladro.salute_max"><code class="docutils literal notranslate"><span class="pre">Ladro.salute_max</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gioco.personaggio.Mago"><code class="docutils literal notranslate"><span class="pre">Mago</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Mago.attacca"><code class="docutils literal notranslate"><span class="pre">Mago.attacca()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Mago.attacco_max"><code class="docutils literal notranslate"><span class="pre">Mago.attacco_max</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Mago.attacco_min"><code class="docutils literal notranslate"><span class="pre">Mago.attacco_min</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Mago.calcola_danno"><code class="docutils literal notranslate"><span class="pre">Mago.calcola_danno()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Mago.classe"><code class="docutils literal notranslate"><span class="pre">Mago.classe</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Mago.iniziativa"><code class="docutils literal notranslate"><span class="pre">Mago.iniziativa</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Mago.recupera_salute"><code class="docutils literal notranslate"><span class="pre">Mago.recupera_salute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Mago.salute"><code class="docutils literal notranslate"><span class="pre">Mago.salute</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Mago.salute_max"><code class="docutils literal notranslate"><span class="pre">Mago.salute_max</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gioco.personaggio.Personaggio"><code class="docutils literal notranslate"><span class="pre">Personaggio</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Personaggio.attacca"><code class="docutils literal notranslate"><span class="pre">Personaggio.attacca()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Personaggio.attacco_max"><code class="docutils literal notranslate"><span class="pre">Personaggio.attacco_max</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Personaggio.attacco_min"><code class="docutils literal notranslate"><span class="pre">Personaggio.attacco_min</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Personaggio.calcola_danno"><code class="docutils literal notranslate"><span class="pre">Personaggio.calcola_danno()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Personaggio.classe"><code class="docutils literal notranslate"><span class="pre">Personaggio.classe</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Personaggio.destrezza"><code class="docutils literal notranslate"><span class="pre">Personaggio.destrezza</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Personaggio.esegui_azione"><code class="docutils literal notranslate"><span class="pre">Personaggio.esegui_azione()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Personaggio.id"><code class="docutils literal notranslate"><span class="pre">Personaggio.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Personaggio.iniziativa"><code class="docutils literal notranslate"><span class="pre">Personaggio.iniziativa</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Personaggio.livello"><code class="docutils literal notranslate"><span class="pre">Personaggio.livello</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Personaggio.migliora_statistiche"><code class="docutils literal notranslate"><span class="pre">Personaggio.migliora_statistiche()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Personaggio.nome"><code class="docutils literal notranslate"><span class="pre">Personaggio.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Personaggio.npc"><code class="docutils literal notranslate"><span class="pre">Personaggio.npc</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Personaggio.salute"><code class="docutils literal notranslate"><span class="pre">Personaggio.salute</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Personaggio.salute_max"><code class="docutils literal notranslate"><span class="pre">Personaggio.salute_max</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Personaggio.sconfitto"><code class="docutils literal notranslate"><span class="pre">Personaggio.sconfitto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Personaggio.storico_danni_subiti"><code class="docutils literal notranslate"><span class="pre">Personaggio.storico_danni_subiti</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.personaggio.Personaggio.subisci_danno"><code class="docutils literal notranslate"><span class="pre">Personaggio.subisci_danno()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-gioco.strategy">gioco.strategy module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gioco.strategy.Aggressiva"><code class="docutils literal notranslate"><span class="pre">Aggressiva</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.strategy.Aggressiva.nome"><code class="docutils literal notranslate"><span class="pre">Aggressiva.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.strategy.Aggressiva.uso_inventario_npc"><code class="docutils literal notranslate"><span class="pre">Aggressiva.uso_inventario_npc()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gioco.strategy.Difensiva"><code class="docutils literal notranslate"><span class="pre">Difensiva</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.strategy.Difensiva.nome"><code class="docutils literal notranslate"><span class="pre">Difensiva.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.strategy.Difensiva.uso_inventario_npc"><code class="docutils literal notranslate"><span class="pre">Difensiva.uso_inventario_npc()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gioco.strategy.Equilibrata"><code class="docutils literal notranslate"><span class="pre">Equilibrata</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.strategy.Equilibrata.nome"><code class="docutils literal notranslate"><span class="pre">Equilibrata.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.strategy.Equilibrata.uso_inventario_npc"><code class="docutils literal notranslate"><span class="pre">Equilibrata.uso_inventario_npc()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gioco.strategy.Strategia"><code class="docutils literal notranslate"><span class="pre">Strategia</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.strategy.Strategia.bonus_destrezza"><code class="docutils literal notranslate"><span class="pre">Strategia.bonus_destrezza()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.strategy.Strategia.malus_destrezza"><code class="docutils literal notranslate"><span class="pre">Strategia.malus_destrezza()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.strategy.Strategia.nome"><code class="docutils literal notranslate"><span class="pre">Strategia.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.strategy.Strategia.uso_inventario_npc"><code class="docutils literal notranslate"><span class="pre">Strategia.uso_inventario_npc()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gioco.strategy.StrategiaFactory"><code class="docutils literal notranslate"><span class="pre">StrategiaFactory</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.strategy.StrategiaFactory.strategia_random"><code class="docutils literal notranslate"><span class="pre">StrategiaFactory.strategia_random()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.strategy.StrategiaFactory.usa_strategia"><code class="docutils literal notranslate"><span class="pre">StrategiaFactory.usa_strategia()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#gioco.strategy.TipoStrategia"><code class="docutils literal notranslate"><span class="pre">TipoStrategia</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.strategy.TipoStrategia.AGGRESSIVA"><code class="docutils literal notranslate"><span class="pre">TipoStrategia.AGGRESSIVA</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.strategy.TipoStrategia.DIFENSIVA"><code class="docutils literal notranslate"><span class="pre">TipoStrategia.DIFENSIVA</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gioco.strategy.TipoStrategia.EQUILIBRATA"><code class="docutils literal notranslate"><span class="pre">TipoStrategia.EQUILIBRATA</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auth.html">auth package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="battle.html">battle package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="characters.html">characters package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gioco.schemas.html">gioco.schemas namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="home.html">home package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inventory.html">inventory package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">utils namespace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mission.html">mission package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">gdr</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">gioco namespace</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/gioco.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-gioco">
+<span id="gioco-namespace"></span><h1>gioco namespace<a class="headerlink" href="#module-gioco" title="Link to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="gioco.schemas.html">gioco.schemas namespace</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gioco.schemas.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gioco.schemas.html#module-gioco.schemas.ambiente">gioco.schemas.ambiente module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gioco.schemas.html#gioco.schemas.ambiente.AmbienteSchema"><code class="docutils literal notranslate"><span class="pre">AmbienteSchema</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.schemas.html#gioco.schemas.ambiente.AmbienteSchema.dump"><code class="docutils literal notranslate"><span class="pre">AmbienteSchema.dump()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.schemas.html#gioco.schemas.ambiente.AmbienteSchema.make_obj"><code class="docutils literal notranslate"><span class="pre">AmbienteSchema.make_obj()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.schemas.html#gioco.schemas.ambiente.AmbienteSchema.opts"><code class="docutils literal notranslate"><span class="pre">AmbienteSchema.opts</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gioco.schemas.html#module-gioco.schemas.inventario">gioco.schemas.inventario module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gioco.schemas.html#gioco.schemas.inventario.InventarioSchema"><code class="docutils literal notranslate"><span class="pre">InventarioSchema</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.schemas.html#gioco.schemas.inventario.InventarioSchema.Meta"><code class="docutils literal notranslate"><span class="pre">InventarioSchema.Meta</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.schemas.html#gioco.schemas.inventario.InventarioSchema.make_inventario"><code class="docutils literal notranslate"><span class="pre">InventarioSchema.make_inventario()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.schemas.html#gioco.schemas.inventario.InventarioSchema.opts"><code class="docutils literal notranslate"><span class="pre">InventarioSchema.opts</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gioco.schemas.html#module-gioco.schemas.missione">gioco.schemas.missione module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gioco.schemas.html#gioco.schemas.missione.MissioniSchema"><code class="docutils literal notranslate"><span class="pre">MissioniSchema</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.schemas.html#gioco.schemas.missione.MissioniSchema.make_Missioni"><code class="docutils literal notranslate"><span class="pre">MissioniSchema.make_Missioni()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.schemas.html#gioco.schemas.missione.MissioniSchema.opts"><code class="docutils literal notranslate"><span class="pre">MissioniSchema.opts</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gioco.schemas.html#module-gioco.schemas.oggetto">gioco.schemas.oggetto module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gioco.schemas.html#gioco.schemas.oggetto.OggettoSchema"><code class="docutils literal notranslate"><span class="pre">OggettoSchema</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.schemas.html#gioco.schemas.oggetto.OggettoSchema.make_oggetto"><code class="docutils literal notranslate"><span class="pre">OggettoSchema.make_oggetto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.schemas.html#gioco.schemas.oggetto.OggettoSchema.opts"><code class="docutils literal notranslate"><span class="pre">OggettoSchema.opts</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gioco.schemas.html#module-gioco.schemas.personaggio">gioco.schemas.personaggio module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gioco.schemas.html#gioco.schemas.personaggio.PersonaggioSchema"><code class="docutils literal notranslate"><span class="pre">PersonaggioSchema</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.schemas.html#gioco.schemas.personaggio.PersonaggioSchema.make_personaggio"><code class="docutils literal notranslate"><span class="pre">PersonaggioSchema.make_personaggio()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.schemas.html#gioco.schemas.personaggio.PersonaggioSchema.opts"><code class="docutils literal notranslate"><span class="pre">PersonaggioSchema.opts</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gioco.schemas.html#module-gioco.schemas.strategy">gioco.schemas.strategy module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="gioco.schemas.html#gioco.schemas.strategy.StrategiaSchema"><code class="docutils literal notranslate"><span class="pre">StrategiaSchema</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="gioco.schemas.html#gioco.schemas.strategy.StrategiaSchema.make_strategia"><code class="docutils literal notranslate"><span class="pre">StrategiaSchema.make_strategia()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="gioco.schemas.html#gioco.schemas.strategy.StrategiaSchema.opts"><code class="docutils literal notranslate"><span class="pre">StrategiaSchema.opts</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-gioco.ambiente">
+<span id="gioco-ambiente-module"></span><h2>gioco.ambiente module<a class="headerlink" href="#module-gioco.ambiente" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="gioco.ambiente.Ambiente">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gioco.ambiente.</span></span><span class="sig-name descname"><span class="pre">Ambiente</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mod_attacco</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mod_cura</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Ambiente" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Gestisce i modificatori ambientali per Personaggio e Oggetto.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.ambiente.Ambiente.mod_attacco">
+<span class="sig-name descname"><span class="pre">mod_attacco</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#gioco.ambiente.Ambiente.mod_attacco" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.ambiente.Ambiente.mod_cura">
+<span class="sig-name descname"><span class="pre">mod_cura</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#gioco.ambiente.Ambiente.mod_cura" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.ambiente.Ambiente.modifica_attacco">
+<span class="sig-name descname"><span class="pre">modifica_attacco</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classe_attaccante</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome_attaccante</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Ambiente.modifica_attacco" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.ambiente.Ambiente.modifica_cura">
+<span class="sig-name descname"><span class="pre">modifica_cura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classe_soggetto</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome_soggetto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Ambiente.modifica_cura" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.ambiente.Ambiente.modifica_effetto_oggetto">
+<span class="sig-name descname"><span class="pre">modifica_effetto_oggetto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classe_oggetto</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valore_oggetto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Ambiente.modifica_effetto_oggetto" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.ambiente.Ambiente.nome">
+<span class="sig-name descname"><span class="pre">nome</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#gioco.ambiente.Ambiente.nome" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gioco.ambiente.AmbienteFactory">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gioco.ambiente.</span></span><span class="sig-name descname"><span class="pre">AmbienteFactory</span></span><a class="headerlink" href="#gioco.ambiente.AmbienteFactory" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Factory per la generazione di ambienti.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.ambiente.AmbienteFactory.ambiente_random">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ambiente_random</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.AmbienteFactory.ambiente_random" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#gioco.ambiente.Ambiente" title="gioco.ambiente.Ambiente"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ambiente</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.ambiente.AmbienteFactory.get_opzioni">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_opzioni</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.AmbienteFactory.get_opzioni" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="#gioco.ambiente.Ambiente" title="gioco.ambiente.Ambiente"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ambiente</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.ambiente.AmbienteFactory.usa_ambiente">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">usa_ambiente</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scelta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.AmbienteFactory.usa_ambiente" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#gioco.ambiente.Ambiente" title="gioco.ambiente.Ambiente"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ambiente</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gioco.ambiente.Foresta">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gioco.ambiente.</span></span><span class="sig-name descname"><span class="pre">Foresta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nome</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Foresta'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mod_attacco</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mod_cura</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Foresta" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gioco.ambiente.Ambiente" title="gioco.ambiente.Ambiente"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ambiente</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.ambiente.Foresta.mod_attacco">
+<span class="sig-name descname"><span class="pre">mod_attacco</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#gioco.ambiente.Foresta.mod_attacco" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.ambiente.Foresta.mod_cura">
+<span class="sig-name descname"><span class="pre">mod_cura</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5.0</span></em><a class="headerlink" href="#gioco.ambiente.Foresta.mod_cura" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.ambiente.Foresta.modifica_attacco">
+<span class="sig-name descname"><span class="pre">modifica_attacco</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classe_attaccante</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome_attaccante</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Foresta.modifica_attacco" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.ambiente.Foresta.modifica_cura">
+<span class="sig-name descname"><span class="pre">modifica_cura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classe_soggetto</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome_soggetto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Foresta.modifica_cura" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.ambiente.Foresta.modifica_effetto_oggetto">
+<span class="sig-name descname"><span class="pre">modifica_effetto_oggetto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classe_oggetto</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valore_oggetto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Foresta.modifica_effetto_oggetto" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.ambiente.Foresta.nome">
+<span class="sig-name descname"><span class="pre">nome</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Foresta'</span></em><a class="headerlink" href="#gioco.ambiente.Foresta.nome" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gioco.ambiente.Palude">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gioco.ambiente.</span></span><span class="sig-name descname"><span class="pre">Palude</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nome</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Palude'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mod_attacco</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mod_cura</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Palude" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gioco.ambiente.Ambiente" title="gioco.ambiente.Ambiente"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ambiente</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.ambiente.Palude.mod_attacco">
+<span class="sig-name descname"><span class="pre">mod_attacco</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-5</span></em><a class="headerlink" href="#gioco.ambiente.Palude.mod_attacco" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.ambiente.Palude.mod_cura">
+<span class="sig-name descname"><span class="pre">mod_cura</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.3</span></em><a class="headerlink" href="#gioco.ambiente.Palude.mod_cura" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.ambiente.Palude.modifica_attacco">
+<span class="sig-name descname"><span class="pre">modifica_attacco</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classe_attaccante</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome_attaccante</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Palude.modifica_attacco" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.ambiente.Palude.modifica_cura">
+<span class="sig-name descname"><span class="pre">modifica_cura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classe_soggetto</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome_soggetto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Palude.modifica_cura" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.ambiente.Palude.modifica_effetto_oggetto">
+<span class="sig-name descname"><span class="pre">modifica_effetto_oggetto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classe_oggetto</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valore_oggetto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Palude.modifica_effetto_oggetto" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.ambiente.Palude.nome">
+<span class="sig-name descname"><span class="pre">nome</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Palude'</span></em><a class="headerlink" href="#gioco.ambiente.Palude.nome" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gioco.ambiente.Vulcano">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gioco.ambiente.</span></span><span class="sig-name descname"><span class="pre">Vulcano</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nome</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Vulcano'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mod_attacco</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mod_cura</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-5.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Vulcano" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gioco.ambiente.Ambiente" title="gioco.ambiente.Ambiente"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ambiente</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.ambiente.Vulcano.mod_attacco">
+<span class="sig-name descname"><span class="pre">mod_attacco</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#gioco.ambiente.Vulcano.mod_attacco" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.ambiente.Vulcano.mod_cura">
+<span class="sig-name descname"><span class="pre">mod_cura</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-5.0</span></em><a class="headerlink" href="#gioco.ambiente.Vulcano.mod_cura" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.ambiente.Vulcano.modifica_attacco">
+<span class="sig-name descname"><span class="pre">modifica_attacco</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classe_attaccante</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome_attaccante</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Vulcano.modifica_attacco" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.ambiente.Vulcano.modifica_cura">
+<span class="sig-name descname"><span class="pre">modifica_cura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classe_soggetto</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome_soggetto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Vulcano.modifica_cura" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.ambiente.Vulcano.modifica_effetto_oggetto">
+<span class="sig-name descname"><span class="pre">modifica_effetto_oggetto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classe_oggetto</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valore_oggetto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.ambiente.Vulcano.modifica_effetto_oggetto" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.ambiente.Vulcano.nome">
+<span class="sig-name descname"><span class="pre">nome</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Vulcano'</span></em><a class="headerlink" href="#gioco.ambiente.Vulcano.nome" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-gioco.inventario">
+<span id="gioco-inventario-module"></span><h2>gioco.inventario module<a class="headerlink" href="#module-gioco.inventario" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="gioco.inventario.Inventario">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gioco.inventario.</span></span><span class="sig-name descname"><span class="pre">Inventario</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_proprietario=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oggetti=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.inventario.Inventario" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Gestisce la lista di oggetti posseduti da ogni personaggio.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.inventario.Inventario.aggiungi_oggetto">
+<span class="sig-name descname"><span class="pre">aggiungi_oggetto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oggetto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.inventario.Inventario.aggiungi_oggetto" title="Link to this definition"></a></dt>
+<dd><p>Aggiunge un oggetto all’inventario.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.inventario.Inventario.cerca_oggetto_per_id">
+<span class="sig-name descname"><span class="pre">cerca_oggetto_per_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oggetto_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.inventario.Inventario.cerca_oggetto_per_id" title="Link to this definition"></a></dt>
+<dd><p>Cerca un oggetto nell’inventario per ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#gioco.oggetto.Oggetto" title="gioco.oggetto.Oggetto"><code class="xref py py-class docutils literal notranslate"><span class="pre">Oggetto</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.inventario.Inventario.cerca_oggetto_per_nome">
+<span class="sig-name descname"><span class="pre">cerca_oggetto_per_nome</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nome</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.inventario.Inventario.cerca_oggetto_per_nome" title="Link to this definition"></a></dt>
+<dd><p>Cerca un oggetto nell’inventario per nome (case-insensitive).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#gioco.oggetto.Oggetto" title="gioco.oggetto.Oggetto"><code class="xref py py-class docutils literal notranslate"><span class="pre">Oggetto</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.inventario.Inventario.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">UUID</span></code></em><a class="headerlink" href="#gioco.inventario.Inventario.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.inventario.Inventario.id_proprietario">
+<span class="sig-name descname"><span class="pre">id_proprietario</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">UUID</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#gioco.inventario.Inventario.id_proprietario" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.inventario.Inventario.mostra_inventario">
+<span class="sig-name descname"><span class="pre">mostra_inventario</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gioco.inventario.Inventario.mostra_inventario" title="Link to this definition"></a></dt>
+<dd><p>Logga la lista degli oggetti presenti.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.inventario.Inventario.mostra_lista_inventario">
+<span class="sig-name descname"><span class="pre">mostra_lista_inventario</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gioco.inventario.Inventario.mostra_lista_inventario" title="Link to this definition"></a></dt>
+<dd><p>Ritorna la lista degli oggetti nell’inventario.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="#gioco.oggetto.Oggetto" title="gioco.oggetto.Oggetto"><code class="xref py py-class docutils literal notranslate"><span class="pre">Oggetto</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.inventario.Inventario.oggetti">
+<span class="sig-name descname"><span class="pre">oggetti</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="#gioco.oggetto.Oggetto" title="gioco.oggetto.Oggetto"><code class="xref py py-class docutils literal notranslate"><span class="pre">Oggetto</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#gioco.inventario.Inventario.oggetti" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.inventario.Inventario.rimuovi_oggetto">
+<span class="sig-name descname"><span class="pre">rimuovi_oggetto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oggetto_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.inventario.Inventario.rimuovi_oggetto" title="Link to this definition"></a></dt>
+<dd><p>Rimuove un oggetto dall’inventario dato il suo ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>oggetto_id</strong> (<em>str</em><em> | </em><em>UUID</em>) – L’ID dell’oggetto da rimuovere.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>L’oggetto rimosso se trovato.
+None: Se nessun oggetto con quell’ID è stato trovato.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#gioco.oggetto.Oggetto" title="gioco.oggetto.Oggetto">Oggetto</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.inventario.Inventario.usa_oggetto">
+<span class="sig-name descname"><span class="pre">usa_oggetto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oggetto</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ambiente</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.inventario.Inventario.usa_oggetto" title="Link to this definition"></a></dt>
+<dd><p>Utilizza un oggetto presente nell’inventario e lo rimuove.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-gioco.missione">
+<span id="gioco-missione-module"></span><h2>gioco.missione module<a class="headerlink" href="#module-gioco.missione" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="gioco.missione.Missione">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gioco.missione.</span></span><span class="sig-name descname"><span class="pre">Missione</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ambiente=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nemici=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inventari_nemici=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">premi=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome=''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategia_nemici=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">completata=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attiva=False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.missione.Missione" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Aggrega ambiente, nemici, inventari nemici e premi.
+Rappresenta una missione, composta da un ambiente, nemici e premi.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.missione.Missione.ambiente">
+<span class="sig-name descname"><span class="pre">ambiente</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#gioco.ambiente.Ambiente" title="gioco.ambiente.Ambiente"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ambiente</span></code></a></em><a class="headerlink" href="#gioco.missione.Missione.ambiente" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.missione.Missione.attiva">
+<span class="sig-name descname"><span class="pre">attiva</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#gioco.missione.Missione.attiva" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.missione.Missione.completata">
+<span class="sig-name descname"><span class="pre">completata</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#gioco.missione.Missione.completata" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.missione.Missione.get_nemici">
+<span class="sig-name descname"><span class="pre">get_nemici</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gioco.missione.Missione.get_nemici" title="Link to this definition"></a></dt>
+<dd><p>Restituisce la lista dei nemici attuali.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="#gioco.personaggio.Personaggio" title="gioco.personaggio.Personaggio"><code class="xref py py-class docutils literal notranslate"><span class="pre">Personaggio</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.missione.Missione.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">UUID</span></code></em><a class="headerlink" href="#gioco.missione.Missione.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.missione.Missione.inventari_nemici">
+<span class="sig-name descname"><span class="pre">inventari_nemici</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="#gioco.inventario.Inventario" title="gioco.inventario.Inventario"><code class="xref py py-class docutils literal notranslate"><span class="pre">Inventario</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#gioco.missione.Missione.inventari_nemici" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.missione.Missione.nemici">
+<span class="sig-name descname"><span class="pre">nemici</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="#gioco.personaggio.Personaggio" title="gioco.personaggio.Personaggio"><code class="xref py py-class docutils literal notranslate"><span class="pre">Personaggio</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#gioco.missione.Missione.nemici" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.missione.Missione.nome">
+<span class="sig-name descname"><span class="pre">nome</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#gioco.missione.Missione.nome" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.missione.Missione.premi">
+<span class="sig-name descname"><span class="pre">premi</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="#gioco.oggetto.Oggetto" title="gioco.oggetto.Oggetto"><code class="xref py py-class docutils literal notranslate"><span class="pre">Oggetto</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#gioco.missione.Missione.premi" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.missione.Missione.rimuovi_nemici_sconfitti">
+<span class="sig-name descname"><span class="pre">rimuovi_nemici_sconfitti</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gioco.missione.Missione.rimuovi_nemici_sconfitti" title="Link to this definition"></a></dt>
+<dd><p>Rimuove tutti i nemici sconfitti dalla lista.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.missione.Missione.rimuovi_nemico">
+<span class="sig-name descname"><span class="pre">rimuovi_nemico</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nemico</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.missione.Missione.rimuovi_nemico" title="Link to this definition"></a></dt>
+<dd><p>Rimuove un nemico dalla lista.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.missione.Missione.strategia_nemici">
+<span class="sig-name descname"><span class="pre">strategia_nemici</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#gioco.strategy.Strategia" title="gioco.strategy.Strategia"><code class="xref py py-class docutils literal notranslate"><span class="pre">Strategia</span></code></a></em><a class="headerlink" href="#gioco.missione.Missione.strategia_nemici" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.missione.Missione.verifica_completamento">
+<span class="sig-name descname"><span class="pre">verifica_completamento</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gioco.missione.Missione.verifica_completamento" title="Link to this definition"></a></dt>
+<dd><p>True se tutti i nemici sono sconfitti (lista vuota).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-gioco.oggetto">
+<span id="gioco-oggetto-module"></span><h2>gioco.oggetto module<a class="headerlink" href="#module-gioco.oggetto" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="gioco.oggetto.BombaAcida">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gioco.oggetto.</span></span><span class="sig-name descname"><span class="pre">BombaAcida</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nome='Bomba</span> <span class="pre">Acida'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">usato=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valore=30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tipo_oggetto=TipoOggetto.OFFENSIVO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.oggetto.BombaAcida" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gioco.oggetto.Oggetto" title="gioco.oggetto.Oggetto"><code class="xref py py-class docutils literal notranslate"><span class="pre">Oggetto</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.oggetto.BombaAcida.nome">
+<span class="sig-name descname"><span class="pre">nome</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Bomba</span> <span class="pre">Acida'</span></em><a class="headerlink" href="#gioco.oggetto.BombaAcida.nome" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.oggetto.BombaAcida.tipo_oggetto">
+<span class="sig-name descname"><span class="pre">tipo_oggetto</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#gioco.oggetto.TipoOggetto" title="gioco.oggetto.TipoOggetto"><code class="xref py py-class docutils literal notranslate"><span class="pre">TipoOggetto</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Offensivo'</span></em><a class="headerlink" href="#gioco.oggetto.BombaAcida.tipo_oggetto" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.oggetto.BombaAcida.usa">
+<span class="sig-name descname"><span class="pre">usa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod_ambiente</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.oggetto.BombaAcida.usa" title="Link to this definition"></a></dt>
+<dd><p>Metodo astratto da sovrascrivere nelle sottoclassi.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <a class="reference internal" href="#gioco.oggetto.TipoOggetto" title="gioco.oggetto.TipoOggetto"><code class="xref py py-class docutils literal notranslate"><span class="pre">TipoOggetto</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.oggetto.BombaAcida.valore">
+<span class="sig-name descname"><span class="pre">valore</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></em><a class="headerlink" href="#gioco.oggetto.BombaAcida.valore" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gioco.oggetto.Medaglione">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gioco.oggetto.</span></span><span class="sig-name descname"><span class="pre">Medaglione</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nome='Medaglione'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">usato=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valore=10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tipo_oggetto=TipoOggetto.BUFF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.oggetto.Medaglione" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gioco.oggetto.Oggetto" title="gioco.oggetto.Oggetto"><code class="xref py py-class docutils literal notranslate"><span class="pre">Oggetto</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.oggetto.Medaglione.nome">
+<span class="sig-name descname"><span class="pre">nome</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Medaglione'</span></em><a class="headerlink" href="#gioco.oggetto.Medaglione.nome" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.oggetto.Medaglione.tipo_oggetto">
+<span class="sig-name descname"><span class="pre">tipo_oggetto</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#gioco.oggetto.TipoOggetto" title="gioco.oggetto.TipoOggetto"><code class="xref py py-class docutils literal notranslate"><span class="pre">TipoOggetto</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Buff'</span></em><a class="headerlink" href="#gioco.oggetto.Medaglione.tipo_oggetto" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.oggetto.Medaglione.usa">
+<span class="sig-name descname"><span class="pre">usa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod_ambiente</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.oggetto.Medaglione.usa" title="Link to this definition"></a></dt>
+<dd><p>Metodo astratto da sovrascrivere nelle sottoclassi.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <a class="reference internal" href="#gioco.oggetto.TipoOggetto" title="gioco.oggetto.TipoOggetto"><code class="xref py py-class docutils literal notranslate"><span class="pre">TipoOggetto</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.oggetto.Medaglione.valore">
+<span class="sig-name descname"><span class="pre">valore</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#gioco.oggetto.Medaglione.valore" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gioco.oggetto.Oggetto">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gioco.oggetto.</span></span><span class="sig-name descname"><span class="pre">Oggetto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">usato=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valore=30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tipo_oggetto=TipoOggetto.BUFF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.oggetto.Oggetto" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.oggetto.Oggetto.classe">
+<span class="sig-name descname"><span class="pre">classe</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#gioco.oggetto.Oggetto.classe" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.oggetto.Oggetto.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">UUID</span></code></em><a class="headerlink" href="#gioco.oggetto.Oggetto.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.oggetto.Oggetto.nome">
+<span class="sig-name descname"><span class="pre">nome</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#gioco.oggetto.Oggetto.nome" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.oggetto.Oggetto.tipo_oggetto">
+<span class="sig-name descname"><span class="pre">tipo_oggetto</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#gioco.oggetto.TipoOggetto" title="gioco.oggetto.TipoOggetto"><code class="xref py py-class docutils literal notranslate"><span class="pre">TipoOggetto</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Buff'</span></em><a class="headerlink" href="#gioco.oggetto.Oggetto.tipo_oggetto" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.oggetto.Oggetto.usa">
+<span class="sig-name descname"><span class="pre">usa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod_ambiente</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.oggetto.Oggetto.usa" title="Link to this definition"></a></dt>
+<dd><p>Metodo astratto da sovrascrivere nelle sottoclassi.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.oggetto.Oggetto.usato">
+<span class="sig-name descname"><span class="pre">usato</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#gioco.oggetto.Oggetto.usato" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.oggetto.Oggetto.valore">
+<span class="sig-name descname"><span class="pre">valore</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></em><a class="headerlink" href="#gioco.oggetto.Oggetto.valore" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gioco.oggetto.PozioneCura">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gioco.oggetto.</span></span><span class="sig-name descname"><span class="pre">PozioneCura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nome='Pozione</span> <span class="pre">Rossa'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">usato=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valore=30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tipo_oggetto=TipoOggetto.RISTORATIVO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.oggetto.PozioneCura" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gioco.oggetto.Oggetto" title="gioco.oggetto.Oggetto"><code class="xref py py-class docutils literal notranslate"><span class="pre">Oggetto</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.oggetto.PozioneCura.nome">
+<span class="sig-name descname"><span class="pre">nome</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Pozione</span> <span class="pre">Rossa'</span></em><a class="headerlink" href="#gioco.oggetto.PozioneCura.nome" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.oggetto.PozioneCura.tipo_oggetto">
+<span class="sig-name descname"><span class="pre">tipo_oggetto</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#gioco.oggetto.TipoOggetto" title="gioco.oggetto.TipoOggetto"><code class="xref py py-class docutils literal notranslate"><span class="pre">TipoOggetto</span></code></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ristorativo'</span></em><a class="headerlink" href="#gioco.oggetto.PozioneCura.tipo_oggetto" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.oggetto.PozioneCura.usa">
+<span class="sig-name descname"><span class="pre">usa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod_ambiente</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.oggetto.PozioneCura.usa" title="Link to this definition"></a></dt>
+<dd><p>Metodo astratto da sovrascrivere nelle sottoclassi.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.oggetto.PozioneCura.valore">
+<span class="sig-name descname"><span class="pre">valore</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></em><a class="headerlink" href="#gioco.oggetto.PozioneCura.valore" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gioco.oggetto.PozioneSuperCura">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gioco.oggetto.</span></span><span class="sig-name descname"><span class="pre">PozioneSuperCura</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nome='Super</span> <span class="pre">Pozione</span> <span class="pre">Rossa'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">usato=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valore=100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tipo_oggetto=TipoOggetto.RISTORATIVO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.oggetto.PozioneSuperCura" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gioco.oggetto.PozioneCura" title="gioco.oggetto.PozioneCura"><code class="xref py py-class docutils literal notranslate"><span class="pre">PozioneCura</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.oggetto.PozioneSuperCura.nome">
+<span class="sig-name descname"><span class="pre">nome</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Super</span> <span class="pre">Pozione</span> <span class="pre">Rossa'</span></em><a class="headerlink" href="#gioco.oggetto.PozioneSuperCura.nome" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.oggetto.PozioneSuperCura.usa">
+<span class="sig-name descname"><span class="pre">usa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod_ambiente</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.oggetto.PozioneSuperCura.usa" title="Link to this definition"></a></dt>
+<dd><p>Metodo astratto da sovrascrivere nelle sottoclassi.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <a class="reference internal" href="#gioco.oggetto.TipoOggetto" title="gioco.oggetto.TipoOggetto"><code class="xref py py-class docutils literal notranslate"><span class="pre">TipoOggetto</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.oggetto.PozioneSuperCura.valore">
+<span class="sig-name descname"><span class="pre">valore</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">100</span></em><a class="headerlink" href="#gioco.oggetto.PozioneSuperCura.valore" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gioco.oggetto.TipoOggetto">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gioco.oggetto.</span></span><span class="sig-name descname"><span class="pre">TipoOggetto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.oggetto.TipoOggetto" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.oggetto.TipoOggetto.BUFF">
+<span class="sig-name descname"><span class="pre">BUFF</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Buff'</span></em><a class="headerlink" href="#gioco.oggetto.TipoOggetto.BUFF" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.oggetto.TipoOggetto.OFFENSIVO">
+<span class="sig-name descname"><span class="pre">OFFENSIVO</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Offensivo'</span></em><a class="headerlink" href="#gioco.oggetto.TipoOggetto.OFFENSIVO" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.oggetto.TipoOggetto.RISTORATIVO">
+<span class="sig-name descname"><span class="pre">RISTORATIVO</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ristorativo'</span></em><a class="headerlink" href="#gioco.oggetto.TipoOggetto.RISTORATIVO" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-gioco.personaggio">
+<span id="gioco-personaggio-module"></span><h2>gioco.personaggio module<a class="headerlink" href="#module-gioco.personaggio" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="gioco.personaggio.Guerriero">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gioco.personaggio.</span></span><span class="sig-name descname"><span class="pre">Guerriero</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nome=''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npc=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">salute=130</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">salute_max=130</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attacco_min=20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attacco_max=100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">storico_danni_subiti=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livello=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destrezza=15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iniziativa=20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classe='Guerriero'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.personaggio.Guerriero" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gioco.personaggio.Personaggio" title="gioco.personaggio.Personaggio"><code class="xref py py-class docutils literal notranslate"><span class="pre">Personaggio</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.personaggio.Guerriero.attacca">
+<span class="sig-name descname"><span class="pre">attacca</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod_ambiente</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.personaggio.Guerriero.attacca" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Guerriero.attacco_max">
+<span class="sig-name descname"><span class="pre">attacco_max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">100</span></em><a class="headerlink" href="#gioco.personaggio.Guerriero.attacco_max" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Guerriero.attacco_min">
+<span class="sig-name descname"><span class="pre">attacco_min</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><a class="headerlink" href="#gioco.personaggio.Guerriero.attacco_min" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Guerriero.classe">
+<span class="sig-name descname"><span class="pre">classe</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Guerriero'</span></em><a class="headerlink" href="#gioco.personaggio.Guerriero.classe" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Guerriero.iniziativa">
+<span class="sig-name descname"><span class="pre">iniziativa</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><a class="headerlink" href="#gioco.personaggio.Guerriero.iniziativa" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.personaggio.Guerriero.recupera_salute">
+<span class="sig-name descname"><span class="pre">recupera_salute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod_ambiente</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.personaggio.Guerriero.recupera_salute" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Guerriero.salute">
+<span class="sig-name descname"><span class="pre">salute</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">130</span></em><a class="headerlink" href="#gioco.personaggio.Guerriero.salute" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Guerriero.salute_max">
+<span class="sig-name descname"><span class="pre">salute_max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">130</span></em><a class="headerlink" href="#gioco.personaggio.Guerriero.salute_max" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gioco.personaggio.Ladro">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gioco.personaggio.</span></span><span class="sig-name descname"><span class="pre">Ladro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nome=''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npc=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">salute=120</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">salute_max=120</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attacco_min=10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attacco_max=85</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">storico_danni_subiti=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livello=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destrezza=15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iniziativa=25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classe='Ladro'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.personaggio.Ladro" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gioco.personaggio.Personaggio" title="gioco.personaggio.Personaggio"><code class="xref py py-class docutils literal notranslate"><span class="pre">Personaggio</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.personaggio.Ladro.attacca">
+<span class="sig-name descname"><span class="pre">attacca</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod_ambiente</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.personaggio.Ladro.attacca" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Ladro.attacco_max">
+<span class="sig-name descname"><span class="pre">attacco_max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">85</span></em><a class="headerlink" href="#gioco.personaggio.Ladro.attacco_max" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Ladro.attacco_min">
+<span class="sig-name descname"><span class="pre">attacco_min</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#gioco.personaggio.Ladro.attacco_min" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Ladro.classe">
+<span class="sig-name descname"><span class="pre">classe</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ladro'</span></em><a class="headerlink" href="#gioco.personaggio.Ladro.classe" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Ladro.iniziativa">
+<span class="sig-name descname"><span class="pre">iniziativa</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">25</span></em><a class="headerlink" href="#gioco.personaggio.Ladro.iniziativa" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.personaggio.Ladro.recupera_salute">
+<span class="sig-name descname"><span class="pre">recupera_salute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod_ambiente</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.personaggio.Ladro.recupera_salute" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Ladro.salute">
+<span class="sig-name descname"><span class="pre">salute</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">120</span></em><a class="headerlink" href="#gioco.personaggio.Ladro.salute" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Ladro.salute_max">
+<span class="sig-name descname"><span class="pre">salute_max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">120</span></em><a class="headerlink" href="#gioco.personaggio.Ladro.salute_max" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gioco.personaggio.Mago">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gioco.personaggio.</span></span><span class="sig-name descname"><span class="pre">Mago</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nome=''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npc=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">salute=80</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">salute_max=80</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attacco_min=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attacco_max=90</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">storico_danni_subiti=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livello=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destrezza=15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iniziativa=15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classe='Mago'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.personaggio.Mago" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gioco.personaggio.Personaggio" title="gioco.personaggio.Personaggio"><code class="xref py py-class docutils literal notranslate"><span class="pre">Personaggio</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.personaggio.Mago.attacca">
+<span class="sig-name descname"><span class="pre">attacca</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod_ambiente</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.personaggio.Mago.attacca" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Mago.attacco_max">
+<span class="sig-name descname"><span class="pre">attacco_max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">90</span></em><a class="headerlink" href="#gioco.personaggio.Mago.attacco_max" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Mago.attacco_min">
+<span class="sig-name descname"><span class="pre">attacco_min</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#gioco.personaggio.Mago.attacco_min" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.personaggio.Mago.calcola_danno">
+<span class="sig-name descname"><span class="pre">calcola_danno</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod_ambiente</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.personaggio.Mago.calcola_danno" title="Link to this definition"></a></dt>
+<dd><p>Metodo separato per il calcolo del danno,
+personalizzabile dalle sottoclassi.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Mago.classe">
+<span class="sig-name descname"><span class="pre">classe</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Mago'</span></em><a class="headerlink" href="#gioco.personaggio.Mago.classe" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Mago.iniziativa">
+<span class="sig-name descname"><span class="pre">iniziativa</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">15</span></em><a class="headerlink" href="#gioco.personaggio.Mago.iniziativa" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.personaggio.Mago.recupera_salute">
+<span class="sig-name descname"><span class="pre">recupera_salute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod_ambiente</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.personaggio.Mago.recupera_salute" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Mago.salute">
+<span class="sig-name descname"><span class="pre">salute</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">80</span></em><a class="headerlink" href="#gioco.personaggio.Mago.salute" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Mago.salute_max">
+<span class="sig-name descname"><span class="pre">salute_max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">80</span></em><a class="headerlink" href="#gioco.personaggio.Mago.salute_max" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gioco.personaggio.Personaggio">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gioco.personaggio.</span></span><span class="sig-name descname"><span class="pre">Personaggio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nome=''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npc=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">salute=100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">salute_max=200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attacco_min=5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attacco_max=80</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">storico_danni_subiti=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">livello=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destrezza=15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iniziativa=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classe=''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.personaggio.Personaggio" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.personaggio.Personaggio.attacca">
+<span class="sig-name descname"><span class="pre">attacca</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod_ambiente</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.personaggio.Personaggio.attacca" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Personaggio.attacco_max">
+<span class="sig-name descname"><span class="pre">attacco_max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">80</span></em><a class="headerlink" href="#gioco.personaggio.Personaggio.attacco_max" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Personaggio.attacco_min">
+<span class="sig-name descname"><span class="pre">attacco_min</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#gioco.personaggio.Personaggio.attacco_min" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.personaggio.Personaggio.calcola_danno">
+<span class="sig-name descname"><span class="pre">calcola_danno</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod_ambiente</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.personaggio.Personaggio.calcola_danno" title="Link to this definition"></a></dt>
+<dd><p>Metodo separato per il calcolo del danno,
+personalizzabile dalle sottoclassi.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Personaggio.classe">
+<span class="sig-name descname"><span class="pre">classe</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#gioco.personaggio.Personaggio.classe" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Personaggio.destrezza">
+<span class="sig-name descname"><span class="pre">destrezza</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">15</span></em><a class="headerlink" href="#gioco.personaggio.Personaggio.destrezza" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.personaggio.Personaggio.esegui_azione">
+<span class="sig-name descname"><span class="pre">esegui_azione</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gioco.personaggio.Personaggio.esegui_azione" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Personaggio.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">UUID</span></code></em><a class="headerlink" href="#gioco.personaggio.Personaggio.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Personaggio.iniziativa">
+<span class="sig-name descname"><span class="pre">iniziativa</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#gioco.personaggio.Personaggio.iniziativa" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Personaggio.livello">
+<span class="sig-name descname"><span class="pre">livello</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#gioco.personaggio.Personaggio.livello" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.personaggio.Personaggio.migliora_statistiche">
+<span class="sig-name descname"><span class="pre">migliora_statistiche</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gioco.personaggio.Personaggio.migliora_statistiche" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Personaggio.nome">
+<span class="sig-name descname"><span class="pre">nome</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#gioco.personaggio.Personaggio.nome" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Personaggio.npc">
+<span class="sig-name descname"><span class="pre">npc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#gioco.personaggio.Personaggio.npc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Personaggio.salute">
+<span class="sig-name descname"><span class="pre">salute</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">100</span></em><a class="headerlink" href="#gioco.personaggio.Personaggio.salute" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Personaggio.salute_max">
+<span class="sig-name descname"><span class="pre">salute_max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">200</span></em><a class="headerlink" href="#gioco.personaggio.Personaggio.salute_max" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.personaggio.Personaggio.sconfitto">
+<span class="sig-name descname"><span class="pre">sconfitto</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gioco.personaggio.Personaggio.sconfitto" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.personaggio.Personaggio.storico_danni_subiti">
+<span class="sig-name descname"><span class="pre">storico_danni_subiti</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><a class="headerlink" href="#gioco.personaggio.Personaggio.storico_danni_subiti" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.personaggio.Personaggio.subisci_danno">
+<span class="sig-name descname"><span class="pre">subisci_danno</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">danno</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.personaggio.Personaggio.subisci_danno" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-gioco.strategy">
+<span id="gioco-strategy-module"></span><h2>gioco.strategy module<a class="headerlink" href="#module-gioco.strategy" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="gioco.strategy.Aggressiva">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gioco.strategy.</span></span><span class="sig-name descname"><span class="pre">Aggressiva</span></span><a class="headerlink" href="#gioco.strategy.Aggressiva" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gioco.strategy.Strategia" title="gioco.strategy.Strategia"><code class="xref py py-class docutils literal notranslate"><span class="pre">Strategia</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.strategy.Aggressiva.nome">
+<span class="sig-name descname"><span class="pre">nome</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Aggressiva'</span></em><a class="headerlink" href="#gioco.strategy.Aggressiva.nome" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.strategy.Aggressiva.uso_inventario_npc">
+<span class="sig-name descname"><span class="pre">uso_inventario_npc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">salute_npc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inventario</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ambiente</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.strategy.Aggressiva.uso_inventario_npc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gioco.strategy.Difensiva">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gioco.strategy.</span></span><span class="sig-name descname"><span class="pre">Difensiva</span></span><a class="headerlink" href="#gioco.strategy.Difensiva" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gioco.strategy.Strategia" title="gioco.strategy.Strategia"><code class="xref py py-class docutils literal notranslate"><span class="pre">Strategia</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.strategy.Difensiva.nome">
+<span class="sig-name descname"><span class="pre">nome</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Difensiva'</span></em><a class="headerlink" href="#gioco.strategy.Difensiva.nome" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.strategy.Difensiva.uso_inventario_npc">
+<span class="sig-name descname"><span class="pre">uso_inventario_npc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">salute_npc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inventario</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ambiente</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.strategy.Difensiva.uso_inventario_npc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gioco.strategy.Equilibrata">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gioco.strategy.</span></span><span class="sig-name descname"><span class="pre">Equilibrata</span></span><a class="headerlink" href="#gioco.strategy.Equilibrata" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gioco.strategy.Strategia" title="gioco.strategy.Strategia"><code class="xref py py-class docutils literal notranslate"><span class="pre">Strategia</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.strategy.Equilibrata.nome">
+<span class="sig-name descname"><span class="pre">nome</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Equilibrata'</span></em><a class="headerlink" href="#gioco.strategy.Equilibrata.nome" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.strategy.Equilibrata.uso_inventario_npc">
+<span class="sig-name descname"><span class="pre">uso_inventario_npc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">salute_npc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inventario</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ambiente</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.strategy.Equilibrata.uso_inventario_npc" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gioco.strategy.Strategia">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gioco.strategy.</span></span><span class="sig-name descname"><span class="pre">Strategia</span></span><a class="headerlink" href="#gioco.strategy.Strategia" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.strategy.Strategia.bonus_destrezza">
+<span class="sig-name descname"><span class="pre">bonus_destrezza</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">destrezza</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.strategy.Strategia.bonus_destrezza" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.strategy.Strategia.malus_destrezza">
+<span class="sig-name descname"><span class="pre">malus_destrezza</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">destrezza</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.strategy.Strategia.malus_destrezza" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.strategy.Strategia.nome">
+<span class="sig-name descname"><span class="pre">nome</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Strategia</span> <span class="pre">base'</span></em><a class="headerlink" href="#gioco.strategy.Strategia.nome" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.strategy.Strategia.uso_inventario_npc">
+<span class="sig-name descname"><span class="pre">uso_inventario_npc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">salute_npc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inventario</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ambiente</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.strategy.Strategia.uso_inventario_npc" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gioco.strategy.StrategiaFactory">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gioco.strategy.</span></span><span class="sig-name descname"><span class="pre">StrategiaFactory</span></span><a class="headerlink" href="#gioco.strategy.StrategiaFactory" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.strategy.StrategiaFactory.strategia_random">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">strategia_random</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gioco.strategy.StrategiaFactory.strategia_random" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#gioco.strategy.Strategia" title="gioco.strategy.Strategia"><code class="xref py py-class docutils literal notranslate"><span class="pre">Strategia</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="gioco.strategy.StrategiaFactory.usa_strategia">
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">usa_strategia</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tipo</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.strategy.StrategiaFactory.usa_strategia" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#gioco.strategy.Strategia" title="gioco.strategy.Strategia"><code class="xref py py-class docutils literal notranslate"><span class="pre">Strategia</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="gioco.strategy.TipoStrategia">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">gioco.strategy.</span></span><span class="sig-name descname"><span class="pre">TipoStrategia</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gioco.strategy.TipoStrategia" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.strategy.TipoStrategia.AGGRESSIVA">
+<span class="sig-name descname"><span class="pre">AGGRESSIVA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'aggressiva'</span></em><a class="headerlink" href="#gioco.strategy.TipoStrategia.AGGRESSIVA" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.strategy.TipoStrategia.DIFENSIVA">
+<span class="sig-name descname"><span class="pre">DIFENSIVA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'difensiva'</span></em><a class="headerlink" href="#gioco.strategy.TipoStrategia.DIFENSIVA" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="gioco.strategy.TipoStrategia.EQUILIBRATA">
+<span class="sig-name descname"><span class="pre">EQUILIBRATA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'equilibrata'</span></em><a class="headerlink" href="#gioco.strategy.TipoStrategia.EQUILIBRATA" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="&lt;no title&gt;" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="gioco.schemas.html" class="btn btn-neutral float-right" title="gioco.schemas namespace" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, ..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
