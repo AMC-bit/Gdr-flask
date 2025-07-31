@@ -14,6 +14,7 @@
 - [Update futuri](#update-futuri)
 - [Changelog](#changelog)
 - [Come contribuire](#come-contribuire)
+- [Team](#team)
 - [License](#license)
 
 ## Cos'è Saltatio Mortis?
@@ -61,6 +62,16 @@ Se vuoi supportare lo sviluppo e le implementazioni future, dimostraci il tuo so
 Oppure segui [il creatore del progetto](https://github.com/delectablerec)
 
 [![Followers](https://img.shields.io/github/followers/delectablerec?style=flat&cacheSeconds=10)](https://github.com/delectablerec)
+
+## Team
+- Ariotti Matteo
+- Chiara Konrad
+- Maddaloni Enrico
+- Puccini Nicolò
+- Fabrice Ghislain Tebou
+- Trotti Enrico
+- Yildiz Sidar
+
 
 ## License
 
