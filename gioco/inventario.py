@@ -89,7 +89,7 @@ class Inventario:
             se l'ambiente non è specificato.
 
         Returns:
-            Optional[int]: Il valore dell'oggetto usato, o None se l'oggetto non è nell'inventario.
+            Optional[tuple[int, Oggetto]]: il valore e l'oggetto usato, o None se l'oggetto non è nell'inventario.
         """
         if not self.cerca_oggetto_per_id(oggetto.id):
             logger.info("Oggetto non trovato nell'inventario.")

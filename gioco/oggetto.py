@@ -110,7 +110,7 @@ class PozioneCura(Oggetto):
 
         Returns:
             tuple[int, Oggetto]:
-                La quantità di salute curata e il tipo di oggetto
+                La quantità di salute curata e l'oggetto
                 (in questo caso RISTORATIVO).
         """
         self.usato = True
@@ -141,7 +141,7 @@ class BombaAcida(Oggetto):
 
         Returns:
             tuple[int, TipoOggetto]:
-                La quantità di danno inflitto e il tipo di oggetto
+                La quantità di danno inflitto e l'oggetto
                 (in questo caso OFFENSIVO).
         """
         self.usato = True
@@ -171,7 +171,7 @@ class Medaglione(Oggetto):
 
         Returns:
             tuple[int, Oggetto]:
-                La quantità di bonus all'attacco e il tipo di oggetto
+                La quantità di bonus all'attacco e l'oggetto
                 (in questo caso BUFF).
         """
         self.usato = True
@@ -201,7 +201,7 @@ class PozioneSuperCura(PozioneCura):
 
         Returns:
             tuple[int, Oggetto]:
-            La quantità di salute curata e il tipo di oggetto
+            La quantità di salute curata e oggetto
                 (in questo caso RISTORATIVO).
         """
         # Log base (PozioneCura)

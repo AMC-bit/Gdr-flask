@@ -64,7 +64,7 @@ class Strategia:
                 nelle sottoclassi.
 
         Returns:
-            int | None: Il risultato dell'uso dell'oggetto o None se non
+            tuple[int, Oggetto] | None: Il risultato dell'uso dell'oggetto o None se non
                 viene usato nulla.
         """
 
