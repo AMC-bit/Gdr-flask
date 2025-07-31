@@ -443,8 +443,7 @@ def usa_inventario_automatico(
     inventario: Inventario,
     pg: Personaggio,
     missione: Missione,
-    bersagli: list[Personaggio],
-    strategia: Strategia = None
+    bersagli: list[Personaggio]
 ) -> tuple[int | None, str]:
     """
     Utilizza un oggetto dall'inventario in modo automatico.
@@ -459,65 +458,68 @@ def usa_inventario_automatico(
         tuple[int | None, str]:
         Il risultato dell'uso dell'oggetto e un messaggio descrittivo.
     """
-    ambiente = missione.ambiente
-    result = None
-    value = None
-    check = True
+    if not missione:
+        txt= "Errore il parametro missione è None nella chiamata di usa_inventario_automatico "
+        logger.info(txt)
+    else:
+        ambiente = missione.ambiente
+        result = None
+        value = None
+        check = True
 
-    if strategia is None:
         strategia = missione.strategia_nemici
 
-    bersagli = [
-        bersaglio for bersaglio in bersagli
-        if bersaglio.salute > 0
-        and bersaglio != pg
-        and bersaglio.npc != pg.npc
-    ]
+        bersagli = [
+            bersaglio for bersaglio in bersagli
+            if bersaglio.salute > 0
+            and bersaglio != pg
+            and bersaglio.npc != pg.npc
+        ]
 
-    if inventario is None:
-        txt = f"{bold(pg.nome)} non ha un inventario! Errore!!!!."
-        check = False
-    elif inventario.oggetti is None:
-        txt = f"{bold(pg.nome)} non ha più oggetti nell'inventario."
-        check = False
-    txt = ""
-    if check:
-        result = strategia.uso_inventario_npc(pg.salute, inventario, ambiente)
+        if inventario is None:
+            txt = f"{bold(pg.nome)} non ha un inventario! Errore!!!!."
+            check = False
+        elif inventario.oggetti is None:
+            txt = f"{bold(pg.nome)} non ha più oggetti nell'inventario."
+            check = False
+        txt = ""
+        if check:
+            result = strategia.uso_inventario_npc(pg.salute, inventario, ambiente)
 
-        if result is not None:
-            # print(f"Result: {result}")
-            value = result[0]
-            tipo = result[1]
-            print("TIPO", tipo)
-            if tipo == "TipoOggetto.BUFF":
-                bersaglio = None
-                txt = (f"{bold(pg.nome)} usa Medaglione su se stesso, ")
-                pg.attacco_max += value
-            elif tipo == "TipoOggetto.OFFENSIVO":
-                bersaglio = random.choice(bersagli)
+            if result is not None:
+                # print(f"Result: {result}")
+                value = result[0]
+                tipo = result[1]
+                print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!TIPO :", tipo , type(tipo))
+                if tipo == "TipoOggetto.BUFF":
+                    bersaglio = None
+                    txt = (f"{bold(pg.nome)} usa Medaglione su se stesso, ")
+                    pg.attacco_max += value
+                elif tipo == "TipoOggetto.OFFENSIVO":
+                    bersaglio = random.choice(bersagli)
 
-                txt = (
-                    f"{bold(pg.nome)} usa Bomba Acida su "
-                    f"{bold(bersaglio.nome)} "
-                    f"infliggendo {bold(-value)} HP di danno"
-                )
-
-                bersaglio.salute += value
-            elif tipo == "TipoOggetto.RISTORATIVO":
-                bersaglio = None
-                txt = (f"{bold(pg.nome)} usa Pozione Curativa su se stesso ")
-                pg.salute += value
-                if pg.salute >= pg.salute_max:
-                    pg.salute = pg.salute_max
-                    txt += ", che torna al massimo della salute."
-                else:
-                    txt += (
-                        f", recuperando <span class='text-success fw-bold'>"
-                        f" {bold(value)}</span> HP."
+                    txt = (
+                        f"{bold(pg.nome)} usa Bomba Acida su "
+                        f"{bold(bersaglio.nome)} "
+                        f"infliggendo {bold(-value)} HP di danno"
                     )
-        else:
-            txt = f"{bold(pg.nome)} non utilizza oggetti in questo turno"
-        logger.info(str(txt))
+
+                    bersaglio.salute += value
+                elif tipo == "TipoOggetto.RISTORATIVO":
+                    bersaglio = None
+                    txt = (f"{bold(pg.nome)} usa Pozione Curativa su se stesso ")
+                    pg.salute += value
+                    if pg.salute >= pg.salute_max:
+                        pg.salute = pg.salute_max
+                        txt += ", che torna al massimo della salute."
+                    else:
+                        txt += (
+                            f", recuperando <span class='text-success fw-bold'>"
+                            f" {bold(value)}</span> HP."
+                        )
+            else:
+                txt = f"{bold(pg.nome)} non utilizza oggetti in questo turno"
+            logger.info(str(txt))
     return value, txt
 
 
