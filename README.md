@@ -54,7 +54,7 @@ Il tuo contributo è importante! Sentiti libero di far crescere il nostro proget
 
 Se vuoi supportare lo sviluppo e le implementazioni future, dimostraci il tuo sostegno tramite i bottoni qui sotto
 
-[![Star](https://img.shields.io/github/stars/delectablerec/Gdr-flask?style=for-the-badge)](https://github.com/delectablerec/Gdr-flask/stargazers)
+[![Star](https://img.shields.io/github/stars/delectablerec/Gdr-flask?style=for-the-badge&cacheSeconds=10)](https://github.com/delectablerec/Gdr-flask/stargazers)
 [![Fork](https://img.shields.io/github/forks/delectablerec/Gdr-flask?style=for-the-badge)](https://github.com/delectablerec/Gdr-flask/network/members)
 [![Watch](https://img.shields.io/github/watchers/delectablerec/Gdr-flask?style=for-the-badge)](https://github.com/delectablerec/Gdr-flask/watchers)
 
