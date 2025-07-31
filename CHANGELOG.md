@@ -12,5 +12,17 @@ Or follow [the project creator](https://github.com/delectablerec)
 
 [![Followers](https://img.shields.io/github/followers/delectablerec?style=for-the-badge)](https://github.com/delectablerec)
 
-## [1.0.0] – 2025-Jul-30
-Released the first working version of **Saltatio Mortis**
+## [1.0.0] – 2025-Jul-31
+### Fixes
+- Fixed a code compilation issue caused by merge mistakes from the team
+
+### Additions
+- After creating a character, the user is now redirected to the character list
+- Improved the admin manager template
+- Added auto-scroll to the battle log
+- Added a button to return to the main menu at the end of a battle
+- Changed the brand icon
+- Replaced the welcome title with a new font
+- Added buttons to return to personal area + main menu on the character detail page
+- Removed the 'Home' link from the header menu
+
