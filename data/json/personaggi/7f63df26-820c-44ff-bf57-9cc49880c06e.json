@@ -1,0 +1,16 @@
+{
+    "classe": "Ladro",
+    "id": "7f63df26-820c-44ff-bf57-9cc49880c06e",
+    "nome": "Silvia",
+    "npc": false,
+    "salute_max": 120,
+    "salute": 122,
+    "attacco_min": 10,
+    "attacco_max": 85,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 25,
+    "storico_danni_subiti": [
+        20
+    ]
+}

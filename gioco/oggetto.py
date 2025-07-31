@@ -109,14 +109,14 @@ class PozioneCura(Oggetto):
                 l'effetto della cura. il valore di default è 0.
 
         Returns:
-            tuple[int, TipoOggetto]:
+            tuple[int, Oggetto]:
                 La quantità di salute curata e il tipo di oggetto
                 (in questo caso RISTORATIVO).
         """
         self.usato = True
         cura = self.valore + mod_ambiente
         logger.info(f"{self.nome} usata: cura {cura} HP.")
-        return cura, self.tipo_oggetto
+        return cura, self
 
 @dataclass
 class BombaAcida(Oggetto):
@@ -129,7 +129,7 @@ class BombaAcida(Oggetto):
     valore: int = 30
     tipo_oggetto: TipoOggetto = TipoOggetto.OFFENSIVO
 
-    def usa(self, mod_ambiente: int = 0) -> tuple[int, TipoOggetto]:
+    def usa(self, mod_ambiente: int = 0) -> tuple[int, Oggetto]:
         """
         Usa la bomba acida per infliggere danni al nemico.
         Al valore della bomba aggiunge il modificatore di ambiente.
@@ -147,7 +147,7 @@ class BombaAcida(Oggetto):
         self.usato = True
         danno = - (self.valore + mod_ambiente)
         logger.info(f"{self.nome} lanciata: infligge {abs(danno)} danni.")
-        return danno, self.tipo_oggetto
+        return danno, self
 
 @dataclass
 class Medaglione(Oggetto):
@@ -160,7 +160,7 @@ class Medaglione(Oggetto):
     valore: int = 10
     tipo_oggetto: TipoOggetto = TipoOggetto.BUFF
 
-    def usa(self, mod_ambiente: int = 0) -> tuple[int, TipoOggetto]:
+    def usa(self, mod_ambiente: int = 0) -> tuple[int, Oggetto]:
         """
         Usa il medaglione per fornire un bonus all'attacco.
         Al valore del medaglione aggiunge un possibile modificatore ambientale.
@@ -170,14 +170,14 @@ class Medaglione(Oggetto):
                 l'effetto del medaglione. Il valore di default è 0.
 
         Returns:
-            tuple[int, TipoOggetto]:
+            tuple[int, Oggetto]:
                 La quantità di bonus all'attacco e il tipo di oggetto
                 (in questo caso BUFF).
         """
         self.usato = True
         mod = self.valore + mod_ambiente
         logger.info(f"{self.nome} attivato: bonus {mod} all'attacco_max.")
-        return mod, self.tipo_oggetto
+        return mod, self
 
 @dataclass
 class PozioneSuperCura(PozioneCura):
@@ -190,7 +190,7 @@ class PozioneSuperCura(PozioneCura):
     nome: str = "Super Pozione Rossa"
     valore: int = 100
 
-    def usa(self, mod_ambiente: int = 0) -> tuple[int, TipoOggetto]:
+    def usa(self, mod_ambiente: int = 0) -> tuple[int, Oggetto]:
         """
         Usa la super pozione per curare un personaggio.
         Al valore della super pozione aggiunge il modificatore ambientale.
@@ -200,7 +200,7 @@ class PozioneSuperCura(PozioneCura):
                 l'effetto della super pozione. Di defaults è pari a 0.
 
         Returns:
-            tuple[int, TipoOggetto]:
+            tuple[int, Oggetto]:
             La quantità di salute curata e il tipo di oggetto
                 (in questo caso RISTORATIVO).
         """
@@ -208,4 +208,4 @@ class PozioneSuperCura(PozioneCura):
         cura = super().usa(mod_ambiente)
         # Logica/Logging extra
         logger.info(f"{self.nome}: È una super pozione! Effetto potenziato.")
-        return cura, self.tipo_oggetto
+        return cura, self
