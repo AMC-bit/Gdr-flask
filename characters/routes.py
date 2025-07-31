@@ -140,7 +140,7 @@ def create_char():
             f"id: {pg.id}, Oggetto iniziale: {oggetto_sel}"
             )
 
-        return redirect(url_for('auth.personal_area'))
+        return redirect(url_for('characters.show_chars'))
 
     return render_template(
         'create_char.html',

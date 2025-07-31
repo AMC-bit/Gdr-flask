@@ -3,10 +3,11 @@
 
 {% block content %}
 
-<h1>Gestione utenti</h1>
-<p>Benvenuto nella sezione di gestione utenti.</p>
 
-<div class="container mt-4">
+
+<div class="container text-center">
+    <h1>Gestione utenti</h1>
+    <p>Benvenuto nella sezione di gestione utenti.</p>
     {% if message %}
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ message }}
@@ -14,7 +15,7 @@
         </div>
     {% endif %}
 
-    <div class="table-responsive">
+    <div class="table-responsive text-start">
         <table class="table table-striped table-hover">
             <thead class="table-dark">
                 <tr>
@@ -75,6 +76,12 @@
             <p>Non ci sono utenti registrati nel sistema.</p>
         </div>
     {% endif %}
+
+    <a
+    href="{{ url_for('auth.personal_area') }}"
+    class="btn btn-primary">
+        Torna all'area personale
+    </a>
 </div>
 
 {% endblock %}

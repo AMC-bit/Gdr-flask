@@ -64,6 +64,7 @@ content %}
         </div>
         <div class="card-body border-dark p-0">
           <div
+            id="log"
             class="p-3 text-center"
             style="
               max-height: 500px;
@@ -77,6 +78,13 @@ content %}
             {% else %}
             <p class="text-muted">In attesa di eventi di combattimento...</p>
             {% endfor %}
+            {% if battaglia_finita%}
+            <a
+            href="{{ url_for('home.index') }}"
+            class="btn btn-warning btn-sm my-auto w-50 d-block mx-auto rounded">
+              Torna al menu
+            </a>
+            {% endif %}
           </div>
         </div>
         <div class="card-footer bg-dark text-white">
@@ -155,4 +163,13 @@ content %}
   {% if not battaglia_finita %}
     <meta http-equiv="refresh" content="0.3" />
   {% endif %} {% endblock content %}
+
+  
 </div>
+
+{% block scripts %}
+<script>
+  const log = document.getElementById('log');
+  log.scrollTop = log.scrollHeight;
+</script>
+{% endblock scripts %}
