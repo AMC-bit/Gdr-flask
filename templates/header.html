@@ -1,11 +1,14 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{{ url_for('home.index') }}">RPG Web</a>
+    <a
+    class="navbar-brand"
+    href="{{ url_for('home.index') }}"
+    style="
+    font-family: 'Cinzel Decorative', serif;">
+      Saltatio Mortis
+    </a>
 
     <div class="collapse navbar-collapse">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('home.index') }}">Home</a></li>
-      </ul>
       {% if current_user.is_authenticated %}
       <div class="d-flex ms-auto align-items-center gap-3 text-white">
         <a href="{{url_for('auth.edit_user')}}" class="text-decoration-none text-white">

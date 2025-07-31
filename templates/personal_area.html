@@ -8,9 +8,7 @@
 </div>
 
 <div class="d-grid gap-2 col-6 mx-auto">
-    <a href="{{ url_for('characters.create_char') }}" class="btn btn-success btn-lg">Crea Personaggi</a>
-    {#<a href="{{ url_for('mission.create_mission') }}" class="btn btn-success btn-lg">Crea Missione</a>#}
-    <a href="{{ url_for('characters.show_chars') }}" class="btn btn-primary btn-lg">Lista personaggi</a>
+    <a href="{{ url_for('characters.create_char') }}" class="btn btn-success btn-lg">Crea Personaggi</a>    <a href="{{ url_for('characters.show_chars') }}" class="btn btn-primary btn-lg">Lista personaggi</a>
     <a href="{{ url_for('auth.edit_user') }}" class="btn btn-warning btn-lg">Modifica informazione utente</a>
     {%if is_admin %}
     <a href="{{ url_for('auth.credit_refill') }}" class="btn btn-warning btn-lg">Ricarica crediti</a>
@@ -21,6 +19,9 @@
         onclick="return confirm('Sei sicuro di voler eliminare il tuo account?');">
         Elimina Utente
     </a>
+    <hr>
+    <a href="{{ url_for('home.index') }}" class=" btn btn-dark btn-lg">Menu principale</a>
+
 </div>
 {% if message %}
     <p class="p mb-4">{{ message }}</p>
