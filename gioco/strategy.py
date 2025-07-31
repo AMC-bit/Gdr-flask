@@ -99,7 +99,7 @@ class Aggressiva(Strategia):
                 Defaults to None.
 
         Returns:
-            int | None: Il risultato dell'uso dell'oggetto o None se non
+            tuple[int, Oggetto] | None: Il risultato dell'uso dell'oggetto o None se non
                 viene usato nulla.
         """
 
@@ -150,7 +150,7 @@ class Difensiva(Strategia):
                 Defaults to None.
 
         Returns:
-            int | None: Il risultato dell'uso dell'oggetto o None se non
+            tuple[int, Oggetto] | None: Il risultato dell'uso dell'oggetto o None se non
                 viene usato nulla.
         """
 
@@ -220,7 +220,7 @@ class Equilibrata(Strategia):
                 Defaults to None.
 
         Returns:
-            int | None: Il risultato dell'uso dell'oggetto o None se non
+            tuple[int, Oggetto] | None: Il risultato dell'uso dell'oggetto o None se non
                 viene usato nulla.
 
         """
