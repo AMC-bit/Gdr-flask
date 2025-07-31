@@ -12,6 +12,7 @@
 - [Features](#features)
 - [Known Bugs](#known-bugs)
 - [Future Updates](#future-updates)
+- [Changelog](#changelog)
 - [How to Contribute](#how-to-contribute)
 - [License](#license)
 
@@ -35,6 +36,7 @@ We found this to be a very valuable exercise that allowed us primarily to develo
 ## Future Updates
 - `🟡 In Progress` Ability to create missions
 - `🟡 In Progress` Integration with Raspberry Pi devices
+- `🟡 In Progress` 'Go back to menu' button once the battle has ended
 - Ability to autonomously manage turns and attacks through an additional *"Manual"* combat mode
 - Ability to heal your characters after battles
 - Addition of character equipment elements (armor, weapons)
@@ -42,6 +44,9 @@ We found this to be a very valuable exercise that allowed us primarily to develo
 - Credit recovery system based on the score obtained (+ bonuses in case of victory)
 - Improved user interface and multiplayer capability
 - 2D graphics engine
+
+## Changelog
+All changes, additions, and fixes are listed here: [CHANGELOG.md](./CHANGELOG.md)
 
 ## How to Contribute
 Your contribution is important! Feel free to help grow our project with pull requests for new features, bug fixes, or improvements.

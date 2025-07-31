@@ -6,8 +6,8 @@ Migrare ad una versione web del gioco di ruolo, utilizzando Flask per creare un'
 creazione ambiente virtuale
 ```bash
 python -m venv venv
-source venv/bin/activate # su Linux/Mac
-venv\Scripts\activate # su Windows
+source venv/bin/activate # su linux/mac
+venv\Scripts\activate # su windows
 ```
 ## Installazione Flask
 ```bash
@@ -59,7 +59,7 @@ from flask import Flask
 from gioco.routes import gioco  # import del blueprint
 
 app = Flask(__name__)
-app.register_blueprint(gioco)   # lo “attacchi” all’app principale
+app.register_blueprint(gioco)   # incorporazione all’app principale
 ```
 Da questo momento tutte le route definite in gioco (es. /, /battle, ecc.) diventano parte dell’applicazione vera e propria
 

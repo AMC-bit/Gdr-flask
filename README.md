@@ -12,9 +12,10 @@
 - [Features](#features)
 - [Bug noti](#bug-noti)
 - [Update futuri](#update-futuri)
+- [Changelog](#changelog)
 - [Come contribuire](#come-contribuire)
 - [License](#license)
- 
+
 ## Cos'è Saltatio Mortis?
 **Saltatio Mortis** è un gioco di ruolo web based a turni di tipo _text-based_, dove il giocatore interagisce con personaggi non giocanti *(NPC)*, completa missioni e utilizza oggetti strategici per progredire nel gioco. Il sistema prevede una gestione avanzata di personaggi, oggetti, missioni e strategie comportamentali degli NPC.
 
@@ -35,6 +36,7 @@ Abbiamo trovato tutto ciò un validissimo esercizio che ci ha permesso innanzitu
 ## Update futuri
 - `🟡 In Corso` Possibilità di creare missioni
 - `🟡 In Corso` Integrazione con device Raspberry
+- `🟡 In Corso` Aggiunta di un pulsante per tornare al menù principale alla fine della battaglia
 - Possibilità di gestire autonomamente i turni e gli attacchi grazie a una modalità aggiuntiva di combattimento *"Manuale"*
 - Possibilità di curare i propri personaggi una volta finita la battaglia
 - Aggiunta di elementi di equipaggiamento dei personaggi (armature, armi)
@@ -42,6 +44,9 @@ Abbiamo trovato tutto ciò un validissimo esercizio che ci ha permesso innanzitu
 - Sistema di recupero dei crediti in base al punteggio ottenuto (+ bonus in caso di vittoria)
 - Interfaccia utente migliorata e possibilità di multiplayer
 - Engine grafico 2D
+
+## Changelog
+Per la lista completa e dettagliata degli aggiornamenti: [CHANGELOG.md](./CHANGELOG.md)
 
 
 ## Come contribuire
