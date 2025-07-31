@@ -1,0 +1,16 @@
+{
+    "classe": "Guerriero",
+    "id": "b3345725-cbc4-4772-9e37-eb81c52ebb2c",
+    "nome": "Gilberto",
+    "npc": false,
+    "salute_max": 130,
+    "salute": 127,
+    "attacco_min": 20,
+    "attacco_max": 100,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 20,
+    "storico_danni_subiti": [
+        33
+    ]
+}
