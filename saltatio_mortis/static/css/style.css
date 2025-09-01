@@ -1,39 +1,79 @@
+:root
+{
+    --dark-bg: rgb(24, 21, 28);
+    --light-blue:#72ccd4;
+    --purle:#3b2c50;
+    --light-purple: #493861;
+    --grey-disabled:#5f6464;
+    --light-yellow:#c4a557;
+    --card-purple:#312537;
+}
+
+
 body
 {
-    background-color: rgb(24, 21, 28);
-    color:#72ccd4
+    background-color: var(--dark-bg);
+    color: var(--light-blue)
 }
 
 .navbar-brand
 {
-    color:#72ccd4
+    color: var(--light-blue)
 }
 
 .btn-primary, .btn-info, .btn-lg, .btn
 {
-    background-color: #3b2c50 !important;
-    color: #72ccd4 ;
-    border-color: #493861;
+    background-color: var(--purle) !important;
+    color: var(--light-blue) ;
+    border-color: var(--light-purple);
 }
 
 .btn-primary:hover, .btn-info:hover, .btn-lg:hover, .btn:hover
 {
-    background-color:  #72ccd4 !important;
-    color:  #3b2c50;
-    border-color: #493861 ;
+    background-color:  var(--light-blue) !important;
+    color: var(--dark-bg);
+    border-color: var(--light-purple) ;
 }
 
-.btn-primary[disabled], .btn-info[disabled], .btn-lg[disabled], .btn[disabled], .btn-secondary[disabled]
+.btn-primary[disabled], .btn-info[disabled], .btn-lg[disabled], .btn[disabled], .btn-secondary[disabled], .btn-success[disabled]
 {
-    background-color:  #5f6464 !important;
-    color:  #3b2c50;
-    border-color: #493861 ;
+    background-color:  var(--grey-disabled) !important;
+    color:  var(--purle);
+    border-color: var(--light-purple) ;
+}
+.footer
+{
+    background-color: var(--dark-bg) !important ;
 }
 
-.footer,span
+
+footer .text-muted
 {
-    background-color: rgb(24, 21, 28) !important ;
-    color:#72ccd4;
-    border-color: #72ccd4 ;
-    
+    font-size: 0.7em;
+    color:var(--light-blue) !important;
 }
+
+.card 
+{
+    color: var(--light-blue) !important;
+    background-color: var(--card-purple);
+    border-color: var(--card-purple);
+}
+.card a
+{
+    color: var(--light-yellow) !important ;
+}
+
+input
+{
+    background-color: var(--purle) !important;
+    color: var(--light-blue) ;
+    border-color: var(--light-purple);
+}
+
+input::placeholder
+{
+    color: var(--light-yellow) !important;
+}
+
+
