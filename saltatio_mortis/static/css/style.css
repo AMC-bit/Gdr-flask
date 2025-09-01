@@ -1,0 +1,31 @@
+body
+{
+    background-color: rgb(24, 21, 28);
+    color:#72ccd4
+}
+
+.navbar-brand
+{
+    color:#72ccd4
+}
+
+.btn-primary, .btn-info, .btn-lg, .btn
+{
+    background-color: #3b2c50 !important;
+    color: #72ccd4 ;
+    border-color: #493861;
+}
+
+.btn-primary:hover, .btn-info:hover, .btn-lg:hover, .btn:hover
+{
+    background-color:  #72ccd4 !important;
+    color:  #3b2c50;
+    border-color: #493861 ;
+}
+
+.btn-primary[disabled], .btn-info[disabled], .btn-lg[disabled], .btn[disabled], .btn-secondary[disabled]
+{
+    background-color:  #5f6464 !important;
+    color:  #3b2c50;
+    border-color: #493861 ;
+}
