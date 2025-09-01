@@ -1,7 +1,7 @@
 import logging
 import json
 import os
-import config
+import config as config
 import uuid
 from copy import deepcopy
 from collections import defaultdict

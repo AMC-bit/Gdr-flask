@@ -1,4 +1,4 @@
-![banner](/static/img/CopertinaRPG.jpg)
+![banner](saltatio_mortis/static/img/CopertinaRPG.jpg)
 
 <p align='center'>
 	<img alt="Static Badge" src="https://img.shields.io/badge/Version-1.0-blue?style=flat">

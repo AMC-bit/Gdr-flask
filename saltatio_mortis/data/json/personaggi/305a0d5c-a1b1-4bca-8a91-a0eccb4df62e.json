@@ -1,0 +1,17 @@
+{
+    "classe": "Ladro",
+    "id": "305a0d5c-a1b1-4bca-8a91-a0eccb4df62e",
+    "nome": "Franco",
+    "npc": false,
+    "salute_max": 120,
+    "salute": 87,
+    "attacco_min": 10,
+    "attacco_max": 85,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 25,
+    "storico_danni_subiti": [
+        45,
+        0
+    ]
+}

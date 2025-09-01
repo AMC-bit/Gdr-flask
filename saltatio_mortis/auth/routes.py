@@ -444,8 +444,8 @@ def credit_refill(user_id=None):
                         message=message
                     )
                 )
-        else:
-            return redirect(url_for('auth.credit_refill', message=message))
+            else:
+                return redirect(url_for('auth.credit_refill', message=message))
 
         if amount <= 0:  # controllo numero positivo
             message = "La quantità deve essere positiva."

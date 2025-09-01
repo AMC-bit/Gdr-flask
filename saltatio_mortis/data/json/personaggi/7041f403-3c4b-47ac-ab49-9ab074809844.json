@@ -1,0 +1,16 @@
+{
+    "classe": "Guerriero",
+    "id": "7041f403-3c4b-47ac-ab49-9ab074809844",
+    "nome": "Carolina",
+    "npc": false,
+    "salute_max": 130,
+    "salute": 77,
+    "attacco_min": 20,
+    "attacco_max": 100,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 20,
+    "storico_danni_subiti": [
+        83
+    ]
+}
