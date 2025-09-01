@@ -37,3 +37,13 @@ body
     border-color: #72ccd4 ;
     
 }
+
+.bi, .bi-person-circle, .table, .table-custom, .table-hover, .table-custom th,
+.table-custom td
+{
+    background-color: #493861 ;
+    color:#72ccd4;
+    border-color: #72ccd4 ;
+}
+
+
