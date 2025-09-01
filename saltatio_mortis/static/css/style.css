@@ -29,3 +29,11 @@ body
     color:  #3b2c50;
     border-color: #493861 ;
 }
+
+.footer,span
+{
+    background-color: rgb(24, 21, 28) !important ;
+    color:#72ccd4;
+    border-color: #72ccd4 ;
+    
+}
