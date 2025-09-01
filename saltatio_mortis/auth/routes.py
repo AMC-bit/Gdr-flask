@@ -403,13 +403,9 @@ def credit_refill(user_id=None):
         user_id (int, optional): ID dell'utente per cui ricaricare i crediti.
             Se non specificato, ricarica i crediti dell'utente corrente.
 
-    Raises:
-        KeyError: Se i dati del form non sono validi.
-        ValueError: Se l'importo inserito non è un numero valido.
-
     Returns:
         flask.Response: template HTML per la ricarica dei crediti o se
-        non si è amministratori, reindirizza all'area personale dell'utente.
+            non si è amministratori, reindirizza all'area personale dell'utente.
     """
     # Controllo se l'utente è un amministratore
     # altrimenti si viene ridiretti all'area personale
@@ -497,8 +493,7 @@ def logout():
     Metodo GET: effettua il logout dell'utente, rimuovendo i dati di sessione.
     Mostra un messaggio di successo e reindirizza alla pagina di login.
     Returns:
-        flask.Response: reindirizza alla pagina di login con un messaggio di
-            successo.
+        flask.Response: reindirizza alla pagina di login con un messaggio di successo.
     """
     logout_user()
     session.clear()

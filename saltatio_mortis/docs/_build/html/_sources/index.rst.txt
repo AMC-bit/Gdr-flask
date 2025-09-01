@@ -11,3 +11,4 @@
    inventory
    utils
    mission
+   modules

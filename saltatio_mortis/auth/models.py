@@ -45,6 +45,8 @@ class User(UserMixin, db.Model):
     def is_admin(self):
         """
         Verifica se l'utente è un amministratore.
+        Args:
+            None
         Returns:
             bool: True se l'utente è un amministratore, False altrimenti.
         """
@@ -53,6 +55,8 @@ class User(UserMixin, db.Model):
     def is_player(self):
         """
         Verifica se l'utente è un giocatore.
+        Args:
+            None
         Returns:
             bool: True se l'utente è un giocatore, False altrimenti.
         """

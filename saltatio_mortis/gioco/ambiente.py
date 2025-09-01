@@ -399,6 +399,8 @@ class AmbienteFactory:
         degli ambienti disponibili.
         Le chiavi sono sia numeri che nomi degli ambienti,
         permettendo una selezione flessibile.
+        Args:
+            None.
         Returns:
             Dict[str, Ambiente]: Un dizionario con le opzioni di ambiente.
         """
