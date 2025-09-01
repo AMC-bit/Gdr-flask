@@ -41,9 +41,35 @@ body
 .bi, .bi-person-circle, .table, .table-custom, .table-hover, .table-custom th,
 .table-custom td
 {
-    background-color: #493861 ;
+    background-color: #3b2c50 ;
     color:#72ccd4;
     border-color: #72ccd4 ;
+}
+
+
+.badge {
+    font-size: 1em;
+    padding: 0.5em;
+}
+
+.bg-secondary {
+    background-color: #858953 !important;
+    color: #72ccd4 !important;
+}
+
+.bg-success {
+    background-color: #538969 !important;
+    color: #ffffff !important;
+}
+
+.bg-danger {
+    background-color: #895353 !important;
+    color: #ffffff !important;
+}
+
+.bg-primary {
+    background-color: #535789 !important;
+    color: #ffffff !important;
 }
 
 
