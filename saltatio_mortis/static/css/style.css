@@ -110,3 +110,11 @@ input::placeholder
     color: var(--light-yellow) !important;
 }
 
+input:placeholder-shown
+{
+    color:var(--light-yellow);
+    background-color: var(--light-purple);
+}
+
+input:valid
+

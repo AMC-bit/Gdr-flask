@@ -86,7 +86,7 @@ Vedi il file LICENSE per i dettagli.
 
 - ### Standard per la documentazione, Docstring e Sphinx (Konrad)
 
-- ### ORM SQLAlchemy, utenti, admin e privilegi
+- ### ORM SQLAlchemy, utenti, admin e privilegi (Fabrice)
 
 - ### Funzionamento Generale del software e storia (cronologia dello sviluppo) (Nik)
 
