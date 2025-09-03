@@ -1,5 +1,6 @@
 :root
 {
+    --allert-orange: rgb(255, 115, 0);
     --nav-black: rgb(33, 38, 41);
     --dark-bg: rgb(24, 21, 28);
     --light-blue:#72ccd4;
@@ -183,4 +184,9 @@ input::placeholder
 {
     background-color: var(--purle) !important;
     color: var(--light-blue);
+}
+
+#warning-text
+{
+    color:var(--allert-orange) !important;
 }
