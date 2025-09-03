@@ -78,9 +78,21 @@ Oppure segui [il creatore del progetto](https://github.com/delectablerec)
 Questo progetto è distribuito sotto licenza MIT.
 Vedi il file LICENSE per i dettagli.
 
+## Argomenti per l'orale:
 
+- ### Metodologia organizzattiva, suddivisione dei compiti e versionamento (Enrico T.)
 
+- ### Struttura del progetto in classi, blueprint (Matteo)
 
+- ### Standard per la documentazione, Docstring e Sphinx (Konrad)
+
+- ### ORM SQLAlchemy, utenti, admin e privilegi
+
+- ### Funzionamento Generale del software e storia (cronologia dello sviluppo) (Nik)
+
+- ### Transizione a Flask, dalla console alla web application (Enrico M.)
+
+- ### Raspberry (Sidar)
 
 
 
