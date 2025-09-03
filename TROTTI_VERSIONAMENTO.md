@@ -36,3 +36,29 @@ Grazie a questa esperienza abbiamo imparato a:
 - Adottare una **mentalità di problem solving**, confrontandoci continuamente per risolvere bug o migliorare funzionalità
 
 >  _Questa suddivisione del lavoro ci ha permesso di **massimizzare l'efficienza** e **minimizzare i conflitti**, mantenendo sempre una visione d'insieme sullo sviluppo del gioco._
+
+
+
+
+<!-- Le metodologie agili sono un modo di lavorare in team che:
+
+Suddivide il lavoro in piccoli blocchi (iterazioni o sprint).
+
+Prevede incontri frequenti (come le riunioni mattutine nel tuo esempio).
+
+Favorisce la collaborazione tra i membri del gruppo.
+
+Punta a consegnare valore in modo incrementale e continuo.
+
+Si adatta facilmente ai cambiamenti o agli imprevisti.
+
+
+In riferimento al tuo progetto:
+
+Vi siete organizzati giorno per giorno, definendo gli obiettivi in base all’evoluzione del progetto (in stile scrum daily meeting).
+
+Avete discusso e assegnato i compiti in modo collaborativo e dinamico.
+
+Avete fatto attenzione alla formazione reciproca, cercando di colmare le lacune individuali (un concetto caro all'agilità: team cross-funzionali).
+
+Avete adattato la pianificazione in base a come andavano avanti i lavori.-->
