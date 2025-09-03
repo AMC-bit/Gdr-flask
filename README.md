@@ -35,15 +35,12 @@ Abbiamo trovato tutto ciò un validissimo esercizio che ci ha permesso innanzitu
 ## Bug noti
 
 ## Update futuri
-- `🟡 In Corso` Possibilità di creare missioni
-- `🟡 In Corso` Integrazione con device Raspberry
-- `🟡 In Corso` Aggiunta di un pulsante per tornare al menù principale alla fine della battaglia
+- Possibilità di creare missioni
 - Possibilità di gestire autonomamente i turni e gli attacchi grazie a una modalità aggiuntiva di combattimento *"Manuale"*
 - Possibilità di curare i propri personaggi una volta finita la battaglia
 - Aggiunta di elementi di equipaggiamento dei personaggi (armature, armi)
-- Aggiunta nuovi oggetti
 - Sistema di recupero dei crediti in base al punteggio ottenuto (+ bonus in caso di vittoria)
-- Interfaccia utente migliorata e possibilità di multiplayer
+- Multiplayer mode
 - Engine grafico 2D
 
 ## Changelog
