@@ -81,9 +81,73 @@ Vedi il file LICENSE per i dettagli.
 ## Argomenti per l'orale:
 
 - ### Metodologia organizzattiva, suddivisione dei compiti e versionamento (Enrico T.)
-
+----------
 - ### Struttura del progetto in classi, blueprint (Matteo)
+## Cosa é una classe?
+- Una classe è un modello per l'istanza di un oggetto e questo oggetto ha le caratteristiche definite nel suo costruttore.
+Es. of costruttore
 
+```python
+class Personaggio:
+    def __init__(self, nome, salute, attacco, destrezza):
+        self.nome = nome
+        self.salute = salute
+        self.attacco = attacco
+        self.destrezza = destrezza
+```
+Es. di instanziazione
+
+```python
+personaggio1 = Personaggio("Alex", 100, 10, 15)
+personaggio2 = Personaggio("Rex", 80, 8, 12)
+```
+Queste sono le caratteristiche dell'oggetto che verrà creato.
+Ogni classe può avere i suoi metodi, ovvero delle azioni che puo eseguire l'oggetto.
+
+Es. di un metodo
+
+```python
+class Personaggio:
+    def attacca(self):
+        print(f"{self.nome} attacca!")
+    def subi
+```
+Ora quando verrà richiamato il metodo attacca, verrà stampato il nome del personaggi che sta abbaiando.
+
+
+Es. di richiamo del metodo
+
+```python
+personaggio1.attacca() # Alex attacca!
+personaggio2.attacca() # Rex attacca!
+```
+Seppur dovessimo avere diversi tipi di personaggi, possiamo usare lo stesso metodo per ogni personaggi e ottenere una stampa personalizzata agli attributi dei personaggi.
+
+## Cosa é un blueprint?
+Un blueprint è un oggetto che rappresenta una parte di un'applicazione web. In Flask usare blueprint permette un approccio modulare, suddividendo l'applicazione in componenti riutilizzabili e indipendenti, ognuno con le proprie route.
+Quindi permette di gestire un grande progetto in maniera piú organizzata e scalabile, senza il bisogno di dipendere da altri.
+
+Es. di un blueprint
+
+```python
+from flask import Blueprint
+
+app_bp = Blueprint('app', __name__)
+
+@app_bp.route('/home')
+def home():
+    return 'Hello, World!'
+```
+Questo blueprint ora che è stato creato potrà essere riutilizzato per altre applicazioni che ne avranno bisogno, evitando di riscrivere codice da 0.
+
+## Perché gli abbiamo utilizzati per questo progetto?
+
+Aver utilizzato i blueprint e le classi per il progetto ha permesso lo sviluppo in camere stagne di ogni singolo componente, senza il bisogno di dipendere da altri. Ciò permette di creare un grande progetto in maniera piú organizzata e con tempi ridotti.
+
+Ogni blueprint/classe puó essere pensato come un mattoncino Lego. Ogni mattoncino ha delle sue caratteristiche (forma, colore, dimensioni) e puo essere riutilizzato per diverse costruzioni. 
+Questo rende il lavoro svolto completamente riutilizzabile per futuri progetti, riducendo il carico di lavoro
+
+-----------
 - ### Standard per la documentazione, Docstring e Sphinx (Konrad)
 
 - ### ORM SQLAlchemy, utenti, admin e privilegi
