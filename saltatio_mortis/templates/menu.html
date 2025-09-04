@@ -9,76 +9,91 @@ style="font-family: 'Cinzel Decorative', serif;">
     Benvenuto in Saltatio Mortis
 </h2>
 
-<div class="d-grid gap-2 col-6 mx-auto m-3">
+<div class="gap-2 mx-auto text-center m-3">
+    <div class="d-flex flex-column align-items-center gap-2">
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('mission.select_mission') }}" class="btn btn-primary btn-lg w-100">Seleziona Missione</a>
+            {% if has_missioni %}
+                <a href="{{ url_for('mission.show_mission') }}" class="btn btn-primary btn-lg w-100">Mostra Missione</a>
+            {% else %}
+                <button class="btn btn-primary btn-lg w-100" disabled>Mostra Missione</button>
+            {% endif %}
 
-    {% if current_user.is_authenticated %}
-        <a href="{{ url_for('mission.select_mission') }}" class="btn btn-primary btn-lg">Seleziona Missione</a>
-        {% if has_missioni %}
-            <a href="{{ url_for('mission.show_mission') }}" class="btn btn-primary btn-lg">Mostra Missione</a>
+            {% if can_select_char %}
+                <a href="{{ url_for('battle.select_char') }}" class="btn btn-dark btn-lg w-100">Inizia Battaglia</a>
+            {% else %}
+                <button class="btn btn-primary btn-lg btn-lg w-100" disabled>Inizia Battaglia</button>
+                <p class="text-muted text-center small" id="warning-text">
+                    ⚠️ Crea almeno un personaggio e seleziona una missione per procedere
+                </p>
+            {% endif %}
+
         {% else %}
-            <button class="btn btn-primary btn-lg" disabled>Mostra Missione (Missione non selezionata)</button>
+            <a href="{{ url_for('auth.login') }}" class="btn btn-info btn-lg w-100">Login</a>
+            <a href="{{ url_for('auth.sign_in') }}" class="btn btn-secondary btn-lg w-100" >Registrati</a>
         {% endif %}
-
-        {% if can_select_char %}
-            <a href="{{ url_for('battle.select_char') }}" class="btn btn-dark btn-lg">Inizia Battaglia</a>
-        {% else %}
-            <button class="btn btn-primary btn-lg btn-lg" disabled>Inizia Battaglia</button>
-            <p class="text-muted text-center small">
-                ⚠️ Crea almeno un personaggio e seleziona una missione per procedere
-            </p>
-        {% endif %}
-
-    {% else %}
-        <a href="{{ url_for('auth.login') }}" class="btn btn-info btn-lg">Login</a>
-        <a href="{{ url_for('auth.sign_in') }}" class="btn btn-secondary btn-lg" >Registrati</a>
-    {% endif %}
+    </div>
 
 <!-- Tabella classifica utenti -->
     <div class="mt-5">
-        <h4 class="text-center mb-3">🏆 Classifica Generale</h4>
-        <div class="table-responsive">
-            <table class="table table-custom table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nome Utente</th>
-                        <th scope="col">Partite Giocate</th>
-                        <th scope="col">Partite Vinte</th>
-                        <th scope="col">Partite Perse</th>
-                        <th scope="col">Punteggio</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for user_id, user_data in users_stats_sorted %}
-                    <tr>
-                        <td>{{ loop.index }}</td>
-                        <td>
-                            <i class="bi bi-person-circle"></i>
-                            {{ user_data.nome }}
-                        </td>
-                        <td>
-                            <span class="badge bg-secondary">{{ user_data.partite_giocate }}</span>
-                        </td>
-                        <td>
-                            <span class="badge bg-success">{{ user_data.partite_vinte }}</span>
-                        </td>
-                        <td>
-                            <span class="badge bg-danger">{{ user_data.partite_giocate - user_data.partite_vinte }}</span>
-                        </td>
-                        <td>
-                            <span class="badge bg-primary">{{ user_data.punteggio }}</span>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+    <h4 class="text-center mb-3">🏆 Classifica Generale</h4>
+
+    <div class="table-responsive">
+        <!-- Header -->
+        <div class="d-flex bg-dark text-white p-2 fw-bold">
+            <div class="col-1">#</div>
+            <div class="col-3">
+                <span class="d-none d-sm-inline">Utente</span>
+                <span class="d-inline d-sm-none">U</span>
+            </div>
+            <div class="col-2">
+                <span class="d-none d-sm-inline">Giocate</span>
+                <span class="d-inline d-sm-none">G</span>
+            </div>
+            <div class="col-2">
+                <span class="d-none d-sm-inline">Vinte</span>
+                <span class="d-inline d-sm-none">W</span>
+            </div>
+            <div class="col-2">
+                <span class="d-none d-sm-inline">Perse</span>
+                <span class="d-inline d-sm-none">L</span>
+            </div>
+            <div class="col-2">
+                <span class="d-none d-sm-inline">Punteggio</span>
+                <span class="d-inline d-sm-none">P</span>
+            </div>
         </div>
+
+        <!-- Corpo -->
+        {% for user_id, user_data in users_stats_sorted %}
+        <div class="d-flex border-bottom p-2 align-items-center">
+            <div class="col-1">{{ loop.index }}</div>
+            <div class="col-3">
+                <i class="bi bi-person-circle"></i> {{ user_data.nome }}
+            </div>
+            <div class="col-2">
+                <span class="badge bg-secondary">{{ user_data.partite_giocate }}</span>
+            </div>
+            <div class="col-2">
+                <span class="badge bg-success">{{ user_data.partite_vinte }}</span>
+            </div>
+            <div class="col-2">
+                <span class="badge bg-danger">{{ user_data.partite_giocate - user_data.partite_vinte }}</span>
+            </div>
+            <div class="col-2">
+                <span class="badge bg-primary">{{ user_data.punteggio }}</span>
+            </div>
+        </div>
+        {% endfor %}
+
         {% if not users_stats_sorted %}
-            <div class="alert alert-info text-center">
+            <div class="alert alert-info text-center mt-3">
                 <i class="bi bi-info-circle"></i> Nessun utente registrato ancora!
             </div>
         {% endif %}
     </div>
+</div>
+
 </div>
 
 {% endblock %}
