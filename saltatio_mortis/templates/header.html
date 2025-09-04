@@ -8,9 +8,14 @@
       Saltatio Mortis
     </a>
 
-    <div class="collapse navbar-collapse">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
       {% if current_user.is_authenticated %}
-      <div class="d-flex ms-auto align-items-center gap-3 text-white">
+      <div class="d-flex ms-auto align-items-center gap-3 text-white flex-column flex-lg-row">
         <a href="{{url_for('auth.edit_user')}}" class="text-decoration-none text-white">
           <div class="d-flex align-items-center gap-1" id="nav-user-name">
             <strong>User:</strong> {{ current_user.nome }} <i class="bi bi-person-circle"></i>
