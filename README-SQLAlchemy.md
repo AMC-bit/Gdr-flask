@@ -5,7 +5,10 @@ Questa sezione del progetto gestisce la parte **backend relativa agli utenti**, 
 ### Funzionalità principali
 
 - **Gestione utenti**: registrazione, login/logout, area personale.
-    La registrazione avviene inserendo nome utente, la mail,
+    La registrazione viene gestita con l'inserimento nome utente, indirizzo mail, password e conferma passworrd.
+    Login logout per l'accesso del singolo utente che da accesso a delle funzionalità a secondo della tipologia dell'utente
+    L'area personale permette di gestire la creazione(eliminazione) dei personaggi, modifica dei parametri utente(cancellazione account,
+    modificare nome utente, oppure mail, )
 - **Ruoli e privilegi**:
   - Utente standard: può giocare, completare missioni e interagire con NPC.
   - Admin: può gestire contenuti del gioco, missioni e utenti.
@@ -37,8 +40,9 @@ Questa sezione del progetto gestisce la parte **backend relativa agli utenti**, 
 ### Bug noti / Limiti
 - Ancora da implementare un sistema di **reset password**. Dare la possibilità all'utente di recuperare la password.
 - Aumento della sicurezza delle credenziali(nome utente, lunghezza password, proposta automatica della password)
-- Abbiamo implementato una versione automatizzata progetto. Si potrebbe migliorare con una versione della bataglia non automatizzata
-- Aggiunta di una nuova tipologia di utente `Develop` che avrebbe accesso alla sezione `statistics` che permetterebbe di aver un feedback per la geszione
+- Abbiamo implementato una versione automatizzata progetto. Si potrebbe migliorare con una versione della bataglia non 
+  automatizzata.
+- Aggiunta di una nuova tipologia di utente `Develop` che avrebbe accesso a una nuova sezione `statistics` che permetterebbe di aver un feedback per la geszione
   della parte data analist e data science del progetto. In modo a capire il profilo degli utenti, le loro proposte, e la parte buisness del progetto
 - 
 
