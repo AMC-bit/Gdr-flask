@@ -448,16 +448,30 @@ all’utente.</p>
 <dt class="sig sig-object py" id="id4">
 <span class="sig-name descname"><span class="pre">is_admin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#id4" title="Link to this definition">¶</a></dt>
 <dd><p>Verifica se l’utente è un amministratore.
-:returns: True se l’utente è un amministratore, False altrimenti.
-:rtype: bool</p>
+:param None:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True se l’utente è un amministratore, False altrimenti.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="id5">
 <span class="sig-name descname"><span class="pre">is_player</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#id5" title="Link to this definition">¶</a></dt>
 <dd><p>Verifica se l’utente è un giocatore.
-:returns: True se l’utente è un giocatore, False altrimenti.
-:rtype: bool</p>
+:param None:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True se l’utente è un giocatore, False altrimenti.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -549,18 +563,15 @@ negato e reindirizza all’area personale dell’utente.</p>
 <dd class="field-odd"><p><strong>user_id</strong> (<em>int</em><em>, </em><em>optional</em>) – ID dell’utente per cui ricaricare i crediti.
 Se non specificato, ricarica i crediti dell’utente corrente.</p>
 </dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>KeyError</strong> – Se i dati del form non sono validi.</p></li>
-<li><p><strong>ValueError</strong> – Se l’importo inserito non è un numero valido.</p></li>
-</ul>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>template HTML per la ricarica dei crediti o se</dt><dd><p>non si è amministratori, reindirizza all’area personale dell’utente.</p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>template HTML per la ricarica dei crediti o se
-non si è amministratori, reindirizza all’area personale dell’utente.</p>
+</dl>
+</p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>flask.Response</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>flask.Response</p>
 </dd>
 </dl>
 </dd></dl>
@@ -698,18 +709,8 @@ Metodo POST: esegue il login dell’utente, mostrando un messaggio di</p>
 <dd><p>Effettua il logout dell’utente.
 Metodo GET: effettua il logout dell’utente, rimuovendo i dati di sessione.
 Mostra un messaggio di successo e reindirizza alla pagina di login.
-:returns:</p>
-<blockquote>
-<div><dl class="simple">
-<dt>reindirizza alla pagina di login con un messaggio di</dt><dd><p>successo.</p>
-</dd>
-</dl>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>flask.Response</p>
-</dd>
-</dl>
+:returns: reindirizza alla pagina di login con un messaggio di successo.
+:rtype: flask.Response</p>
 </dd></dl>
 
 <dl class="py function">

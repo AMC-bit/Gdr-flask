@@ -5,7 +5,7 @@
             <h2 class="my-2">{{ missione.nome }}</h2>
             <h5 class="my-2">Ambiente: <strong>{{ ambiente.nome }}</strong></h5>
             <details>
-                <summary class="btn btn-sm btn-secondary text-white mb-1">
+                <summary class="btn btn-sm btn-secondary mb-1" id="btn">
                     Mostra/Nascondi Effetti Ambiente
                 </summary>
                 <div class="table-responsive mt-2">
@@ -70,9 +70,9 @@
             <h4>Nemici</h4>
             <ul class="list-group mb-4">
                 {% for nemico in missione.nemici %}
-                    <li class="list-group-item d-flex justify-content-center align-items-center">
+                    <li class="list-group-item d-flex justify-content-center align-items-center" >
                         {{ nemico.nome }}
-                        <span class="badge bg-primary badge-pill w-25 ms-2">
+                        <span class="badge bg-primary badge-pill w-25 ms-2" id= "health-bar">
                             <div class="progress my-1">
                                 <div
                                     class="progress-bar
