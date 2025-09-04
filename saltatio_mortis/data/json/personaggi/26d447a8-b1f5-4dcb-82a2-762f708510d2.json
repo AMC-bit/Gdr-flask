@@ -1,0 +1,14 @@
+{
+    "classe": "Mago",
+    "id": "26d447a8-b1f5-4dcb-82a2-762f708510d2",
+    "nome": "Silvia",
+    "npc": false,
+    "salute_max": 80,
+    "salute": 80,
+    "attacco_min": 0,
+    "attacco_max": 90,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 15,
+    "storico_danni_subiti": []
+}
