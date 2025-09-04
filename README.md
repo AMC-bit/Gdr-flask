@@ -79,15 +79,15 @@ Vedi il file LICENSE per i dettagli.
 
 - ### Metodologia organizzattiva, suddivisione dei compiti e versionamento (Enrico T.)
 
-- ### Struttura del progetto in classi, blueprint (Matteo)
+- ### Funzionamento Generale del software e storia (cronologia dello sviluppo) (Nicolò)
 
-- ### Standard per la documentazione, Docstring e Sphinx (Konrad)
+- ### Struttura del progetto in classi, blueprint (Matteo)
 
 - ### ORM SQLAlchemy, utenti, admin e privilegi (Fabrice)
 
-- ### Funzionamento Generale del software e storia (cronologia dello sviluppo) (Nik)
-
 - ### Transizione a Flask, dalla console alla web application (Enrico M.)
+
+- ### Standard per la documentazione, Docstring e Sphinx (Konrad)
 
 - ### Raspberry (Sidar)
 
