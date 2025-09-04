@@ -1,14 +1,8 @@
 {
     "1": {
         "nome": "Admin",
-        "partite_giocate": 8,
-        "partite_vinte": 2,
+        "partite_giocate": 0,
+        "partite_vinte": 0,
         "punteggio": 0
-    },
-    "2": {
-        "nome": "M",
-        "partite_giocate": 4,
-        "partite_vinte": 1,
-        "punteggio": 5
     }
 }
