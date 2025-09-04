@@ -308,6 +308,7 @@ La documentazione diventa così una "finestra vivente" sul nostro codice, che si
 
 - ### ORM SQLAlchemy, utenti, admin e privilegi (Fabrice)
 
+
 - ### Funzionamento Generale del software e storia (cronologia dello sviluppo) (Nik)
 
 - ### Transizione a Flask, dalla console alla web application (Enrico M.)
