@@ -224,8 +224,49 @@ input::placeholder
     color: var(--light-blue) !important;
 }
 
-input [type=checkbox]
+/*SelectChar*/
+/* Nascondo il checkbox, già gestito da Bootstrap */
+input[type=checkbox].btn-check {
+    display: none;
+}
+
+/* Stile base della card (già definito da Bootstrap + le tue variabili) */
+.btn-check + label {
+    cursor: pointer;
+    border: 2px solid var(--light-purple);
+    transition: all 0.2s ease-in-out;
+}
+
+/* Quando passo sopra la card */
+.btn-check + label:hover
 {
-    color:var(--grey-disabled) !important;
-    background-color: var(--allert-orange);
+    transform: scale(1.02);
+    color: var(--dark-bg);
+}
+
+/* Quando la card è selezionata */
+.btn-check:checked + label
+{
+    background-color: var(--allert-orange) !important;
+    border-color: var(--allert-orange) !important;
+    color: var(--dark-bg) !important;
+    box-shadow: 0 0 10px var(--allert-orange);
+    transform: scale(1.05);
+}
+
+/* Titolo dentro la card selezionata */
+.btn-check:checked + label h5 {
+    color: var(--dark-bg) !important;
+}
+
+/* Testo dentro la card selezionata */
+.btn-check:checked + label p {
+    color: var(--dark-bg) !important;
+}
+
+
+/*log battaglia*/
+#log
+{
+    background-color: var(--purple) !important;
 }

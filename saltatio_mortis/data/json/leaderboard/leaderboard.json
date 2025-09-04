@@ -7,8 +7,8 @@
     },
     "2": {
         "nome": "M",
-        "partite_giocate": 0,
-        "partite_vinte": 0,
-        "punteggio": 0
+        "partite_giocate": 4,
+        "partite_vinte": 1,
+        "punteggio": 5
     }
 }
