@@ -26,6 +26,23 @@ extensions = [
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
+# Autodoc defaults: apply members/undoc/inheritance automatically
+autodoc_default_options = {
+    'members': True,
+    'undoc-members': True,
+    'show-inheritance': True,
+}
+
+# Render type hints in the description to keep signatures clean
+autodoc_typehints = 'description'
+
+# Prefer Google style docstrings via napoleon
+napoleon_google_docstring = True
+napoleon_numpy_docstring = False
+
+# Shorten qualified names in headings
+add_module_names = False
+
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
