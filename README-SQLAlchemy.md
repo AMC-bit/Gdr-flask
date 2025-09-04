@@ -5,50 +5,90 @@ Questa sezione del progetto gestisce la parte **backend relativa agli utenti**, 
 ### Funzionalità principali
 
 - **Gestione utenti**: registrazione, login/logout, area personale.
-    La registrazione viene gestita con l'inserimento nome utente, indirizzo mail, password e conferma passworrd.
-    Login logout per l'accesso del singolo utente che da accesso a delle funzionalità a secondo della tipologia dell'utente
-    L'area personale permette di gestire la creazione(eliminazione) dei personaggi, modifica dei parametri utente(cancellazione account,
-    modificare nome utente, oppure mail, )
-- **Ruoli e privilegi**:
-  - Utente standard: può giocare, completare missioni e interagire con NPC.
-  - Admin: può gestire contenuti del gioco, missioni e utenti.
-- **Sicurezza**:
-  - Password criptate tramite hashing (werkzeug.security `generate_password_hash` e `check_password_hash`).
-  - Protezione delle route tramite decoratori (`@login_required`, `@admin_required`).
-- **Struttura dati**:
-  - Modelli SQLAlchemy principali:
-    ```python
+  - La registrazione richiede nome utente, indirizzo email, password e conferma password.
+  - Login/logout per l'accesso al sistema, con funzionalità differenti in base al tipo di utente.
+  - L'area personale permette di:
+    - Creare personaggi (nome, classe: Mago, Ladro, Guerriero) con un oggetto a scelta come inventario iniziale.
+    - Visualizzare tutti i propri personaggi e, per ognuno:
+      - Visualizzare l'inventario, aggiungere o eliminare oggetti.
+      - Osservare i dettagli del personaggio.
+      - Modificare il nome del personaggio.
+      - Eliminare il personaggio.
+    - Modificare le informazioni dell'utente.
+    - Caricare crediti (solo per utenti di tipo Admin).
+    - Eliminare l'account utente.
 
+- **Ruoli e privilegi**:
+  - **Utente standard (Player)**: può giocare, completare missioni e interagire con NPC.
+  - **Admin**: oltre ai privilegi del Player, può:
+    - Caricare crediti sugli account degli utenti.
+    - Modificare lo stato di un utente da Player a Admin.
+
+- **Sicurezza**:
+  - Password criptate tramite hashing (`werkzeug.security` `generate_password_hash` e `check_password_hash`).
+  - Protezione delle route tramite decoratori (`@login_required`, `@admin_required`).  
+    Il menu principale del gioco è protetto e accessibile solo agli utenti registrati.
+
+- **Struttura dati**:
+  - Gestione dati tramite SQLAlchemy e file JSON per salvataggi.
+  - Modelli principali:
+    ```python
+    class UserRole(enum.Enum):
+        PLAYER = "PLAYER"
+        ADMIN = "ADMIN"
+
+    class User(UserMixin, db.Model):
+
+        id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+        nome = db.Column(db.String(80), nullable=False)
+        email = db.Column(db.String(80), unique=True, nullable=False)
+        password_hash = db.Column(db.String(128), nullable=False)
+        crediti = db.Column(db.Float, nullable=False)
+        ruolo = db.Column(db.Enum(UserRole), nullable=False, default=UserRole.PLAYER)
+        character_ids = db.Column(
+            JSON,
+            nullable=False,
+            default=list
+        )
+
+        def is_admin(self):
+            return self.ruolo == UserRole.ADMIN
+
+        def is_player(self):
+            return self.ruolo == UserRole.PLAYER
+
+        def has_role(self, role: str):
+            return self.ruolo == UserRole[role]
     ```
-  - Relazioni future con altri modelli (Missioni, Oggetti, Personaggi) tramite chiavi esterne.
 
 ### Esempi d’uso
 
 - **Registrazione**:
-    ```python
+    ```bash
+    Nome utente: Antonio
+    Email: antonio@gamer.it
+    Password: 1234
+    Conferma password: 1234
 
+    `Conferma e procedi`
     ```
+
 - **Login**:
-    ```python
-
-    ```
-- **Protezione route admin**:
-    ```python
-
+    ```bash
+    Email: antonio@gamer.it
+    Password: 1234
     ```
 
 ### Bug noti / Limiti
-- Ancora da implementare un sistema di **reset password**. Dare la possibilità all'utente di recuperare la password.
-- Aumento della sicurezza delle credenziali(nome utente, lunghezza password, proposta automatica della password)
-- Abbiamo implementato una versione automatizzata progetto. Si potrebbe migliorare con una versione della bataglia non 
-  automatizzata.
-- Aggiunta di una nuova tipologia di utente `Develop` che avrebbe accesso a una nuova sezione `statistics` che permetterebbe di aver un feedback per la geszione
-  della parte data analist e data science del progetto. In modo a capire il profilo degli utenti, le loro proposte, e la parte buisness del progetto
-- 
+
+- Sistema di **reset password** ancora da implementare.
+- Miglioramenti possibili nella sicurezza delle credenziali (lunghezza password, suggerimenti di password sicure).
+- Attualmente le battaglie sono automatizzate; si potrebbe aggiungere una modalità manuale.
+- Aggiungere un nuovo tipo di utente `Develop` con accesso a una sezione `Statistics` per analisi utenti e dati business.
 
 ### Update futuri
-- Gestione avanzata dei privilegi per diversi tipi di admin.
-- Log attività utente.
-- Integrazione con interfaccia web per gestione utenti da admin.
-- Possibilità di aggiungere ruoli personalizzati dinamicamente.
 
+- Gestione avanzata dei privilegi per diversi tipi di Admin.
+- Logging delle attività degli utenti.
+- Integrazione con interfaccia web per gestione utenti da Admin.
+- Possibilità di aggiungere ruoli personalizzati dinamicamente.
