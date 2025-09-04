@@ -1,0 +1,95 @@
+{
+    "missione": {
+        "id": "e62e1f84-878b-4d2f-870f-9797bb3d60fc",
+        "nome": "Sconfiggi lo slime non morto",
+        "ambiente": {
+            "nome": "Palude",
+            "mod_attacco": -5,
+            "mod_cura": -0.1,
+            "classe": "Palude"
+        },
+        "nemici": [
+            {
+                "classe": "Guerriero",
+                "id": "5c9f6e63-87a1-4c9a-9257-b2044a54d518",
+                "nome": "Scheletrino",
+                "npc": true,
+                "salute_max": 60,
+                "salute": 60,
+                "attacco_min": 40,
+                "attacco_max": 120,
+                "livello": 1,
+                "destrezza": 20,
+                "iniziativa": 20,
+                "storico_danni_subiti": []
+            },
+            {
+                "classe": "Ladro",
+                "id": "c9b8414e-9fae-4eb7-a2ea-3cfb77677185",
+                "nome": "Slime non morto",
+                "npc": true,
+                "salute_max": 260,
+                "salute": 260,
+                "attacco_min": 5,
+                "attacco_max": 35,
+                "livello": 1,
+                "destrezza": 10,
+                "iniziativa": 25,
+                "storico_danni_subiti": []
+            }
+        ],
+        "inventari_nemici": [
+            {
+                "id": "74d202f2-20cd-4f41-849c-3c2692bbca30",
+                "id_proprietario": "5c9f6e63-87a1-4c9a-9257-b2044a54d518",
+                "oggetti": [
+                    {
+                        "id": "782bc69f-8b9c-4372-8ab2-88e8d27bbdf4",
+                        "nome": "Bomba Acida",
+                        "usato": false,
+                        "valore": 30,
+                        "tipo_oggetto": "Offensivo",
+                        "classe": "BombaAcida"
+                    }
+                ]
+            },
+            {
+                "id": "cb6aebef-1fc4-48a5-9975-e0b1f9fd1934",
+                "id_proprietario": "c9b8414e-9fae-4eb7-a2ea-3cfb77677185",
+                "oggetti": [
+                    {
+                        "id": "009a6c6e-5887-4a08-af10-41fd02cc9edf",
+                        "nome": "Bomba Acida",
+                        "usato": false,
+                        "valore": 30,
+                        "tipo_oggetto": "Offensivo",
+                        "classe": "BombaAcida"
+                    }
+                ]
+            }
+        ],
+        "premi": [
+            {
+                "id": "7e2b1c8a-2e3d-4b7a-9e2a-1c3f4b5d6e7f",
+                "nome": "Pozione Rossa",
+                "usato": false,
+                "valore": 30,
+                "tipo_oggetto": "Ristorativo",
+                "classe": "PozioneCura"
+            },
+            {
+                "id": "9f8e7d6c-5b4a-3c2d-1e0f-9a8b7c6d5e4f",
+                "nome": "Bomba Acida",
+                "usato": false,
+                "valore": 30,
+                "tipo_oggetto": "Offensivo",
+                "classe": "BombaAcida"
+            }
+        ],
+        "strategia_nemici": {
+            "nome": "Difensiva"
+        },
+        "completata": false,
+        "attiva": false
+    }
+}

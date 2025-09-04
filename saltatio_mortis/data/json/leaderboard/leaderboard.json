@@ -10,5 +10,11 @@
         "partite_giocate": 4,
         "partite_vinte": 1,
         "punteggio": 5
+    },
+    "3": {
+        "nome": "Enrico",
+        "partite_giocate": 10,
+        "partite_vinte": 1,
+        "punteggio": -35
     }
 }
