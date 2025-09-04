@@ -1,8 +1,10 @@
 :root
 {
+    --allert-orange: rgb(255, 115, 0);
+    --nav-black: rgb(33, 38, 41);
     --dark-bg: rgb(24, 21, 28);
     --light-blue:#72ccd4;
-    --purle:#3b2c50;
+    --purple:#3b2c50;
     --light-purple: #493861;
     --grey-disabled:#5f6464;
     --light-yellow:#c4a557;
@@ -13,32 +15,36 @@
 body
 {
     background-color: var(--dark-bg);
-    color: var(--light-blue)
+    color: var(--light-blue);
 }
 
+.navbar
+{
+    background-color: var(--nav-black) !important;
+}
 .navbar-brand
 {
-    color: var(--light-blue)
+    color: var(--light-blue) !important;
 }
 
-.btn-primary, .btn-info, .btn-lg, .btn
+.btn-primary, .btn-secondary, .btn-info, .btn-lg, .btn
 {
-    background-color: var(--purle) !important;
+    background-color: var(--purple) !important;
     color: var(--light-blue) ;
     border-color: var(--light-purple);
 }
 
-.btn-primary:hover, .btn-info:hover, .btn-lg:hover, .btn:hover
+.btn-primary:hover, .btn-secondary .btn-info:hover, .btn-lg:hover, .btn:hover
 {
     background-color:  var(--light-blue) !important;
-    color: var(--dark-bg);
+    color: var(--purple);
     border-color: var(--light-purple) ;
 }
 
 .btn-primary[disabled], .btn-info[disabled], .btn-lg[disabled], .btn[disabled], .btn-secondary[disabled], .btn-success[disabled]
 {
     background-color:  var(--grey-disabled) !important;
-    color:  var(--purle);
+    color:  var(--purple);
     border-color: var(--light-purple) ;
 }
 .footer
@@ -98,23 +104,169 @@ footer .text-muted
     color: var(--light-yellow) !important ;
 }
 
+.card a:hover
+{
+    color: var(--dark-bg) !important;
+}
+
+select
+{
+    background-color: var(--purple) !important;
+    color: var(--light-yellow) !important ;
+    border-color: var(--light-purple);
+}
+
+select:hover
+{
+    background-color: var(--purple) !important;
+    color: var(--light-yellow) ;
+    border-color: var(--light-purple);
+}
+
 input
 {
-    background-color: var(--purle) !important;
-    color: var(--light-blue) ;
+    background-color: var(--purple) !important;
+    color: var(--light-yellow) ;
     border-color: var(--light-purple);
 }
 
 input::placeholder
 {
+    color: var(--light-blue) !important;
+}
+
+.form-control
+{
+    color :var(--light-yellow) !important;
+}
+
+.form-control:focus
+{
     color: var(--light-yellow) !important;
 }
 
-input:placeholder-shown
+.form-control:hover
 {
-    color:var(--light-yellow);
-    background-color: var(--light-purple);
+    color: var(--light-yellow) !important;
 }
 
-input:valid
+/*Manca la parte per gli input suggeriti */
 
+#nav-admin-credit
+{
+    color: var(--light-blue) !important;
+}
+
+#nav-admin-credit:hover
+{
+    color: var(--light-yellow) !important;
+}
+
+#nav-credit
+{
+    color: var(--light-blue) !important ;
+}
+
+#nav-user-name
+{
+    color:var(--light-blue) !important;
+    background-color: var(--nav-black);
+}
+
+#nav-user-name:hover
+{
+    color:var(--light-yellow) !important;
+    background-color: var(--nav-black);
+}
+
+.bi-person-circle
+{
+    background-color: var(--nav-black) !important;
+    color: var(--light-blue);
+}
+
+#btn
+{
+    background-color: var(--purple) !important;
+    color: var(--light-blue);
+}
+#btn:hover
+{
+    background-color: var(--light-blue) !important;
+    color: var(--purple);
+}
+
+#warning-text
+{
+    color:var(--allert-orange) !important;
+}
+
+.list-group-item
+{
+    background-color: var(--purple) !important;
+    color: var(--light-blue)
+}
+
+/*Sono gli span barre della salute usate in show mission*/
+#health-bar
+{
+    background-color: var(--purple) !important;
+}
+
+.table.table>:not(caption)>*>*
+{
+    background-color: var(--purple) !important;
+    color: var(--light-blue) !important;
+}
+
+.progress-bar 
+{
+    color: var(--light-blue) !important;
+}
+
+/*SelectChar*/
+/* Nascondo il checkbox, già gestito da Bootstrap */
+input[type=checkbox].btn-check {
+    display: none;
+}
+
+/* Stile base della card (già definito da Bootstrap + le tue variabili) */
+.btn-check + label {
+    cursor: pointer;
+    border: 2px solid var(--light-purple);
+    transition: all 0.2s ease-in-out;
+}
+
+/* Quando passo sopra la card */
+.btn-check + label:hover
+{
+    transform: scale(1.02);
+    color: var(--dark-bg);
+}
+
+/* Quando la card è selezionata */
+.btn-check:checked + label
+{
+    background-color: var(--allert-orange) !important;
+    border-color: var(--allert-orange) !important;
+    color: var(--dark-bg) !important;
+    box-shadow: 0 0 10px var(--allert-orange);
+    transform: scale(1.05);
+}
+
+/* Titolo dentro la card selezionata */
+.btn-check:checked + label h5 {
+    color: var(--dark-bg) !important;
+}
+
+/* Testo dentro la card selezionata */
+.btn-check:checked + label p {
+    color: var(--dark-bg) !important;
+}
+
+
+/*log battaglia*/
+#log
+{
+    background-color: var(--purple) !important;
+}

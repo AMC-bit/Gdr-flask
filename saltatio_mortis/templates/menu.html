@@ -23,7 +23,7 @@ style="font-family: 'Cinzel Decorative', serif;">
             <a href="{{ url_for('battle.select_char') }}" class="btn btn-dark btn-lg">Inizia Battaglia</a>
         {% else %}
             <button class="btn btn-primary btn-lg btn-lg" disabled>Inizia Battaglia</button>
-            <p class="text-muted text-center small">
+            <p class="text-muted text-center small" id="warning-text">
                 ⚠️ Crea almeno un personaggio e seleziona una missione per procedere
             </p>
         {% endif %}

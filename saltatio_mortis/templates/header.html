@@ -12,16 +12,16 @@
       {% if current_user.is_authenticated %}
       <div class="d-flex ms-auto align-items-center gap-3 text-white">
         <a href="{{url_for('auth.edit_user')}}" class="text-decoration-none text-white">
-          <div class="d-flex align-items-center gap-1">
+          <div class="d-flex align-items-center gap-1" id="nav-user-name">
             <strong>User:</strong> {{ current_user.nome }} <i class="bi bi-person-circle"></i>
           </div>
         </a>
         {% if current_user.is_admin() %}
-        <a href="{{url_for('auth.credit_refill')}}" class="text-decoration-none text-white">
+        <a href="{{url_for('auth.credit_refill')}}" class="text-decoration-none text-white" id="nav-admin-credit">
         {% else %}
-        <span class="text-white" style="cursor: default;">
+        <span class="text-white" style="cursor: default;"id="nav-credit">
         {% endif %}
-          <div class="d-flex align-items-center gap-1">
+          <div class="d-flex align-items-center gap-1" >
             <strong>Crediti:</strong> {{ current_user.crediti|int }}
             <img src="{{ url_for('static', filename='img/bitcoin4.png') }}" alt="coin" style="height: 1.5em;">
           </div>
