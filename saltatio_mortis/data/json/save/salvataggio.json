@@ -1,0 +1,103 @@
+{
+    "missione": {
+        "id": "292c816f-3e3f-4c79-9f4a-4ea4dbe0e2d1",
+        "nome": "Imboscata",
+        "ambiente": {
+            "nome": "Foresta",
+            "mod_attacco": 5,
+            "mod_cura": 5.5,
+            "classe": "Foresta"
+        },
+        "nemici": [
+            {
+                "classe": "Guerriero",
+                "id": "8c1dfb36-6eae-4c7d-a6f9-2f0b9e8edc96",
+                "nome": "Robin Hood",
+                "npc": true,
+                "salute_max": 130,
+                "salute": 130,
+                "attacco_min": 20,
+                "attacco_max": 100,
+                "livello": 1,
+                "destrezza": 15,
+                "iniziativa": 20,
+                "storico_danni_subiti": []
+            },
+            {
+                "classe": "Guerriero",
+                "id": "5d9db649-b9a7-43f2-aec4-b65a372645fc",
+                "nome": "Little John",
+                "npc": true,
+                "salute_max": 130,
+                "salute": 130,
+                "attacco_min": 20,
+                "attacco_max": 100,
+                "livello": 1,
+                "destrezza": 15,
+                "iniziativa": 20,
+                "storico_danni_subiti": []
+            }
+        ],
+        "inventari_nemici": [
+            {
+                "id": "9c37ce4b-016f-4c2d-a42e-8136ae988f4c",
+                "id_proprietario": "8c1dfb36-6eae-4c7d-a6f9-2f0b9e8edc96",
+                "oggetti": [
+                    {
+                        "id": "aef17f9f-f158-4308-bc11-786b6818b19e",
+                        "nome": "Bomba Acida",
+                        "usato": false,
+                        "valore": 30,
+                        "tipo_oggetto": "Offensivo",
+                        "classe": "BombaAcida"
+                    }
+                ]
+            },
+            {
+                "id": "90d9d1a6-2fc8-4550-9e3f-c038fe0114f4",
+                "id_proprietario": "5d9db649-b9a7-43f2-aec4-b65a372645fc",
+                "oggetti": [
+                    {
+                        "id": "8f0f45be-bc36-463c-913c-c1c314b029b4",
+                        "nome": "Bomba Acida",
+                        "usato": false,
+                        "valore": 30,
+                        "tipo_oggetto": "Offensivo",
+                        "classe": "BombaAcida"
+                    }
+                ]
+            }
+        ],
+        "premi": [
+            {
+                "id": "7e2b1c8a-2e3d-4b7a-9e2a-1c3f4b5d6e7f",
+                "nome": "Pozione Rossa",
+                "usato": false,
+                "valore": 30,
+                "tipo_oggetto": "Ristorativo",
+                "classe": "PozioneCura"
+            },
+            {
+                "id": "2a4c5e6f-7b8d-4c9e-8f1a-2b3c4d5e6f7a",
+                "nome": "Pozione Rossa",
+                "usato": false,
+                "valore": 30,
+                "tipo_oggetto": "Ristorativo",
+                "classe": "PozioneCura"
+            },
+            {
+                "id": "9f8e7d6c-5b4a-3c2d-1e0f-9a8b7c6d5e4f",
+                "nome": "Bomba Acida",
+                "usato": false,
+                "valore": 30,
+                "tipo_oggetto": "Offensivo",
+                "classe": "BombaAcida"
+            }
+        ],
+        "strategia_nemici": {
+            "nome": "Equilibrata"
+        },
+        "completata": false,
+        "attiva": false
+    }
+}
