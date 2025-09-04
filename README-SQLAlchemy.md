@@ -26,11 +26,17 @@ Questa sezione del progetto gestisce la parte **backend relativa agli utenti**, 
 
 - **Sicurezza**:
   - Password criptate tramite hashing (`werkzeug.security` `generate_password_hash` e `check_password_hash`).
-  - Protezione delle route tramite decoratori (`@login_required`, `@admin_required`).  
+  - Protezione delle route tramite decoratori (`@login_required`, `@admin_required`).
     Il menu principale del gioco è protetto e accessibile solo agli utenti registrati.
 
 - **Struttura dati**:
-  - Gestione dati tramite SQLAlchemy e file JSON per salvataggi.
+  Abbiamo gestito i dati utenti tramite SQLAlchemy per facilitare la manipolazione del database invece di SQL standard
+  per salvataggi. SQLAlchemy ci ha permesso di definire modelli orientati agli oggetti, gestire automaticamente le
+  relazioni tra tabelle e ridurre significativamente il codice boilerplate rispetto alle query SQL raw. Inoltre offre
+  protezione automatica contro SQL injection e migliore portabilità tra diversi database engine. Per la logica di gioco
+  abbiamo invece utilizzato il salvataggio con file JSON per garantire flessibilità nella struttura dei dati e semplicità
+  nelle operazioni di lettura/scrittura delle sessioni di gioco.
+
   - Modelli principali:
     ```python
     class UserRole(enum.Enum):
@@ -38,7 +44,6 @@ Questa sezione del progetto gestisce la parte **backend relativa agli utenti**, 
         ADMIN = "ADMIN"
 
     class User(UserMixin, db.Model):
-
         id = db.Column(db.Integer, primary_key=True, autoincrement=True)
         nome = db.Column(db.String(80), nullable=False)
         email = db.Column(db.String(80), unique=True, nullable=False)
@@ -61,34 +66,39 @@ Questa sezione del progetto gestisce la parte **backend relativa agli utenti**, 
             return self.ruolo == UserRole[role]
     ```
 
-### Esempi d’uso
+### Esempi d'uso
 
 - **Registrazione**:
-    ```bash
+    ```
     Nome utente: Antonio
     Email: antonio@gamer.it
     Password: 1234
     Conferma password: 1234
 
-    `Conferma e procedi`
+    Conferma e procedi
     ```
 
 - **Login**:
-    ```bash
+    ```
     Email: antonio@gamer.it
     Password: 1234
     ```
 
-### Bug noti / Limiti
+## Bug noti / Limiti
 
-- Sistema di **reset password** ancora da implementare.
-- Miglioramenti possibili nella sicurezza delle credenziali (lunghezza password, suggerimenti di password sicure).
-- Attualmente le battaglie sono automatizzate; si potrebbe aggiungere una modalità manuale.
-- Aggiungere un nuovo tipo di utente `Develop` con accesso a una sezione `Statistics` per analisi utenti e dati business.
+* Sistema di **reset password** ancora da implementare.
+* Miglioramenti possibili nella sicurezza delle credenziali (lunghezza password, suggerimenti di password sicure).
+* Attualmente le battaglie sono automatizzate; si potrebbe aggiungere una modalità manuale.
+* Aggiungere un nuovo tipo di utente `Developer` con accesso a una sezione `Statistics` per analisi utenti e data analytics,
+ usando variabili chiave come livello, numero_battaglie, numero_vittorie, tempo_totale_giocato, spesa_mensile, 
+ tipo_dispositivo, cluster_comportamentale per creare dashboard interattive e report dettagliati sui comportamenti dei giocatori.
 
 ### Update futuri
 
-- Gestione avanzata dei privilegi per diversi tipi di Admin.
-- Logging delle attività degli utenti.
-- Integrazione con interfaccia web per gestione utenti da Admin.
-- Possibilità di aggiungere ruoli personalizzati dinamicamente.
+* Gestione avanzata dei privilegi per diversi tipi di Admin.
+* Logging delle attività degli utenti.
+* Integrazione con interfaccia web per gestione utenti da Admin.
+* Possibilità di aggiungere ruoli personalizzati dinamicamente.
+* Possibilità di fare giocare più personaggi contemporaneamente (funzionalità asincrona). La versione attuale permette 
+l'aggiornamento automatico del singolo utente. Una versione asincrona permetterebbe di avere un aggiornamento istantaneo 
+per tutti i giocatori simultaneamente.
