@@ -2,12 +2,10 @@
 
 ![banner](saltatio_mortis/static/img/CopertinaRPG.jpg)
 
-```HTML
 <p align='center'>
     <img alt="Static Badge" src="https://img.shields.io/badge/Version-1.0-blue?style=flat">
     <img alt="Last Commit" src="https://img.shields.io/github/last-commit/delectablerec/Gdr-flask?style=flat">
 </p>
-```
 
 ## Table of Contents
 
