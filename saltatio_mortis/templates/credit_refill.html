@@ -2,9 +2,9 @@
 {% block title %}Recupero Crediti{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
+<div class="justify-content-center align-items-center">
 
-    <form method="POST" class="card shadow-sm p-4" style="max-width: 800px; width: 100%;">
+    <form method="POST" class="card shadow-sm p-4">
         <h3 class="h3 text-center mb-4">
             {% if target_user and target_user.id != current_user.id %}
                 Gestione Crediti per {{ target_user.nome }}

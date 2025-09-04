@@ -2,9 +2,9 @@
 {% block title %}Modifica Utente{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
+<div class="justify-content-center align-items-center">
 
-    <form method="POST" class="card shadow-sm p-4" style="max-width: 800px; width: 100%;">
+    <form method="POST" class="card shadow-sm p-4">
         <h3 class="h3 text-center mb-4">Modifica dell'utente</h3>
 
         <div class="mb-3">
@@ -48,7 +48,7 @@
 
         <a
         href="{{ url_for('auth.personal_area') }}"
-        class="btn btn-outline-secondary btn-sm mt-3 w-50 d-block mx-auto rounded">
+        class="btn btn-outline-secondary btn-sm mt-3 w-50 d-block mx-auto rounded" id="btn">
             Annulla
         </a>
     </form>

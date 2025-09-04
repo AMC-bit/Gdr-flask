@@ -13,7 +13,7 @@
       <p class="card-text"><strong>Destrezza:</strong> {{ pg['destrezza'] }}</p>
       <p class="card-text"><strong>Danni subiti:</strong></p>
        {% if pg['storico_danni_subiti'] %}
-          {% for danno in pg['storico_danni_subiti'] %}
+          {% for danno in pg['storico_danni_subiti'] %} 
             {{ danno }}{% if not loop.last %}, {% endif %}
           {% endfor %}
         {% endif %}

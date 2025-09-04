@@ -1,0 +1,17 @@
+{
+    "classe": "Mago",
+    "id": "bebf9434-3a5a-4793-b25b-a942e7d8fe54",
+    "nome": "Franco",
+    "npc": false,
+    "salute_max": 80,
+    "salute": 78,
+    "attacco_min": 0,
+    "attacco_max": 90,
+    "livello": 1,
+    "destrezza": 15,
+    "iniziativa": 15,
+    "storico_danni_subiti": [
+        0,
+        14
+    ]
+}

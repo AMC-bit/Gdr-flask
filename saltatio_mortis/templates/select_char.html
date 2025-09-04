@@ -2,8 +2,8 @@
 {% block title %}Selezione Personaggi{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
-  <form method="POST" class="card shadow-sm p-4" style="max-width: 800px; width: 100%;">
+<div class="justify-content-center align-items-center">
+  <form method="POST" class="card shadow-sm p-4">
     <h3 class="text-center mb-2"><i>{{ missione_corrente.nome }}</i></h3>
     <h4 class="text-center mb-4">Ambiente: <i>{{ missione_corrente.ambiente.nome }}</i></h4>
 
@@ -35,13 +35,32 @@
       {% endfor %}
     </div>
 
-    <button type="submit" class="btn btn-outline-primary btn-lg w-100">Vai alla battaglia</button>
+    <button type="submit" class="btn btn-outline-primary btn-lg w-100" disabled>Vai alla battaglia</button>
     <a
       href="{{ url_for('home.index') }}"
       class="btn btn-outline-secondary btn-sm mt-3 w-50 d-block mx-auto rounded"
     >
       Annulla
     </a>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const checkboxes = document.querySelectorAll('input[name="selected_chars"]');
+        const submitBtn = document.querySelector('button[type="submit"]');
+
+        function toggleButton() {
+          const selected = Array.from(checkboxes).some(cb => cb.checked);
+          submitBtn.disabled = !selected;
+        }
+
+        // Controlla lo stato iniziale all'avvio
+        toggleButton();
+
+        // Aggiungi listener a ogni checkbox
+        checkboxes.forEach(cb => {
+          cb.addEventListener('change', toggleButton);
+        });
+      });
+    </script>
   </form>
 </div>
 {% endblock %}
