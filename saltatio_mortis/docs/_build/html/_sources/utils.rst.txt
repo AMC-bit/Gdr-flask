@@ -6,6 +6,14 @@ utils namespace
 Submodules
 ----------
 
+utils.helper module
+-------------------
+
+.. automodule:: utils.helper
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 utils.log module
 ----------------
 
