@@ -584,4 +584,140 @@ I type hints permettono collegamenti automatici e coerenza. Processo in 4 passi:
 
 Conclusione: documentazione come "finestra vivente" che evolve con il progetto.
 
-# 7. Raspberry
+# 7. Raspberry Pi - Sidar Yildiz
+
+## 1. Introduzione
+Dopo aver completato lo sviluppo dell’applicazione su computer, ci siamo posti un obiettivo in più:
+
+rendere il gioco accessibile da qualsiasi dispositivo della rete locale e creare una postazione di sviluppo e di gioco autonoma, senza dipendere da un PC.
+
+Per farlo abbiamo utilizzato un Raspberry Pi 4, e in alcuni test anche un Raspberry Pi Zero, abbinati a un display touchscreen da 3,5 pollici.
+
+In questo modo il Raspberry è diventato una mini stazione di lavoro e di test portatile, utile per eseguire e provare l’app in modo indipendente.
+
+## 2. Perché Raspberry Pi?
+- Il Raspberry Pi è un microcomputer economico ma completo, con processore ARM, RAM da 1 a 8 GB, Wi-Fi, porte USB e HDMI e sistema operativo Linux.
+- Supporta Python e framework come Flask, perfetti per il nostro progetto.
+
+Lo abbiamo scelto perché offre:
+
+1. Compatibilità completa con Python e Flask
+2. Prestazioni sufficienti per programmare, testare e far girare il server localmente
+3. Basso consumo (circa 5–10 W)
+4. Portabilità: possiamo lavorare ovunque, basta collegarlo a una rete o monitor
+5. Esperienza reale con Linux: imparando comandi, gestione pacchetti e servizi di rete
+
+In pratica, ci ha permesso di ricreare un piccolo server di produzione in scala didattica.
+## 3. Installazione Sistema Operativo
+Abbiamo preparato la scheda SD con Raspberry Pi Imager, scegliendo Raspberry Pi OS (32-bit) e abilitando:
+- Scaricare e installare Raspberry Pi Imager dal sito ufficiale [raspberrypi.com](https://www.raspberrypi.com/software)
+
+```bash
+✓ Abilita SSH
+✓ Imposta username e password
+✓ Configura WiFi
+✓ Imposta locale (IT/Europe/Rome)
+```
+
+Poi abbiamo aggiornato il sistema e installato gli strumenti per lo sviluppo:
+
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install git python3-venv python3-full -y
+```
+
+A questo punto il Raspberry era pronto come ambiente di sviluppo Python.
+
+## 4. Configurazione del display touchscreen
+Il display da 3,5″, collegato ai pin GPIO, ci ha permesso di lavorare senza monitor esterni.
+
+Installazione dei driver:
+- Per abilitare correttamente lo schermo, è necessario installare i driver forniti dal produttore:
+
+```bash
+git clone https://github.com/goodtft/LCD-show.git
+cd LCD-show
+sudo ./LCD35-show
+```
+
+Calibrazione del touchscreen:
+- Per ottenere una precisione ottimale del tocco, abbiamo eseguito la calibrazione tramite il tool xinput-calibrator:
+
+```bash
+sudo apt install xinput-calibrator
+DISPLAY=:0.0 xinput_calibrator
+```
+
+Da quel momento il touchscreen è diventato perfettamente utilizzabile come mini-interfaccia di sviluppo e test.
+
+## 5. Installazione e test dell’app GDR Flask
+Dopo la configurazione, abbiamo clonato il repository GitHub del progetto direttamente sul Raspberry:
+
+```bash
+git clone https://github.com/delectablerec/Gdr-flask.git
+```
+
+Poi creato un ambiente virtuale per gestire le dipendenze:
+
+```bash
+cd Gdr-flask/saltatio_mortis
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+> Tutti i moduli — Flask, SQLAlchemy, Marshmallow, e Sphinx — sono stati installati e configurati localmente.
+
+Grazie a SSH e GitHub, ogni membro del team poteva collegarsi, aggiornare il codice ed eseguire test e fare commit direttamente sul Raspberry.
+Quindi é diventato una mini-postazione di collaborazione e verifica, una sorta di mini server di sviluppo condiviso.
+
+## 6. Gestione degli accessi e collaborazione via SSH
+Per lavorare in modo collaborativo abbiamo configurato due utenti Linux:
+
+- host → amministratore del sistema
+- guest → sviluppatore o tester senza privilegi
+
+Creazione utenti:
+
+```bash
+sudo adduser host
+sudo usermod -aG sudo host
+sudo adduser guest
+```
+
+Ogni membro poteva collegarsi da remoto via SSH:
+
+```bash
+ssh host@192.168.1.42
+ssh guest@192.168.1.42
+```
+In questo modo ciascun utente accedeva in modo sicuro e separato, potendo lavorare nel proprio ambiente e testare l’applicazione senza interferire con gli altri.
+
+Il Raspberry Pi è diventato così un vero server multiutente, usato per collaborare, aggiornare il codice ed eseguire test come in un ambiente professionale reale.
+
+## 7. Avvio dell’app e accesso in rete
+Per avviare l’app:
+
+```bash
+cd ~/Gdr-flask/saltatio_mortis
+source venv/bin/activate
+python app.py
+```
+
+Era accessibile da qualsiasi dispositivo sulla rete:
+
+```bash
+http://[IP_DEL_RASPBERRY]:5001
+```
+
+Questo ci permetteva di testare interfaccia web, autenticazione e database in tempo reale, anche da smartphone o altri PC.
+
+## 8. Benefici didattici
+L’uso del Raspberry Pi come workspace ci ha offerto:
+
+- Esperienza concreta con Linux e SSH
+- Collaborazione pratica tramite Git e ambienti virtuali
+- Indipendenza e portabilità
+- Costi energetici minimi
+- Una simulazione reale di sviluppo su server remoto
+
+In sintesi, il Raspberry Pi ci ha permesso di unire programmazione, infrastruttura e team work in un unico ambiente formativo compatto ed economico.
