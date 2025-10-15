@@ -1,4 +1,3 @@
-
 def get_all_subclasses(cls):
     """
     Ottiene tutte le sottoclassi di una classe base, utilizzata per

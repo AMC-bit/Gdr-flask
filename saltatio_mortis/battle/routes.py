@@ -8,7 +8,7 @@ from gioco.missione import Missione
 from gioco.strategy import Strategia
 from gioco.inventario import Inventario
 from gioco.personaggio import Personaggio
-from gioco.oggetto import Oggetto, TipoOggetto
+from gioco.oggetto import Oggetto
 from gioco.schemas.missione import MissioniSchema
 from gioco.schemas.inventario import InventarioSchema
 from gioco.schemas.personaggio import PersonaggioSchema
@@ -33,7 +33,6 @@ schema_inv = InventarioSchema()
 logger = get_logger(__name__)
 punteggio_iniziale = 0
 nome_classi = [classe.__name__ for classe in get_all_subclasses(Personaggio)]
-
 
 
 @battle_bp.route('/select_char', methods=['GET', 'POST'])
@@ -109,9 +108,6 @@ def select_char():
         )
 
 
-
-
-
 @battle_bp.route('/auto_battle', methods=['GET'])
 @login_required
 def auto_battle():
@@ -137,12 +133,12 @@ def auto_battle():
         partite_giocate = leaderboard_data.get("partite_giocate", 0)
         partite_vinte = leaderboard_data.get("partite_vinte", 0)
 
-
         # Inizializza messaggi e ordine turni se non presenti
         if 'ordine_turni' not in save_data:
             ordine_turni = ordine_iniziativa(tutti_personaggi)
             save_data['ordine_turni'] = ordine_turni
-            partite_giocate += 1  # Incrementa solo all'inizio di una nuova battaglia
+            partite_giocate += 1
+            # Incrementa solo all'inizio di una nuova battaglia
         if 'turno' not in save_data:
             save_data['turno'] = 0
         if 'indice_turno_corrente' not in save_data:
@@ -164,7 +160,6 @@ def auto_battle():
             if indice_turno >= len(ordine_turni):
                 indice_turno = 0
 
-
             save_data['indice_turno_corrente'] = indice_turno
             personaggio_turno_corrente = None
             for p in tutti_personaggi:
@@ -179,7 +174,6 @@ def auto_battle():
                             f" -------</div>"
                         )
                         break
-
 
             if not personaggio_turno_corrente:
                 # Nessun personaggio disponibile, skip turno
@@ -291,7 +285,10 @@ def auto_battle():
                     inventari_pg
                 )
                 for char in pc_vivi:
-                    mod_ambiente = ambiente_obj.modifica_cura(char, nome_soggetto=char)
+                    mod_ambiente = ambiente_obj.modifica_cura(
+                        char,
+                        nome_soggetto=char
+                    )
                     char.recupera_salute(mod_ambiente)
                 save_data['messaggi_battaglia'].append(
                     "<span class='text-success fw-bold'>Tutti i nemici sono "
@@ -396,12 +393,12 @@ def setup_battle() -> tuple[Missione, list[Personaggio], list[Inventario]]:
     user_id = str(session.get('_user_id', ''))
     user_leaderboard = load_leaderboard(user_id)
 
-    if save_data["nemici_generati"] is  False:
+    if save_data["nemici_generati"] is False:
         nemici_casuali = generate_random_enemy(len(personaggi_selezionati))
         missione_obj.nemici = nemici_casuali[0]
-        print("NEMICI CASUALI",missione_obj.nemici)
+        print("NEMICI CASUALI", missione_obj.nemici)
         missione_obj.inventari_nemici = nemici_casuali[1]
-        print("INVENTARI NEMICI",missione_obj.inventari_nemici)
+        print("INVENTARI NEMICI", missione_obj.inventari_nemici)
         save_data["nemici_generati"] = True
 
     Json.scrivi_dati(path_save, save_data)
@@ -488,10 +485,12 @@ def usa_inventario_automatico(
             # print(f"Result: {result}")
             value = result[0]
             oggetto = result[1]
-            print("OGGETTO USATO :", oggetto ,type(oggetto))
+            print("OGGETTO USATO :", oggetto, type(oggetto))
             if oggetto.tipo_oggetto == "TipoOggetto.BUFF":
                 bersaglio = None
-                txt = (f"{bold(pg.nome)} usa {bold(oggetto.nome)} su se stesso, ")
+                txt = (
+                    f"{bold(pg.nome)} usa {bold(oggetto.nome)} su se stesso, "
+                )
                 pg.attacco_max += value
             elif oggetto.tipo_oggetto == "TipoOggetto.OFFENSIVO":
                 bersaglio = random.choice(bersagli)
@@ -505,7 +504,9 @@ def usa_inventario_automatico(
                 bersaglio.salute += value
             elif oggetto.tipo_oggetto == "TipoOggetto.RISTORATIVO":
                 bersaglio = None
-                txt = (f"{bold(pg.nome)} usa {bold(oggetto.nome)} su se stesso ")
+                txt = (
+                    f"{bold(pg.nome)} usa {bold(oggetto.nome)} su se stesso "
+                )
                 pg.salute += value
                 if pg.salute >= pg.salute_max:
                     pg.salute = pg.salute_max
@@ -546,7 +547,7 @@ def generate_random_enemy(
         oggetto_sel = random.choice(tipi_di_oggetti)
         oggetto_obj = oggetto_sel()
         nemico_obj = classe_sel(nome=f"Nemico {i}")
-        inventario_obj = Inventario(id_proprietario = nemico_obj.id)
+        inventario_obj = Inventario(id_proprietario=nemico_obj.id)
         inventario_obj.aggiungi_oggetto(oggetto_obj)
         inventari_nemici.append(inventario_obj)
         nemici.append(nemico_obj)
