@@ -85,11 +85,13 @@ def create_char():
         classe_sel = request.form['classe']
         oggetto_sel = request.form['oggetto']
 
-        # Controllo se il numero di personaggi posseduti è inferiore al massimo consentito
+        # Controllo se il numero di personaggi posseduti è inferiore al
+        # massimo consentito
         owned_ids = load_char()
         if len(owned_ids) >= NUMERO_MAX_PGS:
             flash(
-                f"Hai raggiunto il numero massimo di personaggi ({NUMERO_MAX_PGS}).",
+                "Hai raggiunto il numero massimo di personaggi "
+                f"({NUMERO_MAX_PGS}).",
                 "danger"
             )
             return redirect(url_for('auth.personal_area'))
@@ -326,4 +328,3 @@ def char_delete(char_id):
     db.session.commit()
     flash("Personaggio eliminato con successo!", "success")
     return redirect(url_for('characters.show_chars'))
-
